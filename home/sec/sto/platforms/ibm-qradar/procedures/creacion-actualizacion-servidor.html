@@ -1,0 +1,436 @@
+<!--
+title: Creación/Actualización servidor
+description: 
+published: true
+date: 2024-01-15T13:34:48.698Z
+tags: sm, soc, qradar, lm, ibm, procedure
+editor: ckeditor
+dateCreated: 2024-01-15T13:34:48.698Z
+-->
+
+<h1 style="text-align:center;">QRadar - Creación/Actualización servidor</h1>
+<p>&nbsp;</p>
+<h2>Direccionamientos y DNS</h2>
+<p>Se han reservado los siguientes direccionamientos para la solución.</p>
+<p>192.168.210.0/24 ITX-SIEM-MGMT para las interfaces de management</p>
+<p>192.168.214.0/24 ITX-esPublicoSeg-INFRA para las IMM/ILO</p>
+<p>&nbsp;</p>
+<h3>Rangos reservados</h3>
+<p>Consolas 192.168.210.1-9</p>
+<p>Event Collectors 192.168.210.10-19</p>
+<p>Event Proccessors 192.168.210.20-29</p>
+<p>App nodes 192.168.210.30-39</p>
+<p>&nbsp;</p>
+<h3>Consolas</h3>
+<p>192.168.210.1 itx-qradar-cs-01-01-mgmt.madrid.espublico.com</p>
+<p>192.168.210.2 itx-qradar-cs-01-02-mgmt.madrid.espublico.com</p>
+<p>192.168.210.9 será además la usada para el HA</p>
+<p>Acceso 192.168.188.1 desde la vpn de sistemas&nbsp;</p>
+<p>&nbsp;</p>
+<h3>Event Collectors</h3>
+<p>El acceso por consola a los servidores de event collector sólo se podrá realizar desde las consolas o por ilo.</p>
+<p><strong>Interxion</strong></p>
+<p>192.168.210.10 itx-qradar-ec-01-01-mgmt.madrid.espublico.com</p>
+<p>192.168.210.11 itx-qradar-ec-01-02-mgmt.madrid.espublico.com</p>
+<p>192.168.210.19 será además la usada para el HA</p>
+<p><strong>Nabiax</strong></p>
+<p>192.168.143.1 mad-qradar-ec-01-01-mgmt.madrid.espublico.com</p>
+<p>192.168.x.x mad-qradar-ec-01-02-mgmt.madrid.espublico.com</p>
+<p>192.168.143.3 será además la usada para el HA</p>
+<p><strong>Zaragoza</strong></p>
+<p>192.168.39.9 zgz-qradar-ec-01-01-mgmt.zaragoza.espublico.com</p>
+<p>192.168.x.x zgz-qradar-ec-01-02-mgmt.zaragoza.espublico.com</p>
+<p>192.168.39.9 será además la usada para el HA</p>
+<p><strong>Antequera</strong></p>
+<p>192.168.88.1 atq-qradar-ec-01-01-mgmt.antequera.espublico.com</p>
+<p>192.168.88.1 atq-syslog.antequera.espublico.com</p>
+<p><strong>Granada</strong></p>
+<p>192.168.127.1 gra-qradar-ec-01-01-mgmt.granada.espublico.com</p>
+<p>192.168.127.1 gra-syslog.granada.espublico.com</p>
+<p>&nbsp;</p>
+<h3>Event Processors</h3>
+<p>El acceso por consola a los servidores de event processor sólo se podrá realizar desde las consolas o por ilo.</p>
+<p>192.168.210.20 itx-qradar-ep-01-01-mgmt.madrid.espublico.com</p>
+<p>192.168.210.21 itx-qradar-ep-01-02-mgmt.madrid.espublico.com</p>
+<p>192.168.210.29 será además la usada para el HA</p>
+<p>&nbsp;</p>
+<h3>App nodes</h3>
+<p>El acceso por consola a los servidores de app node sólo se podrá realizar desde las consolas o por ilo.</p>
+<p>192.168.210.30 itx-qradar-app-01-01-mgmt.madrid.espublico.com</p>
+<p>192.168.210.31 itx-qradar-app-01-02-mgmt.madrid.espublico.com</p>
+<p>192.168.210.39 será además la usada para el HA</p>
+<p>&nbsp;</p>
+<h2>Nomenclatura servidores</h2>
+<p>La nomenclatura de servidores será la siguiente:</p>
+<ul>
+  <li>localización (3 letras)&nbsp;</li>
+  <li>tecnología<ul>
+      <li>qradar</li>
+    </ul>
+  </li>
+  <li>tipo de servidor&nbsp;<ul>
+      <li>consola -&gt; cs</li>
+      <li>event collector -&gt; ec</li>
+      <li>flow collector -&gt; fc</li>
+      <li>event proccessor -&gt; ep</li>
+      <li>flow proccessor -&gt; fp</li>
+      <li>app node -&gt; app</li>
+    </ul>
+  </li>
+  <li>id del nodo (2 números)</li>
+  <li>id nodo ha (2 números) (sólo si es el segundo nodo del ha)</li>
+  <li>subdominio<ul>
+      <li>estará formado por localización + espublico.com (ej: madrid.espublico.com)</li>
+    </ul>
+  </li>
+</ul>
+<p>&nbsp;</p>
+<p>En caso de ser el nodo primario de un HA no indicar los segundos dígitos que hacen referencia al id del nodo ha debido a que al formar el ha, qradar añadirá los string primary o secondary al hostname.</p>
+<p>Un ejemplo sería:</p>
+<p>El nodo primario se llamaría: itx-qradar-cs-01.madrid.espublico.com</p>
+<p>y el nodo secundario: itx-qradar-cs-01-02-mgmt.madrid.espublico.com</p>
+<p>Al crear el HA pasarían a llamarse:</p>
+<p>HA -&gt; itx-qradar-cs-01</p>
+<p>Nodo primario -&gt; itx-qradar-cs-01-primary</p>
+<p>Nodo secundario -&gt; itx-qradar-cs-01-secondary</p>
+<p>A nivel de DNS se deberán indicar todos los valores para poder referenciar correctamente al servidor.</p>
+<blockquote>
+  <p><strong>Nota</strong>: El hostname de la máquina deberá indicarse <strong>siempre</strong> bajo la red de <strong>management</strong>.</p>
+</blockquote>
+<p>&nbsp;</p>
+<h2>Instalación</h2>
+<p>Para la instalación de un nuevo servidor para QRadar, independientemente del rol de esta, se deberá instalar en primer lugar RedHat.</p>
+<p>La versión de RedHat dependerá de la versión de QRadar a instalar</p>
+<ul>
+  <li>rhel 7.7 para QRadar 7.4.3</li>
+  <li>rhel 7.9 para QRadar 7.5.x</li>
+</ul>
+<p>&nbsp;</p>
+<h3>Instalación en nutanix</h3>
+<p>Creación VM en ntnx</p>
+<ul>
+  <li>Choose name, cpu, memory</li>
+  <li>Disk<ul>
+      <li>Operation -&gt; "Clone From Image Service"</li>
+      <li>Bus Type -&gt; "SCSI"</li>
+      <li>Image -&gt; "rhel7x-template"</li>
+      <li>Disks -&gt; add 2 more disks<ul>
+          <li>/store 2TB at least</li>
+          <li>/transient 500GB at least</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Add Network Adapters -&gt; deberá tener una interfaz<ul>
+      <li>ITX-SIEM-MGMT</li>
+    </ul>
+  </li>
+  <li>Save</li>
+</ul>
+<p>Una vez creada la máquina encenderla y lanzar la consola web para acceder a la terminal.</p>
+<p>Se debeŕa configurar la red inicialmente con nmtui y configurar el hostname con el siguiente comando</p>
+<pre><code class="language-plaintext">Set hostname "hostnamectl set-hostname [fqdn]" (revisar sección nomenclatura)</code></pre>
+<p>&nbsp;</p>
+<h3>Instalación en servidor físico&nbsp;</h3>
+<p>Se deberá configurar rhel en el wizard de instalación de la siguiente forma:</p>
+<ul>
+  <li>Languaje -&gt; "English English &gt; English (United States)"</li>
+  <li>Date &amp; Time -&gt; Europe - Madrid</li>
+  <li>Keyboard -&gt; Quitar English (Us), Añadir Spanish; Castillian (Spanish)</li>
+  <li>Installation Source -&gt; Local Media</li>
+  <li>Software Selection&nbsp; -&gt; Minimal Install</li>
+  <li>Installation Destination -&gt; Select system disks and check I will configure partitioning<ul>
+      <li>/boot/efi -&gt; 200MiB (Device Type RAID if software raid)</li>
+      <li>/boot -&gt; 1024MiB (Device Type RAID if software raid)</li>
+      <li>swap&nbsp; -&gt; 75% of RAM (min 12GB, max 24GiB) &nbsp; Device Type LVM&nbsp; - Volume group -&gt; (raid 1 if software raid)&nbsp;</li>
+      <li>/ &nbsp; &nbsp; -&gt; Device Type LVM&nbsp; - Volume group -&gt; (raid 1 if software raid)<ul>
+          <li>console - 300GB</li>
+          <li>collector - 100GB</li>
+          <li>processor - 150GB</li>
+          <li>app node - 150GB</li>
+        </ul>
+      </li>
+      <li>/store -&gt; 80% of remaining space</li>
+      <li>/transient -&gt; 20% of remaining space</li>
+    </ul>
+  </li>
+  <li>Network &amp; Hostname&nbsp; -&gt; set fqdn for hostname (revisar sección nomenclatura)</li>
+  <li>security profile -&gt; No profile selected&nbsp;&nbsp;&nbsp;</li>
+  <li>Begin installation</li>
+  <li>Set root password (qradar-root en teampass)</li>
+</ul>
+<blockquote>
+  <p><strong>NOTA: </strong>Se puede poner cualquier password de root en la instalación de redhat, pero se debe de poner la password especificada de teampass antes de proceder con la instalación de QRadar&nbsp;&nbsp;&nbsp;</p>
+</blockquote>
+<p>&nbsp;</p>
+<h2>Instalación QRadar</h2>
+<p>Descargar la ISO desde <a href="https://www.ibm.com/support/fixcentral">fix central</a></p>
+<p>Crear el directorio para montar el cd</p>
+<pre><code class="language-plaintext">mkdir /media/cdrom</code></pre>
+<p>Montar la iso</p>
+<pre><code class="language-plaintext">mount -o loop /path/to/isofile /media/cdrom</code></pre>
+<p>Lanzar el instalador&nbsp;</p>
+<pre><code class="language-plaintext">/media/cdrom/setup</code></pre>
+<p>&nbsp;</p>
+<p>En primer lugar instalará el paquete de screen, las actualizaciones de kernel y desactivará selinux, una vez aplicados los cambios pedirá reiniciar el sistema.</p>
+<p>Reiniciado el sistema volver a montar y lanzar el proceso de setup.</p>
+<p>El proceso instalará todos los paquetes necesarios para el funcionamiento de QRadar (tardará mínimo una hora)</p>
+<p>Una vez terminada la instalación aparecerá un wizard.</p>
+<p>En caso de ser un nodo único o el nodo primario de un HA el proceso será el siguiente:</p>
+<ul>
+  <li>Tipo de instalación -&gt; Sofware install</li>
+  <li>Rol del servidor -&gt; rol en cuestión para el servidor actual</li>
+  <li>Tipo de setup -&gt; normal</li>
+  <li>Región -&gt; Europe</li>
+  <li>Timezone -&gt; Madrid</li>
+  <li>Configuración de red -&gt;&nbsp;<ul>
+      <li>Interfaces normales -&gt; indicar la interfaz a configurar y los datos de la misma</li>
+      <li>bond -&gt; seleccionar las interfaces a utilizar para el bond, seleccionar las siguientes opciones para especificar el modo active/backup y posteriormente indicar los datos de conexión<ul>
+          <li>opciones -&gt; miimon=100 mode=1&nbsp;</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Password root -&gt; legacy - iubaris old strong (se deberá cambiar posteriormente y añadir la misma en teampass</li>
+</ul>
+<blockquote>
+  <p><strong>Nota</strong>: La ip configurada para el nodo primario será la que se utilizará posteriormente para el HA por lo que se deberá tener en cuenta, en la sección de como montar un HA se muestra más información al respecto.</p>
+</blockquote>
+<p>&nbsp;</p>
+<p>En caso de ser un nodo secundario de un HA:</p>
+<ul>
+  <li>Tipo de instalación -&gt; High Availability appliance</li>
+  <li>Rol del servidor -&gt; HA Appliance (All models) 500</li>
+  <li>Is console -&gt; yes|no dependiendo del rol que tendrá</li>
+  <li>Tipo de setup -&gt; normal</li>
+  <li>Región -&gt; Europe</li>
+  <li>Timezone -&gt; Madrid</li>
+  <li>Configuración de red -&gt; según corresponda</li>
+</ul>
+<p>&nbsp;</p>
+<p>Completado el proceso de instalación, en caso de ser la consola y querer configurar la password del usuario admin se puede hacer con el siguiente comando:</p>
+<pre><code class="language-plaintext">sudo /opt/qradar/support/changePasswd.sh -a</code></pre>
+<p>Una vez completada la instalación, desmontar la unidad&nbsp;</p>
+<pre><code class="language-plaintext">umount /media/cdrom</code></pre>
+<p>Y eliminar el fichero .iso</p>
+<p>&nbsp;</p>
+<h2>Actualización nodo QRadar</h2>
+<p>En caso de que el nodo ya se encuentre añadido al despliegue de qradar el proceso de actualización se puede realizar de dos formas.</p>
+<p>&nbsp;</p>
+<h3>Pasos previos a la actualización</h3>
+<blockquote>
+  <p><strong>NOTA</strong>: en caso de hacer el update desde la consola verificar que las aplicaciones de qradar están todas actualizadas, sino puede provocar la corrupción y pérdida de datos de las mismas.</p>
+</blockquote>
+<p>En caso de que no esté añadida todavía se deberá actualizar a la misma versión que se encuentre la consola.</p>
+<p>Para conocer la versión actual ejecutar el siguiente script</p>
+<pre><code class="language-plaintext">/opt/qradar/bin/myver</code></pre>
+<p>O en caso de querer verlo desde la consola en todos los servidores lanzar el siguiente comando</p>
+<pre><code class="language-plaintext">/opt/qradar/support/all_servers.sh -C -k /opt/qradar/bin/myver</code></pre>
+<blockquote>
+  <p><strong>IMPORTANTE: Antes de proceder a la actualización, en los nodos que dispongan de HA, asegurarse de que el nodo primario está como activo y el nodo secundario como standby. Ambos deben de estar online y con el rol apropiado para evitar errores durante el proceso de actualización.</strong></p>
+  <p><strong>IMPORTANTE: En caso de realizar actualizaciones en paralelo. Actualizar en primer lugar la consola y posteriormente, antes de actualizar el resto, asegurarse de que root puede acceder correctamente a cada máquina.</strong></p>
+</blockquote>
+<p>&nbsp;</p>
+<p>Por ejemplo, y debido al restricción de acceso, es posible que al acceder muestre el siguiente error:</p>
+<pre><code class="language-plaintext">[root@itx-qradar-cs-01-primary ~]# ssh 192.168.210.21
+No ECDSA host key is known for 192.168.210.21 and you have requested strict checking.
+Host key verification failed.
+En tal caso acceder añadiendo la opción de que no haga el chequeo estricto como en el siguiente ejemplo:
+ssh 192.168.210.21 -o StrictHostKeyChecking=no</code></pre>
+<p>&nbsp;</p>
+<p>Para el proceso de update se descarga el fichero sfs correspondiente al update desde <a href="https://www.ibm.com/support/fixcentral">fixcentral</a></p>
+<p>Se crea el directorio updates si no existe</p>
+<pre><code class="language-plaintext">mkdir /media/updates</code></pre>
+<p>Se monta el disco</p>
+<pre><code class="language-plaintext">mount -o loop /PATH/TO/SFSFILE /media/updates</code></pre>
+<p>Y se lanza el proceso de actualización</p>
+<pre><code class="language-plaintext">/media/updates/installer</code></pre>
+<p>Una vez completada la actualización, desmontar la unidad&nbsp;</p>
+<pre><code class="language-plaintext">umount /media/updates</code></pre>
+<p>Y eliminar el fichero .sfs</p>
+<p>&nbsp;</p>
+<h3>Actualización desde la consola</h3>
+<p>En caso de querer realizar la actualización simple, es decir, la consola se encarga de actualizar todas las máquinas, este proceso actualizará en primer lugar la consola y posteriormente el resto de hosts de 1 en 1 por lo que es un proceso bastante largo.</p>
+<p>Para ello, cuando solicite en que máquina se quiere instalar el update seleccionar la opción <strong>all</strong></p>
+<p>Una vez completada la actualización en todas las máquinas acceder desde la gui web y lanzar un full deploy para completar el update.</p>
+<p>&nbsp;</p>
+<h3>Actualización en paralelo</h3>
+<p>Con el fin de reducir el tiempo de actualización del sistema, es posible actualizar varios nodos a la vez.</p>
+<p>Para ello en primer lugar se debe de actualizar la o las consolas existentes en el despliegue seleccionando la consola cuando pregunte el instalador.</p>
+<p>Una vez completada la actualización de la consola, cerrar el instalador.</p>
+<p>A continuación, y una vez verificada la correcta actualización de la consola, copiar el fichero sfs a todas las máquinas del despliegue, para ello lanzar el siguiente comando:</p>
+<pre><code class="language-plaintext">/opt/qradar/support/all_servers.sh -p /store/tmp/&lt;QRadar file name&gt;.sfs -r /store/tmp</code></pre>
+<p>Una vez copiado el fichero, acceder a la máquina que se va a actualizar, lanzar un screen y proceder con la actualización de la misma.</p>
+<p>Se crea el directorio updates si no existe</p>
+<pre><code class="language-plaintext">mkdir /media/updates</code></pre>
+<p>Se monta el disco</p>
+<pre><code class="language-plaintext">mount -o loop /PATH/TO/SFSFILE /media/updates</code></pre>
+<p>Y se lanza el proceso de actualización</p>
+<pre><code class="language-plaintext">/media/updates/installer</code></pre>
+<p>Una vez completada la actualización, desmontar la unidad&nbsp;</p>
+<pre><code class="language-plaintext">umount /media/updates</code></pre>
+<p>Y eliminar el fichero .sfs</p>
+<p>Completada la actualización en todas las máquinas, acceder a la gui y lanzar un full deploy para aplicar los cambios.</p>
+<p>&nbsp;</p>
+<h2>Añadir un host</h2>
+<p>Antes de añadir un host a QRadar se deberá verificar que no están pendientes:</p>
+<ul>
+  <li>Despliegues de configuración</li>
+  <li>Actualizaciones de aplicaciones (en caso de ser un nodo de aplicaciones)</li>
+</ul>
+<p>Una vez instalado y actualizado el appliance a la misma versión de la consola de QRadar se deberá comprobar que la nueva máquina es capaz de conectar a los puertos 22 y 443 de la consola.</p>
+<p>&nbsp;</p>
+<p>Una vez verificada la conexión, acceder a la gui de qradar a través del navegador:</p>
+<p>Admin -&gt; System and License Management -&gt; Deployment Actions -&gt; Add Host</p>
+<p>Indicar los siguientes campos:</p>
+<ul>
+  <li>Host IP</li>
+  <li>Root password</li>
+  <li>Marcar los checks<ul>
+      <li>Encrypt Host Connections</li>
+      <li>Encryption Compression</li>
+      <li>Remote Tunnel Initiation</li>
+    </ul>
+  </li>
+</ul>
+<p>Y pulsar añadir, si todo va como debería el host se configurará y añadirá al despliegue de QRadar.&nbsp;</p>
+<p>&nbsp;</p>
+<p>En el mismo panel de System and License Management, tendremos que editar la conexión del host para que apunte a la procesadora en vez de la consola por defecto, para esto seleccionaremos el nuevo host -&gt; Deployment Actions -&gt; Edit Host Connection -&gt; itx-qradar-ep-01.</p>
+<p>Completada esta parte acceder al panel de admin y desplegar los cambios para completar la adición de un nuevo host.</p>
+<p>&nbsp;</p>
+<h2>Montaje de un HA</h2>
+<p>Para la creación de un cluster de HA se necesitarán al menos dos máquinas.</p>
+<p>La máquina primaria deberá llevar instalado el rol apropiado necesario para montar el clúster. El resto de servidores deberán incluir el rol de HA, y ya QRadar se encargará de realizar la instalación del rol oportuno en el momento del montaje.</p>
+<blockquote>
+  <p><strong>Importante</strong>:</p>
+  <p>Cuando se vaya a montar el HA se utilizará la IP configurada en el nodo primario como la dirección del HA, y al nodo primario se le asignará una nueva IP.&nbsp;</p>
+  <p>Dicho esto y como se indica en la sección de Direccionamientos y DNS de este documento se indican las direcciones a configurar para el HA por cada tipo de rol, y esta deberá de ser la ip configurada en el nodo primario previo a la formación del clúster.</p>
+</blockquote>
+<p>&nbsp;</p>
+<h2>Cómo crear el HA</h2>
+<p>Acceder como administrador a la consola de QRadar a través del portal web y después acceder a:</p>
+<p>Admin -&gt; System and License Management</p>
+<p>Previamente se deberá de haber añadido el nodo primario al despliegue de QRadar.</p>
+<p>&nbsp;</p>
+<p>A continuación click derecho sobre el servidor con el rol que se quiere montar el HA y pinchar en “Add HA Host”</p>
+<p>Se deberá indicar una nueva ip para el servidor primario, la ip configurada en el servidor secundario y la password de root (la configurada en el servidor secundario).</p>
+<p>En caso de disponer de un cable cruzado entre ambos, indicar la interfaz y el límite de datos en MB/s deseado.</p>
+<p>Configurados los campos next y finish.</p>
+<p>Creará el HA, añadirá el nodo secundario realizando la instalación del rol apropiado sobre el mismo y realizará la sincronización de datos (este proceso puede durar horas en función del tamaño de la partición /store).</p>
+<blockquote>
+  <p><strong>Nota</strong>: Cuando se crea el HA, QRadar, modificará los nombres de los nodos. El HA pasará a llamarse como el hostname de la máquina origen, y los nodos tomarán como nombre el HA seguido de primary o secondary según corresponda. ej: itx-qradar-ec-01-primary</p>
+  <p><strong>Nota</strong>: Cuando se disuelve el HA se mantendrá el nodo primario como estaba antes de montar el HA, y el nodo secundario desaparecerá de la consola, en caso de querer añadirlo de nuevo se deberá realizar otra vez todo el proceso.</p>
+</blockquote>
+<p>&nbsp;</p>
+<h2>Migración de consola</h2>
+<p>Para la migración de consola a nuevo hardware, modificando la IP, se deberán de seguir los siguientes pasos.</p>
+<p><strong>1. Preparar el nuevo hardware</strong></p>
+<p>Realizar la instalación del software de QRadar a la misma versión de la actual consola.</p>
+<p><strong>2. Preparar la anterior consola</strong></p>
+<p>Acceder al panel web a la sección de Admin -&gt; Backup and Recovery</p>
+<p>Acceder a la sección On Demand Backup y lanzar un backup</p>
+<p>Descargar el backup para poder importarlo posteriormente en el nuevo servidor.</p>
+<p>&nbsp;</p>
+<p>Completados los pasos previos, acceder por ssh a la consola y parar el servicio de iptables en todos los nodos con el siguiente comando:</p>
+<pre><code class="language-plaintext">/opt/qradar/support/all_servers.sh "service iptables stop"</code></pre>
+<p>&nbsp;</p>
+<h2><strong>Restaurar la configuración de backup</strong></h2>
+<p>Una vez generado el backup en el paso anterior acceder a la consola web de qradar de la nueva consola a la sección:</p>
+<p>Admin -&gt; Backup and Recovery</p>
+<p>Subir el fichero de backup generado previamente en la consola antigua y restaurar el mismo.</p>
+<p>En la siguiente pantalla marcar los siguientes checks:</p>
+<ul>
+  <li>Select All Configuration Items</li>
+  <li>Select All Data Items</li>
+</ul>
+<p>Una vez completada esta parte&nbsp;</p>
+<p>Restore -&gt; OK</p>
+<p>&nbsp;</p>
+<p>Posteriormente, acceder a la consola antigua y parar los distintos servicios en orden</p>
+<pre><code class="language-plaintext">systemctl stop hostcontext
+systemctl stop httpd
+systemctl stop tomcat
+systemctl stop hostservices</code></pre>
+<p>&nbsp;</p>
+<p>Una vez parados los servicios, acceder por ssh a la nueva consola y reiniciar el servicio de hostcontext</p>
+<pre><code class="language-plaintext">/opt/qradar/support/all_servers.sh “service hostcontext restart”</code></pre>
+<p>&nbsp;</p>
+<p>Completado el reinicio de los servicios, acceder en la nueva consola a la administración y hacer un despliegue completo</p>
+<p>Admin -&gt; Advanced -&gt; Deploy Full Configuration</p>
+<p>&nbsp;</p>
+<p>Una vez completado el despliegue verificar en la ventana de System and License que aparecen todos los host existentes en la instalación.</p>
+<p><strong>1. Reinicio de iptables</strong></p>
+<p>Completada la restauración del backup se deberá reiniciar iptables en todos los appliance</p>
+<p>Para ello acceder por ssh a la nueva consola y lanzar el siguiente comando</p>
+<pre><code class="language-plaintext">/opt/qradar/support/all_servers.sh "service iptables restart"</code></pre>
+<p>&nbsp;</p>
+<p><strong>2. Copia de certificados y claves público/privadas</strong></p>
+<p>A continuación se deberán copiar los certificados y claves ssh a la nueva consola.</p>
+<p>Para ello se puede utilizar rsync o scp.</p>
+<p>Para los certificados:</p>
+<pre><code class="language-plaintext">rsync -avz /opt/qradar/conf/trusted_certificates/ root@targetserver:/opt/qradar/conf
+rsync -avz /opt/qradar/conf/syslog-tls.keystore root@targetserver:/opt/qradar/conf</code></pre>
+<p>Para las claves ssh:</p>
+<pre><code class="language-plaintext">rsync -avz /etc/ssh/ root@targetserver:/etc/ssh
+rsync -avz /root/.ssh/ root@targetserver:/root</code></pre>
+<p>Para los certificados ssl se deberán copiar los certificados a la home de root de la consola nueva de la ruta /etc/httpd/conf/certs de la consola antigua.</p>
+<p>Una vez copiados ejecutar el siguiente comando y seguir las instrucciones para la instalación de los mismos:</p>
+<pre><code class="language-plaintext">/opt/qradar/bin/install_ssl_cert.sh -i</code></pre>
+<p>&nbsp;</p>
+<p><strong>3. Transferencia de datos</strong></p>
+<p>En caso que sea necesaria la transferencia de datos se deberá descargar el siguiente script en la consola antigua:</p>
+<pre><code class="language-plaintext">https://www.ibm.com/support/pages/system/files/inline-files/syncAriel_2.sh</code></pre>
+<p>Dar permisos de ejecución</p>
+<pre><code class="language-plaintext">chmod +x syncAriel.sh</code></pre>
+<p>Y lanzar en screen el siguiente comando:</p>
+<pre><code class="language-plaintext">sh syncAriel.sh -i IP_NEW_CONSOLE</code></pre>
+<p>Más info en la documentación oficial:</p>
+<p>https://www.ibm.com/support/pages/qradar-siem-hardware-migration-scenarios</p>
+<p>&nbsp;</p>
+<h2>Orden de arranque parada de servicios</h2>
+<p>Para garantizar que los servicios se paran de la forma correcta, evitando con ello males mayores, el orden de parada será el siguiente</p>
+<ol>
+  <li>hostcontext</li>
+  <li>httpd</li>
+  <li>tomcat</li>
+  <li>hostservices (este se encargará de parar postgres, docker, etc.)</li>
+</ol>
+<p>Para la parada de servicios se hará con el comando</p>
+<pre><code class="language-plaintext">systemctl stop SERVICE</code></pre>
+<p>y el arranque</p>
+<pre><code class="language-plaintext">systemctl start SERVICE</code></pre>
+<p>El orden de arranque deberá ser a la inversa, asegurando que ha levantado correctamente antes de arrancar el siguiente, especialmente el servicio hostservices.</p>
+<ol>
+  <li>hostservices</li>
+  <li>tomcat</li>
+  <li>httpd</li>
+  <li>hostcontext</li>
+</ol>
+<p>&nbsp;</p>
+<h2>Configuraciones extra</h2>
+<p>&nbsp;</p>
+<h3>Modificación redes</h3>
+<p>En caso de necesitar realizar una modificación en la configuración de las interfaces de red a nivel de sistema, se deberá lanzar el script</p>
+<p>sudo qchange_netsetup -y</p>
+<blockquote>
+  <p><strong>Nota</strong>: Si el cambio se quiere hacer sobre la consola se tienen que quitar previamente todos los nodos, hacer el cambio, y una vez completado volverlos a añadir al despliegue.</p>
+</blockquote>
+<p>&nbsp;</p>
+<h3>Cambiar keyboard layout</h3>
+<p>En el caso de los appliance, o donde la instalación de rhel se realiza desde la iso de QRadar, por defecto la distribución de teclado viene configurada en inglés.</p>
+<p>Para sustituir la misma por la distribución de teclado española se realizarán los siguientes pasos.</p>
+<p>Primero verificamos la configuración actual:</p>
+<pre><code class="language-plaintext">$ localectl status
+ &nbsp;&nbsp;System Locale: LANG=en_US.UTF-8
+ &nbsp;  VC Keymap: us
+   X11 Layout: us</code></pre>
+<p>En caso de estar en un idioma distinto al español, modificar la misma con los siguientes comandos:</p>
+<pre><code class="language-plaintext">localectl set-keymap es
+localectl set-x11-keymap es</code></pre>
+<p>Y verificamos que los cambios son correctos</p>
+<pre><code class="language-plaintext">$ localectl status
+ &nbsp;&nbsp;System Locale: LANG=en_US.UTF-8
+ &nbsp;  VC Keymap: es
+   X11 Layout: es</code></pre>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
