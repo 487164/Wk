@@ -1,0 +1,64 @@
+<!--
+title: Custom Actions
+description: 
+published: true
+date: 2024-01-15T14:44:50.132Z
+tags: sm, soc, qradar, lm, ibm, procedure, custom action
+editor: ckeditor
+dateCreated: 2024-01-15T14:44:50.132Z
+-->
+
+<h1 style="text-align:center;">Custom Actions</h1>
+<p>&nbsp;</p>
+<p>En QRadar se pueden crear custom actions para la ejecución de ciertas acciones para las cuales es necesario trabajar con la api de qradar u otras acciones para las que el software no está preparado.</p>
+<p>Para ello se debe de crear un script en los lenguajes bash, python o perl que realice la acción para la cual está destinada la custom action.</p>
+<p>Estas custom actions serán ejecutadas en el momento en que salte la alerta para la cual está configurada la acción.</p>
+<p>&nbsp;</p>
+<h2>Creación de custom action</h2>
+<p>Para crear una custom action acceder al panel de las mismas desde la administración de QRadar.</p>
+<p>Admin -&gt; Data Sources -&gt; Custom actions -&gt; Define actions</p>
+<p>&nbsp;</p>
+<p>Para añadir una custom action pinchar en el botón de Add y aparecerá la siguiente ventana:</p>
+<figure class="image"><img src="/sec/sto/platforms/ibm-qradar/procedures/ibm-qradar-custom-action-image1.png"></figure>
+<p>&nbsp;</p>
+<p>En la misma rellenamos el nombre descripción, el interprete que deberá ejecutar el script y el script en sí.&nbsp;</p>
+<p>Para la definición de properties se puede añadir una property custom con un valor custom, o utilizar un campo existente ya en qradar.</p>
+<p>Para referenciar las properties desde los scripts interpretarlo como argumentos pasados por consola.&nbsp;</p>
+<p>&nbsp;</p>
+<h2>Custom actions actuales</h2>
+<p>Actualmente los scripts utilizados en las custom actions se encuentran en el repositorio:</p>
+<p>Security-monitoring/qradar/scripts/custom-actions</p>
+<p>Están configuradas las siguientes custom actions:</p>
+<ul>
+  <li>Create_Offense -&gt; cuando se crea una alerta nueva añade el id de la alerta en un fichero de texto en el servidor de soar.</li>
+  <li>Err4992Slack -&gt; Envía una IP a un canal de slack</li>
+  <li>IncibeAlert2Slack → Envía el aviso de correo de incibe a un canal de slack</li>
+  <li>PortScan2Slack -&gt; Envía una IP a un canal de slack</li>
+  <li>RS_Office365_Quarantine_Sender_IP -&gt; añade una ip a un reference set</li>
+  <li>RS_Office_SPAM_Sender_IP -&gt; añade una ip a un reference set</li>
+  <li>remove-refdata-o365-quarantine → elimina la ip y sender del correo de los reference set/table cuando se libera de la cuarentena</li>
+  <li>Sentinel2Slack -&gt; envía una ip a un canal de slack</li>
+  <li>sentinel2misp -&gt; guarda los eventos de sentinel en un fichero en la máquina de soar</li>
+</ul>
+<p>&nbsp;</p>
+<h2>Funcionamiento interno</h2>
+<p>Internamente QRadar lanzará las custom actions desde un usuario concreto enjaulado en una ruta concreta.</p>
+<p>El usuario utilizado es customactionuser y el mismo estará enjaulado en la ruta&nbsp;</p>
+<pre><code class="language-plaintext">/opt/qradar/bin/ca_jail/ </code></pre>
+<p>por lo que si se necesita incluir algún fichero como una clave ssh o que pinte un fichero en algún directorio la ruta donde se deberán almacenar los datos será</p>
+<pre><code class="language-plaintext">/opt/qradar/bin/ca_jail/home/customactionuser/</code></pre>
+<p>Por otra parte los scripts cargados en las custom action se almacenarán en la ruta</p>
+<pre><code class="language-plaintext">/opt/qradar/bin/ca_jail/custom_action_scripts/</code></pre>
+<p>Y el nombre de los scripts será:</p>
+<pre><code class="language-plaintext">customaction_{ACTION_ID}.script</code></pre>
+<p>A la hora de desarrollar un script para una custom action cabe destacar que es necesario revisar que el binario que se desea utilizar se encuentra en la ruta</p>
+<pre><code class="language-plaintext">/opt/qradar/bin/ca_jail/bin/</code></pre>
+<p>Para hacer debug en caso de problemas a la hora de ejecutar una custom action se puede acceder a dicho directorio simulando el enjaulado utilizado por qradar con el siguiente comando:</p>
+<pre><code class="language-plaintext">chroot --userspec=customactionuser /opt/qradar/bin/ca_jail/</code></pre>
+<blockquote>
+  <p><strong>NOTA</strong>: Recordar asignar los permisos adecuados a los ficheros para que el usuario pueda leer los mismos.&nbsp;</p>
+</blockquote>
+<blockquote>
+  <p><strong>NOTA</strong>: El directorio de enjaulado a excepción de la home del usuario es de sólo lectura. En caso de necesitar añadir algún binario extra, este se deberá de incluir en la home del usuario.</p>
+</blockquote>
+<p>&nbsp;</p>
