@@ -1,0 +1,168 @@
+<!--
+title: Gestión de workers con supervisor
+description: 
+published: true
+date: 2024-01-15T15:32:37.756Z
+tags: soc, ti, misp, gestion, supervisor, worker
+editor: ckeditor
+dateCreated: 2024-01-15T15:32:37.756Z
+-->
+
+<h1 style="text-align:center;"><strong>Gestión de workers con supervisor</strong></h1>
+<p>&nbsp;</p>
+<p>Con la migración de la gestión de workers desde supervisor cambia la forma de trabajar con los mismos.</p>
+<p>Desde el momento del cambio los workers serán gestionados a través de la consola por una conexión ssh en lugar de a través de la gui de MISP, no obstante, se puede seguir visualizando el estado de los mismos así como el número de workers de cada tipo levantados y los jobs pendientes de cada uno de ellos.</p>
+<p>&nbsp;</p>
+<h2><i><strong>Instalación de supervisor</strong></i></h2>
+<p>Para la instalación de supervisor se deberá instalar en primer lugar el paquete correspondiente al mismo:</p>
+<pre><code class="language-plaintext">dnf install supervisor</code></pre>
+<p>Una vez instalado el paquete se deberán instalar las dependencias de php necesarias para que la MISP sea capaz de gestionar los worker mediante esta herramienta.</p>
+<p>Para ello acceder al directorio de app de la MISP</p>
+<pre><code class="language-plaintext">cd /var/www/MISP/app</code></pre>
+<p>E instalar con composer</p>
+<pre><code class="language-plaintext">sudo -H -u apache php composer.phar require --with-all-dependencies supervisorphp/supervisor:^4.0 guzzlehttp/guzzle php-http/message lstrojny/fxmlrpc php-http/message-factory</code></pre>
+<p>Una vez instaladas las dependencias crear el fichero</p>
+<pre><code class="language-plaintext">/etc/supervisord.d/misp-workers.ini</code></pre>
+<p>Con el siguiente contenido:</p>
+<pre><code class="language-plaintext">[group:misp-workers]
+programs=default,email,cache,prio,update
+
+[program:default]
+directory=/data/MISP
+command=/data/MISP/app/Console/cake start_worker default
+process_name=%(program_name)s_%(process_num)02d
+numprocs=3
+autostart=true
+autorestart=true
+redirect_stderr=false
+stderr_logfile=/data/MISP/app/tmp/logs/misp-workers-errors.log
+stdout_logfile=/data/MISP/app/tmp/logs/misp-workers.log
+user=apache
+
+[program:prio]
+directory=/data/MISP
+command=/data/MISP/app/Console/cake start_worker prio
+process_name=%(program_name)s_%(process_num)02d
+numprocs=1
+autostart=true
+autorestart=true
+redirect_stderr=false
+stderr_logfile=/data/MISP/app/tmp/logs/misp-workers-errors.log
+stdout_logfile=/data/MISP/app/tmp/logs/misp-workers.log
+user=apache
+
+[program:email]
+directory=/data/MISP
+command=/data/MISP/app/Console/cake start_worker email
+process_name=%(program_name)s_%(process_num)02d
+numprocs=1
+autostart=true
+autorestart=true
+redirect_stderr=false
+stderr_logfile=/data/MISP/app/tmp/logs/misp-workers-errors.log
+stdout_logfile=/data/MISP/app/tmp/logs/misp-workers.log
+user=apache
+
+[program:update]
+directory=/data/MISP
+command=/data/MISP/app/Console/cake start_worker update
+process_name=%(program_name)s_%(process_num)02d
+numprocs=1
+autostart=true
+autorestart=true
+redirect_stderr=false
+stderr_logfile=/data/MISP/app/tmp/logs/misp-workers-errors.log
+stdout_logfile=/data/MISP/app/tmp/logs/misp-workers.log
+user=apache
+
+[program:cache]
+directory=/data/MISP
+command=/data/MISP/app/Console/cake start_worker cache
+process_name=%(program_name)s_%(process_num)02d
+numprocs=3
+autostart=true
+autorestart=true
+redirect_stderr=false
+stderr_logfile=/data/MISP/app/tmp/logs/misp-workers-errors.log
+stdout_logfile=/data/MISP/app/tmp/logs/misp-workers.log
+user=apache</code></pre>
+<p>&nbsp;</p>
+<p>Sustituir en cada caso la variable <strong>numprocs</strong> por el número de hilos que se deseen para ese tipo de worker.</p>
+<p>Para un correcto entendimiento de los tipos de worker, estos se explican a continuación</p>
+<ul>
+  <li><strong>default</strong> -&gt; workers por defecto, la mayoría de jobs irán a esta cola.</li>
+  <li><strong>prio</strong> -&gt; jobs prioritarios. Si un job tiene una prioridad superior a los demás y la cola de default está llena se incluirá en esta.</li>
+  <li><strong>email</strong> -&gt; jobs para el envío o recepción de correos.</li>
+  <li><strong>update</strong> -&gt; jobs destinados a las actualizaciones de la propia MISP.</li>
+  <li><strong>cache</strong> -&gt; jobs destinados al almacenamiento en caché de los datos de feeds o servidores remotos.</li>
+</ul>
+<p>&nbsp;</p>
+<p>Una vez editado el fichero de configuración para MISP, editar el fichero genérico de supervisor.</p>
+<pre><code class="language-plaintext">/etc/supervisord.conf</code></pre>
+<p>Y realizar las siguiente modificaciones:</p>
+<p>Comentar la sección de unix_http_server añadiendo una coma al principio de cada línea.</p>
+<p>Habilitar la sección de inet_http_server y añadir una password como se ve a continuación</p>
+<pre><code class="language-plaintext">[inet_http_server]     ; inet (TCP) server disabled by default
+port=127.0.0.1:9001    ; (ip_address:port specifier, *:port for all iface)
+username=supervisor
+password=YOUR_NEW_PASSWORD</code></pre>
+<p>&nbsp;</p>
+<p>Modificar la sección de supervisorctl para la conexión:</p>
+<pre><code class="language-plaintext">[supervisorctl]
+serverurl=http://127.0.0.1:9001 ; use an http:// url to specify an inet socket
+username=supervisor
+password=YOUR_NEW_PASSWORD</code></pre>
+<p>&nbsp;</p>
+<h3><strong>Configuración en GUI MISP</strong></h3>
+<p>Completada esta parte se deberá configurar la MISP para la conexión con supervisor, para ello acceder a&nbsp;</p>
+<p>Administration -&gt; Server Settings &amp; Maintenance -&gt; SimpleBackgroundJobs</p>
+<p>Configurar el usuario y password utilizado tanto en redis como en supervisor, así como el host y puerto en caso de ser diferentes a los utilizados por defecto.</p>
+<p>Una vez configurado habilitar el proceso con la variable&nbsp;</p>
+<pre><code class="language-plaintext">SimpleBackgroundJobs.enabled </code></pre>
+<p>&nbsp;</p>
+<h3><strong>Revisión desde consola</strong></h3>
+<p>Una vez revisado y configurado en la gui de la MISP, volver a la consola y levantar o reiniciar el servicio de supervisor</p>
+<pre><code class="language-plaintext">systemctl restart supervisord</code></pre>
+<p>Esperar unos segundos y revisar el estado de los workers con el siguiente comando</p>
+<pre><code class="language-plaintext">supervisorctl status</code></pre>
+<p>Se añade captura de ejemplo</p>
+<figure class="image"><img src="/sec/sto/platforms/misp/misp-gestion-workers-image1.png"></figure>
+<p>&nbsp;</p>
+<p>Completada la verificación, desactivar los workers antiguos</p>
+<pre><code class="language-plaintext">systemctl stop misp-workers
+systemctl disable misp-workers</code></pre>
+<p>&nbsp;</p>
+<h3><strong>Gestión de tareas programadas</strong></h3>
+<p>Debido a que el uso de supervisor desactiva las scheduled tasks, y que estas están ya en deprecated, es necesario configurar las tareas desde cron.</p>
+<p>Se deberá crear siguiendo el siguiente ejemplo</p>
+<pre><code class="language-plaintext">0 * * * * root /var/www/MISP/app/Console/cake Server {TASK} {USERID} [OPTIONS]</code></pre>
+<p>Para ello crear el fichero&nbsp;</p>
+<pre><code class="language-plaintext">/etc/cron.d/misp-workers</code></pre>
+<p>Con el siguiente contenido para su configuración</p>
+<pre><code class="language-plaintext"># scheduled tasks of misp
+# more info on 
+# https://YOURMISPINSTANCE/events/automation/#console_admin_tasks
+
+# fetch feeds
+0 */3 * * * root /var/www/MISP/app/Console/cake Server fetchFeed 15 all
+
+# cache feeds
+0 */2 * * * root /var/www/MISP/app/Console/cake Server cacheFeed 15 all
+
+# pull all servers
+30 */3 * * * root /var/www/MISP/app/Console/cake Server pullAll 3
+
+# push all servers
+30 */2 * * * root /var/www/MISP/app/Console/cake Server pushAll 10</code></pre>
+<p>&nbsp;</p>
+<p>Editar a gusto la ejecución de las mismas, la configuración actual ejecuta las tareas cada hora.</p>
+<p>&nbsp;</p>
+<h2><i><strong>Adición o eliminación de workers</strong></i></h2>
+<p>Para añadir o eliminar workers desde supervisor se deberá editar el fichero&nbsp;</p>
+<pre><code class="language-plaintext">/etc/supervisord.d/misp-workers.ini</code></pre>
+<p>Y editar la variable <strong>numprocs</strong> de cada tipo de worker con el número de hilos deseados.</p>
+<p>Una vez editado reiniciar el servicio</p>
+<pre><code class="language-plaintext">systemctl restart supervisord</code></pre>
+<p>Y revisar el estado de los worker</p>
+<pre><code class="language-plaintext">supervisorctl status</code></pre>
+<p>&nbsp;</p>
