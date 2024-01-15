@@ -2,7 +2,7 @@
 title: Modificación servicio postfix
 description: 
 published: true
-date: 2024-01-15T11:33:48.662Z
+date: 2024-01-15T11:34:58.021Z
 tags: sm, soc, qradar, lm, ibm, procedure
 editor: ckeditor
 dateCreated: 2024-01-15T11:33:48.662Z
@@ -20,15 +20,15 @@ dateCreated: 2024-01-15T11:33:48.662Z
 <p><code>/opt/scripts/configure-postfix-custom.sh&nbsp;</code></p>
 <p>&nbsp;</p>
 <p>Con el siguiente contenido</p>
-<p><code>#!/bin/bash</code></p>
-<p>&nbsp;</p>
-<p><code># if send mail from localhost</code></p>
-<p><code># edit postfix conf to set relayhost as empty</code></p>
-<p><code># added on file</code></p>
-<p><code># /etc/systemd/system/postfix.service.d/80-si-postfix.conf</code></p>
-<p><code># with a new ExecStartPre option</code></p>
-<p>&nbsp;</p>
-<p><code>postconf -e "relayhost="</code></p>
+<pre><code class="language-plaintext">#!/bin/bash
+
+# if send mail from localhost
+# edit postfix conf to set relayhost as empty
+# added on file
+# /etc/systemd/system/postfix.service.d/80-si-postfix.conf
+# with a new ExecStartPre option
+
+postconf -e "relayhost="</code></pre>
 <p>&nbsp;</p>
 <p>Dicho script se encuentra también en el repositorio en la ruta</p>
 <p><code>Security-monitoring/qradar/scripts/configure-postfix-custom.sh</code></p>
