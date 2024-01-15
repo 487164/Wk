@@ -1,0 +1,38 @@
+<!--
+title: Modificación servicio postfix
+description: 
+published: true
+date: 2024-01-15T11:33:48.662Z
+tags: sm, soc, qradar, lm, ibm, procedure
+editor: ckeditor
+dateCreated: 2024-01-15T11:33:48.662Z
+-->
+
+<h1 style="text-align:center;">Modificación servicio postfix</h1>
+<p>&nbsp;</p>
+<h2>Información</h2>
+<p>En este documento se detallan los cambios realizados sobre el servicio de postfix de QRadar.</p>
+<p>Por defecto, QRadar, aplica el uso de relay de correo con la misma dirección configurada en el servicio de envío de mails del SIEM, lo que provoca que no se puedan enviar correos si estos son enviados desde el servicio local de postfix.</p>
+<p>Para evitar este problema ha sido necesario editar dicha configuración en el arranque del servicio, provocando con ello que el cambio sea persistente a cualquier cambio realizado por el SIEM al realizar un despliegue de cualquier cambio en el sistema.</p>
+<p>&nbsp;</p>
+<h2>Cambios realizados</h2>
+<p>Para ello se ha creado un script en la ruta&nbsp;</p>
+<p><code>/opt/scripts/configure-postfix-custom.sh&nbsp;</code></p>
+<p>&nbsp;</p>
+<p>Con el siguiente contenido</p>
+<p><code>#!/bin/bash</code></p>
+<p>&nbsp;</p>
+<p><code># if send mail from localhost</code></p>
+<p><code># edit postfix conf to set relayhost as empty</code></p>
+<p><code># added on file</code></p>
+<p><code># /etc/systemd/system/postfix.service.d/80-si-postfix.conf</code></p>
+<p><code># with a new ExecStartPre option</code></p>
+<p>&nbsp;</p>
+<p><code>postconf -e "relayhost="</code></p>
+<p>&nbsp;</p>
+<p>Dicho script se encuentra también en el repositorio en la ruta</p>
+<p><code>Security-monitoring/qradar/scripts/configure-postfix-custom.sh</code></p>
+<p>&nbsp;</p>
+<p>Este script modifica el valor de la variable relay en la configuración del servicio de postfix utilizando como valor un string vacío.</p>
+<p>A su vez se modifica el script del servicio de postfix de systemctl, añadiendo el mismo como último paso previo al arranque del servicio.</p>
+<p>&nbsp;</p>
