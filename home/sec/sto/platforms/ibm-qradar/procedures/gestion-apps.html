@@ -1,0 +1,73 @@
+<!--
+title: Gestión de aplicaciones
+description: 
+published: true
+date: 2024-01-15T14:48:20.918Z
+tags: sm, soc, qradar, lm, ibm, procedure, apps, aplicaciones, gestion
+editor: ckeditor
+dateCreated: 2024-01-15T14:48:20.918Z
+-->
+
+<h1 style="text-align:center;"><strong>Gestión de aplicaciones</strong></h1>
+<p>&nbsp;</p>
+<p>Para la gestión de aplicaciones a través de la terminal del servidor de QRadar, se puede utilizar el script qappmanager desde la consola de QRadar.</p>
+<p>Para ello ejecutar el siguiente comando</p>
+<pre><code class="language-plaintext">sudo /opt/qradar/support/qappmanager</code></pre>
+<p>Y mostrará una ventana como se ve en la siguiente captura:</p>
+<figure class="image"><img src="/sec/sto/platforms/ibm-qradar/procedures/ibm-qradar-gestion-apps-image1.png"></figure>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h2><i><strong>Opciones disponibles</strong></i></h2>
+<p>Al lanzar el script, y después de la visualización de las aplicaciones se muestra un listado con las posibles acciones a realizar</p>
+<pre><code class="language-plaintext">OPTIONS:
+ 0) Quit
+ 1) Help
+10) App definition - list all
+11) App definition - list authorized
+12) App definition - show manifest
+13) App definition - cancel install
+14) App definition - delete
+20) App instance - list all
+21) App instance - list authorized
+22) App instance - create
+23) App instance - start
+24) App instance - stop
+25) App instance - authorize
+26) App instance - change authorized user
+27) App instance - change security profile
+29) App instance - cancel install
+30) App instance - delete
+40) Augmented security profiles - list
+41) Admin user - add augmented security profile
+42) Admin user - remove augmented security profile
+50) App containers - list</code></pre>
+<p>&nbsp;</p>
+<h2><i><strong>Troubleshooting</strong></i></h2>
+<p>En caso de tener problemas con una de las aplicaciones, es posible ver los logs de la misma de dos formas posibles:</p>
+<ul>
+  <li>Desde la consola de qradar en la ruta donde se almacenan los contenedores&nbsp;</li>
+  <li>Accediendo al propio contenedor</li>
+</ul>
+<p>Los logs de los contendores se almacenarán en la consola en la ruta&nbsp;</p>
+<pre><code class="language-plaintext">/store/docker/volumes/qapp-{ID}/log/</code></pre>
+<p>En caso de necesitar acceder al contenedor de la aplicación en cuestión se deberá de obtener el id de aplicación previamente desde el qappmanager en la consola y posteriormente acceder al contenedor.</p>
+<blockquote>
+  <p><strong>NOTA</strong>: En caso de disponer de un servidor dedicado para el almacenamiento de aplicaciones, el qappmanager se deberá lanzar desde la consola pero el acceso al contenedor se deberá de realizar desde el host primario de APP Node.</p>
+</blockquote>
+<p>Para acceder al contenedor, y una vez hemos obtenido el id de la aplicación desde el qappmanager, obtener el listado de contenedores existentes con el siguiente comando:</p>
+<pre><code class="language-plaintext">docker ps -a</code></pre>
+<p>Se ve un ejemplo en la siguiente captura</p>
+<figure class="image"><img src="/sec/sto/platforms/ibm-qradar/procedures/ibm-qradar-gestion-apps-image2.png"></figure>
+<p>&nbsp;</p>
+<p>Y acceder al mismo con el siguiente comando:</p>
+<pre><code class="language-plaintext">sudo docker exec -ti {CONTAINER_ID} {SHELL}</code></pre>
+<p>Por ejemplo:</p>
+<pre><code class="language-plaintext">sudo docker exec -ti 581461098a8f /bin/bash</code></pre>
+<p>Se muestra a continuación una captura de pantalla donde se aprecia esta acción:</p>
+<figure class="image"><img src="/sec/sto/platforms/ibm-qradar/procedures/ibm-qradar-gestion-apps-image3.png"></figure>
+<p>&nbsp;</p>
+<p>Dentro del contenedor, el contenido de la aplicación se encuentra en la ruta</p>
+<pre><code class="language-plaintext">/opt/app-root</code></pre>
+<p>Y los logs de la misma pueden verse en la ruta</p>
+<pre><code class="language-plaintext">/opt/app-root/store/log</code></pre>
+<p>&nbsp;</p>
