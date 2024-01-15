@@ -1,0 +1,40 @@
+<!--
+title: Actualización de la MISP
+description: 
+published: true
+date: 2024-01-15T15:26:07.435Z
+tags: soc, ti, misp, actualizacion, update
+editor: ckeditor
+dateCreated: 2024-01-15T15:26:07.435Z
+-->
+
+<h1 style="text-align:center;"><strong>Actualización de la MISP</strong></h1>
+<p>&nbsp;</p>
+<p>Para la actualización de la MISP habrá dos posibles formas.</p>
+<ul>
+  <li>Actualización desde la GUI web en caso de que no haya modificaciones en el código</li>
+  <li>Actualización manual desde consola en caso de que se haya modificado alguna parte del código</li>
+</ul>
+<p>&nbsp;</p>
+<h2><i><strong>Actualización desde la GUI</strong></i></h2>
+<p>Acceder a la GUI con una cuenta con permisos de administrador e ir a la sección</p>
+<p>Administration -&gt; Server Settings &amp; Maintenance</p>
+<p>Posteriormente en el submenú horizontal acceder al panel de Diagnostics donde se verá una ventana similar a la de la siguiente captura</p>
+<figure class="image"><img src="/sec/sto/platforms/misp/misp-update-image1.png"></figure>
+<p>&nbsp;</p>
+<p>En caso de existir una actualización pendiente aparecerá en esta ventana.</p>
+<p>Para actualizar la MISP pinchar sobre el botón “Update MISP” y esperar a que se complete la misma.</p>
+<p>Una vez completada la actualización, en la misma ventana de Diagnostics, bajar hasta la sección <strong>SQL database status </strong>y revisar que no haya cambios pendientes de base de datos.</p>
+<p>En caso de haber alguno se deberá acceder por consola a la base de datos y ejecutar manualmente los ALTER que se indiquen en dicha sección.</p>
+<p>&nbsp;</p>
+<h2><i><strong>Actualización desde consola</strong></i></h2>
+<p>Acceder por ssh a la máquina con un usuario con permisos de root.</p>
+<pre><code class="language-plaintext">Acceder al directorio /var/www/MISP</code></pre>
+<p>Y ejecutar los siguientes comandos en orden</p>
+<pre><code class="language-plaintext">sudo -u apache git pull origin 2.4
+sudo -u apache git submodule update --init --recursive</code></pre>
+<p>Una vez lanzados los comandos acceder desde la GUI a&nbsp;</p>
+<p>Administration -&gt; Server Settings &amp; Maintenance</p>
+<p>Posteriormente en el submenú horizontal acceder al panel de Diagnostics y verificar que se encuentra en la última versión disponible.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
