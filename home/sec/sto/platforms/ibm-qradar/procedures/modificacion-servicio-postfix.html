@@ -2,7 +2,7 @@
 title: Modificación servicio postfix
 description: 
 published: true
-date: 2024-01-15T11:34:58.021Z
+date: 2024-01-15T11:37:11.372Z
 tags: sm, soc, qradar, lm, ibm, procedure
 editor: ckeditor
 dateCreated: 2024-01-15T11:33:48.662Z
@@ -34,5 +34,15 @@ postconf -e "relayhost="</code></pre>
 <p><code>Security-monitoring/qradar/scripts/configure-postfix-custom.sh</code></p>
 <p>&nbsp;</p>
 <p>Este script modifica el valor de la variable relay en la configuración del servicio de postfix utilizando como valor un string vacío.</p>
-<p>A su vez se modifica el script del servicio de postfix de systemctl, añadiendo el mismo como último paso previo al arranque del servicio.</p>
+<p>A su vez se modifica el script del servicio de postfix de systemctl, añadiendo el mismo como último paso previo al arranque del servicio quedando así el fichero del servicio</p>
+<pre><code class="language-plaintext">[root@itx-qradar-cs-01-primary ~]# cat /etc/systemd/system/postfix.service.d/80-si-postfix.conf
+[Service]
+ExecStartPre=/opt/ibm/si/si-postfix/bin/configure-postfix-tls.sh
+ExecStartPre=/opt/ibm/si/si-postfix/bin/configure-postfix.sh
+ExecStartPre=/opt/scripts/configure-postfix-custom.sh
+PrivateTmp=true
+</code></pre>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
 <p>&nbsp;</p>
