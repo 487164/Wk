@@ -2,7 +2,7 @@
 title: Creación/Actualización servidor
 description: 
 published: true
-date: 2024-01-15T13:34:48.698Z
+date: 2024-01-15T13:37:36.411Z
 tags: sm, soc, qradar, lm, ibm, procedure
 editor: ckeditor
 dateCreated: 2024-01-15T13:34:48.698Z
@@ -63,12 +63,12 @@ dateCreated: 2024-01-15T13:34:48.698Z
 <h2>Nomenclatura servidores</h2>
 <p>La nomenclatura de servidores será la siguiente:</p>
 <ul>
-  <li>localización (3 letras)&nbsp;</li>
+  <li>localización (3 letras)</li>
   <li>tecnología<ul>
       <li>qradar</li>
     </ul>
   </li>
-  <li>tipo de servidor&nbsp;<ul>
+  <li>tipo de servidor<ul>
       <li>consola -&gt; cs</li>
       <li>event collector -&gt; ec</li>
       <li>flow collector -&gt; fc</li>
@@ -142,7 +142,7 @@ dateCreated: 2024-01-15T13:34:48.698Z
   <li>Installation Destination -&gt; Select system disks and check I will configure partitioning<ul>
       <li>/boot/efi -&gt; 200MiB (Device Type RAID if software raid)</li>
       <li>/boot -&gt; 1024MiB (Device Type RAID if software raid)</li>
-      <li>swap&nbsp; -&gt; 75% of RAM (min 12GB, max 24GiB) &nbsp; Device Type LVM&nbsp; - Volume group -&gt; (raid 1 if software raid)&nbsp;</li>
+      <li>swap&nbsp; -&gt; 75% of RAM (min 12GB, max 24GiB) &nbsp; Device Type LVM&nbsp; - Volume group -&gt; (raid 1 if software raid)</li>
       <li>/ &nbsp; &nbsp; -&gt; Device Type LVM&nbsp; - Volume group -&gt; (raid 1 if software raid)<ul>
           <li>console - 300GB</li>
           <li>collector - 100GB</li>
@@ -155,7 +155,7 @@ dateCreated: 2024-01-15T13:34:48.698Z
     </ul>
   </li>
   <li>Network &amp; Hostname&nbsp; -&gt; set fqdn for hostname (revisar sección nomenclatura)</li>
-  <li>security profile -&gt; No profile selected&nbsp;&nbsp;&nbsp;</li>
+  <li>security profile -&gt; No profile selected</li>
   <li>Begin installation</li>
   <li>Set root password (qradar-root en teampass)</li>
 </ul>
@@ -183,10 +183,10 @@ dateCreated: 2024-01-15T13:34:48.698Z
   <li>Tipo de setup -&gt; normal</li>
   <li>Región -&gt; Europe</li>
   <li>Timezone -&gt; Madrid</li>
-  <li>Configuración de red -&gt;&nbsp;<ul>
+  <li>Configuración de red -&gt;<ul>
       <li>Interfaces normales -&gt; indicar la interfaz a configurar y los datos de la misma</li>
       <li>bond -&gt; seleccionar las interfaces a utilizar para el bond, seleccionar las siguientes opciones para especificar el modo active/backup y posteriormente indicar los datos de conexión<ul>
-          <li>opciones -&gt; miimon=100 mode=1&nbsp;</li>
+          <li>opciones -&gt; miimon=100 mode=1</li>
         </ul>
       </li>
     </ul>
@@ -226,6 +226,7 @@ dateCreated: 2024-01-15T13:34:48.698Z
 <pre><code class="language-plaintext">/opt/qradar/bin/myver</code></pre>
 <p>O en caso de querer verlo desde la consola en todos los servidores lanzar el siguiente comando</p>
 <pre><code class="language-plaintext">/opt/qradar/support/all_servers.sh -C -k /opt/qradar/bin/myver</code></pre>
+<p>&nbsp;</p>
 <blockquote>
   <p><strong>IMPORTANTE: Antes de proceder a la actualización, en los nodos que dispongan de HA, asegurarse de que el nodo primario está como activo y el nodo secundario como standby. Ambos deben de estar online y con el rol apropiado para evitar errores durante el proceso de actualización.</strong></p>
   <p><strong>IMPORTANTE: En caso de realizar actualizaciones en paralelo. Actualizar en primer lugar la consola y posteriormente, antes de actualizar el resto, asegurarse de que root puede acceder correctamente a cada máquina.</strong></p>
@@ -234,9 +235,9 @@ dateCreated: 2024-01-15T13:34:48.698Z
 <p>Por ejemplo, y debido al restricción de acceso, es posible que al acceder muestre el siguiente error:</p>
 <pre><code class="language-plaintext">[root@itx-qradar-cs-01-primary ~]# ssh 192.168.210.21
 No ECDSA host key is known for 192.168.210.21 and you have requested strict checking.
-Host key verification failed.
-En tal caso acceder añadiendo la opción de que no haga el chequeo estricto como en el siguiente ejemplo:
-ssh 192.168.210.21 -o StrictHostKeyChecking=no</code></pre>
+Host key verification failed.</code></pre>
+<p>En tal caso acceder añadiendo la opción de que no haga el chequeo estricto como en el siguiente ejemplo:</p>
+<pre><code class="language-plaintext">ssh 192.168.210.21 -o StrictHostKeyChecking=no</code></pre>
 <p>&nbsp;</p>
 <p>Para el proceso de update se descarga el fichero sfs correspondiente al update desde <a href="https://www.ibm.com/support/fixcentral">fixcentral</a></p>
 <p>Se crea el directorio updates si no existe</p>
