@@ -1,0 +1,76 @@
+<!--
+title: Instalación y despliegue
+description: 
+published: true
+date: 2024-01-15T15:46:05.692Z
+tags: soc, ti, opencti, instalacion, despliegue, iocs
+editor: ckeditor
+dateCreated: 2024-01-15T15:46:05.692Z
+-->
+
+<h1 style="text-align:center;"><strong>Instalación y despliegue</strong></h1>
+<p>&nbsp;</p>
+<h2><i><strong>Instalación entorno</strong></i></h2>
+<p>Para la instalación de OpenCTI en primer lugar se necesitará la instalación de docker, para ello descargamos en primer lugar el repositorio de docker&nbsp;</p>
+<pre><code class="language-plaintext">sudo dnf config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo</code></pre>
+<blockquote>
+  <p><strong>NOTA: Antes de continuar y para evitar males mayores, es recomendable, utilizar un punto de montaje diferente al raíz para la ruta de almacenamiento de temporales de docker, esta se encuentra en la ruta /var/lib/docker&nbsp;</strong></p>
+</blockquote>
+<p>Y posteriormente instalamos el mismo</p>
+<pre><code class="language-plaintext">sudo dnf install docker-ce</code></pre>
+<p>Una vez instalado arrancaremos swarm para la orquestación de los mismos</p>
+<pre><code class="language-plaintext">docker swarm init --advertise-addr SERVER_IP:2377</code></pre>
+<p>El servidor donde se arranque el init será el manager del clúster, aunque sólo haya un nodo conviene utilizar swarm para la orquestación debido a que así el sistema es capaz de levantar el stack completo ante cualquier incidencia en el mismo.</p>
+<p>En caso de querer añadir un worker al clúster ejecutar el siguiente comando para obtener el token:</p>
+<pre><code class="language-plaintext">docker swarm join-token -q worker</code></pre>
+<p>Y ejecutar en el servidor que hará de worker el siguiente comando:</p>
+<pre><code class="language-plaintext">docker swarm join --token TOKEN MANAGER_SERVER_IP:2377</code></pre>
+<p>Arrancado swarm, se deberá crear la estructura de carpetas necesaria para opencti que será la siguiente</p>
+<pre><code class="language-plaintext">/data/
+└── opencti
+├── amqpdata
+├── docker
+├── esdata
+├── redisdata
+└── s3data</code></pre>
+<p>&nbsp;</p>
+<h2><i><strong>Despliegue inicial</strong></i></h2>
+<p>Una vez creada, se deberá descargar desde el repositorio de Threat-intelligence los siguientes ficheros:</p>
+<pre><code class="language-plaintext">Treat-intelligence/opencti/docker/docker-compose.yml
+Treat-intelligence/opencti/docker/.env.sample</code></pre>
+<p>Y los meteremos en el directorio /data/opencti/docker</p>
+<p>Se deberá hacer una copia del fichero .env.sample a .env y completar las variables existentes en el mismo.</p>
+<p>Una vez realizada esta parte, para levantar el entorno ejecutar el siguiente comando desde la ruta /data/opencti/docker</p>
+<pre><code class="language-plaintext">env $(cat ./.env | grep -v '\#' | xargs) envsubst &lt; ./docker-compose.yml | docker stack deploy --compose-file - opencti</code></pre>
+<p>El anterior comando, en primer lugar sustituirá las variables existentes en el fichero .env en el docker-compose.yml y posteriormente desplegará el entorno con las configuraciones existentes en el mismo.</p>
+<p>&nbsp;</p>
+<h2><i><strong>Operaciones sobre los contenedores</strong></i></h2>
+<p>Se indican a continuación una serie de comandos útiles para trabajar con docker:</p>
+<p>Listar los contenedores en ejecución:</p>
+<pre><code class="language-plaintext">docker ps </code></pre>
+<p>Observar estadísticas de los contenedores</p>
+<pre><code class="language-plaintext">docker stats</code></pre>
+<p>Acceder por ssh a un contenedor</p>
+<pre><code class="language-plaintext">docker exec -ti CONTAINER_ID /bin/bash</code></pre>
+<p>Observar los logs del contenedor</p>
+<pre><code class="language-plaintext">docker logs CONTAINER_ID -f</code></pre>
+<p>Parar un contenedor</p>
+<pre><code class="language-plaintext">docker stop COINTAINER_ID</code></pre>
+<p>Eliminar un contenedor (debe de estar parado, o añadir -f para que lo pare y lo borre)</p>
+<pre><code class="language-plaintext">docker rm CONTAINER_ID</code></pre>
+<p>Listar los servicios existentes (global)</p>
+<pre><code class="language-plaintext">docker service ls</code></pre>
+<p>Listar los servicios existentes (de un stack en concreto)</p>
+<pre><code class="language-plaintext">docker stack services STACK_NAME</code></pre>
+<p>Listar los stack disponibles</p>
+<pre><code class="language-plaintext">docker stack ls</code></pre>
+<p>Parar un servicio</p>
+<pre><code class="language-plaintext">docker compose stop SERVICE_NAME</code></pre>
+<p>&nbsp;</p>
+<h2><i><strong>Actualización de la configuración del deploy&nbsp;</strong></i></h2>
+<p>Se deberán realizar las modificaciones oportunas sobre los ficheros .env y docker-compose.yml y posteriormente ejecutar el siguiente comando para llevar a cabo los cambios sobre el despliegue actual</p>
+<pre><code class="language-plaintext">env $(cat ./.env | grep -v '\#' | xargs) envsubst &lt; ./docker-compose.yml | docker stack deploy --compose-file - opencti</code></pre>
+<blockquote>
+  <p><strong>NOTA: Asegurarse de que el stack name, en el caso de esta app, se llame siempre opencti</strong></p>
+</blockquote>
+<p>&nbsp;</p>
