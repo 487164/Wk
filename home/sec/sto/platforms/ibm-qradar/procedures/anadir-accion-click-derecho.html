@@ -1,0 +1,112 @@
+<!--
+title: Añadir acción click derecho
+description: 
+published: true
+date: 2024-01-15T12:35:23.688Z
+tags: sm, soc, qradar, lm, ibm, procedure
+editor: ckeditor
+dateCreated: 2024-01-15T12:35:23.688Z
+-->
+
+<h1 style="text-align:center;"><strong>Añadir acción click derecho</strong></h1>
+<p>&nbsp;</p>
+<p>Para añadir opciones de click derecho en qradar existen dos formas de hacerlo.</p>
+<p><strong>IMPORTANTE</strong>: Antes de hacer cualquier cambio en los ficheros que se mencionan a continuación realizar un backup de los mismos. En caso de fallo simplemente no funcionará la acción.</p>
+<p>&nbsp;</p>
+<h2><i><strong>IP context menu</strong></i></h2>
+<p>&nbsp;</p>
+<h4><strong>Configuración Actual</strong></h4>
+<p>A continuación se muestra las opciones añadidas por este método para los campos de source ip y destination ip.</p>
+<p>Se añaden las siguientes opciones para chequear las ips de los campos mencionados:</p>
+<ul>
+  <li>AbuseIPDB</li>
+  <li>AlienVault OTX</li>
+  <li>Censys</li>
+  <li>Cisco Talos</li>
+  <li>Google</li>
+  <li>GreyNoise</li>
+  <li>HackerTarget RerverseIP</li>
+  <li>McAfee</li>
+  <li>MxToolbox ARIN</li>
+  <li>SANS ISC</li>
+  <li>Shodan</li>
+  <li>Traceroute</li>
+  <li>Threat Crowd</li>
+  <li>ThreatMiner</li>
+  <li>Virus Total</li>
+  <li>X-Force Exchange Lookup</li>
+</ul>
+<p>Cada una de las opciones anteriores comprobará si la IP indicada se encuentra en sus bases de datos y mostrará información acerca de la misma en función del servicio comprobado.</p>
+<p>&nbsp;</p>
+<h4><strong>Añadir nueva opción</strong></h4>
+<p>Estas opciones se añadirán para los paneles de <strong>log activity</strong> y <strong>offenses</strong> sobre los campos source ip y destination ip.</p>
+<p>Un ejemplo se vería en la siguiente captura:</p>
+<figure class="image"><img src="/sec/sto/platforms/ibm-qradar/procedures/ibm-qradar-right-click-image1.png"></figure>
+<p>Como se aprecia en la imagen existen las <strong>Plugin options </strong>en las cuales se han añadido diferentes opciones para chequear la ip en cuestión como puede ser AbuseIPDB o AlienVault.</p>
+<p>En caso de necesitar añadir más se deberá editar el siguiente fichero en la consola principal y posteriormente reiniciar el servicio de tomcat (el reinicio del servicio no replicará los cambios al resto de consolas) o realizar un full deploy en el sistema para replicar los cambios.</p>
+<p>El fichero a editar es:</p>
+<pre><code class="language-plaintext">/opt/qradar/conf/ip_context_menu.xml</code></pre>
+<p>En caso de querer añadir más opciones al mismo se deberá añadir una línea similar a la siguiente dentro de la etiqueta xml &lt;contextMenu&gt;&lt;/contextMenu&gt;</p>
+<pre><code class="language-plaintext">&lt;menuEntry name="ENTRY_NAME" url="https://example.com/check/%IP%" /&gt;</code></pre>
+<p>En el anterior ejemplo se consulta a través de la url example.com y se le pasa como parámetro el valor del campo IP, definido entre los caracteres %%.</p>
+<p>También es posible añadir scripts como se ve en el siguiente ejemplo</p>
+<pre><code class="language-plaintext">&lt;menuEntry name="Traceroute" exec="/usr/sbin/traceroute %IP%" /&gt;</code></pre>
+<p>&nbsp;</p>
+<h2><i><strong>Ariel Query</strong></i></h2>
+<p>&nbsp;</p>
+<h4><strong>Configuración actual</strong></h4>
+<p>La configuración actual añade las siguientes acciones por cada property:</p>
+<ul>
+  <li>source ip<ul>
+      <li>BL IP 3H -&gt; Añade a la blacklist de 3 horas</li>
+      <li>BL IP 24H -&gt; Añade a la blacklist de 24 horas</li>
+      <li>BL IP 7D -&gt; Añade a la blacklist de 7 días</li>
+      <li>BL IP Perm -&gt; Añade a blacklist permanente</li>
+    </ul>
+  </li>
+  <li>destination ip<ul>
+      <li>BL IP 3H -&gt; Añade a la blacklist de 3 horas</li>
+      <li>BL IP 24H -&gt; Añade a la blacklist de 24 horas</li>
+      <li>BL IP 7D -&gt; Añade a la blacklist de 7 días</li>
+      <li>BL IP Perm -&gt; Añade a blacklist permanente</li>
+    </ul>
+  </li>
+  <li>url<ul>
+      <li>BL URL Perm -&gt; Añade a blacklist permanente</li>
+    </ul>
+  </li>
+</ul>
+<p>&nbsp;</p>
+<h4><strong>Añadir nueva opción</strong></h4>
+<p>Estas opciones se añadirán para los campos que se desee, sean custom o no, en todas las ventanas donde se puedan visualizar eventos, a excepción de la ventana de offenses, a la cual sólo se le pueden añadir opciones de la forma explicada en el punto anterior.</p>
+<p>En este caso permitiría añadir opciones más personalizadas como las que se observan en la siguiente captura:</p>
+<figure class="image"><img src="/sec/sto/platforms/ibm-qradar/procedures/ibm-qradar-right-click-image2.png"></figure>
+<p>En el caso de ariel query se debería editar el fichero:</p>
+<pre><code class="language-plaintext">/opt/qradar/conf/arielRightClick.properties</code></pre>
+<p>En la consola principal y reiniciar el servicio de tomcat, o realizar un full deploy para que se sincronicen los cambios con el resto de consolas.</p>
+<p>En este caso se pueden utilizar scripts o urls para la realización de la acción que se desea añadir.</p>
+<p>Para ello el proceso sería el siguiente:</p>
+<ol>
+  <li>Añadir una plugin action a la variable pluginActions</li>
+  <li>Añadir la acción</li>
+</ol>
+<p>&nbsp;</p>
+<h5><i><strong>Añadir Plugin Action</strong></i></h5>
+<p>Añadir a la variable pluginActions el nombre de la nueva acción, se pueden añadir tantas como se desee separando las mismas por comas como se ve en el siguiente ejemplo:</p>
+<pre><code class="language-plaintext">pluginActions=action1,action2</code></pre>
+<p>&nbsp;</p>
+<h5><i><strong>Añadir acción a realizar</strong></i></h5>
+<p>Para ello se pueden añadir acciones por url o por script y se pueden añadir sobre el campo que se desee. Para ello se debe incluir el nombre de la property entre los caracteres $$, a continuación se ven ejemplos de ello.</p>
+<p>Para añadir una url utilizaremos la pluginAction con el nombre action1</p>
+<pre><code class="language-plaintext">action1.arielProperty=sourceIP
+action1.text=Test URL
+action1.url=http://www.mywebsite.com?q=$sourceIP$</code></pre>
+<p>Ahora añadiremos una segunda acción con el pluginAction action2 definida antes, en este caso de tipo script:</p>
+<pre><code class="language-plaintext">action2.arielProperty=destinationIP
+action2.text=BL IP Permanently
+action2.command=/path/to/your/script.sh
+action2.arguments=CUSTOM_VALUE $destinationIP$</code></pre>
+<p>El script definido en el campo command debe existir en la consola de qradar para que pueda ser ejecutado el mismo, este script <strong>debe de copiarse a mano a cada consola</strong> con el fin de evitar errores si cambia el rol de las mismas en el ha.</p>
+<p>En el campo arguments se pasarán los argumentos definidos en el script, puede ser una property existente, un valor concreto, etc.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
