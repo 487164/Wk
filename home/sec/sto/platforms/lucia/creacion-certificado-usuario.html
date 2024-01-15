@@ -1,0 +1,73 @@
+<!--
+title: Creación certificado de usuario
+description: 
+published: true
+date: 2024-01-15T15:36:48.377Z
+tags: soc, lm, lucia, ccn, certificado, usuario
+editor: ckeditor
+dateCreated: 2024-01-15T15:36:48.377Z
+-->
+
+<h1 style="text-align:center;"><strong>Creación certificado de usuario</strong></h1>
+<p>&nbsp;</p>
+<p>Acceder al servidor itx-lucia-01-svcs.madrid.espublico.com</p>
+<p>Existe un script en la ruta /opt/scripts/ca para la creación de un certificado cliente, para ello el mismo dispone de una ayuda:</p>
+<pre><code class="language-plaintext">$ /opt/scripts/ca/create-client-cert.sh -h
+Usage
+./create-client-cert.sh -u USERNAME
+./create-client-cert.sh -c CANAME -u USERNAME -s SERVER
+ &nbsp;-c CANAME   -&gt; Name of CA. By default is espublico
+ &nbsp;-u USERNAME -&gt; Username. This parameter is mandatory.
+ &nbsp;-s SERVER   -&gt; server name. By default is lucia.security.espublico.com
+ &nbsp;-h&nbsp;     -&gt; Show this help</code></pre>
+<p>Para la creación de un certificado de cliente lanzar el comando siguiente:</p>
+<pre><code class="language-plaintext">/opt/scripts/ca/create-client-cert.sh -u USERNAME</code></pre>
+<p>Se indica un ejemplo con la creación del usuario eojeda</p>
+<pre><code class="language-plaintext">$ sudo /opt/scripts/ca/create-client-cert.sh -u eojeda
+Generating a 4096 bit RSA private key
+......................................................................................................................++
+..............................++
+writing new private key to '/var/local/ca/private/eojeda_lucia.security.espublico.com.key'
+-----
+You are about to be asked to enter information that will be incorporated
+into your certificate request.
+What you are about to enter is what is called a Distinguished Name or a DN.
+There are quite a few fields but you can leave some blank
+For some fields there will be a default value,
+If you enter '.', the field will be left blank.
+-----
+Organization Name (company) [ESPUBLICO]:
+Organizational Unit Name (department, division) []:
+Email Address [ccn_lucia@espublico.com]:
+Locality Name (city, district) [ZARAGOZA]:
+State or Province Name (full name) [ZARAGOZA]:
+Country Name (2 letter code) [ES]:
+Common Name (hostname, IP, or your name) []:eojeda
+Using configuration from /var/local/ca/conf/ca_espublico.cnf
+Enter pass phrase for /var/local/ca/private/ca_espublico.key:
+Check that the request matches the signature
+Signature ok
+The Subject's Distinguished Name is as follows
+organizationName&nbsp; :PRINTABLE:'ESPUBLICO'
+localityName&nbsp;     :PRINTABLE:'ZARAGOZA'
+stateOrProvinceName   :PRINTABLE:'ZARAGOZA'
+countryName       :PRINTABLE:'ES'
+commonName&nbsp;       :PRINTABLE:'eojeda'
+Certificate is to be certified until Jan&nbsp; 8 10:23:27 2033 GMT (3650 days)
+Sign the certificate? [y/n]:y
+1 out of 1 certificate requests certified, commit? [y/n]y
+Write out database with 1 new entries
+Data Base Updated
+Enter Export Password:
+Verifying - Enter Export Password:</code></pre>
+<p>&nbsp;</p>
+<blockquote>
+  <p><strong>NOTA: En el common name del certificado indicar el nombre de usuario especificado en la ejecución del script.</strong></p>
+  <p><strong>Será necesario disponer de la clave de la ca para poder generar el certificado (teampass).</strong></p>
+  <p><strong>Será necesario configurar una password para la exportación del certificado.</strong></p>
+</blockquote>
+<p>&nbsp;</p>
+<p>Una vez generado el certificado el mismo se almacenará en la siguiente ruta:</p>
+<pre><code class="language-plaintext">/var/local/ca/certs/USERNAME_lucia.security.espublico.com.p12</code></pre>
+<p>Será necesario instalar dicho certificado en el navegador para poder acceder a través del navegador a la instancia de lucia.</p>
+<p>&nbsp;</p>
