@@ -1,0 +1,98 @@
+<!--
+title: Reinicio de servicios
+description: 
+published: true
+date: 2024-01-15T11:30:11.852Z
+tags: sm, soc, qradar, lm, ibm, procedure
+editor: ckeditor
+dateCreated: 2024-01-15T11:30:11.852Z
+-->
+
+<h1 style="text-align:center;"><strong>Reinicio de servicios</strong></h1>
+<p>&nbsp;</p>
+<p>Para realizar un reinicio de servicios de forma manual en qradar el orden es muy importante debido a las dependencias que estos incluyen.</p>
+<p>El orden correcto de parada de servicios es el siguiente:</p>
+<ol>
+  <li>hostcontext</li>
+  <li>tomcat&nbsp;</li>
+  <li>hostservices</li>
+</ol>
+<p>&nbsp;</p>
+<p>En el caso del arranque el orden sería a la inversa siendo el siguiente:</p>
+<ol>
+  <li>hostservices</li>
+  <li>tomcat</li>
+  <li>hostcontext</li>
+</ol>
+<p>&nbsp;</p>
+<p>Para realizar el arranque o parada el comando en cuestión sería el siguiente:</p>
+<p><code>systemctl stop|start SERVICENAME</code></p>
+<p>&nbsp;</p>
+<p>Para verificar en una máquina que se encuentran levantados los servicios que necesita hay un script que hace dicha comprobación:</p>
+<p><code>/opt/qradar/upgrade/util/setup/upgrades/wait_for_start.sh</code></p>
+<p>&nbsp;</p>
+<p>En el siguiente punto se incluyen desglosados cada uno de los servicios.</p>
+<p>&nbsp;</p>
+<h2><i><strong>Desglose de servicios</strong></i></h2>
+<p>&nbsp;</p>
+<h4><strong>Servicio hostcontext</strong></h4>
+<p>El servicio de hostcontext se encargará del control de los siguientes servicios:</p>
+<ul>
+  <li>Event Correlation Service<ul>
+      <li>ecs-ec (Event Correlation Service – Event Collector)</li>
+      <li>ecs-ep (Event Correlation Service – Event Processor)</li>
+    </ul>
+  </li>
+  <li>Accumulator</li>
+  <li>Accumlator_rollup</li>
+  <li>Ariel Database<ul>
+      <li>ariel_proxy_server (running only on Console, and not on EP)</li>
+      <li>ariel_query_server (running only on Managed Hosts, and not on Console)</li>
+    </ul>
+  </li>
+  <li>reporting_executor</li>
+  <li>report_runner</li>
+  <li>arc_builder (QVM only)</li>
+  <li>Historical Correlation Processor</li>
+  <li>QFlow</li>
+  <li>VIS (vulnerability Integration Services)</li>
+  <li>Asset Profiler</li>
+  <li>Offline Forwarder</li>
+  <li>Tunnels</li>
+</ul>
+<p>&nbsp;</p>
+<p>Los servicios que controlará dependerán del rol del servidor pero se puede ver en concreto cuales incluye la máquina con el siguiente comando:</p>
+<p><code>grep COMPONENT /opt/qradar/conf/nva.hostcontext.conf</code></p>
+<p>&nbsp;</p>
+<h4><strong>Servicio tomcat</strong></h4>
+<p>El servicio de tomcat se encargará de controlar los siguientes servicios</p>
+<ul>
+  <li>httpd</li>
+  <li>tomcat</li>
+</ul>
+<p>El servicio de tomcat es el encargado de controlar la gui web de QRadar y sólo estará disponible en servidores con el rol de console.</p>
+<p>&nbsp;</p>
+<h4><strong>Servicio hostservices</strong></h4>
+<p>El servicio de hostservices se encargará del control de los siguientes servicios:</p>
+<ul>
+  <li>Message Queues (IMQ)&nbsp;<ul>
+      <li>Es el servicio encargado de controlar las comunicaciones entre los diferentes procesos internos de QRadar en el servidor.</li>
+    </ul>
+  </li>
+</ul>
+<p>Los logs de IMQ se pueden ver en la ruta /opt/openmq/mq/var/instances/imqbroker/log/</p>
+<p>&nbsp;</p>
+<ul>
+  <li>Postgres<ul>
+      <li>En este caso se encargará de controlar los diferentes servicios de postgres en el servidor, siendo los siguientes:<ul>
+          <li>postgresql-11.service (servicio general de postgres)</li>
+          <li>postgresql-qf.service (QRadar Incident Forensics)</li>
+          <li>postgresql-qrd.service (QRadar Disaster Recovery)</li>
+          <li>postgresql-qvm.service (QRadar Vulnerability Management)</li>
+          <li>postgresql-rm.service (QRadar Risk Management)</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+<p>&nbsp;</p>
