@@ -1,0 +1,37 @@
+<!--
+title: Realizar acción en todos los servidores
+description: 
+published: true
+date: 2024-01-15T10:13:03.442Z
+tags: sm, qradar, lm, ibm, procedure
+editor: ckeditor
+dateCreated: 2024-01-15T10:13:03.442Z
+-->
+
+<h1 style="text-align:center;">Realizar acción en todos los servidores</h1>
+<p>&nbsp;</p>
+<p>En caso de requerir la ejecución de un comando o la copia de ficheros en todas las instancias de QRadar, existe un script que permite realizar esta acción de forma sencilla.</p>
+<p>El script en cuestión es el siguiente:</p>
+<p><code>/opt/qradar/support/all_servers.sh</code></p>
+<p>Y se puede ver una ayuda del mismo con la opción -h</p>
+<p>&nbsp;</p>
+<p>Se explican a continuación las opciones más utilizadas en el día a día.</p>
+<p><strong>NOTA</strong>: Cuando se realiza esta acción, en caso de existir servidores en HA, la acción llevada a cabo sólo se ejecutará en el nodo primario del HA. En caso de utilizarse para realizar una actualización o un despliegue será el propio QRadar quién se encargue de replicar dichas acciones al nodo secundario.</p>
+<p>&nbsp;</p>
+<p>Si se quiere de todas formas realizar la acción también sobre los nodos secundarios de los ha es posible<strong> añadiendo al comando la opción -k</strong></p>
+<h3><strong>Copiar un fichero desde la consola a todos los hosts</strong></h3>
+<p><code>/opt/qradar/support/all_servers.sh -p &lt;file&gt; -r &lt;remote_directory&gt;</code></p>
+<p>En caso de no indicar la opción -r por defecto el fichero se almacenará en la ruta /storetmp</p>
+<p>&nbsp;</p>
+<h3><strong>Copiar un fichero de todos los servidores a la consola</strong></h3>
+<p>Al igual que en el proceso inverso, si no se especifica la opción -r el fichero se almacenará en la ruta /storetmp</p>
+<p><code>/opt/qradar/support/all_servers.sh -g &lt;file&gt; -r &lt;path&gt;</code></p>
+<p>&nbsp;</p>
+<h3><strong>Ejecución de un comando en todos los servidores</strong></h3>
+<p>Ejecutar el siguiente comando desde la consola con permisos de root sustituyendo la palabra COMMAND por el comando a lanzar:</p>
+<p><code>/opt/qradar/support/all_servers.sh -C "COMMAND"&nbsp;</code></p>
+<p>&nbsp;</p>
+<p>En caso de querer almacenar el resultado se puede redirigir la salida a un fichero, por ejemplo:</p>
+<p><code>/opt/qradar/support/all_servers.sh -C "df -h" &gt; DiskSpace.txt</code></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
