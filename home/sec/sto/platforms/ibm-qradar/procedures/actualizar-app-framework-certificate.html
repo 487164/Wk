@@ -1,0 +1,59 @@
+<!--
+title: Actualizar app framework certificate
+description: 
+published: true
+date: 2024-01-15T14:39:08.450Z
+tags: sm, soc, qradar, lm, ibm, procedure
+editor: ckeditor
+dateCreated: 2024-01-15T14:39:08.450Z
+-->
+
+<h1 style="text-align:center;">Actualizar app framework certificate</h1>
+<p>&nbsp;</p>
+<p>Cuando sea necesario actualizar el certificado de un framework de aplicación aparecerá en la GUI de la consola una notificación similar a la que se aprecia en la siguiente captura de pantalla:</p>
+<figure class="image"><img src="/sec/sto/platforms/ibm-qradar/procedures/ibm-qradar-update-app-cert-image1.png"></figure>
+<p>Para encontrar el certificado que se debe de actualizar se deberá revisar el evento en sí o buscar la traza “update the certificate soon” en el fichero /var/log/qradar.log, el cual mostrará una línea de log similar a la siguiente:</p>
+<pre><code class="language-plaintext">[WARN] [NOT:0000013102] The certificate named tomcat_client_traefik will expire on &lt;Time date and year&gt;. Please update the certificate soon.</code></pre>
+<p>En caso de no encontrarlo en el log revisar en qradar haciendo la búsqueda con los siguientes filtros:</p>
+<ul>
+  <li>qid -&gt; 38750177 (The certificate will expire)</li>
+</ul>
+<p>&nbsp;</p>
+<h2><i><strong>Buscar el certificado</strong></i></h2>
+<p>Una vez detectado el evento, para buscar el certificado lanzar el siguiente comando:</p>
+<pre><code class="language-plaintext">/opt/qradar/ca/bin/si-qradarca list -print | grep "&lt;cert_name&gt;"</code></pre>
+<blockquote>
+  <p><strong>NOTA</strong>: Para buscar el certificado se deberán reemplazar los caracteres _ por - en la búsqueda del certificado, un ejemplo se ve a continuación:</p>
+  <pre><code class="language-plaintext">/opt/qradar/ca/bin/si-qradarca list -print | grep "tomcat-client-traefik.cert"</code></pre>
+</blockquote>
+<p>&nbsp;</p>
+<p>El anterior comando mostrará una salida similar a la siguiente:</p>
+<pre><code class="language-plaintext">---- 18,mutual-client,/opt/qradar/ca/conf.d/tomcat-client-traefik.json,/etc/tomcat/tls/traefik/tomcat-client-traefik.cert,13</code></pre>
+<p>&nbsp;</p>
+<h2><i><strong>Visualizar el certificado</strong></i></h2>
+<p>Para observar el certificado en sí utilizar el siguiente comando:</p>
+<pre><code class="language-plaintext">sudo openssl x509 -noout -text -in /FULL/PATH/OF/CERT</code></pre>
+<p>Con el ejemplo anterior, para visualizar el certificado, el comando sería el siguiente:</p>
+<pre><code class="language-plaintext">sudo openssl x509 -noout -text -in /etc/tomcat/tls/traefik/tomcat-client-traefik.cert</code></pre>
+<p>Para buscar sólo la validez del certificado lanzar el siguiente comando:</p>
+<pre><code class="language-plaintext">sudo openssl x509 -noout -text -in /FULL/PATH/OF/CERT | grep Validity -A2</code></pre>
+<p>&nbsp;</p>
+<h2><i><strong>Actualizar el certificado</strong></i></h2>
+<p>Antes de realizar la actualización manual del certificado se debe de revisar el servicio de qradarca-monitor.</p>
+<p>El servicio de qradarca-monitor está por defecto en estado inactivo, y el mismo se lanza cada hora para realizar la renovación de certificados. Para visualizar cuánto tiempo le queda para lanzar de nuevo un chequeo y update se puede lanzar el siguiente comando:</p>
+<pre><code class="language-plaintext">systemctl list-timers | grep qradarca-monitor</code></pre>
+<p>En caso de que el mismo no actualice los certificados en la siguiente ejecución, se puede forzar el mismo con el siguiente comando:</p>
+<pre><code class="language-plaintext">systemctl start qradarca-monitor</code></pre>
+<p><strong>En caso de que la ejecución manual del servicio de qradarca-monitor no realice la actualización de los certificados se puede proceder con la actualización manual de los mismos.</strong></p>
+<p>Para actualizar un certificado de forma manual lanzar el siguiente comando indicando el ID existente al principio de la salida del comando si-qradarca:</p>
+<pre><code class="language-plaintext">/opt/qradar/ca/bin/reset-qradar-ca.sh &lt;ID&gt; --reset</code></pre>
+<p>En el ejemplo que estamos sería así:</p>
+<pre><code class="language-plaintext">/opt/qradar/ca/bin/reset-qradar-ca.sh 18 --reset</code></pre>
+<p>Una vez ejecutado y actualizado el certificado, verificar el contenido del mismo tal como se indica en el apartado anterior “Visualizar el certificado”.</p>
+<p>Si la fecha del certificado es válida, verificar el estado del servicio de qradarca-monitor con el siguiente comando:</p>
+<pre><code class="language-plaintext">systemctl status qradarca-monitor</code></pre>
+<p>El servicio de qradarca-monitor debería estar inactivo, levantar el mismo para que aplique los cambios:</p>
+<pre><code class="language-plaintext">systemctl start qradarca-monitor</code></pre>
+<p>Y esperar a que complete el proceso (puede tardar unos 5-20 minutos en función de los certificados a evaluar)</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
