@@ -1,0 +1,55 @@
+<!--
+title: Creación y actualización de aplicaciones
+description: 
+published: true
+date: 2024-01-15T15:13:35.725Z
+tags: sm, soc, soar, lm, ibm, apps
+editor: ckeditor
+dateCreated: 2024-01-15T15:13:35.725Z
+-->
+
+<h1 style="text-align:center;"><strong>Creación y actualización de aplicaciones</strong></h1>
+<p>&nbsp;</p>
+<p>La creación de aplicaciones y funciones debe de realizarse por consola por medio de scripts en el lenguaje de python.</p>
+<p>Para ello se ha creado en la máquina <strong>itx-qradar-soar-app-01</strong> el usuario <strong>integration</strong>, encargado de la gestión de las mismas por medio de los circuitos de resilient y se ha creado un servicio para gestionar el proceso resilient circuits de forma autónoma por el sistema.</p>
+<p>Para crear y/o modificar una aplicación, función, etc serán necesarios varios pasos.</p>
+<p>En primer lugar escalar al usuario integration, en caso de escalar desde un usuario diferente a root, la password del mismo se encuentra en teampass.</p>
+<pre><code class="language-plaintext">su integration</code></pre>
+<p>Una vez escalado al usuario, en la home de este se encuentran varios directorios:</p>
+<ul>
+  <li>apps -&gt; será un enlace simbólico al repositorio de código donde se almacenan las aplicaciones en la ruta /opt/espublico/Security-monitoring/qradar/soar/apps/&nbsp;</li>
+  <li>.resilient -&gt; directorio por defecto de resilient circuits</li>
+</ul>
+<p>&nbsp;</p>
+<h2><i><strong>Añadir o modificar una nueva app</strong></i></h2>
+<p>Para añadir o modificar una aplicación, ésta deberá encontrarse en el directorio apps indicado anteriormente.</p>
+<p>Para crear una aplicación, el primer paso será crear los elementos desde la gui del soar y posteriormente generar el código de la misma, sobre el cual se realizarán después las modificaciones necesarias.</p>
+<p>Para generar el código en base a los elementos ya creados en la gui del soar lanzar el siguiente comando indicando los valores necesarios para la aplicación:</p>
+<pre><code class="language-plaintext">resilient-sdk codegen -p &lt;name_of_package&gt; -m &lt;message_destination&gt; -f &lt;list_of_functions&gt; -w &lt;list_of_workflows&gt; -s "&lt;list_of_scripts&gt;" -r "&lt;list_of_rules&gt;" -a &lt;list_of_artifactTypes&gt; -fd &lt;list_of_fields&gt; -d &lt;list_of_dataTables&gt; -t &lt;list_of_tasks&gt; </code></pre>
+<p>En caso de que se haya realizado alguna modificación desde la gui, para cargar esos cambios en el código se deberá lanzar el siguiente comando indicando los valores necesarios para dicha aplicación:</p>
+<pre><code class="language-plaintext">resilient-sdk codegen --reload -p &lt;package-name&gt; -m &lt;message_destination&gt; -f &lt;list_of_functions&gt; -w &lt;list_of_workflows&gt; -s "&lt;list_of_scripts&gt;" -r "&lt;list_of_rules&gt;" -a &lt;list_of_artifactTypes&gt; -fd &lt;list_of_fields&gt; -d &lt;list_of_dataTables&gt; -t &lt;list_of_tasks&gt;</code></pre>
+<p>Una vez creada se deberá acceder al directorio /home/integration/apps e instalar la misma con el siguiente comando:</p>
+<pre><code class="language-plaintext">pip install -e appname</code></pre>
+<blockquote>
+  <p><strong>NOTA: No hacer la instalación con sudo, el paquete sólo debe de estar instalado para el usuario integration</strong></p>
+</blockquote>
+<p>En caso de que la aplicación requiera de alguna configuración específica, la misma, se deberá de añadir en el fichero app.config que cargará el servicio, situado en la ruta:</p>
+<pre><code class="language-plaintext">/home/integration/.resilient/app.config</code></pre>
+<p>Una vez instalada la aplicación, reiniciar el servicio de resilient circuits con un usuario con permisos de root</p>
+<pre><code class="language-plaintext">systemctl restart resilient_circuits</code></pre>
+<p>&nbsp;</p>
+<h2><i><strong>Añadir o modificar una función existente</strong></i></h2>
+<p>En caso de disponer de una función que no requiera de una aplicación, por ejemplo, una función simple que no depende de funciones o complementos extras, la misma se deberá colocar en el directorio:</p>
+<pre><code class="language-plaintext">/home/integration/.resilient/components/</code></pre>
+<p>El anterior será un enlace simbólico a la ruta&nbsp;</p>
+<pre><code class="language-plaintext">/opt/espublico/Security-monitoring/qradar/soar/resilient-components</code></pre>
+<p>Con el fin de poder recoger el código desde el repositorio de git existente.</p>
+<p>Una vez aplicados los cambios, reiniciar el servicio de resilient circuits con un usuario con permisos de root</p>
+<pre><code class="language-plaintext">systemctl restart resilient_circuits</code></pre>
+<p>&nbsp;</p>
+<h2><i><strong>Debugging de resilient circuits</strong></i></h2>
+<p>Para observar el comportamiento que tiene la aplicación o función se deberán revisar los logs situados en el directorio:</p>
+<pre><code class="language-plaintext">/home/integration/.resilient/logs/app.log</code></pre>
+<p>En caso de que los logs en dicha ruta no sean suficientes se pueden revisar los logs del soar en sí, situados en el servidor itx-qradar-soar-01 en la ruta&nbsp;</p>
+<pre><code class="language-plaintext">/usr/share/co3/logs</code></pre>
+<p>&nbsp;</p>
