@@ -1,0 +1,75 @@
+<!--
+title: Gestión de servidores en HA
+description: 
+published: true
+date: 2024-01-15T12:45:09.385Z
+tags: sm, soc, qradar, lm, ibm, procedure
+editor: ckeditor
+dateCreated: 2024-01-15T12:45:09.385Z
+-->
+
+<h1 style="text-align:center;"><strong>Gestión de servidores en HA</strong></h1>
+<p>&nbsp;</p>
+<p>Cuando se monta un <strong>HA</strong> (High Availability) en <strong>QRadar</strong> los servidores son configurados con el rol activo/pasivo o como se define en QRadar primary/secondary</p>
+<p>En este caso, por defecto, el nodo primario será el activo y el secundario estará en estado standby a la espera de que ocurra algún error que lo haga entrar en funcionamiento.</p>
+<p>Cuando un nodo se encuentra en standby no dispone del punto de montaje de /store debido a que es utilizado internamente por qradar para la sincronización de datos entre los servidores existentes en el HA.</p>
+<p>&nbsp;</p>
+<p>Para poder trabajar con ello existe el siguiente binario en qradar</p>
+<pre><code class="language-plaintext">/opt/qradar/ha/bin/ha</code></pre>
+<p>Del cual se puede observar la ayuda del mismo con la opción help</p>
+<pre><code class="language-plaintext">$ sudo /opt/qradar/ha/bin/ha help
+HA Manager calls:
+ &nbsp;cstate   - get ESS
+ &nbsp;state&nbsp;   - get state (compatible)
+ &nbsp;remote_state - get remote state (compatible)
+ &nbsp;shutdown - shutdown application, services and HA manager
+ &nbsp;active   - set active
+ &nbsp;online   - set online (active/standby)
+ &nbsp;offline&nbsp; - set administratively offline (shutdown application)
+ &nbsp;takeover - take active role from active peer (remote goes standby)
+ &nbsp;giveback - give back active role to the peer (local goes standby)
+ &nbsp;show     - Display the current progress of HA manager task</code></pre>
+<p>Vista la ayuda del comando se exponen a continuación diferentes escenarios.</p>
+<p>&nbsp;</p>
+<h4><strong>Modificar el estado de un servidor a online u offline</strong></h4>
+<p>En este caso el servidor que se pase a offline dejará de estar disponible en el HA, utilizado sobre todo en tareas de mantenimiento. Para ello lanzar desde el servidor que se quiere cambiar el estado:</p>
+<pre><code class="language-plaintext">sudo /opt/qradar/ha/bin/ha online|offline</code></pre>
+<p>&nbsp;</p>
+<h4><strong>Cambiar el nodo activo&nbsp;</strong></h4>
+<p>Para ello se deberá lanzar un comando en ambos servidores.</p>
+<p>En el nodo activo lanzar el siguiente comando:</p>
+<pre><code class="language-plaintext">sudo /opt/qradar/ha/bin/ha giveback</code></pre>
+<p>En el nodo secundario lanzar el siguiente comando:</p>
+<pre><code class="language-plaintext">/opt/qradar/ha/bin/ha takeover</code></pre>
+<p>Otra opción es lanzar el siguiente comando desde el host inactivo</p>
+<pre><code class="language-plaintext">sudo /opt/qradar/ha/bin/ha active</code></pre>
+<p>&nbsp;</p>
+<h4><strong>Verificar estado servidor</strong></h4>
+<p>Se puede ver si un servidor está activo con el comando siguiente</p>
+<pre><code class="language-plaintext">$ sudo /opt/qradar/ha/bin/ha state
+active</code></pre>
+<p>O si se desea ver más información al respecto lanzar este otro:</p>
+<pre><code class="language-plaintext">$ sudo /opt/qradar/ha/bin/ha cstate
+Local: R:PRIMARY S:ACTIVE/ONLINE CS:NONE P:1.0 HBC:UP RTT:0 I:0 SI:28711721
+Remote: R:SECONDARY S:STANDBY/ONLINE CS:NONE P:1.0 HBC:UP RTT:0 I:14500 SI:28734136
+HBC: ALIVE/0
+LSN: drbd_status =&gt; 1.0 I:0
+LSN: ha_services =&gt; 1.0 I:0
+LSN: drbd_sync =&gt; 1.0 I:0
+LSN: ping_status =&gt; 1.0 I:0
+LSN: mount_status =&gt; 1.0 I:0
+LSN: app_services =&gt; 1.0 I:0
+LSN: drbd_io_perf =&gt; 1.0 I:0
+LSN: xover_status =&gt; 0.0 I:0
+LSN: link_status =&gt; 1.0 I:0
+LSN: cluster_ip =&gt; 1.0 I:0
+RSN: drbd_status =&gt; 1.0 I:0
+RSN: drbd_sync =&gt; 1.0 I:0
+RSN: mount_status =&gt; 1.0 I:0
+RSN: ping_status =&gt; 0.67 I:0
+RSN: drbd_io_perf =&gt; 1.0 I:0
+RSN: link_status =&gt; 1.0 I:0
+RSN: xover_status =&gt; 0.0 I:0</code></pre>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
