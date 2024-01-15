@@ -1,0 +1,39 @@
+<!--
+title: Instalación manual de paquetes
+description: 
+published: true
+date: 2024-01-15T10:56:54.779Z
+tags: sm, qradar, lm, ibm, procedure
+editor: ckeditor
+dateCreated: 2024-01-15T10:56:54.779Z
+-->
+
+<h1 style="text-align:center;"><strong>Instalación manual de paquetes</strong></h1>
+<p>&nbsp;</p>
+<p>En caso de que falle la instalación de algún paquete durante el proceso de actualización automática, y siempre y cuando no se solucione al forzar la obtención de actualizaciones, se deberá proceder a revisar la versión actual del paquete desde la consola de QRadar.</p>
+<p><code>rpm -qa | grep -i &lt;search-term&gt;</code></p>
+<p>O mediante yum</p>
+<p><code>yum search &lt;search-term&gt;</code></p>
+<p>&nbsp;</p>
+<p>Para ver información del paquete se puede utilizar el siguiente comando:</p>
+<p><code>yum info &lt;search-term&gt;</code></p>
+<p>&nbsp;</p>
+<p>Una vez obtenida la versión se debe de acceder a fix central y descargar el paquete rpm de la versión necesaria.</p>
+<p><a href="https://www.ibm.com/support/fixcentral">Acceder a fixcentral a través de este enlace</a></p>
+<p>Buscar por los siguientes parámetros:</p>
+<ul>
+  <li>Software → IBM Security QRadar SIEM</li>
+  <li>Version → Seleccionar la versión mayor actual</li>
+  <li>Platform → Linux</li>
+</ul>
+<p>&nbsp;</p>
+<p>Una vez descargada, se deberá copiar a la consola de qradar e instalar de la siguiente forma:</p>
+<p><code>yum install /path_to_package/package.rpm</code></p>
+<p>&nbsp;</p>
+<p>En caso de querer reinstalar un paquete fallido</p>
+<p><code>yum reinstall package.rpm</code></p>
+<p>&nbsp;</p>
+<p>Una vez resuelta la dependencia se deberá forzar de nuevo la obtención e instalación de actualizaciones para que complete la instalación.</p>
+<p>Esta actualización se deberá de realizar a través de la sección de autoupdates en el panel de administración de QRadar.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
