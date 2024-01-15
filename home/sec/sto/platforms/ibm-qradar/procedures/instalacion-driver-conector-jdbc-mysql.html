@@ -1,0 +1,37 @@
+<!--
+title: Instalar driver conector JDBC para MySQL
+description: 
+published: true
+date: 2024-01-15T11:41:53.621Z
+tags: sm, soc, qradar, lm, ibm, procedure
+editor: ckeditor
+dateCreated: 2024-01-15T11:41:53.621Z
+-->
+
+<h1 style="text-align:center;"><strong>Instalar driver conector JDBC para MySQL</strong></h1>
+<p>&nbsp;</p>
+<p>En caso de necesitar conectar por JDBC a una base de datos en MySQL se deberá instalar el conector en la colectora necesaria.</p>
+<p>Esto se debe a que el servidor con rol de collector es el encargado de conectar a dicha base de datos para solicitar los mismos.</p>
+<p>Para realizar la instalación del conector se deberán seguir los siguientes pasos:</p>
+<p>&nbsp;</p>
+<p>1. Descargar la última versión del conector desde la url de mysql, para ello se deberá descargar para plataforma independiente y en format tar.gz</p>
+<p><a href="https://dev.mysql.com/downloads/connector/j/"><u>https://dev.mysql.com/downloads/connector/j/</u></a></p>
+<p>&nbsp;</p>
+<p>2. Extraer el contenido del fichero tar.gz descargado y renombrar el fichero .jar siguiente</p>
+<pre><code class="language-plaintext">mysql-connector-j-x.x.xx.jar</code></pre>
+<p>Al siguiente formato</p>
+<pre><code class="language-plaintext">mysql-connector-java-x.x.xx..jar</code></pre>
+<p>&nbsp;</p>
+<p>3. A continuación acceder a las consolas de qradar y copiar el fichero en las siguientes rutas:</p>
+<pre><code class="language-plaintext">/opt/qradar/jars
+
+/opt/ibm/si/services/ecs-ec-ingress/eventgnosis/lib/q1labs/</code></pre>
+<p>&nbsp;</p>
+<p>4. Reiniciar servicio tomcat&nbsp;</p>
+<pre><code class="language-plaintext">sudo systemctl restart tomcat</code></pre>
+<p>&nbsp;</p>
+<p>5. Una vez reiniciado y revisando que los servicios y aplicaciones han levantado correctamente reiniciar el servicio de recolección de logs</p>
+<pre><code class="language-plaintext">sudo systemctl restart ecs-ec ecs-ec-ingress</code></pre>
+<p>&nbsp;</p>
+<p>6. Completados los pasos, acceder a la aplicación de log source manager y crear un log source con conexión por jdbc</p>
+<p>&nbsp;</p>
