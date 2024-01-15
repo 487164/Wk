@@ -1,0 +1,109 @@
+<!--
+title: Arquitectura
+description: 
+published: true
+date: 2024-01-15T09:41:37.044Z
+tags: sm, qradar, lm, ibm
+editor: ckeditor
+dateCreated: 2024-01-15T09:41:37.044Z
+-->
+
+<h1 style="text-align:center;">Arquitectura</h1>
+<p>&nbsp;</p>
+<p>La solución dispone de una arquitectura en modo All in One o en modo distribuida, siendo esta última la elegida según las necesidades actuales.</p>
+<p>La instalación consta de los siguientes componentes:</p>
+<figure class="image"><img src="/platforms/security/screenshot_from_2024-01-15_10-35-24.png" alt="IBM Qradar - Arquitectura"></figure>
+<p>&nbsp;</p>
+<p>Para más información de los servidores existentes consultar excel “<a href="https://docs.google.com/spreadsheets/d/1H6xdRdrQ46pyPYdTGSlQ-wTimo_s5tt3_MmTAa8y8Ao/edit?usp=drive_link">CMDB - QRadar - Infrastructure</a>”</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h2>Direccionamientos y DNS</h2>
+<p>Se han reservado los siguientes direccionamientos para la solución.</p>
+<p>192.168.210.0/24 ITX-SIEM-MGMT para las interfaces de management</p>
+<p>192.168.214.0/24 ITX-esPublicoSeg-INFRA para las IMM</p>
+<p>&nbsp;</p>
+<h3>Rangos reservados</h3>
+<p>Consolas 192.168.210.1-9</p>
+<p>Event Collectors 192.168.210.10-19</p>
+<p>Event Proccessors 192.168.210.20-29</p>
+<p>App nodes 192.168.210.30-39</p>
+<p>&nbsp;</p>
+<h3>Consolas</h3>
+<p>192.168.210.1 itx-qradar-cs-01-01-mgmt.madrid.espublico.com</p>
+<p>192.168.210.2 itx-qradar-cs-01-02-mgmt.madrid.espublico.com</p>
+<p>192.168.210.9 será además la usada para el HA</p>
+<p>Acceso 192.168.188.1 desde la vpn de sistemas&nbsp;</p>
+<p>&nbsp;</p>
+<h3>Event Collectors</h3>
+<p>El acceso por consola a los servidores de event collector sólo se podrá realizar desde las consolas o por ilo.</p>
+<p><strong>Interxion</strong></p>
+<p>192.168.210.10 itx-qradar-ec-01-01-mgmt.madrid.espublico.com</p>
+<p>192.168.210.11 itx-qradar-ec-01-02-mgmt.madrid.espublico.com</p>
+<p>192.168.210.19 será además la usada para el HA</p>
+<p><strong>Nabiax</strong></p>
+<p>192.168.143.1 mad-qradar-ec-01-01-mgmt.madrid.espublico.com</p>
+<p>192.168.143.2 mad-qradar-ec-01-02-mgmt.madrid.espublico.com</p>
+<p>192.168.143.3 será además la usada para el HA</p>
+<p><strong>Zaragoza</strong></p>
+<p>192.168.39.9 zgz-qradar-ec-01-01-mgmt.zaragoza.espublico.com</p>
+<p>192.168.x.x zgz-qradar-ec-01-02-mgmt.zaragoza.espublico.com</p>
+<p>192.168.39.9 será además la usada para el HA</p>
+<p><strong>Antequera</strong></p>
+<p>192.168.88.1 atq-qradar-ec-01-01-mgmt.antequera.espublico.com</p>
+<p>192.168.88.1 atq-syslog.antequera.espublico.com</p>
+<p><strong>Granada</strong></p>
+<p>192.168.127.1 gra-qradar-ec-01-01-mgmt.granada.espublico.com</p>
+<p>192.168.127.1 gra-syslog.granada.espublico.com</p>
+<p>&nbsp;</p>
+<h3>Event Processors</h3>
+<p>El acceso por consola a los servidores de event processor sólo se podrá realizar desde las consolas o por ilo.</p>
+<p>192.168.210.20 itx-qradar-ep-01-01-mgmt.madrid.espublico.com</p>
+<p>192.168.210.21 itx-qradar-ep-01-02-mgmt.madrid.espublico.com</p>
+<p>192.168.210.29 será además la usada para el HA</p>
+<p>&nbsp;</p>
+<h3>App nodes</h3>
+<p>El acceso por consola a los servidores de app node sólo se podrá realizar desde las consolas o por ilo.</p>
+<p>192.168.210.30 itx-qradar-app-01-01-mgmt.madrid.espublico.com</p>
+<p>192.168.210.31 itx-qradar-app-01-02-mgmt.madrid.espublico.com</p>
+<p>192.168.210.39 será además la usada para el HA</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h2>Nomenclatura servidores</h2>
+<p>La nomenclatura de servidores será la siguiente:</p>
+<ul>
+  <li>localización (3 letras)&nbsp;</li>
+  <li>tecnología<ul>
+      <li>qradar</li>
+    </ul>
+  </li>
+  <li>tipo de servidor&nbsp;<ul>
+      <li>consola -&gt; cs</li>
+      <li>event collector -&gt; ec</li>
+      <li>flow collector -&gt; fc</li>
+      <li>event proccessor -&gt; ep</li>
+      <li>flow proccessor -&gt; fp</li>
+      <li>app node -&gt; app</li>
+    </ul>
+  </li>
+  <li>id del nodo (2 números)</li>
+  <li>id nodo ha (2 números) (sólo si es el segundo nodo del ha)</li>
+  <li>subdominio<ul>
+      <li>estará formado por localización + espublico.com (ej: madrid.espublico.com)</li>
+    </ul>
+  </li>
+</ul>
+<p>&nbsp;</p>
+<p>En caso de ser el nodo primario de un HA no indicar los segundos dígitos que hacen referencia al id del nodo ha debido a que al formar el ha, qradar añadirá los string primary o secondary al hostname.</p>
+<p>Un ejemplo sería:</p>
+<p>El nodo primario se llamaría: itx-qradar-cs-01.madrid.espublico.com</p>
+<p>y el nodo secundario: itx-qradar-cs-01-02-mgmt.madrid.espublico.com</p>
+<p>Al crear el HA pasarían a llamarse:</p>
+<p>HA -&gt; itx-qradar-cs-01</p>
+<p>Nodo primario -&gt; itx-qradar-cs-01-primary</p>
+<p>Nodo secundario -&gt; itx-qradar-cs-01-secondary</p>
+<p>&nbsp;</p>
+<p>A nivel de DNS se deberán indicar todos los valores para poder referenciar correctamente al servidor.</p>
+<p><strong>Nota</strong>: El hostname de la máquina deberá indicarse <strong>siempre</strong> bajo la red de <strong>management</strong>.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
