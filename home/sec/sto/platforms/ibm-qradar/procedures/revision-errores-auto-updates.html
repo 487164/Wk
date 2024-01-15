@@ -1,0 +1,70 @@
+<!--
+title: Revisión errores auto-updates
+description: 
+published: true
+date: 2024-01-15T11:07:33.150Z
+tags: sm, qradar, lm, ibm, procedure
+editor: ckeditor
+dateCreated: 2024-01-15T11:07:33.150Z
+-->
+
+<h1 style="text-align:center;">Revisión errores auto-updates</h1>
+<p>&nbsp;</p>
+<p>Hay ocasiones en que el procedimiento automático de actualización de paquetes falla en QRadar, en ese caso saldrá una notificación con un texto similar al siguiente:</p>
+<figure class="image image-style-align-left"><img src="/platforms/security/image1.png"></figure>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>En caso de que aparezca un error como el indicado, se debe acceder a&nbsp;</p>
+<p>Admin -&gt; Auto Update</p>
+<p>&nbsp;</p>
+<p>Se abrirá una nueva ventana en la cual mostrará un primer panel similar al siguiente:</p>
+<figure class="image"><img src="/platforms/security/image2.png"></figure>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h2><i><strong>Revisión de paquetes fallidos</strong></i></h2>
+<p>Si algún paquete ha fallado durante el proceso de instalación se mostrará en la misma.&nbsp;</p>
+<p>En tal caso se deberá revisar que paquete es y qué dependencias tiene, ya que en la mayoría de casos estará provocado por falta de una dependencia no resuelta.</p>
+<p>&nbsp;</p>
+<p>En este caso, y para su solución, hay dos posibles opciones:</p>
+<ol>
+  <li>Hacer click en el botón “Get New Updates” con el fin de forzar de nuevo la búsqueda y aplicación de actualizaciones.</li>
+  <li>En caso de que el paso anterior no funcione, se deberá buscar en <a href="https://www.ibm.com/support/fixcentral"><u>fix central</u></a> el paquete del cual es dependiente el update fallido e instalarlo manualmente. (<a href="https://wiki.security.espublico.com/es/home/sec/sto/platforms/ibm-qradar/procedures/instalacion-manual-paquetes">Se crea un documento aparte para la explicación de la instalación del paquete</a>)</li>
+</ol>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h2><i><strong>Revisión de logs</strong></i></h2>
+<p>&nbsp;</p>
+<h3><strong>Revisión de logs desde la GUI</strong></h3>
+<p>En caso de que no exista ningún paquete fallido se debe revisar los logs desde la pestaña de “View Log” donde se mostrará una ventana similar a la siguiente en caso de errores:</p>
+<figure class="image"><img src="/platforms/security/image3.png"></figure>
+<p>&nbsp;</p>
+<p>En el caso anterior se aprecia un error en la instalación de qidmap, este incluye la lista de vulnerabilidades. Estas actualizaciones sólo se pueden aplicar si se dispone del módulo de QRadar Vulnerability Management por lo que si no se dispone de dicho módulo se pueden ignorar.</p>
+<p>En este caso se debe verificar que se han aplicado correctamente, si los hay, los updates de estos 3 tipos:</p>
+<ul>
+  <li>DAU -&gt; Daily Auto Update</li>
+  <li>WAU -&gt; Weekly Auto Update</li>
+  <li>Patch manifest</li>
+</ul>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h3><strong>Revisión de logs desde la consola</strong></h3>
+<p>En el caso de que los logs que se muestran desde la GUI no den demasiada información se puede consultar el log completo accediendo por ssh a la consola de QRadar.</p>
+<p>Los logs se encuentran en el directorio /var/log/autoupdates</p>
+<p>&nbsp;</p>
+<p>Se genera un directorio durante el proceso de actualización y, una vez finalizada, se comprime en un fichero con el formato AU-TIMESTAMP.tgz</p>
+<p>En caso de necesitar investigar los logs se debe de copiar el fichero tgz del día y hora necesarios, descomprimir el mismo para ver los siguientes ficheros:</p>
+<ul>
+  <li>AU-TIMESTAMP.log -&gt; incluirá el log completo del proceso de actualización</li>
+  <li>geodata.conf -&gt; incluirá los cambios de configuración de geolocalización</li>
+  <li>remotenet.conf -&gt; incluirá los cambios de redes maliciosas obtenidos desde X-Force</li>
+  <li>signatures.xml -&gt; incluirá los cambios realizados tanto en propiedades como en aplicaciones</li>
+  <li>socialnet.list -&gt; incluye un listado de los dominios más utilizados por diferentes proveedores o tipos de portales que alojan</li>
+</ul>
+<p>&nbsp;</p>
+<p>En el caso del error mencionado al no disponer del módulo de Vulnerability Management aparecerán en los logs los errores siguientes, debido a que no existen las tablas para el almacenamiento de vulnerabilidades:</p>
+<p><code>ERROR: public.cvssv2metrics Does Not Exist In The Postgres Database</code></p>
+<p><code>ERROR: public.cvssv3metrics Does Not Exist In The Postgres Database</code></p>
+<p><code>ERROR: public.vulncvssxref Does Not Exist In The Postgres Database</code></p>
+<p>En caso de que el error de la actualización sea otro se deberá revisar el fichero de log indicado para identificar el problema.&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
