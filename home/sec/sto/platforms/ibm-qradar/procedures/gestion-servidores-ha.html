@@ -2,7 +2,7 @@
 title: Gestión de servidores en HA
 description: 
 published: true
-date: 2024-01-15T12:45:09.385Z
+date: 2024-01-15T12:45:52.737Z
 tags: sm, soc, qradar, lm, ibm, procedure
 editor: ckeditor
 dateCreated: 2024-01-15T12:45:09.385Z
@@ -31,11 +31,11 @@ HA Manager calls:
  &nbsp;show     - Display the current progress of HA manager task</code></pre>
 <p>Vista la ayuda del comando se exponen a continuación diferentes escenarios.</p>
 <p>&nbsp;</p>
-<h4><strong>Modificar el estado de un servidor a online u offline</strong></h4>
+<h2><strong>Modificar el estado de un servidor a online u offline</strong></h2>
 <p>En este caso el servidor que se pase a offline dejará de estar disponible en el HA, utilizado sobre todo en tareas de mantenimiento. Para ello lanzar desde el servidor que se quiere cambiar el estado:</p>
 <pre><code class="language-plaintext">sudo /opt/qradar/ha/bin/ha online|offline</code></pre>
 <p>&nbsp;</p>
-<h4><strong>Cambiar el nodo activo&nbsp;</strong></h4>
+<h2><strong>Cambiar el nodo activo&nbsp;</strong></h2>
 <p>Para ello se deberá lanzar un comando en ambos servidores.</p>
 <p>En el nodo activo lanzar el siguiente comando:</p>
 <pre><code class="language-plaintext">sudo /opt/qradar/ha/bin/ha giveback</code></pre>
@@ -44,7 +44,7 @@ HA Manager calls:
 <p>Otra opción es lanzar el siguiente comando desde el host inactivo</p>
 <pre><code class="language-plaintext">sudo /opt/qradar/ha/bin/ha active</code></pre>
 <p>&nbsp;</p>
-<h4><strong>Verificar estado servidor</strong></h4>
+<h2><strong>Verificar estado servidor</strong></h2>
 <p>Se puede ver si un servidor está activo con el comando siguiente</p>
 <pre><code class="language-plaintext">$ sudo /opt/qradar/ha/bin/ha state
 active</code></pre>
