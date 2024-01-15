@@ -1,0 +1,90 @@
+<!--
+title: Actualización de software
+description: 
+published: true
+date: 2024-01-15T15:18:25.589Z
+tags: sm, soc, soar, lm, ibm, actualizacion, software
+editor: ckeditor
+dateCreated: 2024-01-15T15:18:25.589Z
+-->
+
+<h1 style="text-align:center;"><strong>Actualización de software</strong></h1>
+<p>&nbsp;</p>
+<p>Para revisar si hay nuevas versiones del Soar para aplicar se puede revisar en la siguiente página de IBM</p>
+<p><a href="https://www.ibm.com/support/pages/ibm-security-qradar-soar-release-download-locations"><u>https://www.ibm.com/support/pages/ibm-security-qradar-soar-release-download-locations</u></a></p>
+<p>En caso de existir una nueva versión, normalmente, incluirá una versión nueva para el servidor Soar y otra para el servidor de aplicaciones del Soar, es decir, ambas actualizaciones irán de la mano.</p>
+<p>El proceso se actualización de ambos servidores se explica en los siguientes puntos aunque cabe destacar que<strong> siempre hay que actualizar el servidor Soar antes que el servidor de aplicaciones</strong> para evitar errores de comunicación entre ambos servidores.</p>
+<p>&nbsp;</p>
+<h2><i><strong>Descarga de los paquetes</strong></i></h2>
+<p>La descarga de los paquetes de versión se deberá realizar desde la página e <a href="https://www.ibm.com/support/fixcentral"><u>IBM Fix Central</u></a></p>
+<p>Desde la página de localización de versiones vista al principio de este documento se puede acceder directamente al enlace apropiado en fix central.</p>
+<blockquote>
+  <p><strong>NOTA</strong>: Recordar descargar el fichero checksum y validar que el hash calculado corresponde con el indicado en el fichero.</p>
+</blockquote>
+<p>&nbsp;</p>
+<h2><i><strong>Actualización de servidor SOAR</strong></i></h2>
+<p>Para llevar a cabo la actualización del servidor soar se deberán llevar a cabo varias acciones.</p>
+<p>En primer lugar revisar la versión actual, para ello acceder al SOAR a través de la GUI Web e ir al menú de usuario en la parte superior derecha y pinchar sobre el enlace de <strong>about</strong>.</p>
+<p>Una vez revisada la versión se deberá acceder por terminal al servidor itx-qradar-soar-01-mgmt para proceder con la actualización:</p>
+<p>&nbsp;</p>
+<p>En primer lugar se deberá revisar que lo siguiente usuarios y grupos existen</p>
+<ul>
+  <li>res-email user in a res-email group.</li>
+  <li>res-messaging user in a res-messaging group.</li>
+  <li>res-keystore group.</li>
+</ul>
+<p>&nbsp;</p>
+<p>Revisados los grupos instalar los paquetes de actualizaciones de seguridad, que serían los siguientes:</p>
+<ul>
+  <li>soar-appliance-security-update-XX.X.XXXX.run</li>
+  <li>soar-optional-packages-repo-XX.X.XXXX.run</li>
+</ul>
+<p>&nbsp;</p>
+<p>Para ello ejecutar el fichero .run con bash, por ejemplo:</p>
+<pre><code class="language-plaintext">sudo bash PACKAGENAME.run</code></pre>
+<p>Una vez aplicados los updates de seguridad se procederá con el update del servidor soar.</p>
+<blockquote>
+  <p><strong>NOTA</strong>: Es posible que incluya actualizaciones de kernel, en ese caso, será necesario reiniciar el servidor del SOAR.</p>
+</blockquote>
+<p>Este realizará un backup de los datos existentes antes de realizar la actualización.</p>
+<p>Para ello lanzar el fichero soar-XX.X.XXXX.run y el proceso de instalación se encargará de realizar el backup de los datos y aplicar los cambios.</p>
+<pre><code class="language-plaintext">sudo bash soar-XX.X.XXXX.run</code></pre>
+<p>El mismo, en caso se salir correctamente, mostrará una salida similar a la de la siguiente captura de pantalla:</p>
+<figure class="image"><img src="/sec/sto/platforms/ibm-soar/ibm-soar-update-software-image1.png"></figure>
+<p>&nbsp;</p>
+<p>Completada la actualización, se pueden ver en detalle los logs en la ruta&nbsp;</p>
+<pre><code class="language-plaintext">/usr/share/co3/logs/</code></pre>
+<p>&nbsp;</p>
+<h3><strong>Rollback</strong></h3>
+<p>En caso de que el update falle y sea necesario realizar un rollback de la aplicación se puede realizar siguiendo el siguiente procedimiento.</p>
+<p>Obtener el identificador del paquete con el comando</p>
+<pre><code class="language-plaintext">sudo yum history</code></pre>
+<p>Una vez se dispone del ID es posible lanzar el rollback con el siguiente comando:</p>
+<pre><code class="language-plaintext">sudo /crypt/resRollbackServerUpgrade /crypt/db_restore_points/before-upgrade-xx.x.xxxx-&lt;date&gt; &lt;yum_ID&gt;</code></pre>
+<p>&nbsp;</p>
+<h2><i><strong>Actualización de servidor de aplicaciones SOAR</strong></i></h2>
+<p>Una vez actualizado el servidor principal del SOAR se debe actualizar el servidor de aplicaciones.</p>
+<p>En primer lugar se deberá revisar la versión actual, para ello lanzar el siguiente comando&nbsp;</p>
+<pre><code class="language-plaintext">sudo manageAppHost --version</code></pre>
+<p>Una vez revisada instalar los paquetes de actualizaciones de seguridad, que serían los siguientes:</p>
+<ul>
+  <li>apphost-security-update-XX.X.XXXX.run</li>
+  <li>apphost-optional-packages-repo-XX.X.XXXX.run</li>
+</ul>
+<p>Para ello ejecutar el fichero .run con bash, por ejemplo:</p>
+<pre><code class="language-plaintext">sudo bash PACKAGENAME.run</code></pre>
+<p>Una vez aplicados los updates de seguridad se procederá con el update del servidor soar.</p>
+<blockquote>
+  <p><strong>NOTA</strong>: Es posible que incluya actualizaciones de kernel, en ese caso, será necesario reiniciar el servidor.</p>
+</blockquote>
+<p>Para el proceso de actualización lanzar el fichero apphost-XX.X.XXXX.run y el proceso de instalación se encargará de realizar los pasos necesarios.</p>
+<pre><code class="language-plaintext">sudo bash apphost-XX.X.XXXX.run</code></pre>
+<p>&nbsp;</p>
+<p>A continuación se muestra en una captura el proceso de actualización del mismo:</p>
+<figure class="image"><img src="/sec/sto/platforms/ibm-soar/ibm-soar-update-software-image2.png"></figure>
+<p>&nbsp;</p>
+<p>Una vez completado el proceso de actualización, es necesario actualizar los contenedores existentes, para ello lanzar el siguiente comando:</p>
+<pre><code class="language-plaintext">sudo manageAppHost upgrade</code></pre>
+<p>Completados los pasos revisar que todo funciona correctamente antes de dar por válida la actualización.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
