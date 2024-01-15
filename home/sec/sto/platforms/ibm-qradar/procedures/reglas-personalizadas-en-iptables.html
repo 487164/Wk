@@ -1,0 +1,37 @@
+<!--
+title: Reglas personalizadas en iptables
+description: 
+published: true
+date: 2024-01-15T09:50:41.100Z
+tags: sm, soc, qradar, lm, ibm, procedure
+editor: ckeditor
+dateCreated: 2024-01-15T09:50:41.100Z
+-->
+
+<h1 style="text-align:center;">Reglas personalizadas en iptables</h1>
+<p>&nbsp;</p>
+<p>Para añadir reglas custom en la configuración de iptables de una instancia de QRadar el procedimiento a realizar deberá ser el siguiente.</p>
+<p>En caso de querer cargar reglas previas a las reglas por defecto de QRadar se deberán añadir sobre el fichero:</p>
+<p><code>/opt/qradar/conf/iptables.pre</code></p>
+<p>En caso de querer cargar reglas posteriores a las configuradas por defecto por QRadar se deberán de añadir al fichero:</p>
+<p><code>/opt/qradar/conf/iptables.post</code></p>
+<p>El formato para añadir la misma deberá ser el comando completo de iptables exceptuando la llamada al binario del mismo, a continuación se muestra un ejemplo:</p>
+<p><code>-A chain firewall-rule</code></p>
+<p>Una vez añadidas las reglas necesarias se deberá ejecutar el siguiente script:</p>
+<p><code>/opt/qradar/bin/iptables_update.pl</code></p>
+<p>El anterior script validará que las reglas añadidas son correctas y, una vez validadas, las aplicará a la configuración actual de forma persistente.</p>
+<p>&nbsp;</p>
+<h2><i><strong>Configuración actual</strong></i></h2>
+<p>&nbsp;</p>
+<p>A continuación se indican las reglas añadidas en cada uno de los hosts.</p>
+<p>&nbsp;</p>
+<h4><strong>zgz-qradar-ec-01</strong></h4>
+<p>Las reglas añadidas en la instancia son las siguientes:</p>
+<p><code>-A INPUT -m state --state NEW -m tcp -p tcp --dport 22 -j ACCEPT --src 192.168.188.9</code></p>
+<p><code>-A INPUT -m state --state NEW -m tcp -p tcp --dport 22 -j ACCEPT --src 192.168.188.29</code></p>
+<p><code>-A INPUT -p icmp --icmp-type echo-request -j ACCEPT --src 192.168.188.9</code></p>
+<p><code>-A INPUT -p icmp --icmp-type echo-request -j ACCEPT --src 192.168.188.1</code></p>
+<p><code>-A INPUT -p icmp --icmp-type echo-request -j ACCEPT --src 192.168.188.2</code></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
