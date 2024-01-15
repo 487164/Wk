@@ -1,0 +1,90 @@
+<!--
+title: Instalación y despliegue
+description: 
+published: true
+date: 2024-01-15T15:43:25.432Z
+tags: soc, cve, opencve, vm, vulnerabilities
+editor: ckeditor
+dateCreated: 2024-01-15T15:43:25.432Z
+-->
+
+<h1 style="text-align:center;"><strong>Instalación y despliegue</strong></h1>
+<p>&nbsp;</p>
+<h2><i><strong>Instalación entorno</strong></i></h2>
+<p>Para la instalación de OpenCVE en primer lugar se necesitará la instalación de docker, para ello descargamos en primer lugar el repositorio de docker&nbsp;</p>
+<pre><code class="language-plaintext">sudo dnf config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo</code></pre>
+<blockquote>
+  <p><strong>NOTA: Antes de continuar y para evitar males mayores, es recomendable, utilizar un punto de montaje diferente al raíz para la ruta de almacenamiento de temporales de docker, esta se encuentra en la ruta /var/lib/docker&nbsp;</strong></p>
+</blockquote>
+<p>Y posteriormente instalamos el mismo</p>
+<pre><code class="language-plaintext">sudo dnf install docker-ce</code></pre>
+<p>Una vez hecho se deberá crear la siguiente estructura</p>
+<ul>
+  <li>/data<ul>
+      <li>opencve</li>
+      <li>tools</li>
+    </ul>
+  </li>
+</ul>
+<p>&nbsp;</p>
+<h2><i><strong>Despliegue inicial</strong></i></h2>
+<p>En primer lugar será descargar el código del repositorio</p>
+<p>Ir al directorio /data/tools y descargar con el comando</p>
+<pre><code class="language-plaintext">git clone https://github.com/opencve/opencve-docker.git</code></pre>
+<p>En caso de existir el directorio opencve en el repositorio de Threat-intelligence hacer un enlace al mismo</p>
+<pre><code class="language-plaintext">ln -sfvn /opt/espublico/Vulnerability-mgmt/opencve/ /data/opencve/docker</code></pre>
+<p>En caso contrario crear la carpeta docker</p>
+<pre><code class="language-plaintext">mkdir /data/opencve/docker</code></pre>
+<p>Y copiar dentro los ficheros siguientes del repositorio de git descargado</p>
+<ul>
+  <li>docker-compose.yml</li>
+  <li>Dockerfile</li>
+  <li>run.sh</li>
+  <li>.env.sample</li>
+  <li>conf/opencve.cfg.sample</li>
+</ul>
+<p>&nbsp;</p>
+<p>Modificar el fichero .env con las variables necesarias para la correcta configuración del entorno, en caso de quere modificar la password por defecto de postgres añadir en el mismo la variable</p>
+<pre><code class="language-plaintext">POSTGRES_PASSWORD=”your password”</code></pre>
+<p>Completada esta parte copiar el fichero de configuración y el de variables de entorno:</p>
+<pre><code class="language-plaintext">cp conf/opencve.cfg.sample conf/opencve.cfg
+cp .env.sample .env</code></pre>
+<p>Y editar acorde al entorno configurado.</p>
+<p>&nbsp;</p>
+<p>Una vez configurado construir la imagen desde el directorio donde están los ficheros</p>
+<pre><code class="language-plaintext">cd /data/opencve/docker
+docker compose build</code></pre>
+<p>&nbsp;</p>
+<p>Levantar todos los contenedores excepto el beat</p>
+<pre><code class="language-plaintext">docker compose up -d postgres redis webserver celery_worker</code></pre>
+<p>Inicializamos la base de datos</p>
+<pre><code class="language-plaintext">docker exec -ti webserver opencve upgrade-db</code></pre>
+<p>Importación de datos inicial</p>
+<pre><code class="language-plaintext">docker exec -ti webserver opencve import-data</code></pre>
+<p>Creación de cuenta de admin</p>
+<pre><code class="language-plaintext">docker exec -ti webserver opencve create-user name name@mail.com –admin</code></pre>
+<p>Y finalmente iniciamos el beat</p>
+<pre><code class="language-plaintext">docker compose up -d celery_beat</code></pre>
+<p>&nbsp;</p>
+<h2><i><strong>Actualización de contenedores</strong></i></h2>
+<p>La actualización de los contenedores se deberá basar en la proporcionada por opencve, es decir, se deberá revisar el fichero docker-compose del repositorio para chequear los cambios en el código tanto en los contenedores propios de opencve como de los externos (redis y postgres) para asegurar un correcto funcionamiento de la aplicación.</p>
+<p>En caso de ser necesario actualizar las versiones modificar la versión de opencve en el fichero .env en caso de ser un update de opencve.</p>
+<blockquote>
+  <p><strong>NOTA</strong>: Revisar además de la versión si existe algún cambio en la configuración de los contenedores y aplicarlo si procede.</p>
+</blockquote>
+<blockquote>
+  <p><strong>NOTA</strong>: en caso de realizarse un cambio en el fichero opencve.cfg el proceso sería el mismo que si se aplicase un update.</p>
+</blockquote>
+<p>En caso de ser un update de los contenedores externos como redis o postgres, el cambio de versión deberá de aplicarse en el fichero docker-compose.</p>
+<p>Una vez aplicados los cambios reconstruir la imagen de opencve</p>
+<pre><code class="language-plaintext">docker compose build --no-cache</code></pre>
+<p>Y desplegar los contenedores que correspondan</p>
+<p>En el caso de opencve</p>
+<pre><code class="language-plaintext">docker compose up -d webserver celery_worker celery_beat</code></pre>
+<p>En el caso de redis</p>
+<pre><code class="language-plaintext">docker compose up -d redis</code></pre>
+<p>En el caso de postgres</p>
+<pre><code class="language-plaintext">docker compose up -d postgres </code></pre>
+<p>Para levantar el entorno se puede lanzar también el script launch-compose en el mismo directorio.</p>
+<pre><code class="language-plaintext">./launch-compose.sh</code></pre>
+<p>&nbsp;</p>
