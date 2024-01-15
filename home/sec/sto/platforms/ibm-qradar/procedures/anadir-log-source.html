@@ -1,0 +1,64 @@
+<!--
+title: Añadir log source
+description: 
+published: true
+date: 2024-01-15T12:42:01.025Z
+tags: sm, soc, qradar, lm, ibm, procedure
+editor: ckeditor
+dateCreated: 2024-01-15T12:42:01.025Z
+-->
+
+<h1 style="text-align:center;"><strong>Añadir log source</strong></h1>
+<p>&nbsp;</p>
+<p>En QRadar, un log source es un tipo de log enviado por un servidor al SIEM por lo que se deberá de crear uno por cada uno de los tipos de logs que envíe dicho servidor. Por ejemplo, en caso de que un servidor envíe logs de sistema linux, de envío de mails por postfix y además tenga un mysql instalado se deberán de crear 3 log sources.</p>
+<ul>
+  <li>Log source -&gt; Linux OS</li>
+  <li>Log source -&gt; PostfixMailService</li>
+  <li>Log source -&gt; MySQL Audit</li>
+</ul>
+<p>&nbsp;</p>
+<p>No obstante, es posible dejar que el propio QRadar realice la creación de estos log sources para lo cual es necesario que se envien un mínimo de 1000 eventos del tipo en cuestión.</p>
+<p>Además para la correcta identificación y parseo de los diferentes campos, independientemente de cual sea el método de creación, se deberá añadir la extensión apropiada al tipo de Log source del servidor.</p>
+<p>Para añadir un log source nuevo se deberán de realizar los siguientes pasos.</p>
+<p>Acceder a la administración a la sección de “Log sources” y se abrirá una nueva pestaña en el navegador. Se deberá marcar la opción log sources para acceder al panel:</p>
+<figure class="image"><img src="/sec/sto/platforms/ibm-qradar/procedures/ibm-qradar-add-logsource-image1.png"></figure>
+<p>&nbsp;</p>
+<figure class="image"><img src="/sec/sto/platforms/ibm-qradar/procedures/ibm-qradar-add-logsource-image3.png"></figure>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>Para añadir un nuevo log source se deberá pinchar en el botón “+New Log Source” y abrirá una ventana nueva donde permitirá indicar si se quiere crear uno o varios:</p>
+<figure class="image"><img src="/sec/sto/platforms/ibm-qradar/procedures/ibm-qradar-add-logsource-image2.png"></figure>
+<p>&nbsp;</p>
+<p>Seleccionar la opción adecuada y por medio de un siguiente, siguiente se deberá seleccionar:</p>
+<ol>
+  <li>El tipo de “Log source”</li>
+  <li>El método de envío de logs a QRadar (deberá ser syslog en la mayoría de casos)</li>
+  <li>Aparecerá un panel donde se deberá indicar los datos del log source creado<ol>
+      <li>Name -&gt; por seguir un estándar deberá ser {LOG_SOURCE_TYPE} @ {FQDN}</li>
+      <li>Description -&gt; descripción del servidor (opcional)</li>
+      <li>Enabled -&gt; si lo habilitamos o simplemente queremos dejarlo creado</li>
+      <li>Groups -&gt; seleccionar el grupo al cual pertenece el host (en caso de faltar grupos indicarlo a un administrador para que cree los mismos)</li>
+      <li>Extension -&gt; seleccionar la extensión perteneciente al log_source_type escogido (en caso de faltar alguna extensión indicarlo a un administrador)</li>
+      <li>Language -&gt; English (dejar la opción por defecto)</li>
+      <li>Target Event Collector -&gt;&nbsp; eventcollector0 (dejar la opción por defecto)</li>
+      <li>Credibility -&gt; nivel de credibilidad que le asigna qradar. Marcar valores entre 8 y 10 (esta credibilidad se puede ajustar posteriormente a la hora de crear alertas)</li>
+      <li>Coalescing Events -&gt; marcar si se quiere que qradar autoagrupe logs similares</li>
+      <li>Store Event Payloads -&gt; marcar para que se almacene en ddbb el payload original independientemente de los parseos que se realicen sobre el mismo (marcar siempre)</li>
+    </ol>
+  </li>
+  <li>Solicitará dos campos<ol>
+      <li>Incoming Payload Encoding&nbsp; -&gt; codificación del payload (dejar en UTF8, valor por defecto)</li>
+      <li>Log Source Identifier -&gt; en caso de crear multiples log sources de vez esta opción aparecerá en un 5 paso.</li>
+    </ol>
+  </li>
+</ol>
+<p>&nbsp;</p>
+<p>Se deberá indicar el fqdn del servidor o, un valor identificativo que aparezca en todos los logs a fin de que qradar pueda detectar la pertenencia de los mismos.</p>
+<p>En caso de crear múltiples log sources se puede añadir un fichero .csv indicando un identificador por línea para su creación.</p>
+<p>Completados los pasos de creación se deberá acceder a la administración y se observará que hay cambios sin desplegar:</p>
+<figure class="image"><img src="/sec/sto/platforms/ibm-qradar/procedures/ibm-qradar-add-logsource-image4.png"></figure>
+<p>&nbsp;</p>
+<p>Se deberán desplegar los mismos para que se complete la creación del/los log sources y poder empezar a recibir logs de los servidores añadidos.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
