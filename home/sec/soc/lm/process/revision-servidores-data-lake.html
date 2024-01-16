@@ -1,0 +1,47 @@
+<!--
+title: Revisión servidores data lake
+description: 
+published: true
+date: 2024-01-16T10:08:49.690Z
+tags: soc, lm, revision, datalake
+editor: ckeditor
+dateCreated: 2024-01-16T10:08:49.690Z
+-->
+
+<h1 style="text-align:center;">Revisión servidores data lake</h1>
+<p>&nbsp;</p>
+<p>A continuación se detallan los procesos a realizar para la revisión de las diferentes partes vitales de los servidores de data lake.</p>
+<p>&nbsp;</p>
+<h2><strong>Revisión del rotado de logs</strong></h2>
+<p>Revisar en el servidor que el rotado se ha realizado correctamente.</p>
+<p>Para ello verificar que no hay errores en el fichero de status de logrotate, que se encuentra en la siguiente ruta:</p>
+<pre><code class="language-plaintext">/var/lib/logrotate/logrotate.status</code></pre>
+<p>&nbsp;</p>
+<h2><strong>Revisión del cifrado de logs</strong></h2>
+<p>Revisar en el log generado durante el proceso de cifrado que no hay errores en el cifrado de los ficheros. Los logs se encuentran en la ruta</p>
+<pre><code class="language-plaintext">/var/log/logarchive/logarchive-{DL|QRADAR}.log</code></pre>
+<p>En caso de fallo deberá aparecer una línea similar a la siguiente:</p>
+<pre><code class="language-plaintext">TimeStamp Verification: FAILED</code></pre>
+<p>&nbsp;</p>
+<h2><strong>Revisión de directorios creados durante el reenvío</strong></h2>
+<p>Revisar que no se han creado directorios inválidos durante el proceso de reenvío de logs desde qradar al datalake.</p>
+<p>Para ello acceder a cada uno de los directorios de escucha del rsyslog, que todos estarán colgados bajo los directorios:</p>
+<pre><code class="language-plaintext">/data/rw-data-lake/rsyslog/plain</code></pre>
+<p>En caso de que exista algún directorio creado a partir de un nombre de servidor erróneo, mover el mismo al directorio siguiente con el fin de revisar posteriormente y evitar que se pudiese cifrar por error.</p>
+<pre><code class="language-plaintext">/data/rw-data-lake/rsyslog/plain/tocheck</code></pre>
+<p>En caso de existir muchos directorios hay un script en la siguiente ruta&nbsp;</p>
+<pre><code class="language-plaintext">/opt/scripts/datalake/clean-plain-error-folders.sh</code></pre>
+<p>para automatizar este proceso, una vez lanzado, verificar en el directorio tocheck que los logs movidos son realmente errores.</p>
+<blockquote>
+  <p><strong>NOTA</strong>:<strong> </strong>No lanzar el último script si no es necesario y, en caso de lanzarlo, verificar que no ha movido ningún directorio por error. Es posible que algún host, como ocurre con algún switch, almacene en un directorio con el año actual como nombre</p>
+</blockquote>
+<p>&nbsp;</p>
+<h2><strong>Revisión de sincronización con bucket</strong></h2>
+<p>Revisar en el log situado en la siguiente ruta que no hay errores durante el proceso de sincronización</p>
+<pre><code class="language-plaintext">/var/log/s3logsync/s3logsync.log</code></pre>
+<p>Debería aparecer un mensaje similar al siguiente:</p>
+<pre><code class="language-plaintext">Total files processed with errors: 0</code></pre>
+<blockquote>
+  <p><strong>NOTA</strong>: Es posible que según la hora a la que se revise el proceso no haya terminado. Para ello buscar el proceso del script zs3logsync-current.sh</p>
+</blockquote>
+<p>&nbsp;</p>
