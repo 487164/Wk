@@ -1,0 +1,84 @@
+<!--
+title: Gestión de tareas
+description: 
+published: true
+date: 2024-01-16T10:14:01.437Z
+tags: soc, lm, gestion, siem, tareas
+editor: ckeditor
+dateCreated: 2024-01-16T10:14:01.437Z
+-->
+
+<h1 style="text-align:center;">Gestión de tareas</h1>
+<p>&nbsp;</p>
+<p>A continuación se detallan los flujos de tareas para el servicio de Log Management</p>
+<p>&nbsp;</p>
+<h2><strong>Herramientas de ticketing</strong></h2>
+<p>La herramienta elegida para la gestión del servicio es RT, <a href="https://soporte.iubaris.com">disponible en la siguiente url.</a></p>
+<p>&nbsp;</p>
+<h2><strong>Colas asignadas al servicio</strong></h2>
+<p>El servicio dispone de las siguientes colas y características:</p>
+<ul>
+  <li>Nombre: SD-SOC-Log_Management</li>
+  <li>Correo: rt_soc_lm@soporte.espublico.it</li>
+  <li>Grupo de Permisos:<ul>
+      <li>Acceso y comentarios: Seguridad</li>
+      <li>Gestión de la cola: SD-SOC-Log_magement-Operadores</li>
+    </ul>
+  </li>
+  <li>TAG: [SOC_LM]</li>
+</ul>
+<p>&nbsp;</p>
+<h2><strong>Generación de Tickets</strong></h2>
+<p>Los tickets se generarán directamente desde la plataforma o enviando correo al buzón asignado a la cola.</p>
+<p>El asunto debe cumplir la siguiente nomenclatura:</p>
+<p>[Tipo de tarea]-[Periodicidad]:Descripción</p>
+<p>Para las tareas recurrentes se añadirá al final de la descripción la fecha en formato dd-MM-yyyy.</p>
+<p>Ejemplo de solicitud: [REP]: Nuevo report para controles VPN</p>
+<p>Ejemplo de tareas recurrentes: [REV]-[D]: Revisión de salud de los event collector 10-02-2022</p>
+<p>Cualquier solicitud que no se ajuste a los TAGs definidos podrán ser abiertos con el TAG [OTRAS].</p>
+<p>&nbsp;</p>
+<h2><strong>TAGs para Tickets:</strong></h2>
+<ul>
+  <li>Tipo de tarea(Obligatorio):<ul>
+      <li>Nueva Regla de Ofensas: [NOR](New Offense Rule)</li>
+      <li>Nueva Regla de eventos: [NER](New Event Rule)</li>
+      <li>Nueva Regla común:[NCR](New Common Rule)</li>
+      <li>Nuevo Building-Block:[NBB](New Building Block)</li>
+      <li>Nuevo Reference Set:[NRS](New Reference Set)</li>
+      <li>Nueva Fuente de Eventos:[NLS](New Log Source)</li>
+      <li>Cambio en Fuentes de Eventos: [CLS] (Change Log Source)</li>
+      <li>======================================</li>
+      <li>======AÑADIR TIPOS DE Reference Sets=====</li>
+      <li>======================================</li>
+      <li>Nuevo DSM: [NDSM]</li>
+      <li>Cambios en DSM: [DSMC]</li>
+      <li>Ajustes en reglas: [RLC](Rule Logic Change)</li>
+      <li>Desactivar una regla: [DIS] (Disable)</li>
+      <li>Cambios de grupos de reglas: [CGR] (Change Group Rules)</li>
+      <li>Modificación de Reference Set: [RSC](Reference Set Change)</li>
+      <li>Cambio</li>
+      <li>Informes: [REP]</li>
+      <li>Incidencia: [INC]</li>
+      <li>Integración: [INT]</li>
+      <li>Peticiones de usuarios o roles:[RBAC]</li>
+      <li>Aplicaciones o Plugins: [APP]</li>
+      <li>Updates de Aplicaciones o plugins: [APP_UPD]</li>
+      <li>Updates de FIXPACKS: [FP_UPD]</li>
+      <li>KPIs: [KPI]</li>
+      <li>Rule Name Change: [RNC]</li>
+      <li>Otras: [OTRAS]</li>
+    </ul>
+  </li>
+  <li>Periodicidad (Solo para tareas recurrentes):<ul>
+      <li>Diario:[D]</li>
+      <li>Semanal:[W]</li>
+      <li>Quincenal: [B]</li>
+      <li>Mensual: [M]</li>
+      <li>Trimestral:[3M]</li>
+      <li>Cuatrimestral:[4M]</li>
+      <li>Semestral:[6M]</li>
+      <li>Anual:[Y]</li>
+    </ul>
+  </li>
+</ul>
+<p>&nbsp;</p>
