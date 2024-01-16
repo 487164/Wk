@@ -1,0 +1,55 @@
+<!--
+title: Envío logs Apache
+description: 
+published: true
+date: 2024-01-16T11:18:44.614Z
+tags: soc, lm, linux, logs, syslog, apache
+editor: ckeditor
+dateCreated: 2024-01-16T11:18:44.614Z
+-->
+
+<h1 style="text-align:center;">Envío logs Apache</h1>
+<p>&nbsp;</p>
+<p>Para el envío de logs de apache a QRadar será necesario realizar varios pasos.</p>
+<p>&nbsp;</p>
+<h2>Configuración Apache</h2>
+<p>En primer lugar configurar un LogFormat en el fichero httpd.conf añadiendo al mismo la siguiente línea</p>
+<pre><code class="language-plaintext">LogFormat "%h %A %l %u %t \"%r\" %&gt;s %p %b %v \"%{Referer}i\" \"%{User-Agent}i\"" qradar</code></pre>
+<p>Posteriormente añadir la siguiente línea en aquellos virtualhost que se desee enviar los eventos</p>
+<pre><code class="language-plaintext">CustomLog "|/usr/bin/logger -t httpd -p local7.info" qradar</code></pre>
+<p>Realizados estos pasos verificar que la sintaxis de apache es correcta</p>
+<pre><code class="language-plaintext">apachectl configtest</code></pre>
+<p>Si todo OK, recargar/reiniciar el servicio</p>
+<pre><code class="language-plaintext">systemctl restart httpd
+service httpd restart</code></pre>
+<p>&nbsp;</p>
+<h2>Configuración rsyslog</h2>
+<p>Una vez aplicados los cambios añadir el siguiente fichero al rsyslog en la ruta /etc/rsyslog.d</p>
+<pre><code class="language-plaintext">/etc/rsyslog.d/40.0-iubaris-httpd.conf</code></pre>
+<p>Con el siguiente contenido:</p>
+<pre><code class="language-plaintext">## Save httpd general log.
+local7.* /var/log/httpd/syslog-general.log
+## And discard processed messages.
+&amp; stop</code></pre>
+<p>Verificar que la configuración es correcta</p>
+<pre><code class="language-plaintext">rsyslogd -N1</code></pre>
+<p>Una vez añadido reiniciar el servicio de syslog para que envíe los eventos</p>
+<pre><code class="language-plaintext">systemctl restart rsyslog
+service rsyslog restart</code></pre>
+<p>&nbsp;</p>
+<h2>Configuración logrotate</h2>
+<p>Y como último paso añadir fichero logrotate para que realice el rotado de logs.</p>
+<p>Crear el fichero /etc/logrotate.d/40.0-espublico-qradar-apache.conf con el siguiente contenido</p>
+<pre><code class="language-plaintext">/var/log/httpd/syslog-general.log {
+daily
+rotate 1
+missingok
+notifempty
+compress
+sharedscripts
+postrotate
+ &nbsp;&nbsp;          /bin/kill -HUP `cat /var/run/syslogd.pid 2&gt; /dev/null` 2&gt; /dev/null || true
+endscript
+}</code></pre>
+<p>Completados los pasos avisar al equipo de seguridad para que verifique si recibe correctamente los eventos relacionados con el servicio.</p>
+<p>&nbsp;</p>
