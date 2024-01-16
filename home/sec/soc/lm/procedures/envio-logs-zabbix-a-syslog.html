@@ -1,0 +1,206 @@
+<!--
+title: Envío logs zabbix a syslog
+description: 
+published: true
+date: 2024-01-16T11:11:05.732Z
+tags: soc, lm, linux, logs, zabbix, syslog
+editor: ckeditor
+dateCreated: 2024-01-16T11:11:05.732Z
+-->
+
+<h1 style="text-align:center;"><strong>Envío logs zabbix a syslog</strong></h1>
+<p>&nbsp;</p>
+<h2><i><strong>Envío alertas a syslog</strong></i></h2>
+<p>Se ha configurado un script en python para la realización de esta acción en el servidor zabbix.iubaris.com en la ruta</p>
+<pre><code class="language-plaintext">/opt/iubaris/iubaris-zabbix40/root/usr/share/zabbix/alertscripts/zabbix2syslog.py</code></pre>
+<p>Este mismo script está también almacenado en el repositorio Security-monitoring del dpto de seguridad.</p>
+<p>Para la configuración del envío de alertas se han realizado varias acciones:</p>
+<ul>
+  <li>Creación de un media type en Zabbix que ejecute el script con los parámetros necesarios.</li>
+  <li>Creación de un Action en Zabbix de tipo trigger que ejecute el script cuando salte una alerta.</li>
+  <li>Creación del usuario “soc” en Zabbix configurando en el mismo el script mencionado como notificación.</li>
+</ul>
+<p>A continuación se detallan los puntos descritos.</p>
+<p>&nbsp;</p>
+<h3><strong>Creación media type</strong></h3>
+<p>Para la creación del media type se debe acceder a la sección&nbsp;</p>
+<p>Administration -&gt; Media Types</p>
+<p>Se deberá crear un nuevo media type con los siguientes valores:</p>
+<ul>
+  <li>Name -&gt; Zabbix2Syslog</li>
+  <li>Type -&gt; Script</li>
+  <li>Script Name -&gt; zabbix2syslog.py (el script deberá estar en la ruta definida en la variable AlertScriptsPath y disponer de permisos de ejecución para el usuario zabbix)</li>
+  <li>Script Parameters -&gt; necesitará 4 parámetros de forma obligatoria y un 5 opcional. Los logs serán enviados por tcp al puerto indicado en los parámetros.</li>
+</ul>
+<ol>
+  <li>Mensaje -&gt; {ALERT.MESSAGE}</li>
+  <li>Asunto -&gt; {ALERT.SUBJECT}</li>
+  <li>IP o DNS del colector de qradar</li>
+  <li>Puerto de syslog al cual enviar los logs</li>
+  <li>[Optional] Fichero en el sistema para almacenar los logs&nbsp;</li>
+</ol>
+<ul>
+  <li>Enable -&gt; Yes</li>
+</ul>
+<p>&nbsp;</p>
+<h3><strong>Creación de la acción</strong></h3>
+<p>Para la creación de la action se debe acceder a la sección:</p>
+<p>&nbsp;Configuration -&gt; Actions</p>
+<p>Se deberá crear una nueva action del tipo trigger, esta dispone de 4 secciones que se explican a continuación:</p>
+<p><strong>Action</strong>&nbsp;</p>
+<ul>
+  <li>Name -&gt; Alerts2Syslog</li>
+  <li>Conditions -&gt; Problem is not suppressed</li>
+  <li>Enabled -&gt; Yes</li>
+</ul>
+<p>&nbsp;</p>
+<p><strong>Operation</strong></p>
+<ul>
+  <li>Default operation step duration -&gt; 1h</li>
+  <li>Default subject -&gt; problem</li>
+  <li>Default message -&gt; el siguiente json</li>
+</ul>
+<pre><code class="language-plaintext">{
+"zabbix_url": "127.0.0.1",
+"trigger_hostgroup_name": "{TRIGGER.HOSTGROUP.NAME}",
+"event_recovery_time": "{EVENT.RECOVERY.TIME}",
+"trigger_events_problem_ack": "{TRIGGER.EVENTS.PROBLEM.ACK}",
+"event_recovery_value": "{EVENT.RECOVERY.VALUE}",
+"host_ip": "{HOST.IP}",
+"trigger_state": "{TRIGGER.STATE}",
+"trigger_template_name": "{TRIGGER.TEMPLATE.NAME}",
+"event_status": "{EVENT.STATUS}",
+"event_value": "{EVENT.VALUE}",
+"event_time": "{EVENT.TIME}",
+"trigger_status": "{TRIGGER.STATUS}",
+"event_id": "{EVENT.ID}",
+"event_tags": "{EVENT.TAGS}",
+"event_date": "{EVENT.DATE}",
+"action_id": "{ACTION.ID}",
+"trigger_url": "{TRIGGER.URL}",
+"trigger_nseverity": "{TRIGGER.NSEVERITY}",
+"trigger_problem_events_problem_ack": "{TRIGGER.PROBLEM.EVENTS.PROBLEM.ACK}",
+"event_age": "{EVENT.AGE}",
+"trigger_id": "{TRIGGER.ID}",
+"action_name": "{ACTION.NAME}",
+"event_recovery_id": "{EVENT.RECOVERY.ID}",
+"trigger_events_problem_unack": "{TRIGGER.EVENTS.PROBLEM.UNACK}",
+"date": "{DATE}",
+"trigger_name": "{TRIGGER.NAME}",
+"event_ack_status": "{EVENT.ACK.STATUS}",
+"trigger_events_unack": "{TRIGGER.EVENTS.UNACK}",
+"event_recovery_date": "{EVENT.RECOVERY.DATE}",
+"trigger_problem_events_problem_unack": "{TRIGGER.PROBLEM.EVENTS.PROBLEM.UNACK}",
+"trigger_events_ack": "{TRIGGER.EVENTS.ACK}",
+"host_name": "{HOST.NAME}",
+"time": "{TIME}",
+"event_recovery_tags": "{EVENT.RECOVERY.TAGS}",
+"event_recovery_status": "{EVENT.RECOVERY.STATUS}",
+"trigger_description": "{TRIGGER.DESCRIPTION}",
+"trigger_value": "{TRIGGER.VALUE}"
+}</code></pre>
+<ul>
+  <li>Pause operations for suppressed problems -&gt; Yes</li>
+  <li>Operations -&gt; Enviar mensaje al usuario a través del media type creado anteriormente (el usuario debe tener creada la notificación de ese tipo para que pueda funcionar)</li>
+</ul>
+<p>&nbsp;</p>
+<p><strong>Recovery operations</strong></p>
+<ul>
+  <li>Default subject -&gt; resolved</li>
+  <li>Default message -&gt; el siguiente json</li>
+</ul>
+<pre><code class="language-plaintext">{
+"zabbix_url": "127.0.0.1",
+"trigger_hostgroup_name": "{TRIGGER.HOSTGROUP.NAME}",
+"event_recovery_time": "{EVENT.RECOVERY.TIME}",
+"trigger_events_problem_ack": "{TRIGGER.EVENTS.PROBLEM.ACK}",
+"event_recovery_value": "{EVENT.RECOVERY.VALUE}",
+"host_ip": "{HOST.IP}",
+"trigger_state": "{TRIGGER.STATE}",
+"trigger_template_name": "{TRIGGER.TEMPLATE.NAME}",
+"event_status": "{EVENT.STATUS}",
+"event_value": "{EVENT.VALUE}",
+"event_time": "{EVENT.TIME}",
+"trigger_status": "{TRIGGER.STATUS}",
+"event_id": "{EVENT.ID}",
+"event_tags": "{EVENT.TAGS}",
+"event_date": "{EVENT.DATE}",
+"action_id": "{ACTION.ID}",
+"trigger_url": "{TRIGGER.URL}",
+"trigger_nseverity": "{TRIGGER.NSEVERITY}",
+"trigger_problem_events_problem_ack": "{TRIGGER.PROBLEM.EVENTS.PROBLEM.ACK}",
+"event_age": "{EVENT.AGE}",
+"trigger_id": "{TRIGGER.ID}",
+"action_name": "{ACTION.NAME}",
+"event_recovery_id": "{EVENT.RECOVERY.ID}",
+"trigger_events_problem_unack": "{TRIGGER.EVENTS.PROBLEM.UNACK}",
+"date": "{DATE}",
+"trigger_name": "{TRIGGER.NAME}",
+"event_ack_status": "{EVENT.ACK.STATUS}",
+"trigger_events_unack": "{TRIGGER.EVENTS.UNACK}",
+"event_recovery_date": "{EVENT.RECOVERY.DATE}",
+"trigger_problem_events_problem_unack": "{TRIGGER.PROBLEM.EVENTS.PROBLEM.UNACK}",
+"trigger_events_ack": "{TRIGGER.EVENTS.ACK}",
+"host_name": "{HOST.NAME}",
+"time": "{TIME}",
+"event_recovery_tags": "{EVENT.RECOVERY.TAGS}",
+"event_recovery_status": "{EVENT.RECOVERY.STATUS}",
+"trigger_description": "{TRIGGER.DESCRIPTION}",
+"trigger_value": "{TRIGGER.VALUE}"
+}</code></pre>
+<ul>
+  <li>Operations -&gt; Enviar mensaje al usuario a través del media type creado anteriormente (el usuario debe tener creada la notificación de ese tipo para que pueda funcionar)</li>
+</ul>
+<p>&nbsp;</p>
+<p><strong>Update operations</strong></p>
+<ul>
+  <li>Default subject -&gt; update</li>
+  <li>Default message -&gt; el siguiente json</li>
+</ul>
+<pre><code class="language-plaintext">{
+"zabbix_url": "127.0.0.1",
+"trigger_hostgroup_name": "{TRIGGER.HOSTGROUP.NAME}",
+"event_recovery_time": "{EVENT.RECOVERY.TIME}",
+"trigger_events_problem_ack": "{TRIGGER.EVENTS.PROBLEM.ACK}",
+"event_recovery_value": "{EVENT.RECOVERY.VALUE}",
+"host_ip": "{HOST.IP}",
+"trigger_state": "{TRIGGER.STATE}",
+"trigger_template_name": "{TRIGGER.TEMPLATE.NAME}",
+"event_status": "{EVENT.STATUS}",
+"event_value": "{EVENT.VALUE}",
+"event_time": "{EVENT.TIME}",
+"trigger_status": "{TRIGGER.STATUS}",
+"event_id": "{EVENT.ID}",
+"event_tags": "{EVENT.TAGS}",
+"event_date": "{EVENT.DATE}",
+"action_id": "{ACTION.ID}",
+"trigger_url": "{TRIGGER.URL}",
+"trigger_nseverity": "{TRIGGER.NSEVERITY}",
+"trigger_problem_events_problem_ack": "{TRIGGER.PROBLEM.EVENTS.PROBLEM.ACK}",
+"event_age": "{EVENT.AGE}",
+"trigger_id": "{TRIGGER.ID}",
+"action_name": "{ACTION.NAME}",
+"event_recovery_id": "{EVENT.RECOVERY.ID}",
+"trigger_events_problem_unack": "{TRIGGER.EVENTS.PROBLEM.UNACK}",
+"date": "{DATE}",
+"trigger_name": "{TRIGGER.NAME}",
+"event_ack_status": "{EVENT.ACK.STATUS}",
+"trigger_events_unack": "{TRIGGER.EVENTS.UNACK}",
+"event_recovery_date": "{EVENT.RECOVERY.DATE}",
+"trigger_problem_events_problem_unack": "{TRIGGER.PROBLEM.EVENTS.PROBLEM.UNACK}",
+"trigger_events_ack": "{TRIGGER.EVENTS.ACK}",
+"host_name": "{HOST.NAME}",
+"time": "{TIME}",
+"event_recovery_tags": "{EVENT.RECOVERY.TAGS}",
+"event_recovery_status": "{EVENT.RECOVERY.STATUS}",
+"trigger_description": "{TRIGGER.DESCRIPTION}",
+"trigger_value": "{TRIGGER.VALUE}"
+}</code></pre>
+<ul>
+  <li>Operations -&gt; Enviar mensaje al usuario a través del media type creado anteriormente (el usuario debe tener creada la notificación de ese tipo para que pueda funcionar)</li>
+</ul>
+<p>&nbsp;</p>
+<h2><i><strong>Envío auditorías a syslog</strong></i></h2>
+<p>Se ha creado una vista en la base de datos de zabbix denominada zbx_audit en la cual se obtienen los campos necesarios de las tablas de auditlog, auditlog_details y users.</p>
+<p>Se ha creado un usuario de sólo lectura a la vista mencionada con el nombre qradar y con acceso desde la ip 192.168.39.9 perteneciente al colector de qradar de zaragoza.</p>
+<p>&nbsp;</p>
