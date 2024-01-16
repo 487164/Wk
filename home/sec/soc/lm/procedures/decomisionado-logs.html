@@ -1,0 +1,112 @@
+<!--
+title: Decomisionado de logs
+description: 
+published: true
+date: 2024-01-16T11:20:45.554Z
+tags: soc, lm, linux, logs, rsyslog, decomisionado
+editor: ckeditor
+dateCreated: 2024-01-16T11:20:45.554Z
+-->
+
+<h1>Decomisionado de logs</h1>
+<p>&nbsp;</p>
+<h2>Decomisionado por sistemas</h2>
+<p>Para la realización del decomisionado de logs por parte del equipo de sistemas los pasos a realizar serán los siguientes:</p>
+<ol>
+  <li>Creación de ticket para dejar constancia de los pasos realizados.</li>
+  <li>Verificar el acceso por ssh entre la máquina origen de los logs y la máquina destino (esta será nbx-data-lake / zgz-data-lake / itx-data-lake en función de la localización de la máquina)</li>
+  <li>Verificar el espacio existente en el servidor de datalake antes de proceder al decomisionado.</li>
+  <li>Una vez decomisionados, deberá ser el usuario que realizó la apertura del ticket el encargado de eliminar los logs en la máquina origen.</li>
+</ol>
+<p>&nbsp;</p>
+<h3>Pasos</h3>
+<p>Acceder al servidor correspondiente según la localización</p>
+<ul>
+  <li>zgz-data-lake-svcs.zaragoza.espublico.com</li>
+  <li>nbx-data-lake-svcs.madrid.espublico.com</li>
+  <li>itx-data-lake-svcs.madrid.espublico.com</li>
+</ul>
+<p>Se han creado los scripts necesarios para el decomisionado en la ruta /data/operaciones/scripts/</p>
+<p>Para realizar el decomisionado se deberá ejecutar como sudo el script get-logs.sh (se ha concedido permisos al grupo de operaciones para la ejcución del mismo) y se puede visualizar la ayuda del mismo con la opción -h.&nbsp;</p>
+<p><s><strong>PD: En el caso de decomisionar logs del nginx de castellón, se deberá lanzar el script /data/operaciones/scripts/get-logs-nginx-cas.sh y el procedimiento es el mismo que para el resto.</strong></s></p>
+<pre><code class="language-plaintext">$ sudo /data/operaciones/scripts/get-logs.sh -h
+Usage
+./get-logs.sh -u username -s host -p path
+./get-logs.sh -u username -s example.com -p "/var/log/*"
+ &nbsp;-u username -&gt; Username to connect on remote host
+ &nbsp;-s host -&gt; DNS or ip of source host
+ &nbsp;-p path -&gt; Logs path
+ &nbsp;-P project&nbsp; -&gt; espublico|esfirma Default value is espublico
+ &nbsp;-h&nbsp;     -&gt; Show this help</code></pre>
+<p>Para su ejecución se deberá tener acceso en la máquina origen con el mismo usuario que ejecute el script de decomisionado, y deberá disponer de acceso a los logs, por este motivo se ha visto que en ciertas máquinas es preciso cambiar los permisos de carpetas/ficheros.</p>
+<p>Un ejemplo de ejecución sería el siguiente:</p>
+<pre><code class="language-plaintext">$ sudo /data/operaciones/scripts/get-logs.sh -u USERNAME -s zgz-server-svcs.zaragoza.espublico.com -p "/var/log/nginx/archive/*/*/*-202302*gz"</code></pre>
+<blockquote>
+  <p><strong>IMPORTANTE el “-” delante de la fecha ya que sino puede arrastrar logs que contengan la fecha sin que sea el año que le estamos diciendo.</strong></p>
+</blockquote>
+<p>El comando rsync que lanza el script incluye el parámetro stats, por lo que al terminar la copia de datos incluirá una descripción del trabajo realizado similar a la siguiente:</p>
+<pre><code class="language-plaintext">Number of files: 2 (reg: 2)
+Number of created files: 2 (reg: 2)
+Number of deleted files: 0
+Number of regular files transferred: 2
+Total file size: 2.776 bytes
+Total transferred file size: 2.776 bytes
+Literal data: 2.776 bytes
+Matched data: 0 bytes
+File list size: 0
+File list generation time: 0,001 seconds
+File list transfer time: 0,000 seconds
+Total bytes sent: 2.932
+Total bytes received: 54</code></pre>
+<p>Se deberá utilizar la salida obtenida para la comprobación del número de ficheros y el espacio que los mismos ocupan para verificar que la transferencia de archivos entre la máquina origen y la destino es correcta.</p>
+<p>Verificado que el número de ficheros y el tamaño de los mismos es correcto, se puede proceder al borrado de logs en la máquina origen.</p>
+<p>&nbsp;</p>
+<h2>Decomisionado por seguridad</h2>
+<p>Para la realización del decomisionado de logs por parte del equipo de seguridad los pasos a realizar serán los siguientes:</p>
+<ol>
+  <li>Creación de ticket para dejar constancia de los pasos realizados.</li>
+  <li><s>Conceder acceso al auditor a la máquina origen de los logs.</s></li>
+  <li>Verificar el acceso por ssh entre la máquina origen de los logs y la máquina destino (esta será mad-data-lake o zgz-data-lake en función de la localización de la máquina)</li>
+  <li>Una vez decomisionados, deberá ser el usuario que realizó la apertura del ticket el encargado de eliminar los logs en la máquina origen.</li>
+  <li><s>Completados los pasos se retirará el acceso al usuario auditor a la máquina origen.</s></li>
+</ol>
+<p>&nbsp;</p>
+<h3>Pasos</h3>
+<p>SIEMPRE en screen</p>
+<p>Me tienen que dar acceso a la máquina donde decomisionar</p>
+<p>Documentar y script de ejemplo que:</p>
+<p>haga rsync del origen al destino con cuenta genérica de upload&nbsp;</p>
+<p>Ivan (seguridad) debe mover datos del directorio de upload al volumen de data-lake/servers.</p>
+<p>—--</p>
+<p>En las máquinas de data lake existen una serie de scripts para hacer este paso de forma sencilla.</p>
+<p>En el caso de la instancia zgz-data-lake los mismos se encuentran en la ruta:</p>
+<pre><code class="language-plaintext">/data/rw-data-lake/servers/scripts</code></pre>
+<p>En el caso de la instancia mad-data-lake los mismos se encuentran en la ruta:</p>
+<pre><code class="language-plaintext">/data/rw-data-lake/servers/scripts</code></pre>
+<p>Se realizará un rsync de los ficheros de log de la máquina origen al servidor data lake correspondiente a la localización de la máquina.&nbsp;</p>
+<p>Para ello se deberá ejecutar el script siguiente tal y como indica la ayuda del mismo:</p>
+<pre><code class="language-plaintext">$ sudo ./archive.sh -h
+Usage
+./archive.sh -u username -s host -p path
+./archive.sh -u username -s example.com -p "/var/log/*"
+ &nbsp;-u username -&gt; Username to connect on remote host
+ &nbsp;-s host -&gt; DNS or ip of host
+ &nbsp;-p path -&gt; Logs path
+ &nbsp;-P project&nbsp; -&gt; other|esfirma Default value is other
+ &nbsp;-h&nbsp;     -&gt; Show this help</code></pre>
+<pre><code class="language-plaintext">sudo ./archive.sh -u ralfaro -s maquina_orig -p ruta_en_ maquina_orig</code></pre>
+<p>Completada la ejecución se deberá revisar que el número de ficheros y el tamaño de los mismos se corresponde con el original.</p>
+<p>Se almacenarán, en función del proyecto, en la ruta:</p>
+<pre><code class="language-plaintext">/data/rw-data-lake/servers/plain/logs/other/HOSTNAME/</code></pre>
+<p>O, en caso de esfirma en:</p>
+<pre><code class="language-plaintext">/data/rw-data-lake/servers/plain/logs/esfirma/HOSTNAME/</code></pre>
+<p>Para sacar el total de ficheros con un día o menos</p>
+<pre><code class="language-plaintext">find ruta -mtime +1 -type f | wc -l</code></pre>
+<p><s>Una vez verificado que los ficheros son correctos se deberán de ejecutar los scripts de cifrado y subida a s3 de los logs decomisionados.</s></p>
+<p><s>Para ello se deberán lanzar los siguientes comandos (lanzar en screen):</s></p>
+<p><s>Primero el cifrado:</s></p>
+<p><s>sudo ./decomlogs.sh</s></p>
+<p><s>Y posteriormente la subida de logs cifrados a S3:</s></p>
+<p><s>sudo ./decomtos3.sh</s></p>
+<p>Y se notifica en el ticket para que pida haga el borrado.</p>
+<p>&nbsp;</p>
