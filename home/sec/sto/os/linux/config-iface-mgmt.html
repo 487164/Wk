@@ -2,7 +2,7 @@
 title: Configuracion interfaz management
 description: 
 published: true
-date: 2024-01-16T11:19:09.842Z
+date: 2024-01-16T11:19:26.415Z
 tags: linux, network, interface, mgmt
 editor: ckeditor
 dateCreated: 2024-01-16T11:03:56.302Z
@@ -12,7 +12,7 @@ dateCreated: 2024-01-16T11:03:56.302Z
 <p style="text-align:center;">&nbsp;</p>
 <p>Dado los problemas de no poder conectar por la interfaz de management, se ha dado la siguiente solución que consiste en que si la conexión va por management, no salga por la interfaz de servicios ya que es la ruta de por defecto de la maquina, haciendo así, una tabla que tenga salida por management.</p>
 <p>&nbsp;</p>
-<p>Los datos que necesitamos son el del nombre de la interfaz de management que por defecto será <strong>mgmt </strong>y como llama internamente el sistema a la tarjeta de red, que por defecto será ens4 pero debemos de asegurarnos con el siguiente comando:</p>
+<p>Los datos que necesitamos son el del nombre de la interfaz de management que por defecto será <strong>mgmt </strong>y como llama internamente el sistema a la tarjeta de red, que por defecto será <strong>ens4 </strong>pero debemos de asegurarnos con el siguiente comando:</p>
 <pre><code class="language-plaintext">nmcli c s
 NAME  UUID                                  TYPE      DEVICE
 svcs  33624002-7840-3820-80b4-51fac19609ca  ethernet  ens3
