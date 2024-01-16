@@ -2,7 +2,7 @@
 title: Configuracion interfaz management
 description: 
 published: true
-date: 2024-01-16T11:22:27.926Z
+date: 2024-01-16T11:27:40.678Z
 tags: linux, network, interface, mgmt
 editor: ckeditor
 dateCreated: 2024-01-16T11:03:56.302Z
@@ -24,3 +24,11 @@ nmcli con mod [IFACE_NAME] ipv4.routing-rules "priority 10 iif [IFACE_NAME] tabl
 nmcli con mod [IFACE_NAME] +ipv4.routing-rules "priority 10 from [IP_MGMT_ADDRESS] table 10"
 nmcli con mod [IFACE_NAME] ipv4.routes "0.0.0.0/0 [NETWORK_GATEWAY] table=10"
 nmcli device reapply [DEVICE_NAME]</code></pre>
+<p>&nbsp;</p>
+<p>Si nos queremos cerciorar de que esta configurado correctamente, &nbsp;en el path <strong>/etc/NetworkManager/system-connections</strong>, encontraremos un fichero con el nombre de la tarjeta tanto de servicios como de management , y en esta ultima veremos unas líneas debajo del tag de [ipv4] tal que asi:</p>
+<pre><code class="language-plaintext">route-table=10
+route1=0.0.0.0/0,[NETWORK_GATEWAY]
+route1_options=table=10
+routing-rule1=priority 10 from 0.0.0.0/0 iif [IFACE_NAME] table 10
+routing-rule2=priority 10 from [IP_MGMT_ADDRESS] table 10</code></pre>
+<p>&nbsp;</p>
