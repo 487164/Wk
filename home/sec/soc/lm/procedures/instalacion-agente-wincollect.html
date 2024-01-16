@@ -1,0 +1,176 @@
+<!--
+title: Instalación agente Wincollect
+description: 
+published: true
+date: 2024-01-16T11:36:04.875Z
+tags: soc, qradar, lm, windows, wincollect, install, agente
+editor: ckeditor
+dateCreated: 2024-01-16T11:36:04.875Z
+-->
+
+<h1 style="text-align:center;">Instalación agente Wincollect</h1>
+<p>&nbsp;</p>
+<h2>Instalación desde GUI</h2>
+<p>Para la instalación del agente de wincollect lo primero será descargar el paquete de la última versión de la web de ibm fixcentral para la versión 7.4.0 de QRadar</p>
+<p><a href="https://www.ibm.com/support/fixcentral"><u>https://www.ibm.com/support/fixcentral</u></a></p>
+<p>Una vez descargado el paquete se deberá copiar a la máquina windows sobre la cual se desee instalar y seguir los siguientes pasos.</p>
+<p>1. Ejecutar el fichero wincollect-x.x.x.x-x.msi</p>
+<p>2. Se arranca el instalador, pulsamos <strong>Next</strong></p>
+<figure class="image"><img src="/sec/soc/log-mgmt/procedures/soc-lm-instalacion-wincollect-image5.png"></figure>
+<p>&nbsp;</p>
+<p>3. Se acepta el acuerdo de licencia, pulsamos <strong>Next</strong></p>
+<figure class="image"><img src="/sec/soc/log-mgmt/procedures/soc-lm-instalacion-wincollect-image2.png"></figure>
+<p>&nbsp;</p>
+<p>4. Seleccionamos el tipo de instalación, <strong>Quick</strong></p>
+<figure class="image"><img src="/sec/soc/log-mgmt/procedures/soc-lm-instalacion-wincollect-image11.png"></figure>
+<p>&nbsp;</p>
+<p>5. Se especifica el fqdn del colector y se pulsa <strong>Install</strong></p>
+<p>El colector será uno de los siguientes en función de la localización:</p>
+<ul>
+  <li>atq-syslog.antequera.espublico.com</li>
+  <li>gra-syslog.granada.espublico.com</li>
+  <li>itx-syslog.madrid.espublico.com</li>
+  <li>nbx-syslog.madrid.espublico.com</li>
+  <li>zgz-syslog.zaragoza.espublico.com</li>
+</ul>
+<p>&nbsp;</p>
+<figure class="image"><img src="/sec/soc/log-mgmt/procedures/soc-lm-instalacion-wincollect-image17.png"></figure>
+<p>&nbsp;</p>
+<p>6. Completada la instalación se pulsa en <strong>Finish</strong> para completar el proceso</p>
+<figure class="image"><img src="/sec/soc/log-mgmt/procedures/soc-lm-instalacion-wincollect-image4.png"></figure>
+<p>&nbsp;</p>
+<h2>Configuración del agente desde GUI</h2>
+<p>Una vez completada la instalación del agente, abrir el navegador y acceder a la url</p>
+<p><a href="http://localhost:3000/WCConsole#/Dashboard"><u>http://localhost:3000/WCConsole#/Dashboard</u></a></p>
+<p>Será necesario habilitar la <strong>UI avanzada&nbsp;</strong> para poder realizar la configuración del agente.&nbsp;</p>
+<p>Para ello desde el engranaje en la esquina superior derecha marcamos el check como se ve en la imagen</p>
+<figure class="image"><img src="/sec/soc/log-mgmt/procedures/soc-lm-instalacion-wincollect-image10.png"></figure>
+<p>&nbsp;</p>
+<p>Posteriormente desde el menú izquierdo acceder a la sección de <strong>Agent Settings</strong></p>
+<figure class="image"><img src="/sec/soc/log-mgmt/procedures/soc-lm-instalacion-wincollect-image14.png"></figure>
+<p>&nbsp;</p>
+<p>Establecer los siguientes valores:</p>
+<ul>
+  <li>Name -&gt; fqdn de la máquina</li>
+  <li><strong>Identifier -&gt; fqdn de la máquina</strong></li>
+  <li>Status -&gt; enabled</li>
+  <li>Device Address -&gt; dns del colector al cual debe enviar</li>
+  <li>Port -&gt; 514</li>
+  <li>Protocol -&gt; TCP</li>
+</ul>
+<p>Una vez corregidos los valores guardar cambios y desde notificaciones en la parte superior derecha solicitará aprobar los cambios realizados:</p>
+<figure class="image"><img src="/sec/soc/log-mgmt/procedures/soc-lm-instalacion-wincollect-image1.png"></figure>
+<p>&nbsp;</p>
+<p>Aplicamos los cambios y reiniciamos el agente desde la esquina superior derecha</p>
+<figure class="image"><img src="/sec/soc/log-mgmt/procedures/soc-lm-instalacion-wincollect-image9.png"></figure>
+<p>&nbsp;</p>
+<p>Pinchamos en restart sin eliminar los logs anteriores</p>
+<figure class="image"><img src="/sec/soc/log-mgmt/procedures/soc-lm-instalacion-wincollect-image6.png"></figure>
+<p>&nbsp;</p>
+<p>Y ya está completada la configuración del agente.</p>
+<blockquote>
+  <p><strong>NOTA</strong>: Por defecto realiza la configuración para Security, System y Application, en caso de necesitar añadir logs de alguna fuente más como por ejemplo AD, abrir el wizard en el menú izquierdo y seguir los pasos descritos en el mismo.</p>
+</blockquote>
+<p>Una vez completado avisar al administrador de QRadar para que verifique la correcta recepción de logs desde el servidor sobre el cual se ha instalado el agente.</p>
+<p>&nbsp;</p>
+<h2>Instalación desde Consola</h2>
+<p>Descargar el fichero ps1 Wincollect/scripts/InstallWC10Agent.ps1 en la máquina en la que desea instalar el agente de wincollect. Se incluye el fichero InstallWC10Agent.ps1.sha256 con el hash sha256 para poder verificar que el mismo no ha sido modificado.</p>
+<p>Será necesario descargar también el fichero msi de la versión a instalar en el servidor, incluida en la ruta Wincollect/agents/</p>
+<p>Ambas rutas se encuentran en la carpeta compartida de Google Drive.</p>
+<p>Abrir consola de powershell como el usuario admin.</p>
+<p>Para ver la ayuda del comando ejecutar:</p>
+<pre><code class="language-plaintext">Get-Help .\InstallWC10Agent.ps1</code></pre>
+<p>Si se desea una vista más detallada de alguna parte del mismo ejecutar el comando que proceda de los siguientes:</p>
+<pre><code class="language-plaintext">Get-Help .\InstallWC10Agent.ps1 -detailed
+Get-Help .\InstallWC10Agent.ps1 -example
+Get-Help .\InstallWC10Agent.ps1 -full</code></pre>
+<p>La instalación básica del agente configurará el envío de los siguientes logs:</p>
+<ul>
+  <li>Application</li>
+  <li>Security</li>
+  <li>System</li>
+</ul>
+<p>Mediante el instalador es posible añadir los siguientes servicios:</p>
+<ul>
+  <li>Active Directory</li>
+  <li>DHCP</li>
+  <li>DNS&nbsp;</li>
+  <li>Exchange</li>
+  <li>IIS</li>
+  <li>SQL Server</li>
+  <li>Sysmon</li>
+</ul>
+<p>Para la instalación básica del agente ejecutar el siguiente comando sustituyendo las variables correspondientes:</p>
+<pre><code class="language-plaintext">.\InstallWC10Agent.ps1 -computerName FQDN -QRadarCollector QRADAR_COLLECTOR_IP_OR_DNS -msiFile C:\PATH\TO\INSTALLER.MSI</code></pre>
+<p>Para la instalación de los servicios extras añadir el parámetro correspondiente de los siguientes.&nbsp;</p>
+<p>Dependiendo del servicio, será necesario incluir el path en el cual se almacenan los logs del mismo.</p>
+<p>&nbsp;</p>
+<p>Para añadir cada uno de los servicios será necesario incluir los parámetros necesarios que son los siguientes:</p>
+<ul>
+  <li>Active Directory -&gt; Añadir el parámetro -AD</li>
+  <li>DHCP -&gt; Añadir el parámetro -DHCP_LOG_PATH incluyendo el directorio donde se almacenan los logs del mismo.</li>
+  <li>DNS -&gt; Añadir el parámetro -DNS</li>
+  <li>Microsoft Exchange -&gt; añadir los parámetros -EXCHANGE_LOG_PATH y -EXCHANGE_OWA_PATH incluyendo en cada una la ruta donde se almacenan los logs.</li>
+  <li>IIS -&gt; añadir el parámetro -IIS_LOG_PATH indicando la ruta donde se almacenan los logs</li>
+  <li>SQL Server -&gt; añadir el parámetro -SQLSERVER_LOG_PATH indicando la ruta donde se almacenan los logs</li>
+  <li>Sysmon -&gt; añadir la ruta donde se almacenan los logs con el parámetro -SYSMON_PATH</li>
+</ul>
+<p>&nbsp;</p>
+<p>Los parámetros anteriores se pueden combinar, por lo que es posible añadir la configuración de 1 o n, a continuación se ven algunos ejemplos:</p>
+<pre><code class="language-plaintext">.\InstallWC10Agent.ps1 -computerName FQDN -QRadarCollector QRADAR_COLLECTOR_IP_OR_DNS -msiFile C:\PATH\TO\INSTALLER.MSI -AD
+.\InstallWC10Agent.ps1 -computerName FQDN -QRadarCollector QRADAR_COLLECTOR_IP_OR_DNS -msiFile C:\PATH\TO\INSTALLER.MSI -AD -DNS -IIS_LOG_PATH C:\PATH\TO\IIS\LOGS</code></pre>
+<blockquote>
+  <p><strong>NOTA</strong>: En caso de necesitar editar la configuración, y se desee hacer desde la consola, o se requiera aplicar una actualización al agente es necesario añadir al comando anterior el parámetro -update</p>
+</blockquote>
+<p>Si no se añade dicho parámetro y el agente ya se encuentra instalado, el script no realizará ninguna tarea en el servidor.</p>
+<p>Para ello lanzar el script como se muestra a continuación, en caso de haber alguna configuración extra aplicada esta se mantendrá</p>
+<pre><code class="language-plaintext">.\InstallWC10Agent.ps1 -computerName FQDN -QRadarCollector QRADAR_COLLECTOR_IP_OR_DNS -msiFile C:\PATH\TO\INSTALLER.MSI -update</code></pre>
+<p>&nbsp;</p>
+<h2>Configuración de log sources</h2>
+<ul>
+  <li>Eventos windows</li>
+</ul>
+<p>Haremos click en “Create source”</p>
+<figure class="image"><img src="/sec/soc/log-mgmt/procedures/soc-lm-instalacion-wincollect-image13.png"></figure>
+<p>&nbsp;</p>
+<p>Seleccionamos local</p>
+<figure class="image"><img src="/sec/soc/log-mgmt/procedures/soc-lm-instalacion-wincollect-image7.png"></figure>
+<p>&nbsp;</p>
+<p>Ya deberiamos de ver un source group , por lo tanto avanzamos.</p>
+<p>Seleccionamos en este caso</p>
+<figure class="image"><img src="/sec/soc/log-mgmt/procedures/soc-lm-instalacion-wincollect-image15.png"></figure>
+<p>&nbsp;</p>
+<p>Minimo seleccionaremos los siguientes servicios</p>
+<figure class="image"><img src="/sec/soc/log-mgmt/procedures/soc-lm-instalacion-wincollect-image3.png"></figure>
+<p>&nbsp;</p>
+<p>Finalizaremos y procedemos a reiniciar el servicio</p>
+<figure class="image"><img src="/sec/soc/log-mgmt/procedures/soc-lm-instalacion-wincollect-image8.png"></figure>
+<p>&nbsp;</p>
+<ul>
+  <li>Eventos SQL Server</li>
+</ul>
+<p>Haremos click en “Create source”</p>
+<figure class="image"><img src="/sec/soc/log-mgmt/procedures/soc-lm-instalacion-wincollect-image13.png"></figure>
+<p>Seleccionamos local</p>
+<figure class="image"><img src="/sec/soc/log-mgmt/procedures/soc-lm-instalacion-wincollect-image7.png"></figure>
+<p>&nbsp;</p>
+<p><br>&nbsp;</p>
+<p>Ya deberiamos de ver un source group , por lo tanto avanzamos.</p>
+<p>Seleccionamos en este caso</p>
+<figure class="image"><img src="/sec/soc/log-mgmt/procedures/soc-lm-instalacion-wincollect-image12.png"></figure>
+<p>Configuramos los siguientes parametros, segun el path de los logs.</p>
+<figure class="image"><img src="/sec/soc/log-mgmt/procedures/soc-lm-instalacion-wincollect-image16.png"></figure>
+<p>&nbsp;</p>
+<p>Finalizaremos y procedemos a reiniciar el servicio</p>
+<figure class="image"><img src="/sec/soc/log-mgmt/procedures/soc-lm-instalacion-wincollect-image8.png"></figure>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
