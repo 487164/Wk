@@ -1,0 +1,316 @@
+<!--
+title: Playbook LM Scheduled Tasks
+description: 
+published: true
+date: 2024-01-16T10:24:11.049Z
+tags: soc, lm, task, playbook, scheduled
+editor: ckeditor
+dateCreated: 2024-01-16T10:24:11.049Z
+-->
+
+<h1 style="text-align:center;"><strong>Playbook LM Scheduled Tasks</strong></h1>
+<p>&nbsp;</p>
+<h2>Descripción</h2>
+<p>A continuación se detallan la lista de tareas y acciones a tomar durante su realización.</p>
+<p>&nbsp;</p>
+<h2>Control de tareas</h2>
+<p>El control de tareas se llevará a cabo mediante el documento: <a href="https://docs.google.com/spreadsheets/u/0/d/1jS9n71gsRnmFtSDLGiUe8AcA5UoQfh7PVoH7t4GYU-o/edit"><u>Control de tareas</u></a></p>
+<p>El documento se estructura de la siguiente forma:</p>
+<ul>
+  <li>Task: Desglose de las tareas y su información.</li>
+  <li>Daily: Estado de las tareas diarias.</li>
+  <li>Daily Operator: Identifica el operador que ha realizado la tarea.</li>
+  <li>Weekly: Estado de las tareas semanales.</li>
+  <li>Weekly Operator: Identifica el operador que ha realizado la tarea.</li>
+  <li>Monthly: Estado de las tareas mensuales.</li>
+  <li>Monthly Operator: Identifica el operador que ha realizado la tarea.</li>
+  <li>Quarterly: Estado de las tareas trimestrales</li>
+  <li>Quarterly Operator: Identifica el operador que ha realizado la tarea.</li>
+  <li>Semester: Estado de las tareas semestrales</li>
+  <li>Semester Operator: Identifica el operador que ha realizado la tarea.</li>
+</ul>
+<p>&nbsp;</p>
+<h2>Estado de tarea</h2>
+<p>Las tareas pueden tener 3 estados:</p>
+<ul>
+  <li>OK: la tarea se ha realizado y no ha sido necesaria ninguna tarea relacionada.</li>
+  <li>NOK: la tarea se ha realizado y ha sido necesario iniciar una tarea relacionada.</li>
+  <li>INACTIVA: solo para aquellas tareas que se identifican como inactiva en la hoja “Task”.</li>
+</ul>
+<p style="text-align:justify;">&nbsp;</p>
+<h2>Data Lake Health</h2>
+<p>&nbsp;</p>
+<h3><strong>Descripción</strong></h3>
+<p style="text-align:justify;">Revisión del estado de los servidores de data lake para garantizar que no hay errores durante el proceso de almacenamiento y cifrado de los logs.</p>
+<p style="text-align:justify;">&nbsp;</p>
+<h3><strong>Recurrencia</strong></h3>
+<p>Diaria</p>
+<p>&nbsp;</p>
+<h3><strong>Tiempo estimado</strong></h3>
+<p>15 min</p>
+<p>&nbsp;</p>
+<h3><strong>Servidores</strong></h3>
+<p style="text-align:justify;">La revisión se deberá realizar en los siguientes servidores:</p>
+<ul>
+  <li>zgz-data-lake-svcs</li>
+  <li>nbx-data-lake-svcs</li>
+  <li>itx-data-lake-svcs</li>
+</ul>
+<p>&nbsp;</p>
+<h3><strong>Acciones</strong></h3>
+<p style="text-align:justify;">Revisión del estado de la compresión y cifrado de logs.</p>
+<p style="text-align:justify;">Revisión de la sincronización de ficheros con el bucket S3.</p>
+<p style="text-align:justify;">Revisión de directorios erróneos creados en el reenvío de logs desde QRadar.</p>
+<p style="text-align:justify;">Se explican las acciones a realizar en el documento <a href="https://wiki.security.espublico.com/es/home/sec/soc/lm/process/revision-servidores-data-lake"><u>Revisión servidores data lake</u></a></p>
+<p>&nbsp;</p>
+<h2>SIEM Log Sources</h2>
+<p>&nbsp;</p>
+<h3><strong>Descripción</strong></h3>
+<p>Revisar si existen eventos sin una fuente de log asignada y crearla si procede.</p>
+<p>&nbsp;</p>
+<h3><strong>Recurrencia</strong></h3>
+<p>Diaria&nbsp;</p>
+<p>&nbsp;</p>
+<h3><strong>Tiempo estimado</strong></h3>
+<p>15 min</p>
+<p>&nbsp;</p>
+<h3><strong>Servidores/Fuentes</strong></h3>
+<p>Servidor SIEM de Producción</p>
+<p>&nbsp;</p>
+<h3><strong>Acciones</strong></h3>
+<p>Revisar los logs sources de la categoría SIM Generic Log de cada uno de los event collectors y revisar si hay algún servidor enviando logs que no disponga de un log source configurado.</p>
+<p>&nbsp;</p>
+<h2>SIEM Auto Updates</h2>
+<p>&nbsp;</p>
+<h3><strong>Descripción</strong></h3>
+<p>Revisar el estado de las actualizaciones automáticas que se han ejecutado durante la madrugada.</p>
+<p>&nbsp;</p>
+<h3><strong>Recurrencia</strong></h3>
+<p>Diaria</p>
+<p>&nbsp;</p>
+<h3><strong>Tiempo estimado</strong></h3>
+<p>5-60 minutos</p>
+<p>&nbsp;</p>
+<h3><strong>Servidores/Fuentes</strong></h3>
+<p>Se deberá revisar el SIEM de producción y el SIEM de desarrollo.</p>
+<p>&nbsp;</p>
+<h3><strong>Acciones</strong></h3>
+<p>Revisar en las notificaciones del sistema el estado de la última actualización automática.</p>
+<p>En caso de que la misma se haya completado correctamente aparecerá una notificación con un texto similar al siguiente:</p>
+<p>“Automatic updates completed successfully. “</p>
+<p>En caso de que se muestre algún error, revisar el documento <a href="https://wiki.security.espublico.com/es/home/sec/sto/platforms/ibm-qradar/procedures/revision-errores-auto-updates"><u>Revisión errores auto-updates</u></a> para saber cómo proceder.</p>
+<p>En caso de errores, abrir ticket si es necesario con el tag INC explicando el problema y las acciones llevadas a cabo para su resolución.</p>
+<p>&nbsp;</p>
+<h2>SIEM Notifications</h2>
+<p>&nbsp;</p>
+<h3><strong>Descripción</strong></h3>
+<p>Se deberán revisar las notificaciones existentes desde la GUI web de QRadar.</p>
+<p>&nbsp;</p>
+<h3><strong>Recurrencia</strong></h3>
+<p>Diaria&nbsp;</p>
+<p>&nbsp;</p>
+<h3><strong>Tiempo estimado</strong></h3>
+<p>5-60 minutos</p>
+<p>&nbsp;</p>
+<h3><strong>Servidores/Fuentes</strong></h3>
+<p>Se deberá revisar el SIEM de producción y el SIEM de desarrollo.</p>
+<p>&nbsp;</p>
+<h3><strong>Acciones</strong></h3>
+<p>En caso de observar alguna notificación que indique que ha ocurrido un error en la infraestructura o en alguno de los servicios se deberá abrir un ticket con el tag INC para documentar en el mismo los pasos realizados hasta la solución del incidente.</p>
+<p>&nbsp;</p>
+<h2>SOAR Health</h2>
+<p>&nbsp;</p>
+<h3><strong>Descripción</strong></h3>
+<p>Revisar el estado de recursos del servidor itx-soar-01-svcs</p>
+<p>&nbsp;</p>
+<h3><strong>Recurrencia</strong></h3>
+<p>Diaria</p>
+<p>&nbsp;</p>
+<h3><strong>Tiempo estimado</strong></h3>
+<p>10 minutos</p>
+<p>&nbsp;</p>
+<h3><strong>Servidores/Fuentes</strong></h3>
+<p>Servidores:</p>
+<ul>
+  <li>itx-soar-01-svcs.madrid.espublico.com</li>
+</ul>
+<p>&nbsp;</p>
+<h3><strong>Acciones</strong></h3>
+<p>Revisar el estado de los recursos del servidor del soar, CPU, memoria, procesos con el fin de identificar si existe algún problema en el mismo o en la ejecución de alguna de las APIs existentes en el mismo.</p>
+<p>Revisar el estado de los procesos y que no se hayan quedado lockfiles por error.</p>
+<ul>
+  <li>script sentinel2misp, revisar que el proceso está corriendo, o si no lo está, que no exista el fichero de lock en /var/lock/subsys/sentinel2misp</li>
+</ul>
+<p>&nbsp;</p>
+<h2>SIEM APP Updates</h2>
+<p>&nbsp;</p>
+<h3><strong>Descripción</strong></h3>
+<p>Revisar si existen actualizaciones pendientes de aplicar en alguna de las aplicaciones instaladas en QRadar.</p>
+<p>&nbsp;</p>
+<h3><strong>Recurrencia</strong></h3>
+<p>Semanal</p>
+<p>&nbsp;</p>
+<h3><strong>Tiempo estimado</strong></h3>
+<p>5-60 minutos</p>
+<p>&nbsp;</p>
+<h3><strong>Servidores/Fuentes</strong></h3>
+<p>Se deberá revisar el SIEM de producción y el SIEM de desarrollo.</p>
+<p>&nbsp;</p>
+<h3><strong>Acciones</strong></h3>
+<p>Se deberá acceder a la aplicación de IBM QRadar Assistant y revisar que no hay actualizaciones pendientes, en caso de haberlas, se deberá abrir un ticket con el tag APP_UPD donde se deberán indicar las mismas y proceder a su actualización.</p>
+<p>&nbsp;</p>
+<h2>SIEM FixPack Updates</h2>
+<p>&nbsp;</p>
+<h3><strong>Descripción</strong></h3>
+<p>Revisar en el portal de IBM si existe alguna actualización pendiente para QRadar</p>
+<p>&nbsp;</p>
+<h3><strong>Recurrencia</strong></h3>
+<p>Semanal&nbsp;</p>
+<p>&nbsp;</p>
+<h3><strong>Tiempo estimado</strong></h3>
+<p>5 min</p>
+<p>&nbsp;</p>
+<h3><strong>Servidores/Fuentes</strong></h3>
+<p>Se deberá revisar el SIEM de producción y el SIEM de desarrollo.</p>
+<p>&nbsp;</p>
+<h3><strong>Acciones</strong></h3>
+<p>Acceder al portal de <a href="https://www.ibm.com/support/fixcentral"><u>IBM Fix-Central</u></a> o <a href="https://www.ibm.com/community/qradar/home/software/"><u>IBM Software 101</u></a> y revisar si hay actualizaciones pendientes para QRadar.</p>
+<p>En caso de haber alguna, abrir un ticket en RT con el tag FP_UPD para llevar el seguimiento de la actualización.</p>
+<p>&nbsp;</p>
+<h2>SIEM QDI</h2>
+<p>&nbsp;</p>
+<h3><strong>Descripción</strong></h3>
+<p>Revisar en el SIEM en la aplicación de QDI (QRadar Deployment Intelligence) si existen algún problema en la infraestructura</p>
+<p>&nbsp;</p>
+<h3><strong>Recurrencia</strong></h3>
+<p>Semanal</p>
+<p>&nbsp;</p>
+<h3><strong>Tiempo estimado</strong></h3>
+<p>10 minutos</p>
+<p>&nbsp;</p>
+<h3><strong>Servidores/Fuentes</strong></h3>
+<p>Se deberá revisar el SIEM de producción y el SIEM de desarrollo.</p>
+<p>&nbsp;</p>
+<h3><strong>Acciones</strong></h3>
+<p>Revisar si existen algún problema en el SIEM mediante la aplicación QDI, en caso de existir se deberá abrir un ticket con el tag INC indicando el problema descubierto y haciendo en el mismo el seguimiento de su resolución.</p>
+<p>&nbsp;</p>
+<h2>SIEM DSM</h2>
+<p>&nbsp;</p>
+<h3><strong>Descripción</strong></h3>
+<p>Revisar en el SIEM sí existen eventos unknown o stored.</p>
+<p>&nbsp;</p>
+<h3><strong>Recurrencia</strong></h3>
+<p>Semanal&nbsp;</p>
+<p>&nbsp;</p>
+<h3><strong>Tiempo estimado</strong></h3>
+<p>5-60 minutos</p>
+<p>&nbsp;</p>
+<h3><strong>Servidores/Fuentes</strong></h3>
+<p>Se deberá revisar el SIEM de producción y el SIEM de desarrollo.</p>
+<p>&nbsp;</p>
+<h3><strong>Acciones</strong></h3>
+<p>En caso de encontrar eventos unknown o stored se deberá crear un ticket con el tag DSMC en el cual se deberán documentar los mapeos realizados para la corrección de los eventos.</p>
+<p>&nbsp;</p>
+<h2>SIEM Log Source Groups</h2>
+<p>&nbsp;</p>
+<h3><strong>Descripción</strong></h3>
+<p>Revisión de grupos de fuentes de log en el SIEM.</p>
+<p>&nbsp;</p>
+<h3><strong>Recurrencia</strong></h3>
+<p>Semanal&nbsp;</p>
+<p>&nbsp;</p>
+<h3><strong>Tiempo estimado</strong></h3>
+<p>5-60 minutos</p>
+<p>&nbsp;</p>
+<h3><strong>Servidores/Fuentes</strong></h3>
+<p>Se deberá revisar el SIEM de producción y el SIEM de desarrollo.</p>
+<p>&nbsp;</p>
+<h3><strong>Acciones</strong></h3>
+<p>En caso de encontrar log sources que dispongan de grupos inválidos se deberá abrir un ticket con el tag CLS en el cual se documenten las modificaciones realizadas.</p>
+<p>&nbsp;</p>
+<h2>SIEM Rules Groups</h2>
+<p>&nbsp;</p>
+<h3><strong>Descripción</strong></h3>
+<p>Revisión de los grupos de reglas actuales en el SIEM.</p>
+<p>&nbsp;</p>
+<h3><strong>Recurrencia</strong></h3>
+<p>Mensual&nbsp;</p>
+<p>&nbsp;</p>
+<h3><strong>Tiempo estimado</strong></h3>
+<p>60 minutos</p>
+<p>&nbsp;</p>
+<h3><strong>Servidores/Fuentes</strong></h3>
+<p>Se deberá revisar el SIEM de producción</p>
+<p>&nbsp;</p>
+<h3><strong>Acciones</strong></h3>
+<p>Se deberá revisar que las reglas existentes en producción dispongan de los grupos correspondientes en función del grupo de MAGMA al que pertenezcan, sección empresarial y tecnología de la regla.</p>
+<p>En caso de que alguna no cumpla se deberá abrir un ticket con el tag CGR en el cual se indiquen los cambios realizados.</p>
+<p>&nbsp;</p>
+<h2>Security Platforms Updates</h2>
+<p>&nbsp;</p>
+<h3><strong>Descripción</strong></h3>
+<p>Revisar si existe alguna nueva versión para los software utilizados en el departamento de seguridad.</p>
+<p>&nbsp;</p>
+<h3><strong>Recurrencia</strong></h3>
+<p>Semanal -&gt; Revisión de updates en las plataformas y sólo si existe una vulnerabilidad crítica se aplicará parche.</p>
+<p>Trimestral -&gt; Revisión de updates en las plataformas y se actualizará hasta la última versión posible.</p>
+<p>&nbsp;</p>
+<h3><strong>Tiempo estimado</strong></h3>
+<p>10 minutos</p>
+<p>&nbsp;</p>
+<h3><strong>Aplicaciones</strong></h3>
+<p>Se deberá revisar si hay versiones nuevas para las siguientes aplicaciones:</p>
+<ul>
+  <li>IBM Soar</li>
+  <li>IBM Soar App node</li>
+  <li>Grafana</li>
+  <li>MISP</li>
+  <li>OpenCTI - Actualizar la excel <a href="https://docs.google.com/spreadsheets/u/0/d/165iGElFnuULC307HSUX30P9bbAB3gOG1Zm8rnPiZwBI/edit"><u>Opencti - Environments and containers</u></a></li>
+  <li>OpenCVE - Actualizar la excel <a href="https://docs.google.com/spreadsheets/u/0/d/1ms_v1cClkvJvFyPQZj34tYkQPAwTNxKmnKjTjYqxiTs/edit"><u>OpenCVE - Environments and containers</u></a></li>
+  <li>WikiJS - Actualizar la excel&nbsp;</li>
+  <li>BitWarden ?&nbsp;</li>
+</ul>
+<p>&nbsp;</p>
+<h3><strong>Acciones</strong></h3>
+<p>En caso de existir una nueva versión para alguna de las aplicaciones utilizadas se deberá de abrir el ticket correspondiente para la gestión y seguimiento de su actualización.</p>
+<p>Para la actualización de los contenedores de opencti revisar el documento <a href="https://wiki.security.espublico.com/es/home/sec/sto/platforms/opencti/instalacion-y-despliegue"><u>Instalación y despliegue</u></a></p>
+<p>Para revisar las actualizaciones existentes en los contenedores de opencti:</p>
+<ul>
+  <li>Imágenes de servicios ajenos a opencti (redis, elastic…) buscar las imágenes OFICIALES en <a href="https://hub.docker.com"><u>https://hub.docker.com</u></a></li>
+  <li>Para las imágenes de opencti, revisar la última versión en su <a href="https://github.com/OpenCTI-Platform/opencti"><u>github</u></a>. OJO: tanto el contenedor principal de opencti como todos los subcontenedores (workers, conectores, etc…) deben de estar en la misma versión.</li>
+</ul>
+<p>&nbsp;</p>
+<h2>SIEM Change HA Active</h2>
+<p>&nbsp;</p>
+<h3><strong>Descripción</strong></h3>
+<p>Cambio del nodo activo en los host que se encuentren en HA.</p>
+<p>&nbsp;</p>
+<h3><strong>Recurrencia</strong></h3>
+<p>Semestral</p>
+<p>&nbsp;</p>
+<h3><strong>Tiempo estimado</strong></h3>
+<p>3 horas</p>
+<p>&nbsp;</p>
+<h3><strong>Servidores/Fuentes</strong></h3>
+<p>Se deberá revisar el SIEM de producción</p>
+<p>&nbsp;</p>
+<h3><strong>Acciones</strong></h3>
+<p>Para garantizar que tanto el nodo primario como el secundario funcionan correctamente, se deberá cambiar el nodo activo al nodo secundario en cada uno de los hosts montados en HA.</p>
+<p>&nbsp;</p>
+<h2>Update Servers</h2>
+<p>&nbsp;</p>
+<h3><strong>Descripción</strong></h3>
+<p>Pasar setup en todos los servidores de seguridad.</p>
+<p>&nbsp;</p>
+<h3><strong>Recurrencia</strong></h3>
+<p>Semestral</p>
+<p>&nbsp;</p>
+<h3><strong>Tiempo estimado</strong></h3>
+<p>10 horas</p>
+<p>&nbsp;</p>
+<h3><strong>Servidores/Fuentes</strong></h3>
+<p>Todos los servidores de seguridad</p>
+<p>&nbsp;</p>
+<h3><strong>Acciones</strong></h3>
+<p>Para garantizar que los servidores de seguridad se encuentran al día y se corrigen las vulnerabilidades existentes hasta la fecha se deberá de pasar un setup completo en cada uno como mínimo una vez cada 6 meses.</p>
+<p>&nbsp;</p>
