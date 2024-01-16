@@ -1,0 +1,109 @@
+<!--
+title: Envío logs nginx a syslog
+description: 
+published: true
+date: 2024-01-16T11:16:12.897Z
+tags: soc, lm, linux, logs, syslog, nginx
+editor: ckeditor
+dateCreated: 2024-01-16T11:16:12.897Z
+-->
+
+<h1 style="text-align:center;"><strong>Envío logs nginx</strong></h1>
+<p>&nbsp;</p>
+<p>Para el envío de logs de nginx a QRadar será necesario realizar varios pasos.</p>
+<p>&nbsp;</p>
+<h2><i><strong>Generación de directorio para almacenamiento de logs&nbsp;</strong></i></h2>
+<p>Crear un nuevo directorio en var log para el almacenamiento de los logs</p>
+<pre><code class="language-plaintext">mkdir -p /var/log/qradar/nginx</code></pre>
+<p>&nbsp;</p>
+<h2><i><strong>Configuración de logrotate</strong></i></h2>
+<p>Generar fichero de configuración de logrotate para los logs del nginx con rotado de 1 día para evitar que acumule demasiados eventos y debido a que es necesario para que rsyslog sea capaz de continuar desde el último punto en caso de parada del servicio.</p>
+<p>Crear el fichero /etc/logrotate.d/50.0-espublico-qradar-nginx.conf</p>
+<p>Con el siguiente contenido:</p>
+<pre><code class="language-plaintext">/var/log/qradar/nginx/*log {
+create 0644 nginx nginx
+daily
+rotate 1
+missingok
+notifempty
+compress
+nodelaycompress
+sharedscripts
+postrotate
+    /bin/kill -USR1 `cat /var/opt/iubaris/iubaris-nginx114/run/nginx/nginx.pid 2&gt;/dev/null` 2&gt;/dev/null || true
+    /bin/kill -HUP `cat /var/run/syslogd.pid 2&gt; /dev/null` 2&gt; /dev/null || true
+endscript
+}</code></pre>
+<p>&nbsp;</p>
+<h2><i><strong>Configuración de nginx</strong></i></h2>
+<p>Configurar en primer lugar un formato de log en el fichero /etc/nginx/nginx.conf añadiendo lo siguiente</p>
+<pre><code class="language-plaintext">log_format qradar   'LEEF:1.0|NGINX|NGINX|$nginx_version|$status|'
+'devTime=$time_local\tdevTimeFormat=dd/MMM/yyyy:HH:mm:ssZ\t'
+'src=$remote_addr\tdst=$server_addr\tdstPort=$server_port\t'
+'proto=$server_protocol\tusrName=$remote_user\trequest=$request\t'
+'body_bytes_sent=$body_bytes_sent\thttp_referer=$http_referer\thttp_true_client_ip=$http_true_client_ip\t'
+'http_user_agent=$http_user_agent\thttp_x_header=$http_x_header\thttp_x_forwarded_for=$http_x_forwarded_for\t'
+'request_time=$request_time\tupstream_response_time=$upstream_response_time\tpipe=$pipe\t'
+'uri_query=$query_string\turi_path=$uri\tcookie=$http_cookie\tvhost=$host\tupstream_addr=$upstream_addr';	</code></pre>
+<p>&nbsp;</p>
+<p>Una vez añadido el formato de log añadir en cada virtualhost que se quiera monitorizar una línea similar a la siguiente sustituyendo donde corresponda:</p>
+<pre><code class="language-plaintext">access_log PATH/TO/LOGS qradar;</code></pre>
+<p>Por ejemplo en el caso de pre se añaden dos tipos en función del virtualhost, uno para gestiona y otro para sede, de tal forma que se utilice un fichero de log para almacenar temporalmente los logs de gestiona de todos los virtualhost, y otro para el caso de las sedes.</p>
+<p>En los ficheros de gestiona se añadiría:</p>
+<pre><code class="language-plaintext">access_log /var/log/qradar/nginx/pre-gestiona.log qradar;</code></pre>
+<p>En los ficheros de sede se añadiría:</p>
+<pre><code class="language-plaintext">access_log /var/log/qradar/nginx/pre-sede.log qradar;</code></pre>
+<p>Posteriormente validar que la configuración aplicada es correcta</p>
+<pre><code class="language-plaintext">sudo /opt/iubaris/iubaris-nginx114/root/usr/sbin/nginx -t</code></pre>
+<p>Y recargar el servicio</p>
+<pre><code class="language-plaintext">sudo systemctl reload iubaris-nginx114-nginx.service
+sudo /opt/iubaris/iubaris-nginx114/root/usr/sbin/nginx -s reload</code></pre>
+<blockquote>
+  <p><strong>NOTA</strong>: Evitar crear un fichero por pool con el fin de reducir el número de ficheros que tendrá que leer el servicio de rsyslog.</p>
+</blockquote>
+<p>&nbsp;</p>
+<h2><i><strong>Configuración de rsyslog</strong></i></h2>
+<p>Completados los pasos anteriores y verificado que los logs se almacenan correctamente, añadir el siguiente fichero&nbsp;</p>
+<pre><code class="language-plaintext">/etc/rsyslog.d/50.0-espublico-qradar-nginx.conf</code></pre>
+<p>Con el siguiente contenido, sustituyendo donde corresponda, añadir tantos bloques de servicio como ficheros de log diferentes se han creado</p>
+<pre><code class="language-plaintext">## load modules
+$ModLoad imfile
+
+## SERVICE log file
+$InputFileName /var/log/qradar/nginx/FILENAME.log
+$InputFileTag nginx-SERVICE
+$InputFileStateFile stat-nginx-SERVICE
+$InputFileSeverity info
+$InputFileFacility local7
+$InputRunFileMonitor
+local7.* @@COLLECTOR_ENDPOINT:514
+&amp; stop</code></pre>
+<p>Siguiendo con el ejemplo de pre, en este caso hay dos ficheros, pre-gestiona y pre-sede por lo que la configuración quedaría así:</p>
+<pre><code class="language-plaintext">## load modules
+$ModLoad imfile
+
+## gestiona log file
+$InputFileName /var/log/qradar/nginx/pre-gestiona.log
+$InputFileTag nginx-gestiona
+$InputFileStateFile stat-nginx-gestiona
+$InputFileSeverity info
+$InputFileFacility local7
+$InputRunFileMonitor
+local7.* @@zgz-syslog.zaragoza.espublico.com:514
+&amp; stop
+
+## sede log file
+$InputFileName /var/log/qradar/nginx/pre-sede.log
+$InputFileTag nginx-sede
+$InputFileStateFile stat-nginx-sede
+$InputFileSeverity info  
+$InputFileFacility local7
+$InputRunFileMonitor
+local7.* @@zgz-syslog.zaragoza.espublico.com:514
+&amp; stop</code></pre>
+<p>&nbsp;</p>
+<p>Una vez añadido, validar la configuración</p>
+<pre><code class="language-plaintext">sudo rsyslogd -N1</code></pre>
+<p>Y reiniciar el servicio</p>
+<pre><code class="language-plaintext">sudo systemctl restart rsyslog</code></pre>
+<p>&nbsp;</p>
