@@ -2,7 +2,7 @@
 title: Configuracion interfaz management
 description: 
 published: true
-date: 2024-01-16T11:29:56.698Z
+date: 2024-01-16T11:31:14.997Z
 tags: linux, network, interface, mgmt
 editor: ckeditor
 dateCreated: 2024-01-16T11:03:56.302Z
@@ -29,8 +29,8 @@ nmcli device reapply [DEVICE_NAME]</code></pre>
 <p>Si nos queremos cerciorar de que esta configurado correctamente, &nbsp;tenemos dos opciones, verlo en la tabla que hemos creado con el siguiente comando:</p>
 <pre><code class="language-plaintext">ip route show table 10
 
-default via 192.168.213.254 dev ens4 proto static metric 101
-192.168.213.0/24 dev ens4 proto kernel scope link src 192.168.213.13 metric 101</code></pre>
+default via [NETWORK_GATEWAY] dev [DEVICE_NAME] proto static metric 101
+[NETWORK]/[MASK] dev [DEVICE_NAME] proto kernel scope link src [IP_MGMT_ADDRESS] metric 101</code></pre>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 <p>O en el path <strong>/etc/NetworkManager/system-connections</strong>, encontraremos un fichero con el nombre de la tarjeta tanto de servicios como de management , y en esta ultima veremos unas líneas debajo del tag de [ipv4] tal que asi:</p>
