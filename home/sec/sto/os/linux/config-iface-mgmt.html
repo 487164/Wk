@@ -2,7 +2,7 @@
 title: Configuracion interfaz management
 description: 
 published: true
-date: 2024-01-16T11:16:36.821Z
+date: 2024-01-16T11:17:09.910Z
 tags: linux, network, interface, mgmt
 editor: ckeditor
 dateCreated: 2024-01-16T11:03:56.302Z
@@ -12,7 +12,7 @@ dateCreated: 2024-01-16T11:03:56.302Z
 <p style="text-align:center;">&nbsp;</p>
 <p>Dado los problemas de no poder conectar por la interfaz de management, se ha dado la siguiente solución que consiste en que si la conexión va por management, no salga por la interfaz de servicios ya que es la ruta de por defecto de la maquina, haciendo así, una tabla que tenga salida por management.</p>
 <p>&nbsp;</p>
-<p>El primer dato que tenemos que tener es el del nombre de la interfaz de management que por defecto será mgmt:</p>
+<p>El primer dato que tenemos que tener es el del nombre de la interfaz de management que por defecto será mgmt, pero debemos de asegurarnos con el siguiente comando:</p>
 <p>&nbsp;</p>
 <pre><code class="language-plaintext">nmcli c s
 NAME  UUID                                  TYPE      DEVICE
