@@ -2,7 +2,7 @@
 title: Envío logs glpi a syslog
 description: 
 published: true
-date: 2024-01-17T08:32:46.465Z
+date: 2024-01-17T08:35:08.894Z
 tags: linux, zabbix, syslog, glpi
 editor: ckeditor
 dateCreated: 2024-01-17T07:31:05.526Z
@@ -10,16 +10,16 @@ dateCreated: 2024-01-17T07:31:05.526Z
 
 <h1 style="text-align:center;">Envío logs glpi a syslog</h1>
 <p style="text-align:center;">&nbsp;</p>
-<p>Para el envio de logs de glpi a qradar sera necesario realizar varios pasos.</p>
+<p>Para el envío de logs de glpi a qradar será necesario realizar varios pasos.</p>
 <p>&nbsp;</p>
 <h2>Script</h2>
-<p>El log que tiene glpi , por defecto mete dos lineas por login y para solucionar esto , se ha creado un script al que hemos llamado <strong>glpi2syslog.sh</strong> el cual podremos ver en el cm en la ubicación de <strong>Security-monitoring/glpi </strong>y dejaremos en la ruta<strong> /opt/scripts/syslog</strong></p>
+<p>El log que tiene glpi , por defecto mete dos líneas por login y para solucionar esto , se ha creado un script al que hemos llamado <strong>glpi2syslog.sh</strong> el cual podremos ver en el cm en la ubicación de <strong>Security-monitoring/glpi </strong>y dejaremos en la ruta<strong> /opt/scripts/syslog</strong></p>
 <p>Una vez en la maquina, dentro de <strong>cron.d</strong> , crearemos el fichero <strong>glpi </strong>con el siguiente contenido.</p>
 <pre><code class="language-plaintext">* * * * * root /opt/scripts/syslog/glpi2syslog.sh &gt; /dev/null 2&gt;&amp;1</code></pre>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 <h2><i><strong>Configuración de rsyslog</strong></i></h2>
-<p>Una vez hecho lo anterior, tendremos que crear el fichero con la configuracion en el rsyslog:</p>
+<p>Una vez hecho lo anterior, tendremos que crear el fichero con la configuración en el rsyslog:</p>
 <pre><code class="language-plaintext">/etc/rsyslog.d/40.1-espublico-glpi.conf</code></pre>
 <p>Con el siguiente contenido:</p>
 <pre><code class="language-plaintext">## Save httpd general log.
