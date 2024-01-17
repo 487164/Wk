@@ -2,7 +2,7 @@
 title: Envío logs glpi a syslog
 description: 
 published: true
-date: 2024-01-17T08:09:14.708Z
+date: 2024-01-17T08:09:55.553Z
 tags: linux, zabbix, syslog, glpi
 editor: ckeditor
 dateCreated: 2024-01-17T07:31:05.526Z
@@ -24,3 +24,11 @@ local5.* /var/log/glpi/syslog-general.log
 
 ## And discard processed messages.
 &amp; stop</code></pre>
+<p>&nbsp;</p>
+<p>Una vez añadido, validar la configuración</p>
+<p>&nbsp;</p>
+<pre><code class="language-plaintext">sudo rsyslogd -N1</code></pre>
+<p>&nbsp;</p>
+<p>Y reiniciar el servicio</p>
+<pre><code class="language-plaintext">sudo systemctl restart rsyslog</code></pre>
+<p>&nbsp;</p>
