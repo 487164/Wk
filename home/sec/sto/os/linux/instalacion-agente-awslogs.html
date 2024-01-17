@@ -1,0 +1,183 @@
+<!--
+title: Instalación agente awslogs
+description: 
+published: true
+date: 2024-01-17T11:54:17.229Z
+tags: linux, syslog, agente, awslogs, log, cloudwatch
+editor: ckeditor
+dateCreated: 2024-01-17T11:54:17.229Z
+-->
+
+<h1 style="text-align:center;">Instalación del agente de AWSLogs</h1>
+<p>&nbsp;</p>
+<p>Para la instalación del agente de awslogs se necesitará en primer lugar la creación de una policy que permita el acceso a cloudwatch para el almacenamiento de los log.</p>
+<p>&nbsp;</p>
+<h2>Credenciales de acceso</h2>
+<p>Para ello acceder a&nbsp;</p>
+<p>IAM → Policies&nbsp;</p>
+<p>Y buscar si existe la policy <strong>CloudWatchLogs</strong>, en caso de que no exista crearla y añadirle el siguiente json como configuración</p>
+<pre><code class="language-plaintext">{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "logs:CreateLogGroup",
+                "logs:CreateLogStream",
+                "logs:PutLogEvents",
+                "logs:DescribeLogStreams"
+            ],
+            "Resource": [
+                "*"
+            ]
+        }
+    ]
+}</code></pre>
+<p>&nbsp;</p>
+<p>Una vez creado revisar si existe el usuario <strong>WriteCloudWatchLogs</strong>, en caso de no existir crearlo y atacharle la policy creada en el paso anterior.</p>
+<p>Las credenciales del mismo están guardadas en teampass bajo el nombre <strong>aws-WriteCloudWatchLogs&nbsp;</strong></p>
+<p>&nbsp;</p>
+<h2><strong>Instalación del agente</strong></h2>
+<p>&nbsp;</p>
+<h3>Amazon Linux AMI</h3>
+<p>Para la instalación del agente lanzar el siguiente comando</p>
+<pre><code class="language-plaintext">sudo yum update -y
+sudo yum install -y awslogs</code></pre>
+<p>&nbsp;</p>
+<p>Una vez instalado pasar a la sección de configuración.</p>
+<p>&nbsp;</p>
+<h3>Ubuntu Server, CentOS, or Red Hat instance</h3>
+<p>En el caso de un servidor diferente a la linux ami de aws, se deberá descargar el script</p>
+<pre><code class="language-plaintext">curl https://s3.amazonaws.com/aws-cloudwatch/downloads/latest/awslogs-agent-setup.py -O</code></pre>
+<p>E instalar el mismo con el siguiente comando, sustituyendo el valor de REGION_NAME por la región en la que se encuentra la máquina</p>
+<pre><code class="language-plaintext">sudo python3 ./awslogs-agent-setup.py --region us-east-1</code></pre>
+<p>&nbsp;</p>
+<h2>Configuración del agente</h2>
+<p>Al lanzar el proceso de instalación aparecerá un wizard con los siguientes apartados</p>
+<pre><code class="language-plaintext">Step 1 of 5: Installing pip ...DONE
+
+Step 2 of 5: Downloading the latest CloudWatch Logs agent bits ... DONE                    
+
+Step 3 of 5: Configuring AWS CLI ... 
+AWS Access Key ID [****************]: 
+AWS Secret Access Key [****************]: 
+Default region name [eu-west-3]: 
+Default output format [None]: 
+
+Step 4 of 5: Configuring the CloudWatch Logs Agent ... 
+Path of log file to upload [/var/log/messages]: 
+Destination Log Group name [/var/log/messages]: 
+
+Choose Log Stream name:
+  1. Use EC2 instance id.
+  2. Use hostname.
+  3. Custom.
+Enter choice [1]: 2
+
+Choose Log Event timestamp format:
+  1. %b %d %H:%M:%S    (Dec 31 23:59:59)
+  2. %d/%b/%Y:%H:%M:%S (10/Oct/2000:13:55:36)
+  3. %Y-%m-%d %H:%M:%S (2008-09-08 11:52:54)
+  4. Custom
+Enter choice [1]: 4
+
+Choose initial position of upload:
+  1. From start of file.
+  2. From end of file.
+Enter choice [1]: 2
+More log files to configure? [Y]: N
+
+Step 5 of 5: Setting up agent as a daemon ...DONE</code></pre>
+<p>&nbsp;</p>
+<p>Se pueden ignorar por el momento debido a que se configurarán manualmente en los ficheros más adelante.</p>
+<p>&nbsp;</p>
+<h2>Configuración de credenciales</h2>
+<p>Acceder como root a la ruta&nbsp;</p>
+<pre><code class="language-plaintext">/root/.aws</code></pre>
+<p>Crear el fichero credentials si no existe con el siguiente contenido sustituyendo los valores correspondientes</p>
+<pre><code class="language-plaintext">[default]
+aws_access_key_id = YOUR_ACCESS_KEY_ID
+aws_secret_access_key = YOUR_SECRET_KEY_ID</code></pre>
+<p>&nbsp;</p>
+<h2>Configuración general del agente</h2>
+<p>Acceder a la ruta siguiente</p>
+<pre><code class="language-plaintext">/var/awslogs/etc</code></pre>
+<p>Hacer una copia del fichero original&nbsp;</p>
+<pre><code class="language-plaintext">cp awslogs.conf awslogs.conf.orig</code></pre>
+<p>Crear un nuevo fichero con la siguiente configuración</p>
+<pre><code class="language-plaintext">[general]
+state_file = /var/awslogs/state/agent-state
+queue_size = 10</code></pre>
+<p>&nbsp;</p>
+<h2>Configuración de logs</h2>
+<p>Para el envío de logs a cloudwatch se deberá configurar un fichero por cada aplicación para llevar un orden y una limpieza. En el caso de los logs del sistema se creará un único log con los mismos.</p>
+<p>Para ello el formato que deberán incluir será el siguiente:</p>
+<pre><code class="language-plaintext">[ELEMENT_NAME]
+datetime_format = %Y%m%dT%H%M%S.%f%z
+file = /PATH/TO/LOG/FILE
+buffer_duration = 5000
+initial_position = end_of_file|start_of_file
+log_group_name = {hostname}
+log_stream_name = FILENAME</code></pre>
+<p>&nbsp;</p>
+<p>Siguiendo el ejemplo, como mínimo se deberá añadir el siguiente fichero</p>
+<pre><code class="language-plaintext">/var/awslogs/etc/config/system</code></pre>
+<p>Con el siguiente contenido</p>
+<pre><code class="language-plaintext">[boot]
+datetime_format = %Y%m%dT%H%M%S.%f%z
+file = /var/log/boot.log
+buffer_duration = 5000
+initial_position = end_of_file
+log_group_name = {hostname}
+log_stream_name = boot.log
+
+[cron]
+datetime_format = %Y%m%dT%H%M%S.%f%z
+file = /var/log/cron
+buffer_duration = 5000
+initial_position = end_of_file
+log_group_name = {hostname}
+log_stream_name = cron
+
+[maillog]
+datetime_format = %Y%m%dT%H%M%S.%f%z
+file = /var/log/maillog
+buffer_duration = 5000
+initial_position = end_of_file
+log_group_name = {hostname}
+log_stream_name = maillog
+
+[messages]
+datetime_format = %Y%m%dT%H%M%S.%f%z
+file = /var/log/messages
+buffer_duration = 5000
+initial_position = end_of_file
+log_group_name = {hostname}
+log_stream_name = messages
+
+[secure]
+datetime_format = %Y%m%dT%H%M%S.%f%z
+file = /var/log/secure
+buffer_duration = 5000
+initial_position = end_of_file
+log_group_name = {hostname}
+log_stream_name = secure
+
+[spooler]
+datetime_format = %Y%m%dT%H%M%S.%f%z
+file = /var/log/spooler
+buffer_duration = 5000
+initial_position = end_of_file
+log_group_name = {hostname}
+log_stream_name = spooler</code></pre>
+<p>&nbsp;</p>
+<h2>Reinicio de servicios</h2>
+<p>Una vez completada la configuración del agente arrancar y habilitar el mismo</p>
+<pre><code class="language-plaintext">systemctl enable awslogs --now</code></pre>
+<p>&nbsp;</p>
+<p>En caso de problemas se pueden visualizar logs en los siguientes ficheros</p>
+<pre><code class="language-plaintext">/var/log/awslogs-agent-setup.log
+/var/log/awslogs.log</code></pre>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
