@@ -2,7 +2,7 @@
 title: Envío logs glpi a syslog
 description: 
 published: true
-date: 2024-01-17T08:07:49.379Z
+date: 2024-01-17T08:09:14.708Z
 tags: linux, zabbix, syslog, glpi
 editor: ckeditor
 dateCreated: 2024-01-17T07:31:05.526Z
@@ -16,3 +16,11 @@ dateCreated: 2024-01-17T07:31:05.526Z
 <p>Una vez hecho lo anterior, tendremos que crear el fichero con la configuracion en el rsyslog:</p>
 <p>&nbsp;</p>
 <pre><code class="language-plaintext">/etc/rsyslog.d/40.1-espublico-glpi.conf</code></pre>
+<p>&nbsp;</p>
+<p>Con el siguiente contenido:</p>
+<p>&nbsp;</p>
+<pre><code class="language-plaintext">## Save httpd general log.
+local5.* /var/log/glpi/syslog-general.log
+
+## And discard processed messages.
+&amp; stop</code></pre>
