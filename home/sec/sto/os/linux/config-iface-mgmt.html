@@ -2,7 +2,7 @@
 title: Configuracion interfaz management
 description: 
 published: true
-date: 2024-01-16T16:07:26.929Z
+date: 2024-01-17T22:10:07.226Z
 tags: linux, network, interface, mgmt
 editor: ckeditor
 dateCreated: 2024-01-16T11:03:56.302Z
@@ -22,12 +22,14 @@ mgmt  88144039-5dab-3955-95da-163a4d0b32dc  ethernet  ens4</code></pre>
 <p>Posteriormente , con root, &nbsp;ejecutaremos los siguientes comandos en el orden que aparecen.</p>
 <pre><code class="language-plaintext">nmcli con mod [IFACE_NAME] ipv4.route-table 10
 nmcli con mod [IFACE_NAME] ipv4.routing-rules "priority 10 iif [IFACE_NAME] table 10"
-nmcli con mod [IFACE_NAME] +ipv4.routing-rules "priority 10 from [IP_MGMT_ADDRESS] table 10"
+nmcli con mod [IFACE_NAME] +ipv4.routing-rules "priority 10 from [IP_MGMT_ADDRESS]/[NETMASK] table 10"
+nmcli con mod [IFACE_NAME] +ipv4.routing-rules "priority 10 to [IP_MGMT_ADDRESS]/[NETMASK] table 10"
 nmcli con mod [IFACE_NAME] ipv4.routes "0.0.0.0/0 [NETWORK_MGMT_GATEWAY] table=10"
 nmcli device reapply [DEVICE_NAME]</code></pre>
 <p>&nbsp;</p>
 <p>En caso de necesitar añadir más de una ruta añadir otra línea de ipv4.routes con el simbolo + delante, por ejemplo:</p>
 <pre><code class="language-plaintext">nmcli con mod [IFACE_NAME] +ipv4.routes "0.0.0.0/0 [NETWORK_MGMT_GATEWAY] table=10"</code></pre>
+<p>&nbsp;</p>
 <blockquote>
   <p><strong>NOTA</strong>: Cada interfaz sólo puede tener una tabla asignada</p>
 </blockquote>
@@ -46,4 +48,23 @@ routing-rule1=priority 10 from 0.0.0.0/0 iif [IFACE_NAME] table 10
 routing-rule2=priority 10 from [IP_MGMT_ADDRESS] table 10</code></pre>
 <p>&nbsp;</p>
 <p>Como apunte final, es recomendable, por no decir obligatorio, realizar un script con la configuración aplicada e ir actualizando el mismo conforme sea necesario la modificación de las reglas existentes para evitar la pérdida de las rutas.</p>
+<p>A continuación se ve un ejemplo del script:</p>
+<pre><code class="language-plaintext">[root@itx-pocpamrocky-01-svcs.madrid.espublico.com network]# cat /opt/scripts/network/custom-rules.sh 
+#!/bin/bash
+
+nmcli con mod mgmt ipv4.route-table 10
+nmcli con mod mgmt ipv4.routing-rules "priority 10 iif mgmt table 10"
+nmcli con mod mgmt +ipv4.routing-rules "priority 10 from 192.168.213.28/24 table 10"
+nmcli con mod mgmt +ipv4.routing-rules "priority 10 to 192.168.213.28/24 table 10"
+nmcli con mod mgmt ipv4.routes "0.0.0.0/0 192.168.213.254 table=10"
+nmcli device reapply ens7
+
+echo -e "Table 10 routes:"
+ip r show table 10
+
+echo -e "\nIP rules:"
+ip rule show</code></pre>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
 <p>&nbsp;</p>
