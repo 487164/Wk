@@ -2,7 +2,7 @@
 title: Envío logs glpi a syslog
 description: 
 published: true
-date: 2024-01-17T08:31:16.439Z
+date: 2024-01-17T08:31:45.414Z
 tags: linux, zabbix, syslog, glpi
 editor: ckeditor
 dateCreated: 2024-01-17T07:31:05.526Z
@@ -12,7 +12,7 @@ dateCreated: 2024-01-17T07:31:05.526Z
 <p style="text-align:center;">&nbsp;</p>
 <p>Para el envio de logs de glpi a qradar sera necesario realizar varios pasos.</p>
 <p>&nbsp;</p>
-<h1>Script</h1>
+<h2>Script</h2>
 <p>El log que tiene glpi , por defecto mete dos lineas por login y para solucionar esto , se ha creado un script al que hemos llamado <strong>glpi2syslog.sh</strong> el cual podremos ver en el cm en la ubicación de <strong>Security-monitoring/glpi </strong>y dejaremos en la ruta<strong> /opt/scripts/syslog</strong></p>
 <p>Una vez en la maquina, dentro de <strong>cron.d</strong> , crearemos el fichero <strong>glpi </strong>con el siguiente contenido.</p>
 <pre><code class="language-plaintext">* * * * * root /opt/scripts/syslog/glpi2syslog.sh &gt; /dev/null 2&gt;&amp;1</code></pre>
