@@ -2,7 +2,7 @@
 title: Instalación agente awslogs
 description: 
 published: true
-date: 2024-01-17T12:15:10.545Z
+date: 2024-01-17T13:53:24.020Z
 tags: linux, syslog, agente, awslogs, log, cloudwatch
 editor: ckeditor
 dateCreated: 2024-01-17T11:54:17.229Z
@@ -179,5 +179,10 @@ log_stream_name = spooler</code></pre>
 <pre><code class="language-plaintext">/var/log/awslogs-agent-setup.log
 /var/log/awslogs.log</code></pre>
 <p>&nbsp;</p>
+<h2>Revisión de los logs</h2>
+<p>Una vez configurado el servicio de awslogs para revisar si se están enviando correctamente deberemos acceder desde la gui de aws al servicio de CloudWatch.</p>
+<p>CloudWatch → Logs → Log groups</p>
+<p>En el listado de log groups debería aparecer el servidor recién configurado.</p>
+<p>Si pinchamos en el mismo se deberían ver los log stream configurados en el servidor y dentro de cada uno de ellos los logs del servicio.</p>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
