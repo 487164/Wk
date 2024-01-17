@@ -2,7 +2,7 @@
 title: Añadir log source de AWS CloudWatch
 description: 
 published: true
-date: 2024-01-17T14:15:39.960Z
+date: 2024-01-17T18:23:45.798Z
 tags: soc, qradar, lm, ibm, awslogs, log, cloudwatch, log source, aws
 editor: ckeditor
 dateCreated: 2024-01-17T14:15:39.960Z
@@ -34,15 +34,17 @@ dateCreated: 2024-01-17T14:15:39.960Z
   <li>Assume an IAM Role → marcar sólo si se utiliza un role de IAM (no se usa en este caso)</li>
   <li>Regions →Marcar con un check la región</li>
   <li>AWS Service → CloudWatch Logs</li>
-  <li>Log Group → nombre del log group&nbsp;</li>
+  <li>Log Group → nombre del log group</li>
   <li>Use as a Gateway Log Source → On</li>
   <li>Log Source Identifier → Establecer el mismo indicado en el campo <strong>Log Group</strong></li>
 </ul>
 <p>&nbsp;</p>
 <p>Una vez completados los pasos y creado el log source se puede desplegar los cambios desde la administración.</p>
 <blockquote>
-  <p>NOTA: En caso de que se vayan a generar manualmente el resto de log sources, crear los mismos y desplegar después para reducir el número de deploys que se realicen.</p>
+  <p><strong>NOTA</strong>: En caso de que se vayan a generar manualmente el resto de log sources, crear los mismos y desplegar después para reducir el número de deploys que se realicen.</p>
 </blockquote>
-<p>&nbsp;</p>
+<blockquote>
+  <p><strong>NOTA</strong>: En caso de que al realizar el gateway los eventos no se detecten es posible que sea porque no existe un direccionamiento dns configurado, en tal caso se debe de añadir en el fichero /etc/hosts para que QRadar lo detecte. Además de esto se tiene que añadir en el fichero /etc/hosts.local para mantener los cambios cuando se realice un despliegue.</p>
+</blockquote>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
