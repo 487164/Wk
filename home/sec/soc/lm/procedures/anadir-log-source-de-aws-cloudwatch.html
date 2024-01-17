@@ -1,0 +1,48 @@
+<!--
+title: Añadir log source de AWS CloudWatch
+description: 
+published: true
+date: 2024-01-17T14:15:39.960Z
+tags: soc, qradar, lm, ibm, awslogs, log, cloudwatch, log source, aws
+editor: ckeditor
+dateCreated: 2024-01-17T14:15:39.960Z
+-->
+
+<h1 style="text-align:center;">Añadir log source de AWS CloudWatch</h1>
+<p>&nbsp;</p>
+<p>Una vez se envían los logs de un servidor al servicio de CloudWatch a través del agente de awslogs será necesario crear un log source gateway encargado de obtener los logs de aws y posteriormente los logs de los diferentes tipos de fuentes del servidor.</p>
+<p>En este caso se procede con la explicación del log source gateway para aws cloudwatch. La creación de un log source se detalla en la entrada <a href="https://wiki.security.espublico.com/es/home/sec/soc/lm/procedures/anadir-log-source">Añadir log source</a></p>
+<p>&nbsp;</p>
+<h2>Creación del log source de AWS</h2>
+<p>Se deberá crear un log source que incluya los siguientes valores:</p>
+<ul>
+  <li>Name → Universal DSM GW @ HOSTNAME</li>
+  <li>Log Source Type → Universal DSM</li>
+  <li>Protocol Type → Amazon Web Services</li>
+  <li>Groups<ul>
+      <li>Helpers</li>
+      <li>Helpers/AWS-GW</li>
+    </ul>
+  </li>
+  <li>Extension → None</li>
+  <li>Target Event Collector → eventcollector0 :: itx-qradar-cs-01</li>
+  <li>Coalescing events → Off</li>
+  <li>Store event payloads → On</li>
+  <li>Authentication method → Access Key ID / Secret Key</li>
+  <li>Access Key → añadir del elemento en teampass con nombre <strong>aws-ReadCloudWatchLogs</strong></li>
+  <li>Secret Key → añadir del elemento en teampass con nombre <strong>aws-ReadCloudWatchLogs</strong></li>
+  <li>Assume an IAM Role → marcar sólo si se utiliza un role de IAM (no se usa en este caso)</li>
+  <li>Regions →Marcar con un check la región</li>
+  <li>AWS Service → CloudWatch Logs</li>
+  <li>Log Group → nombre del log group&nbsp;</li>
+  <li>Use as a Gateway Log Source → On</li>
+  <li>Log Source Identifier → Establecer el mismo indicado en el campo <strong>Log Group</strong></li>
+</ul>
+<p>&nbsp;</p>
+<p>Una vez completados los pasos y creado el log source se puede desplegar los cambios desde la administración.</p>
+<blockquote>
+  <p>NOTA: En caso de que se vayan a generar manualmente el resto de log sources, crear los mismos y desplegar después para reducir el número de deploys que se realicen.</p>
+</blockquote>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
