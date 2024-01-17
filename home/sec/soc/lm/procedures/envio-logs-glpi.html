@@ -2,10 +2,17 @@
 title: Envío logs glpi a syslog
 description: 
 published: true
-date: 2024-01-17T07:31:29.869Z
+date: 2024-01-17T08:07:49.379Z
 tags: linux, zabbix, syslog, glpi
 editor: ckeditor
 dateCreated: 2024-01-17T07:31:05.526Z
 -->
 
 <h1 style="text-align:center;">Envío logs glpi a syslog</h1>
+<p style="text-align:center;">&nbsp;</p>
+<p>Para el envio de logs de glpi a qradar sera necesario realizar varios pasos.</p>
+<p>&nbsp;</p>
+<h2><i><strong>Configuración de rsyslog</strong></i></h2>
+<p>Una vez hecho lo anterior, tendremos que crear el fichero con la configuracion en el rsyslog:</p>
+<p>&nbsp;</p>
+<pre><code class="language-plaintext">/etc/rsyslog.d/40.1-espublico-glpi.conf</code></pre>
