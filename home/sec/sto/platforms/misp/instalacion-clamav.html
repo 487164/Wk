@@ -1,0 +1,97 @@
+<!--
+title: Instalación de clamav
+description: 
+published: true
+date: 2024-01-18T11:59:32.204Z
+tags: soc, ti, misp, clamav, antivirus
+editor: ckeditor
+dateCreated: 2024-01-18T11:59:32.204Z
+-->
+
+<h1 style="text-align:center;">Instalación de clamav</h1>
+<p>&nbsp;</p>
+<p>En la <strong>MISP</strong> es posible la instalación de un antivirus, <strong>clamav</strong> en este caso, para realizar un análisis de los ficheros adjuntos que puedan ir en los diferentes eventos, comprobando con ello si existe algún fichero malicioso entre los mismos.&nbsp;</p>
+<p>Para ello se describen a continuación los pasos para la instalación de este antivirus y su configuración tanto a nivel de sistema como de la propia MISP.</p>
+<p>&nbsp;</p>
+<h2>Instalación clamav</h2>
+<p>Para la instalación de clamav, en el caso de un sistema operativo basado en rhel, se debe de instalar en primer lugar el repositorio de epel. Dependiendo de la versión se utilizará yum o dnf.</p>
+<pre><code class="language-plaintext">sudo dnf install epel-release -y</code></pre>
+<p>Actualizar los paquetes del sistema (no es obligatorio pero si recomendable)</p>
+<pre><code class="language-plaintext">sudo dnf update -y</code></pre>
+<p>Instalación de clamav</p>
+<pre><code class="language-plaintext">sudo dnf install clamav clamd clamav-update</code></pre>
+<p>Y por último configuramos selinux (en caso de que estuviese habilitado) para evitar errores al lanzar los escaneos</p>
+<pre><code class="language-plaintext">sudo setsebool -P antivirus_can_scan_system 1</code></pre>
+<p>&nbsp;</p>
+<p>Una vez completada la instalación se habilita el uso de un socket local</p>
+<pre><code class="language-plaintext">sed -i 's/#LocalSocket \/run/LocalSocket \/run/g' /etc/clamd.d/scan.conf</code></pre>
+<p>Y se actualiza la base de datos de firmas de malware</p>
+<pre><code class="language-plaintext">freshclam</code></pre>
+<p>&nbsp;</p>
+<p>Completada esta parte se habilita y arranca el servicio de freshclam para las actualizaciones automáticas de la ddbb</p>
+<pre><code class="language-plaintext">systemctl start clamav-freshclam.service
+systemctl enable clamav-freshclam.service</code></pre>
+<p>&nbsp;</p>
+<p>Y se habilita y arranca el servicio de clamd@scan, encargado de llevar a cabo los análisis de ficheros y/o directorios</p>
+<pre><code class="language-plaintext">systemctl start clamd@scan
+systemctl enable clamd@scan</code></pre>
+<p>&nbsp;</p>
+<p>Para la correcta asignación de permisos en caso de un reinicio de la máquina añadir el siguiente fichero&nbsp;</p>
+<pre><code class="language-plaintext">$ cat /etc/tmpfiles.d/clamd.scan.conf 
+# fix permissions of socket folder
+d /var/run/clamd.scan 0711 clamscan clamscan</code></pre>
+<p>&nbsp;</p>
+<h2>Análisis manual de ficheros</h2>
+<p>Para analizar manualmente un fichero se utilizaría el siguiente comando</p>
+<pre><code class="language-plaintext">clamscan filename</code></pre>
+<p>&nbsp;</p>
+<p>En el caso de ser un directorio este otro</p>
+<pre><code class="language-plaintext">clamscan -r directoryname</code></pre>
+<p>&nbsp;</p>
+<h2>Configuración de syslog</h2>
+<p>Es recomendable la configuración de logs mediante syslog para garantizar que los mismos son enviados al SIEM existente en la empresa.</p>
+<p>Para ello modificaremos las siguientes directivas en el fichero /etc/clamd.d/scan.conf</p>
+<pre><code class="language-plaintext">LogSyslog yes
+LogFacility LOG_LOCAL5</code></pre>
+<p>Añadimos el fichero de configuración de syslog</p>
+<pre><code class="language-plaintext">$ cat /etc/rsyslog.d/50.2-espublico-clamav.conf
+## Save clamav logs
+local5.* -/var/log/clamd/clamd.log
+## And discard processed messages.
+&amp; stop</code></pre>
+<p>Configuramos logrotate para evitar que se acumulen más logs de la cuenta</p>
+<pre><code class="language-plaintext">$ cat /etc/logrotate.d/50.2-espublico-clamav.conf 
+/var/log/clamd/*.log
+{
+    create 640 clamscan clamscan
+    rotate 3
+    missingok
+    notifempty
+    sharedscripts
+    postrotate
+        /bin/kill -HUP `cat /var/run/syslogd.pid 2&gt; /dev/null` 2&gt; /dev/null || true
+    endscript
+}</code></pre>
+<p>&nbsp;</p>
+<p>Verificamos que la configuración es correcta&nbsp;</p>
+<pre><code class="language-plaintext">rsyslogd -N1</code></pre>
+<p>y reiniciamos el servicio de syslog</p>
+<pre><code class="language-plaintext">systemctl restart rsyslog</code></pre>
+<p>&nbsp;</p>
+<h2>Configuración de clamav en MISP</h2>
+<p>Una vez configurado correctamente el servicio de clamav en el servidor acceder a la MISP e ir a la ruta</p>
+<p>Administration → Server Settings &amp; Maintenance → Plugin → Enrichment</p>
+<p>Una vez en esta sección establecer los siguientes valores a estas variables</p>
+<ul>
+  <li>Plugin.Enrichment_clamav_enabled → True</li>
+  <li>Plugin.Enrichment_clamav_restrict → No organisation selected</li>
+  <li>Plugin.Enrichment_clamav_connection → unix:///var/run/clamd.scan/clamd.sock</li>
+</ul>
+<p>&nbsp;</p>
+<p>Una vez habilitado, acceder a la siguiente sección</p>
+<p>Administration → Server Settings &amp; Maintenance → Diagnostics</p>
+<p>Y buscar la sección de <strong>Attachment scan module</strong>, donde se debería de ver que el plugin se encuentra activado, mostrando un texto similar al siguiente</p>
+<pre><code class="language-plaintext">Status: OK
+Software: ClamAV 1.0.4/27158/Thu Jan 18 10:41:33 2024 </code></pre>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
