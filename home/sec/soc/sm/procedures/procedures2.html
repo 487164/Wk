@@ -1,11 +1,51 @@
 <!--
-title: this is a test
+title: Gestión de phishing
 description: 
 published: true
-date: 2024-01-18T08:32:40.995Z
+date: 2024-01-18T09:09:38.968Z
 tags: 
 editor: ckeditor
 dateCreated: 2024-01-18T08:32:40.995Z
 -->
 
-<p>asdasda</p>
+<h1 style="text-align:center;">Gestión de phishing</h1>
+<p style="text-align:justify;">&nbsp;</p>
+<p>El presente documento detalla el flujo de tareas para gestionar los reportes de phishing enviados por los usuarios o detectados por MS365</p>
+<p>&nbsp;</p>
+<h2>Mensajes reportados por cuentas @espublico.com</h2>
+<p>Se despliega para toda la organización del tennant @espublico.com la integrated app “Report Phising” en outlook</p>
+<p><a href="https://docs.microsoft.com/es-es/microsoft-365/security/office-365-security/enable-the-report-message-add-in?view=o365-worldwide"><u>https://docs.microsoft.com/es-es/microsoft-365/security/office-365-security/enable-the-report-message-add-in?view=o365-worldwide</u></a></p>
+<figure class="image image_resized" style="width:602px;"><img src="https://lh7-eu.googleusercontent.com/zR2X7U0a2anw16aP1fEpZLzn_RA9QF3NCDzBSllr9kIOEPx0BaIOLFhvyP7PJ3Icg7vD7YUxJjYsMGGmkUM_zoBF-NiIoHnj6Idjz3O36Ni5H-VPWZXb15I8kJJwasRyI5-porfnKMNcE-bGa43K88Q"></figure>
+<p>&nbsp;</p>
+<p>Cuando los usuarios pulsan el botón de reportar se envía un correo a <a href="mailto:phishing@soporte.espublico.it"><u>phishing@soporte.espublico.it</u></a> que entra en RT</p>
+<ul>
+  <li>Cola: SD-SOC-Phishing</li>
+  <li>Solicitante: Office365Alerts@microsoft.com</li>
+  <li>Asunto: Low-severity alert: Email reported by user as malware or phish</li>
+</ul>
+<p>Los mensajes llevan un link con el texto “View alert details” que abre la alerta en Microsoft 365 Defender portal&nbsp;</p>
+<p><a href="https://security.microsoft.com/viewalerts"><u>https://security.microsoft.com/viewalerts</u></a></p>
+<figure class="image image_resized" style="width:602px;"><img src="https://lh7-eu.googleusercontent.com/J6ZKLQ26NMqTy8avfANisAYnw3UfQZ3bU2buySPArNEO4vSS7zjhh3Kc5Fs8OpHalJD2cdK_rvLdq1-0vPhMkgC23qgQyUq8kSfeA3swa6DKE1v8zmuBhkVjKaZpAtAVi-8Ei8WjaQ4Ppj-HklUwlbs"></figure>
+<p>&nbsp;</p>
+<p>En la alerta de notificación de phising se cambia el status a Resolved y en comments de anota el número de ticket (pulsando en Revolve, arriba a la izquierda)</p>
+<p>Se revisará el fichero enviado pulsando en View submision (En la parte inferior de la alerta)&nbsp; y se abrirá una nueva ventana en <a href="https://security.microsoft.com/reportsubmission"><u>https://security.microsoft.com/reportsubmission</u></a></p>
+<p>En esta ventana es donde se califica el mensaje como Phising o Junk o No threats found, lo que notificará al usuario.</p>
+<p>Además de la información que muestra haciendo click en Open email entity lleva a un informe más completo que permite descargar el correo</p>
+<figure class="image image_resized" style="width:602px;"><img src="https://lh7-eu.googleusercontent.com/GtUukwbBJT5f_f7Ab9mOfC7RLtZWHhFl4hycMPogmZFkz-TDuEeMZZfy-rJhN6tiEvdmNsQI6JJxxfxZDsDIBONWxrXlnSTtYvpKuuc0sjDBNCmSoBxXuZBeWVxsry3Dm1dhdHeIR8EEATGmXTETqSA"></figure>
+<p>&nbsp;</p>
+<p>Para buscar y eliminar correos similares se puede realizar una búsqueda de contenido desde Microsoft Purview compliance portal <a href="https://compliance.microsoft.com/contentsearchv2"><u>https://compliance.microsoft.com/contentsearchv2</u></a></p>
+<figure class="image image_resized" style="width:602px;"><img src="https://lh7-eu.googleusercontent.com/RktCY3QdWL6m6bKuqC9q7rZ0kO-MRHKaJe3XJtW3Uskx3x5X3GPSmd_oy5fpeE2sg06dHkOpBZWrX0eh86AcAmbODkmfFvvWJjInFA1DcPEOlpIm381HrRTHWgOX2X9oubi-ZsYUXB3ErrntQeA5pZ4"></figure>
+<p>&nbsp;</p>
+<p>Se crea una nueva búsqueda con el número de ticket como name, en location se elige Exchange mailboxes, y en el KQL editor los filtros de búsqueda</p>
+<p><a href="https://docs.microsoft.com/en-us/microsoft-365/compliance/keyword-queries-and-search-conditions"><u>https://docs.microsoft.com/en-us/microsoft-365/compliance/keyword-queries-and-search-conditions</u></a></p>
+<p>La búsqueda tarda unos minutos en completarse y lanza una alerta en <a href="https://security.microsoft.com/viewalerts"><u>https://security.microsoft.com/viewalerts</u></a> que hay que cerrar con el número de ticket. Se revisan los resultados y se edita y lanza la búsqueda hasta que se consigue que muestre únicamente los correos que queremos eliminar.</p>
+<figure class="image image_resized" style="width:602px;"><img src="https://lh7-eu.googleusercontent.com/zRJcjLeeYbHkkoPY8oiKCBR9Vf0wt_taIHXuZxyxzI8vft8H8nM40tbz1EqfcOvxJurLlTXQh8LqbdfzaIwMr1iP92ukHtr2ZcoofoNeQdYIigv8MWp3E59I7nTVGCua-K9-LP_jXS5cSwPYISIticQ"></figure>
+<p>&nbsp;</p>
+<p>Conectamos por PowerShell al&nbsp; Security &amp; Compliance Center, lanzamos una acción para borrar permanentemente los resultados de la búsqueda y comprobamos el resultado.</p>
+<p>Connect-IPPSSession</p>
+<p>New-ComplianceSearchAction -SearchName "47905"&nbsp; -Purge -PurgeType HardDelete</p>
+<p>Get-ComplianceSearchAction -Identity "47905_Purge" &nbsp; | select *</p>
+<p><a href="https://docs.microsoft.com/en-us/powershell/exchange/connect-to-scc-powershell?view=exchange-ps"><u>https://docs.microsoft.com/en-us/powershell/exchange/connect-to-scc-powershell?view=exchange-ps</u></a></p>
+<figure class="image image_resized" style="width:602px;"><img src="https://lh7-eu.googleusercontent.com/A4ijT3rg-5vhC_fcLxZkz2aOUUxxDmOXVcgnUWvh11T4_rM8ejuB-pX56TX8j9ucUILkZ7d-XCzXq4mr-HagwvPdL8ixIbZKzRwLvm_ZVPY9eObZCIQlHWKezSPXU29S9xG1tksSGXkfkfiKIGEqoxw"></figure>
+<p>&nbsp;</p>
+<p>Se resuelve el ticket con un comentario.</p>
