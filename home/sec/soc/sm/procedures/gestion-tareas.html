@@ -1,0 +1,62 @@
+<!--
+title: Gestión de tareas
+description: 
+published: true
+date: 2024-01-18T09:14:22.601Z
+tags: 
+editor: ckeditor
+dateCreated: 2024-01-18T09:14:22.601Z
+-->
+
+<h1 style="text-align:center;">Gestión de tareas</h1>
+<p style="text-align:justify;">&nbsp;</p>
+<p style="text-align:justify;">El presente documento detalla los flujos de tareas para el servicio de Security Monitoring</p>
+<p style="text-align:justify;">&nbsp;</p>
+<h2 style="text-align:justify;">Herramientas de ticketing</h2>
+<p style="text-align:justify;">La herramienta elegida para la gestión del servicio es RT, disponible en https://soporte.iubaris.com</p>
+<p style="text-align:justify;">&nbsp;</p>
+<h2 style="text-align:justify;">Colas asignadas al servicio</h2>
+<p>El servicio dispone de las siguientes colas y características:</p>
+<ul>
+  <li>Nombre: SD-SOC-Security_Monitoring</li>
+  <li>Correo: rt_soc_sm@soporte.espublico.it</li>
+  <li>Grupo de Permisos:<ul>
+      <li>Acceso y comentarios: Seguridad</li>
+      <li>Gestión de la cola: SD-SOC-Security_monitoring-Operadores</li>
+    </ul>
+  </li>
+  <li>TAG: [SOC_SM]</li>
+</ul>
+<p>&nbsp;</p>
+<h2>Generación de tickets</h2>
+<p>Los tickets se generarán directamente desde la plataforma o enviando correo al buzón asignado a la cola.</p>
+<p>El asunto debe cumplir la siguiente nomenclatura:</p>
+<p>[Tipo de tarea]-[Periodicidad]:Descripción</p>
+<p>Para las tareas recurrentes se añadirá al final de la descripción la fecha en formato dd-MM-yyyy.</p>
+<p>Ejemplo de solicitud: [REP]: Nuevo report para controles VPN</p>
+<p>Ejemplo de tareas recurrentes: [REV]-[D]: Revisión de salud de los event collector 10-02-2022</p>
+<p>Cualquier solicitud que no se ajuste a los TAGs definidos podrán ser abiertos con el TAG [OTRAS].</p>
+<p>&nbsp;</p>
+<h2>Tags para tickets</h2>
+<ul>
+  <li>Tipo de tarea(Obligatorio):<ul>
+      <li>Investigación: [INV]</li>
+      <li>Informe: [REP]</li>
+      <li>KPIs: [KPI]</li>
+      <li>Nuevo caso de uso: [NUC]</li>
+      <li>Documentación: [DOC]</li>
+      <li>Otras: [OTRAS]</li>
+    </ul>
+  </li>
+  <li>Periodicidad (Solo para tareas recurrentes):<ul>
+      <li>Diario:[D]</li>
+      <li>Semanal:[W]</li>
+      <li>Quincenal: [B]</li>
+      <li>Mensual: [M]</li>
+      <li>Trimestral:[3M]</li>
+      <li>Cuatrimestral:[4M]</li>
+      <li>Semestral:[6M]</li>
+      <li>Anual:[Y]</li>
+    </ul>
+  </li>
+</ul>
