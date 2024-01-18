@@ -1,11 +1,121 @@
 <!--
-title: servicios
+title: Gestión de casos de uso
 description: 
 published: true
-date: 2024-01-18T08:51:16.396Z
+date: 2024-01-18T09:00:02.726Z
 tags: 
 editor: ckeditor
 dateCreated: 2024-01-18T08:40:28.579Z
 -->
 
-<p>asdasdasd</p>
+<h1 style="text-align:center;">Gestión de casos de uso</h1>
+<p style="text-align:justify;">&nbsp;</p>
+<p style="text-align:justify;">El presente documento detalla los flujos de los casos de uso</p>
+<p style="text-align:justify;">&nbsp;</p>
+<h2 style="text-align:justify;">Solicitud de casos de uso</h2>
+<p style="text-align:justify;">Cualquier usuario de la organización, a través de su responsable o del responsable de la plataforma a monitorizar, puede proponer un caso de uso.</p>
+<p style="text-align:justify;">Para ello se enviará la propuesta por correo electrónico al buzón <a href="mailto:rt_soc_sm@soporte.espublico.it"><u>rt_soc_sm@soporte.espublico.it</u></a><u>.</u></p>
+<p style="text-align:justify;">Esta solicitud será atendida por el personal del equipo de seguridad</p>
+<p style="text-align:justify;">&nbsp;</p>
+<h2 style="text-align:justify;">Evaluación de viabilidad</h2>
+<p>Una vez recibida la solicitud, el equipo de seguridad evaluará la viabilidad del caso de uso, teniendo en cuenta al menos los siguientes aspectos:</p>
+<ul>
+  <li>¿Disponemos de logs en el SIEM?<ul>
+      <li>En caso contrario, ¿es posible su integración?</li>
+      <li>En caso afirmativo, ¿Los logs dan trazabilidad suficiente?</li>
+    </ul>
+  </li>
+  <li>¿Cuál sería el flujo de escalado?</li>
+  <li>¿Requerirá de atención 24x7?</li>
+</ul>
+<p>&nbsp;</p>
+<h2>Desarrollo</h2>
+<p>El equipo de seguridad desarrollará la lógica del caso de uso en el entorno de desarrollo siem-dev.security.espublico.com</p>
+<p>Para ello se debe hacer un reenvío del entorno de PRO al de DEV de los logs de la fuente necesaria para su desarrollo.</p>
+<p>&nbsp;</p>
+<h2>Prueba de concepto</h2>
+<p>La POC debe incluir el flujo completo de la alerta, desde la generación de trazas necesarias para que se genere la alerta, hasta su cierre, incluyendo posibles escalados a otros equipos.</p>
+<p>&nbsp;</p>
+<h2>Nombre del caso de uso</h2>
+<p>Los casos de uso seguirán el siguiente estándar:</p>
+<p>MAGMAL1-MAGMAl2-000 [Criticidad] [Servicio] [Tecnología] Descripcion del caso de uso.</p>
+<ul>
+  <li>MAGMA<ul>
+      <li>Se seguirá la nomenclatura de L1 y L2 del MaGmA UFC</li>
+    </ul>
+  </li>
+  <li>Criticidad<ul>
+      <li>Baja</li>
+      <li>Media</li>
+      <li>Alta</li>
+      <li>Crítica</li>
+    </ul>
+  </li>
+  <li>Servicio<ul>
+      <li>Gestiona</li>
+      <li>esFirma</li>
+      <li>esPublico</li>
+    </ul>
+  </li>
+  <li>Tecnología:</li>
+</ul>
+<figure class="table" style="float:left;">
+  <table style="border-bottom:none;border-left:none;border-right:none;border-top:none;">
+    <tbody>
+      <tr>
+        <td style="border-bottom:1pt solid #000000;border-left:1pt solid #000000;border-right:1pt solid #000000;border-top:1pt solid #000000;padding:5pt;vertical-align:top;"><strong>SSH</strong></td>
+        <td style="border-bottom:1pt solid #000000;border-left:1pt solid #000000;border-right:1pt solid #000000;border-top:1pt solid #000000;padding:5pt;vertical-align:top;"><strong>AD-DS</strong></td>
+        <td style="border-bottom:1pt solid #000000;border-left:1pt solid #000000;border-right:1pt solid #000000;border-top:1pt solid #000000;padding:5pt;vertical-align:top;"><strong>O365</strong></td>
+        <td style="border-bottom:1pt solid #000000;border-left:1pt solid #000000;border-right:1pt solid #000000;border-top:1pt solid #000000;padding:5pt;vertical-align:top;"><strong>FW</strong></td>
+      </tr>
+      <tr>
+        <td style="border-bottom:1pt solid #000000;border-left:1pt solid #000000;border-right:1pt solid #000000;border-top:1pt solid #000000;padding:5pt;vertical-align:top;"><strong>PROXY</strong></td>
+        <td style="border-bottom:1pt solid #000000;border-left:1pt solid #000000;border-right:1pt solid #000000;border-top:1pt solid #000000;padding:5pt;vertical-align:top;"><strong>MySQL</strong></td>
+        <td style="border-bottom:1pt solid #000000;border-left:1pt solid #000000;border-right:1pt solid #000000;border-top:1pt solid #000000;padding:5pt;vertical-align:top;"><strong>WINLOGON</strong></td>
+        <td style="border-bottom:1pt solid #000000;border-left:1pt solid #000000;border-right:1pt solid #000000;border-top:1pt solid #000000;padding:5pt;vertical-align:top;"><strong>EDR</strong></td>
+      </tr>
+      <tr>
+        <td style="border-bottom:1pt solid #000000;border-left:1pt solid #000000;border-right:1pt solid #000000;border-top:1pt solid #000000;padding:5pt;vertical-align:top;"><strong>ANTIDDOS</strong></td>
+        <td style="border-bottom:1pt solid #000000;border-left:1pt solid #000000;border-right:1pt solid #000000;border-top:1pt solid #000000;padding:5pt;vertical-align:top;"><strong>GOOGLE</strong></td>
+        <td style="border-bottom:1pt solid #000000;border-left:1pt solid #000000;border-right:1pt solid #000000;border-top:1pt solid #000000;padding:5pt;vertical-align:top;"><strong>HTTP</strong></td>
+        <td style="border-bottom:1pt solid #000000;border-left:1pt solid #000000;border-right:1pt solid #000000;border-top:1pt solid #000000;padding:5pt;vertical-align:top;"><strong>O365</strong></td>
+      </tr>
+      <tr>
+        <td style="border-bottom:1pt solid #000000;border-left:1pt solid #000000;border-right:1pt solid #000000;border-top:1pt solid #000000;padding:5pt;vertical-align:top;"><strong>PHPMYADMIN</strong></td>
+        <td style="border-bottom:1pt solid #000000;border-left:1pt solid #000000;border-right:1pt solid #000000;border-top:1pt solid #000000;padding:5pt;vertical-align:top;"><strong>TEAMPASS</strong></td>
+        <td style="border-bottom:1pt solid #000000;border-left:1pt solid #000000;border-right:1pt solid #000000;border-top:1pt solid #000000;padding:5pt;vertical-align:top;"><strong>WEBHOOK</strong></td>
+        <td style="border-bottom:1pt solid #000000;border-left:1pt solid #000000;border-right:1pt solid #000000;border-top:1pt solid #000000;padding:5pt;vertical-align:top;"><strong>IPS</strong></td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h2>Documentación</h2>
+<p>Se generará la documentación necesaria siguiendo la plantilla <a href="https://docs.google.com/document/d/1EaiD9N-OyeSnWaCVb_7eZN71smIqilgw/edit?usp=sharing&amp;ouid=114695862584928019489&amp;rtpof=true&amp;sd=true"><u>RunBooks-plantilla-basica.docx</u></a></p>
+<p>Además, se incluirá en la Wiki los requisitos de investigación.</p>
+<p>&nbsp;</p>
+<h2>Puesta en producción</h2>
+<p>Una vez finalizada todas las fases, el caso de uso será incluido en el entorno de PRO y será atendido por el equipo de analistas.</p>
+<p>&nbsp;</p>
+<h2>Gestión del cambio</h2>
+<p>Todas las modificaciones realizadas sobre un caso de uso debe disponer del ticket correspondiente en la herramienta de ticketing y será revisado periódicamente.</p>
+<p>&nbsp;</p>
+<h2>Revisión de casos de uso</h2>
+<p>Se dispondrá de tareas periódicas para revisar la evolución de casos de uso:</p>
+<ul>
+  <li>Informe semanal de optimizaciones de casos de uso<ul>
+      <li>Se revisará si las modificaciones realizadas disponen de un tiquet en RT.</li>
+    </ul>
+  </li>
+  <li>Informe mensual de nuevos casos de uso<ul>
+      <li>Se identificarán los casos de uso nuevos que se han añadido</li>
+    </ul>
+  </li>
+  <li>Análisis semanal de calidad de casos de uso<ul>
+      <li>Se revisarán los TOP y Bottom de reglas que han generado alertas y su cierre.</li>
+    </ul>
+  </li>
+</ul>
