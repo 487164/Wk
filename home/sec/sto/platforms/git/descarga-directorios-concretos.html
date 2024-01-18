@@ -1,0 +1,35 @@
+<!--
+title: Descarga de directorios concretos
+description: 
+published: true
+date: 2024-01-18T12:29:45.213Z
+tags: soc, git
+editor: ckeditor
+dateCreated: 2024-01-18T12:29:45.213Z
+-->
+
+<h1 style="text-align:center;">Descarga de directorios concretos</h1>
+<p>&nbsp;</p>
+<p>En git es posible descargar sólo ciertos directorios para evitar disponer de un repositorio compelto en el servidor.</p>
+<p>Para ello se explican a continuación los pasos necesarios a la hora de hacer el clonado del repositorio.</p>
+<p>&nbsp;</p>
+<p>En primer lugar acceder al directorio donde se desea disponer del repositorio, crear el directorio y acceder al mismo</p>
+<pre><code class="language-plaintext">mkdir DIRNAME &amp;&amp; cd DIRNAME</code></pre>
+<p>Iniciar git</p>
+<pre><code class="language-plaintext">git init</code></pre>
+<p>Añadir el track del repositorio</p>
+<pre><code class="language-plaintext">git remote add -f origin ssh://git@YOUR_HOST/YOUR_REPONAME/</code></pre>
+<p>Habilitar la característica de sparse checkout</p>
+<pre><code class="language-plaintext">git config core.sparseCheckout true</code></pre>
+<p>añadir los directorios deseados al fichero de configuración de sparse</p>
+<pre><code class="language-plaintext">echo 'YOUR_PATH' &gt;&gt; .git/info/sparse-checkout</code></pre>
+<p>Una vez definidos los directorios hacer un pull del repositorio&nbsp;</p>
+<pre><code class="language-plaintext">git pull --set-upstream origin master</code></pre>
+<p>Una vez obtenido el código deseado se puede trabajar con normalidad para añadir ficheros</p>
+<pre><code class="language-plaintext">git add FILES</code></pre>
+<p>realizar un commit de los mismos</p>
+<pre><code class="language-plaintext">git commit -m "YOUR MESSAGE"</code></pre>
+<p>y subir los cambios realizados</p>
+<pre><code class="language-plaintext">git push --set-upstream origin master</code></pre>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
