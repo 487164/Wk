@@ -1,0 +1,123 @@
+<!--
+title: Playbook SM Scheduled Tasks
+description: 
+published: true
+date: 2024-01-18T09:37:42.669Z
+tags: sm, soc, tasks
+editor: ckeditor
+dateCreated: 2024-01-18T09:37:42.669Z
+-->
+
+<h1 style="text-align:center;">Playbook SM Scheduled Tasks</h1>
+<p style="text-align:justify;">&nbsp;</p>
+<h2 style="text-align:justify;">Descripción</h2>
+<p style="text-align:justify;">Este documento detalla la lista de tareas y acciones a tomar durante su realización.</p>
+<p style="text-align:justify;">&nbsp;</p>
+<h2 style="text-align:justify;">Control de tareas</h2>
+<p>El control de tareas se llevará a cabo mediante el documento: <a href="https://docs.google.com/spreadsheets/u/0/d/1jS9n71gsRnmFtSDLGiUe8AcA5UoQfh7PVoH7t4GYU-o/edit"><u>Control de tareas</u></a></p>
+<p>El documento se estructura de la siguiente forma:</p>
+<ul>
+  <li>Task: Desglose de las tareas y su información.</li>
+  <li>Daily: Estado de las tareas diarias.</li>
+  <li>Daily Operator: Identifica el operador que ha realizado la tarea.</li>
+  <li>Weekly: Estado de las tareas semanales.</li>
+  <li>Weekly Operator: Identifica el operador que ha realizado la tarea.</li>
+  <li>Monthly: Estado de las tareas mensuales.</li>
+  <li>Monthly Operator: Identifica el operador que ha realizado la tarea.</li>
+</ul>
+<p>&nbsp;</p>
+<h2>Estado de tarea</h2>
+<p>Las tareas pueden tener 3 estados:</p>
+<ul>
+  <li>OK: la tarea se ha realizado y no ha sido necesaria ninguna tarea relacionada.</li>
+  <li>NOK: la tarea se ha realizado y ha sido necesario iniciar una tarea relacionada.</li>
+  <li>INACTIVA: solo para aquellas tareas que se identifican como inactiva en la hoja “Task”.</li>
+</ul>
+<p>&nbsp;</p>
+<h2>SOC Alerts QA</h2>
+<h3>Descripción</h3>
+<p style="text-align:justify;">Se revisan los cierres de las alertas en QRadar del día anterior. Para ello se hace uso de Grafana, ya que en la dashboard “<i>Control de Calidad</i>” se pueden ver los cierres con las respectivas notas creadas por los analistas.</p>
+<p style="text-align:justify;">Hay que verificar tanto el tipo de cierre, como el análisis que han hecho los analistas.</p>
+<p style="text-align:justify;">&nbsp;</p>
+<h3 style="text-align:justify;">Recurrencia</h3>
+<p style="text-align:justify;">Diaria</p>
+<p style="text-align:justify;">&nbsp;</p>
+<h3 style="text-align:justify;">Tiempo estimado</h3>
+<p style="text-align:justify;">1 hora</p>
+<p style="text-align:justify;">&nbsp;</p>
+<h3 style="text-align:justify;">Fuentes</h3>
+<p style="text-align:justify;">Grafana y QRadar</p>
+<p style="text-align:justify;">&nbsp;</p>
+<h3 style="text-align:justify;">Acciones</h3>
+<p style="text-align:justify;">En caso de encontrar un tipo de cierre que no corresponde o análisis incompletos o mal enfocados, se llevará el control en la hoja ‘<i>Control de Calidad</i>’ del excel <a href="https://docs.google.com/spreadsheets/u/0/d/1Zi24OgF1c5T8S1STSNcw7sE5Q9vgBpsqlEHPCEkULAo/edit"><u>Tareas SOC-SM</u></a>.</p>
+<p style="text-align:justify;">Hay que tener en cuenta, que cuando un analista especifica un tipo de cierre por error, anotan la corrección en la excel <a href="https://docs.google.com/spreadsheets/u/0/d/1G9be3O3YgxmU2ID3LvCl5tONz3pmSie8I9RjI6V_eEo/edit"><u>Reportes alertas ITX</u></a></p>
+<p>Si el analista es consciente de su error y lo ha anotado en la excel mencionada, no es necesario llevar el registro en la hoja de ‘<i>Control de Calidad</i>’.</p>
+<p>&nbsp;</p>
+<h2>esFirma OCSP</h2>
+<h3>Descripción</h3>
+<p>En esta tarea se identifica si se han detectado solicitudes de terceros de certificados no emitidos</p>
+<p>&nbsp;</p>
+<h3>Recurrencia</h3>
+<p>Diaria</p>
+<p>&nbsp;</p>
+<h3>Tiempo estimado</h3>
+<p>1 hora</p>
+<p>&nbsp;</p>
+<h3>Fuentes</h3>
+<p>QRadar</p>
+<p>&nbsp;</p>
+<h3>Acciones</h3>
+<p style="text-align:justify;">Realizar la búsqueda personalizada en QRadar llamada “[EJBCA] Solicitud OCSP de certificados no emitidos Esfirma”, ajustando la fecha para el día anterior.</p>
+<p style="text-align:justify;">Identificar el campo “Forwarded (custom)”. Si la IP es local, se trata como Falso_Positivo. Si la IP es pública, y no pertenece a Espublico, realizar investigación de la IP y crear tiquet en RT en la cola “SPOC esFirma” con el asunto “[SEGURIDAD] [OCSP] Solicitud de certificado no emitido &lt;Fecha&gt;”</p>
+<p style="text-align:justify;">Ticket de ejemplo:</p>
+<p style="text-align:justify;"><a href="https://soporte.iubaris.com/Ticket/Display.html?id=50352"><u>https://soporte.iubaris.com/Ticket/Display.html?id=50352</u></a></p>
+<p style="text-align:justify;">Hay que incluir todas las trazas/eventos en RAW y una breve descripción de la investigación de la IP que haya solicitado dicho Serial Number.</p>
+<p style="text-align:justify;">&nbsp;</p>
+<h2 style="text-align:justify;">SOC Rules QA Daily</h2>
+<h3 style="text-align:justify;">Descripción</h3>
+<p style="text-align:justify;">Se revisan los tipos de cierres de las alertas en QRadar del día anterior. Para ello se hace uso de Grafana, ya que en la dashboard “<i>Eficacia Reglas</i>” se pueden ver el número de alertas que han saltado, y los tipos de cierres que han tenido, pudiendo observar así si una regla genera muchos FP, Errores, etc.</p>
+<p style="text-align:justify;">&nbsp;</p>
+<h3 style="text-align:justify;">Recurrencia</h3>
+<p style="text-align:justify;">Diaria</p>
+<p style="text-align:justify;">&nbsp;</p>
+<h3 style="text-align:justify;">Tiempo estimado</h3>
+<p style="text-align:justify;">1 hora</p>
+<p style="text-align:justify;">&nbsp;</p>
+<h3 style="text-align:justify;">Fuentes</h3>
+<p style="text-align:justify;">Grafana y QRadar</p>
+<p style="text-align:justify;">&nbsp;</p>
+<h3 style="text-align:justify;">Acciones</h3>
+<p style="text-align:justify;">En caso de detectar que se puede realizar un ajuste para mejorar la eficacia de una regla, se creará un ticket con el TAG de [RLC] en la cola de SD-SOC-Log_Management.</p>
+<p style="text-align:justify;">&nbsp;</p>
+<h2 style="text-align:justify;">SOC Quarantine</h2>
+<h3 style="text-align:justify;">Descripción</h3>
+<p style="text-align:justify;">Revisar la Cuarentena de Office 365 para detectar posibles Falsos Positivos, donde se requiera de la liberación del correo afectado. También se comprobará que ningún correo proveniente de una campaña de phishing haya llegado a un buzón de algún usuario antes de ser bloqueado.</p>
+<p style="text-align:justify;">&nbsp;</p>
+<h3 style="text-align:justify;">Recurrencia</h3>
+<p style="text-align:justify;">Diaria</p>
+<p style="text-align:justify;">&nbsp;</p>
+<h3 style="text-align:justify;">Tiempo estimado</h3>
+<p style="text-align:justify;">1 hora</p>
+<p style="text-align:justify;">&nbsp;</p>
+<h3 style="text-align:justify;">Fuentes</h3>
+<p style="text-align:justify;">Office 365</p>
+<p style="text-align:justify;">&nbsp;</p>
+<h3 style="text-align:justify;">Acciones</h3>
+<p style="text-align:justify;">En caso de detectar el bloqueo de un correo legítimo, se procederá con su liberación con un análisis previo del mismo para verificar que no contiene nada que entrañe riesgo.&nbsp;</p>
+<p>Cuando se libera un correo llega un correo al buzón del SOC con el asunto "<i>Notification for the alert 'QuarantineReleaseMessage</i>’’ para llevar un registro de lo que se libera y quien lo libera.</p>
+<p>&nbsp;</p>
+<h2>SOC Rules QA Weekly</h2>
+<h3>Descripción</h3>
+<p style="text-align:justify;">Se revisan los tipos de cierres de las alertas en QRadar de la semana anterior. Para ello se hace uso de Grafana, ya que en la dashboard “<i>Eficacia Reglas</i>” se pueden ver el número de alertas que han saltado, y los tipos de cierres que han tenido, pudiendo observar así si una regla genera muchos FP, Errores, etc.<br>El motivo de hacer también el análisis semanal es para tener una ventana mayor de tiempo y poder ver cosas que no se aprecian en el diario.</p>
+<p style="text-align:justify;">&nbsp;</p>
+<h3 style="text-align:justify;">Recurrencia</h3>
+<p style="text-align:justify;">Semanal</p>
+<p style="text-align:justify;">&nbsp;</p>
+<h3 style="text-align:justify;">Tiempo estimado</h3>
+<p style="text-align:justify;">1 hora</p>
+<p style="text-align:justify;">&nbsp;</p>
+<h3 style="text-align:justify;">Fuentes</h3>
+<p style="text-align:justify;">QRadar y Grafana</p>
+<p style="text-align:justify;">&nbsp;</p>
+<h3 style="text-align:justify;">Acciones</h3>
+<p style="text-align:justify;">En caso de detectar que se puede realizar un ajuste para mejorar la eficacia de una regla, se creará un ticket con el TAG de [RLC] en la cola de SD-SOC-Log_Management.</p>
