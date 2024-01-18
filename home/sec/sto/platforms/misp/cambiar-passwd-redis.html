@@ -1,0 +1,57 @@
+<!--
+title: Cambiar password servicio Redis
+description: 
+published: true
+date: 2024-01-18T11:42:01.792Z
+tags: soc, ti, misp, linux, redis
+editor: ckeditor
+dateCreated: 2024-01-18T11:42:01.792Z
+-->
+
+<h1 style="text-align:center;">Cambiar password del servicio Redis</h1>
+<p>&nbsp;</p>
+<h2>Modificación en configuración de Redis</h2>
+<p>Para cambiar la password del servicio Redis se deberá editar el siguiente fichero</p>
+<pre><code class="language-plaintext">/etc/redis.conf</code></pre>
+<p>Buscar la línea que incluya la directiva requirepass y sustituir la misma (o añadirla si no existiese)</p>
+<pre><code class="language-plaintext">requirepass YOURPASSHERE</code></pre>
+<p>Una vez modificada reiniciar el servicio de redis</p>
+<pre><code class="language-plaintext">systemctl restart redis</code></pre>
+<p>&nbsp;</p>
+<h2>Modificación en configuración de MISP</h2>
+<p>Una vez modificada la password en el propio servicio de redis se debe de modificar en la configuración de la MISP.</p>
+<p>Para ello se deberá modificar la siguiente parte con la configuración correspondiente</p>
+<pre><code class="language-plaintext">$config['CakeResque'] = array(
+        'Redis' =&gt; array(
+                'host' =&gt; '127.0.0.1',          // Redis server hostname
+                'port' =&gt; 6379,                 // Redis server port
+                'database' =&gt; 0,                // Redis database number
+                'namespace' =&gt; 'resque',        // Redis keys namespace
+                'password' =&gt; 'YOUR_PASSWORD'   // Redis password
+        ),</code></pre>
+<p>En el fichero&nbsp;</p>
+<pre><code class="language-plaintext">/var/www/MISP/app/Plugin/CakeResque/Config/config.php</code></pre>
+<p>&nbsp;</p>
+<p>También se deberá de añadir la nueva password en el fichero&nbsp;</p>
+<pre><code class="language-plaintext">/var/www/MISP/app/Config/config.php</code></pre>
+<p>Sustituyendo la misma las dos veces que aparece la variable</p>
+<pre><code class="language-plaintext">redis_password</code></pre>
+<p>&nbsp;</p>
+<h2>Modificación en configuración de PHP</h2>
+<p>Se deberá editar el fichero</p>
+<pre><code class="language-plaintext">/etc/php.d/50-redis.ini</code></pre>
+<p>Eliminando el carácter punto y coma del principio de la línea y sustituyendo por la dirección correspondiente en las siguientes líneas</p>
+<pre><code class="language-plaintext">session.save_handler = redis
+session.save_path = "tcp://YOUR_HOST:YOUR_PORT?auth=YOUR_PASSWORD"</code></pre>
+<p>&nbsp;</p>
+<p>Además de esto, si se quieren gestionar las sesiones de la aplicación desde redis se debe editar el fichero</p>
+<pre><code class="language-plaintext">/etc/php-fpm.d/www.conf</code></pre>
+<p>Comentar las dos líneas siguientes utilizando el carácter ;</p>
+<pre><code class="language-plaintext">php_value[session.save_handler] = files
+php_value[session.save_path]    = /var/opt/remi/php74/lib/php/session</code></pre>
+<p>Y añadir estás dos variables</p>
+<pre><code class="language-plaintext">php_value[session.save_handler] = redis
+php_value[session.save_path]    = "tcp://YOUR_HOST:YOUR_PORT?auth=YOUR_PASSWORD"</code></pre>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
