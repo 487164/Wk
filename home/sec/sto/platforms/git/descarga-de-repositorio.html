@@ -1,0 +1,54 @@
+<!--
+title: Descarga de repositorio
+description: 
+published: true
+date: 2024-01-19T11:44:31.405Z
+tags: soc, git, linux, windows, ssh
+editor: ckeditor
+dateCreated: 2024-01-19T11:44:31.405Z
+-->
+
+<h1 style="text-align:center;">Descarga de repositorio</h1>
+<p>&nbsp;</p>
+<p>En caso de que se utilice linux o git bash en windows el proceso para configurar el acceso será el siguiente.</p>
+<p>&nbsp;</p>
+<h2>Configuración de la autenticación</h2>
+<p>En primer lugar se deberá crear un directorio con el nombre .ssh bajo la home del usuario (/home/user/.ssh en linux o C:\Users\user\.ssh en windows)</p>
+<p>Una vez creado se deberá crear un fichero config dentro del mismo con el siguiente contenido</p>
+<pre><code class="language-plaintext"> Host NAME_WHAT_YOU_WANT
+      HostName IP OR HOST
+      User YOUR_USERNAME
+      IdentityFile PATH/TO/PRIVATE/KEY</code></pre>
+<p>&nbsp;</p>
+<h2>Descarga por ssh</h2>
+<p>Una vez creado acceder al directorio donde se quiera descargar el repositorio y lanzar el siguiente comando sustituyendo las siguientes partes:</p>
+<ul>
+  <li>YOUR_<i>HOST → nombre del host que se ha puesto en el fichero .ssh (el valor en lugar de NAME_WHAT_YOUR</i>_WANT)</li>
+  <li>YOUR_REPO →nombre del repositorio que se quiere descargar</li>
+</ul>
+<pre><code class="language-plaintext">git clone ssh://git@YOUR_HOST/YOUR_REPO</code></pre>
+<p>&nbsp;</p>
+<h2>Descarga por http</h2>
+<p>En caso de que la descarga se realice por http se deberá solicitar un usuario de acceso, en caso contrario están almacenadas en teampass las credenciales del usuario nobody para la lectura de algunos de los repositorios por lo que no es necesario disponer de credenciales nominales.</p>
+<p>Para descargar el repositorio ejecutar el siguiente comando</p>
+<pre><code class="language-plaintext">$ git -c http.sslVerify=false clone https://cm.security.espublico.com/git/REPO_NAME</code></pre>
+<p>Cuando se lance solicitará las credenciales como se ve en el siguiente ejemplo:</p>
+<pre><code class="language-plaintext">$ git -c http.sslVerify=false clone https://cm.security.espublico.com/git/Security-monitoring
+Cloning into 'Security-monitoring'...
+Username for 'https://cm.security.espublico.com': imartinez
+Password for 'https://imartinez@cm.security.espublico.com': 
+remote: Enumerating objects: 2670, done.
+remote: Counting objects: 100% (2670/2670), done.
+remote: Compressing objects: 100% (2509/2509), done.
+remote: Total 2670 (delta 1469), reused 0 (delta 0), pack-reused 0
+Receiving objects: 100% (2670/2670), 840.61 KiB | 2.16 MiB/s, done.
+Resolving deltas: 100% (1469/1469), done.
+</code></pre>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
