@@ -1,0 +1,147 @@
+<!--
+title: Comité mensual de seguridad
+description: 
+published: true
+date: 2024-01-19T07:10:16.955Z
+tags: sm, soc, report, comite, grafana, monthly
+editor: ckeditor
+dateCreated: 2024-01-19T07:10:16.955Z
+-->
+
+<h1 style="text-align:center;">Comité mensual de Seguridad</h1>
+<p style="text-align:justify;">&nbsp;</p>
+<p style="text-align:justify;">En este documento se tratará cómo cargar los datos necesarios, en cada uno de los paneles en los cuales la carga de datos sea necesaria, en el Dashboard de Grafana del departamento de seguridad “Comité mensual”</p>
+<p style="text-align:justify;">Para los datos que se cargan de manera automática, debido a que hacen una consulta a una base de datos, bastará con ajustar el rango de tiempo al mes del cual se quieren mostrar los datos.&nbsp;</p>
+<p style="text-align:justify;">También, cuando se importen datos en un libro de Excel, habrá que configurar el origen de datos.</p>
+<p style="text-align:justify;">Descargaremos en nuestro equipo el archivo “<a href="https://docs.google.com/spreadsheets/d/1msictOZMUlg1Lrv92OY0nZdcwlSuf2fg/edit#gid=2000062077"><u>Comité Mensual de Seguridad.xlsx</u></a>”. Las columnas están en inglés. Si al exportar los datos, los exportamos en otro idioma, no se cargarán correctamente.</p>
+<p>A continuación se describirán los datos que hay que cargar <strong>de forma manual.</strong></p>
+<p>&nbsp;</p>
+<h2><strong>Security Monitoring</strong></h2>
+<h3><strong>Tendencia semestral de alertas</strong></h3>
+<p>Editar panel, en la línea 18 de la consulta SQL, ajustar “between año_inicio/mes_inicio' and 'año_fin/mes_fin'”, para que el rango sean 6 meses.</p>
+<p>&nbsp;</p>
+<h2>Log Management</h2>
+<h3>Optimizaciones de casos de uso añadidos</h3>
+<h4>Tickets de creación de casos de uso RT</h4>
+<p style="text-align:justify;">Para cargar estos datos, tendremos que parsearlos primero.</p>
+<p style="text-align:justify;">Realizar búsqueda de tickets en RT con la siguiente consulta, ajustando los campos “created” al tiempo deseado (también se deberá añadir la columna “Creado” para que la muestre):</p>
+<p style="text-align:justify;"><i>Created &gt; '2023-10-01' AND Created &lt; '2023-11-01' AND Queue = 'SD-SOC-Security_Monitoring' AND Subject LIKE 'nuc'</i>&nbsp;</p>
+<p style="text-align:justify;">Exportar los datos mostrados y cambiar la extensión a .csv</p>
+<p style="text-align:justify;">Cambiar el origen de datos al archivo exportado, en el libro de Excel “Comité mensual de Seguridad.xlsx” en la hoja “NUC”.</p>
+<p style="text-align:justify;">Exportar los datos cargados como .csv</p>
+<p style="text-align:justify;">En el panel de Grafana, en el apartado de “Import data”, cargar el .csv exportado.</p>
+<p style="text-align:justify;">&nbsp;</p>
+<h2 style="text-align:justify;">Vulnerability Management</h2>
+<p style="text-align:justify;">Los datos de este apartado se deberán exportar el primer día laboral del mes para que sean lo más precisos posibles, ya que, en algunos apartados, no se permite ajustar la fecha de inicio y fecha final.</p>
+<p style="text-align:justify;">&nbsp;</p>
+<h3 style="text-align:justify;">Vulnerabilidades detectadas</h3>
+<h4 style="text-align:justify;">Panel de conteo</h4>
+<p style="text-align:justify;">Acceder al enlace</p>
+<p style="text-align:justify;"><a href="https://security.microsoft.com/tvm-event-insights?tid=235a9153-c368-4dbc-9bb9-777f036a2959"><i><u>https://security.microsoft.com/tvm-event-insights?tid=235a9153-c368-4dbc-9bb9-777f036a2959</u></i></a></p>
+<p style="text-align:justify;">Ajustar en los filtros el rango de tiempo correspondiente al mes deseado y exportar los datos.</p>
+<p style="text-align:justify;">En el panel de Grafana, en el apartado de “Import data”, cargar el .csv exportado y eliminar la primera línea.</p>
+<p style="text-align:justify;">&nbsp;</p>
+<h4 style="text-align:justify;">Vulnerabilidades</h4>
+<p style="text-align:justify;">Ajustar y exportar:</p>
+<ul>
+  <li>Antigüedad<ul>
+      <li>0 a 30 días</li>
+    </ul>
+  </li>
+  <li>Amenazas<ul>
+      <li>La vulnerabilidad está disponible</li>
+      <li>Se ha comprobado la vulnerabilidad</li>
+      <li>La vulnerabilidad forma parte del kit de vulnerabilidades</li>
+    </ul>
+  </li>
+  <li>Dispositivos expuestos<ul>
+      <li>Afecta a mi organización</li>
+    </ul>
+  </li>
+</ul>
+<p style="text-align:justify;">En el panel de Grafana, en el apartado de “Import data”, cargar el .csv exportado y eliminar la primera línea.</p>
+<p style="text-align:justify;">&nbsp;</p>
+<h3 style="text-align:justify;">Top Software vulnerable</h3>
+<h4 style="text-align:justify;">Software expuesto por dispositivos</h4>
+<p style="text-align:justify;">Acceder al enlace y exportar (este archivo es el que va a estar mencionándose como “inventario de software” en un futuro)</p>
+<p style="text-align:justify;"><a href="https://security.microsoft.com/vulnerability-management-inventories/?tid=235a9153-c368-4dbc-9bb9-777f036a2959"><i><u>https://security.microsoft.com/vulnerability-management-inventories/?tid=235a9153-c368-4dbc-9bb9-777f036a2959</u></i></a></p>
+<p style="text-align:justify;">En el panel de Grafana, en el apartado de “Import data”, cargar el .csv exportado y eliminar la primera línea</p>
+<p style="text-align:justify;">&nbsp;</p>
+<h3 style="text-align:justify;">Vulnerabilidades por Software</h3>
+<h4 style="text-align:justify;">Software expuesto (de Microsoft) por dispositivo</h4>
+<p style="text-align:justify;">Cargar el .csv de inventario de software y eliminar la primera línea</p>
+<p style="text-align:justify;">&nbsp;</p>
+<h4 style="text-align:justify;">Vulnerabilidades identificadas en Software de Microsoft</h4>
+<p style="text-align:justify;">Cargar el .csv de inventario de software y eliminar la primera línea</p>
+<p style="text-align:justify;">&nbsp;</p>
+<h4 style="text-align:justify;">Vulnerabilidades por Software (que no son de Microsoft)</h4>
+<p style="text-align:justify;">Cargar el .csv de inventario de software y eliminar la primera línea&nbsp;</p>
+<p style="text-align:justify;">&nbsp;</p>
+<h3 style="text-align:justify;">Vulnerabilidades por aplicación</h3>
+<h4 style="text-align:justify;">Vulnerabilidades por fabricante</h4>
+<p style="text-align:justify;">Cargar el .csv de inventario de software y eliminar la primera línea</p>
+<p style="text-align:justify;">&nbsp;</p>
+<h4 style="text-align:justify;">Recomendaciones</h4>
+<p style="text-align:justify;">Acceder al enlace y exportar</p>
+<p style="text-align:justify;"><a href="https://security.microsoft.com/security-recommendations?tid=235a9153-c368-4dbc-9bb9-777f036a2959"><i><u>https://security.microsoft.com/security-recommendations?tid=235a9153-c368-4dbc-9bb9-777f036a2959</u></i></a></p>
+<p style="text-align:justify;">En el panel de Grafana, en el apartado de “Import data”, cargar el .csv exportado y eliminar la primera línea</p>
+<p style="text-align:justify;">&nbsp;</p>
+<h2 style="text-align:justify;">Threat Intelligence</h2>
+<h3 style="text-align:justify;">Phishing reportado</h3>
+<p style="text-align:justify;">Realizar búsqueda de tickets en RT con la siguiente consulta ajustando los campos “Created” al tiempo deseado para que se muestren datos de los 4 meses anteriores (también se deberá añadir la columna “Creado” para que la muestre):</p>
+<p style="text-align:justify;"><i>Created &lt; '2023-12-01' AND Created &gt; '2023-09-01' AND Queue = 'SD-SOC-Phishing' AND Subject LIKE 'email reported'</i></p>
+<p style="text-align:justify;">Exportar los datos mostrados y cambiar la extensión a .csv</p>
+<p style="text-align:justify;">Cambiar el origen de datos al archivo exportado, en el libro de Excel “Comité mensual de Seguridad.xlsx” en la hoja “Phishing reportado”.</p>
+<p style="text-align:justify;">En el panel de Grafana, en el apartado de “Import data”, cargar el .csv exportado</p>
+<p style="text-align:justify;">&nbsp;</p>
+<h3 style="text-align:justify;">Campañas recibidas</h3>
+<p style="text-align:justify;">Estos datos serán introducidos a mano, pero los exportaremos desde Microsoft 365 Defender para que seas más fáciles de visualizar</p>
+<p style="text-align:justify;">Acceder al siguiente enlace:</p>
+<p style="text-align:justify;"><a href="https://security.microsoft.com/mailflowStatusReport?viewid=sankey&amp;tid=235a9153-c368-4dbc-9bb9-777f036a2959"><i><u>https://security.microsoft.com/mailflowStatusReport?viewid=sankey&amp;tid=235a9153-c368-4dbc-9bb9-777f036a2959</u></i></a></p>
+<p style="text-align:justify;">Y exportar ajustando el rango de tiempo del mes deseado.</p>
+<p style="text-align:justify;">Cambiar el origen de datos al archivo exportado, en el libro de Excel “Comité mensual de Seguridad.xlsx” en la hoja “Campañas recibidas 1”.</p>
+<p style="text-align:justify;">A continuación se describirán los datos cargados, con los valores a modificar en el panel:</p>
+<ul>
+  <li>Edge filtered - Filtro permiteral</li>
+  <li>Reglas de correo - a continuación.</li>
+  <li>Anti-malware engine - Malware</li>
+  <li>Phish filtered - Phishing</li>
+  <li>Anti-spam filtered - SPAM</li>
+  <li>Detonation detection - Detonación</li>
+  <li>ZAP removed - Entregados eliminados</li>
+  <li>Total - suma de todos los anteriores, más “reglas de correo”, que se explica a continuación</li>
+</ul>
+<p style="text-align:justify;">Acceder al siguiente enlace:</p>
+<p style="text-align:justify;"><a href="https://admin.exchange.microsoft.com/#/reports/transportruledetails"><i><u>https://admin.exchange.microsoft.com/#/reports/transportruledetails</u></i></a></p>
+<p style="text-align:justify;">Y exportar ajustando el rango de tiempo del mes deseado.</p>
+<p style="text-align:justify;">Cambiar el origen de datos al archivo exportado, en el libro de Excel “Comité mensual de Seguridad.xlsx” en la hoja “Campañas recibidas 2”.</p>
+<p style="text-align:justify;">En la celda G7 de la hoja “Campañas recibidas 2”, se deberá hacer una suma de los valores de la columna “MessageCount” (está aplicada la función SUMA). Se actualizará el dato “Reglas de correo”, el cual es el que introduciremos en el panel.</p>
+<p style="text-align:justify;">&nbsp;</p>
+<h3 style="text-align:justify;">Credenciales expuestas</h3>
+<p style="text-align:justify;">Estos datos son extraídos del documento <a href="https://docs.google.com/spreadsheets/u/0/d/1NkLmStHp7YMMx1GC103HKPu522-TZ6YV/edit"><i><u>Usuarios_Reportados_Intelx.x</u></i><u>lsx</u></a> e introducidos manualmente, para que se muestren los últimos 4 meses. Hay una columna que realiza los conteos ajustando el rango de filas deseado</p>
+<ul>
+  <li>Credenciales Gestiona</li>
+  <li>Credenciales esPublico</li>
+  <li>Credenciales SWAL</li>
+</ul>
+<p>&nbsp;</p>
+<h3>Blacklists</h3>
+<h4>Blacklist count</h4>
+<p style="text-align:justify;">Estos valores, han de ser introducidos a mano, indicando si es IP ó Dominio, y sus correspondientes valores.</p>
+<p style="text-align:justify;">Esta información es extraída de IBM QRadar, de las alertas generadas del mes correspondiente</p>
+<p style="text-align:justify;"><i>BL-INF-001 y BL-INF-002</i></p>
+<p style="text-align:justify;">&nbsp;</p>
+<h4 style="text-align:justify;"><i>Blacklist objects</i></h4>
+<p style="text-align:justify;">La introducción de datos es la misma que en el apartado anterior</p>
+<p style="text-align:justify;">&nbsp;</p>
+<h3 style="text-align:justify;">IOC</h3>
+<p style="text-align:justify;">Estos datos son extraídos del EDR Crowdstrike, en el apartado de IOC Management</p>
+<p style="text-align:justify;">&nbsp;</p>
+<h4 style="text-align:justify;">IOCs count</h4>
+<p style="text-align:justify;">Se debe ajustar el rango de tiempo deseado, y seleccionar el desplegable “Tags”. Se deberán introducir manualmente los datos relacionados con las familias de Malware</p>
+<p style="text-align:justify;">&nbsp;</p>
+<h4 style="text-align:justify;">IOCs - Tipos</h4>
+<p style="text-align:justify;">Se debe ajustar el rango de tiempo deseado, y seleccionar el desplegable “Indicator type”. Los valores mostrados, serán introducidos manualmente en el panel.</p>
+<p style="text-align:justify;">&nbsp;</p>
+<h4 style="text-align:justify;">IOCs</h4>
+<p style="text-align:justify;">Se deberán repetir las acciones realizadas en el apartado IOCs count</p>
