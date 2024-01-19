@@ -1,0 +1,74 @@
+<!--
+title: Configuración acceso API con certificado
+description: 
+published: true
+date: 2024-01-19T14:48:07.413Z
+tags: soc, certificado, pam, safeguard, oneidentity, api
+editor: ckeditor
+dateCreated: 2024-01-19T14:48:07.413Z
+-->
+
+<h1 style="text-align:center;">Configuración acceso API con certificado</h1>
+<p>&nbsp;</p>
+<p>En esta página se incluyen los pasos para habilitar el servicio de a2a en One Identity y el acceso al mismo con certificado.</p>
+<p>&nbsp;</p>
+<h2>Creación del certificado</h2>
+<p>Para la creación del certificado lanzar el siguiente comando desde una máquina linux sustituyendo las partes correspondientes</p>
+<pre><code class="language-plaintext">openssl req -newkey rsa:8192 -nodes -keyout KEY_NAME.key -x509 -days 365 -out CERT_NAME.crt</code></pre>
+<p>Una vez generado se puede verificar el mismo con el siguiente comando</p>
+<pre><code class="language-plaintext">openssl x509 -text -noout -in /PATH/TO/MY/CRT_FILE</code></pre>
+<p>Y para sacar el fingerprint utilizar el siguiente comando</p>
+<pre><code class="language-plaintext">openssl x509 -noout -fingerprint &lt; /PATH/TO/MY/CRT_FILE</code></pre>
+<p>En el caso de un servidor windows se puede convertir a p12 con el siguiente comando</p>
+<pre><code class="language-plaintext">openssl pkcs12 -out PFX_NAME.pfx -in CERT_NAME.crt -inkey KEY_NAME.key -export</code></pre>
+<p>&nbsp;</p>
+<h2>Creación y configuración de usuario</h2>
+<p>Acceder a través del navegador a la url del SPP y proceder a la siguiente sección</p>
+<p>User Management → Users</p>
+<p>Crear, si no existe, el usuario api con los siguientes datos:</p>
+<ul>
+  <li>Identity<ul>
+      <li>Identity Provider → Local</li>
+      <li>Username → api</li>
+      <li>Time Zone → (UTC+01:00) Brussels, Copenhagen, Madrid, Paris</li>
+    </ul>
+  </li>
+  <li>Authentication<ul>
+      <li>Authentication provider → Certificate</li>
+      <li>Certificate Thumbprint (SHA-1) → Pegar el thumbprint obtenido anteriormente&nbsp;</li>
+    </ul>
+  </li>
+  <li>Permissions<ul>
+      <li>Auditor</li>
+      <li>Application Auditor</li>
+      <li>System Auditor</li>
+    </ul>
+  </li>
+</ul>
+<p>&nbsp;</p>
+<p>Una vez completados todos los datos guardar los cambios.</p>
+<p>&nbsp;</p>
+<h2>Habilitar el servicio de A2A</h2>
+<p>El servicio de A2A (Application to Application) se encuentra deshabilitado por defecto, para habilitar acceder al SPP a través del navegador con un usuario con permisos de administrador.</p>
+<p>Una vez dentro acceder a la siguiente sección</p>
+<p>Appliance Management → Enable or Disable Services</p>
+<p>Una vez dentro habilitar el servicio <strong>Application to Application</strong></p>
+<p>&nbsp;</p>
+<h2>Registrar una clave para el acceso a A2A</h2>
+<p>Una vez creado el certificado y el usuario y habilitado el servicio de A2A acceder a la siguiente sección para registrar una clave.</p>
+<p>Security Policy Management → Application to Application</p>
+<p>En caso de que no exista el usuario <strong>api</strong>, crearlo siguiendo el siguiente ejemplo.</p>
+<ul>
+  <li>Name → api</li>
+  <li>Certificate User → añadir el certificado (fichero .crt) generado previamente</li>
+  <li>Enabled → True</li>
+</ul>
+<p>Y creamos el registro, una vez creado editar los siguientes campos</p>
+<ul>
+  <li>Access Request Broker → añadir al usuario api creado anteriormente</li>
+  <li>Credential Retrieval → añadir las credenciales que se podrán obtener por el usuario</li>
+</ul>
+<p>&nbsp;</p>
+<p>Una vez completada esta parte ya sería posible la obtención de credenciales a través de la API Rest.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
