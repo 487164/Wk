@@ -1,0 +1,311 @@
+<!--
+title: Gestión de Vulnerabilidades v2
+description: 
+published: true
+date: 2024-01-19T08:12:49.619Z
+tags: 
+editor: ckeditor
+dateCreated: 2024-01-19T08:12:49.619Z
+-->
+
+<h1 style="text-align:center;">Gestión &nbsp;de Vulnerabilidades</h1>
+<p style="text-align:justify;">&nbsp;</p>
+<p style="text-align:justify;">El presente documento detalla los distintos aspectos del servicio Vulnerability Management.</p>
+<p style="text-align:justify;">&nbsp;</p>
+<h2 style="text-align:justify;">Alcance</h2>
+<p>Todos los activos del grupo espublico, incluyendo:</p>
+<ul>
+  <li>Puestos de usuarios</li>
+  <li>Impresoras</li>
+  <li>Servidores</li>
+  <li>Dispositivos de red</li>
+  <li>Software</li>
+  <li>Dispositivos móviles gestionados</li>
+</ul>
+<p>&nbsp;</p>
+<h2>Inventarios</h2>
+<ul>
+  <li><a href="https://intune.microsoft.com/"><u>https://intune.microsoft.com/</u></a> tiene visibilidad sobre todo el software instalado en los puestos de usuario gestionados de la organización.</li>
+  <li><a href="https://cmdb.espublico.it/">GLPI</a> dispone del inventario de todos los servidores con agente por zonas:<ul>
+      <li>Antequera: pendiente de instalar proxy agent y agentes.</li>
+      <li>Granada: pendiente de instalar proxy agent y agentes.</li>
+      <li>Zaragoza: pendiente de instalar agentes.<ul>
+          <li>Tecnología?</li>
+        </ul>
+      </li>
+      <li>Nabiax: pendiente de instalar proxy agent y agentes.</li>
+      <li>Interxion: pendiente de instalar proxy agent y agentes.</li>
+    </ul>
+  </li>
+  <li>OCS: Existe un OCS de tecnología y un OCS de sistemas (solo de puestos de usuario y se está retirando sustituido por Intune y una CMDB en excel).</li>
+  <li>Zabbix: Servidores linux y windows</li>
+  <li>HP-SIM: iLOs de los servidores.</li>
+  <li>GDrive: Existen EXCELs de CMDBs sobre todo de elementos de red.</li>
+</ul>
+<p style="text-align:justify;">Está pendiente un proyecto para unificar las distintas CMDBs.</p>
+<p style="text-align:justify;">&nbsp;</p>
+<h2 style="text-align:justify;">Identificación de vulnerabilidades</h2>
+<p>Para la detección de vulnerabilidades se usarán las siguientes orígenes de datos:</p>
+<ul>
+  <li><a href="https://security.microsoft.com/"><u>https://security.microsoft.com/</u></a>&nbsp; identifica las vulnerabilidades disponibles en el software instalado en los puestos de usuario gestionados de la organización.</li>
+  <li>Análisis de vulnerabilidades realizados por proveedores.</li>
+  <li>Feeds de Vulnerabilidades: se reciben por RSS.</li>
+  <li>Boletines de fabricantes: se reciben por correo electrónico o se revisan semanalmente.</li>
+  <li>Nessus PRO: pendiente de compra 2023</li>
+  <li>nMAP: pendiente de despliegue</li>
+</ul>
+<p style="text-align:justify;">Se realizarán análisis de vulnerabilidades programados:</p>
+<ul>
+  <li>Gestiona:&nbsp;<ul>
+      <li>Trimestral realizados por proveedor externo.</li>
+      <li>Con cada nueva versión desplegada en PRE.</li>
+    </ul>
+  </li>
+  <li>esFirma: Trimestral por proveedor externo.</li>
+</ul>
+<p>&nbsp;</p>
+<h2>Ciclo de vulnerabilidades</h2>
+<h3>Evaluación del riesgo</h3>
+<p style="text-align:justify;">Los criterios de evaluación de vulnerabilidades serán las siguientes:</p>
+<ul>
+  <li>Puntuación del Common Vulnerability Scoring System (CVSS).</li>
+  <li>Correlación con el hecho de que la vulnerabilidad afecta a los "Sistemas Críticos".</li>
+  <li>Posibilidad de explotación.</li>
+  <li>Mitigaciones ya aplicadas.</li>
+  <li>Impacto en la continuidad de negocio.</li>
+  <li>Impacto en la continuidad del servicio.</li>
+</ul>
+<p>&nbsp;</p>
+<h3>Tratamiento de la vulnerabilidad</h3>
+<p>Dependiendo de la evaluación del riesgo, el tratamiento generalmente se realizará de acuerdo con uno de siguientes supuestos:</p>
+<p>&nbsp;</p>
+<h4>Remediación</h4>
+<p>Arreglar o corregir una vulnerabilidad por completo para que no pueda ser explotada, esta debe ser la opción preferible siempre que sea posible. Además se deberá adjuntar evidencia de la remediación.</p>
+<p>&nbsp;</p>
+<h4>Mitigación</h4>
+<p>Cuando la remediación no es posible, se deben implementar controles compensatorios para reducir la probabilidad de que una vulnerabilidad se explote. Esta solución debe ser temporal mientras se consigue una remediación o bien, termina por asumirse el riesgo. Además se deberá identificar los cambios realizados para la mitigación.</p>
+<p>&nbsp;</p>
+<h4>Aceptación</h4>
+<p style="text-align:justify;"><strong>Vulnerabilidades asumidas por responsable</strong></p>
+<p style="text-align:justify;">Si una vulnerabilidad se considera de bajo riesgo o el coste de remediar es mucho mayor de lo que sería si se explotara, este caso debe ser escalado al responsable de seguridad incluyendo el análisis y justificación por el que se propone la aceptación.</p>
+<p style="text-align:justify;"><strong>Deberá constar en el ticket el responsable del activo que asume la aceptación.</strong></p>
+<p style="text-align:justify;">&nbsp;</p>
+<h4 style="text-align:justify;"><strong>Vulnerabilidades asumidas por política</strong></h4>
+<p>Las siguientes vulnerabilidades serán asumidas directamente por política:</p>
+<ul>
+  <li>Vulnerabilidades BAJA</li>
+  <li>Vulnerabilidades MEDIA</li>
+  <li>Vulnerabilidades ALTA<ul>
+      <li>De puestos de usuario con EDR</li>
+      <li>Servidores Windows<ul>
+          <li>No expuestos</li>
+          <li>Expuestos que la vulnerabilidad requiera de acceso local</li>
+        </ul>
+      </li>
+      <li>Servidores Linux<ul>
+          <li>No expuestos</li>
+          <li>Expuestos que la vulnerabilidad requiera de acceso local</li>
+        </ul>
+      </li>
+      <li>Dispositivos de red<ul>
+          <li>No expuestos</li>
+          <li>Expuestos que la vulnerabilidad aplique a la interfaz de gestión (no expuesta)</li>
+        </ul>
+      </li>
+      <li>Servicios:<ul>
+          <li>No expuestos</li>
+          <li>Expuestas que requieran autenticación</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+<p>&nbsp;</p>
+<h4>No aplica</h4>
+<p>Si tras la evaluación se comprueba que no afecta a las versiones instaladas. El ticket se cerrará como rechazada.</p>
+<p>&nbsp;</p>
+<h3>Registro</h3>
+<p style="text-align:justify;">Las vulnerabilidades identificadas serán registradas en soporte.espublico.it.</p>
+<p style="text-align:justify;">Se registrarán agrupadas por vulnerabilidad en la cola SD-SOC-Vulnerabillity_Mangement, cumplimentando los campos personalizados.&nbsp;</p>
+<p style="text-align:justify;">Para trasladar al equipo resolutor, se seguirá lo estipulado en el cuadro de grupo de resolutores definido en el anexo “Anexo A - Grupos de resolutores”</p>
+<p style="text-align:justify;">En el caso de que la remediación o mitigación conlleve un cambio de configuración, se creará además un tiquet en la cola de SD-PROTECT-GC, incluyendo el cambio acometido y enlazando este como ticket relacionado de la vulnerabilidad.</p>
+<p style="text-align:justify;">&nbsp;</p>
+<h3 style="text-align:justify;">Seguimiento</h3>
+<p>Se realizará seguimiento periódico de las vulnerabilidades en curso.</p>
+<p>Se realizarán análisis de aquellas vulnerabilidades resueltas.</p>
+<p>&nbsp;</p>
+<h2>Informe de vulnerabilidades</h2>
+<p style="text-align:justify;">Los datos de gestión de vulnerabilidades serán trasladados al comité mensual del SOC.</p>
+<p style="text-align:justify;">Se medirán los siguientes KPIs mensuales:</p>
+<ul>
+  <li>Nº de vulnerabilidades identificadas</li>
+  <li>Nº de vulnerabilidades por estado<ul>
+      <li>Nueva</li>
+      <li>Pendiente</li>
+      <li>Remediada</li>
+      <li>Mitigada</li>
+      <li>Asumida por responsable</li>
+      <li>Rechazada</li>
+      <li>Asumida por política</li>
+    </ul>
+  </li>
+  <li>Nº de vulnerabilidades por Criticidad según CVSS</li>
+  <li>Nº de vulnerabilidades por sistema afectado<ul>
+      <li>Windows endpoint</li>
+      <li>&nbsp;Windows Server</li>
+      <li>&nbsp;Mac Endpoint</li>
+      <li>&nbsp;iOS</li>
+      <li>&nbsp;Linux Server</li>
+      <li>&nbsp;Linux Endpoint</li>
+      <li>&nbsp;Software</li>
+      <li>&nbsp;Dispositivos de red</li>
+      <li>&nbsp;Hardware</li>
+    </ul>
+  </li>
+  <li>Número de vulnerabilidades por servicio afectado<ul>
+      <li>esPublico</li>
+      <li>Gestiona</li>
+      <li>esFirma</li>
+      <li>SWAL</li>
+    </ul>
+  </li>
+</ul>
+<p>&nbsp;</p>
+<h2>ANEXOS</h2>
+<h3>Anexo A - Grupos resolutores</h3>
+<p>&nbsp;</p>
+<figure class="table" style="float:left;">
+  <table style="border-bottom:none;border-left:none;border-right:none;border-top:none;">
+    <tbody>
+      <tr>
+        <td style="border-bottom:1pt solid #000000;border-left:1pt solid #000000;border-right:1pt solid #000000;border-top:1pt solid #000000;padding:5pt;vertical-align:top;">
+          <p style="text-align:center;"><strong>Grupo de activos</strong></p>
+        </td>
+        <td style="border-bottom:1pt solid #000000;border-left:1pt solid #000000;border-right:1pt solid #000000;border-top:1pt solid #000000;padding:5pt;vertical-align:top;">
+          <p style="text-align:center;"><strong>Grupo resolutor</strong></p>
+        </td>
+        <td style="border-bottom:1pt solid #000000;border-left:1pt solid #000000;border-right:1pt solid #000000;border-top:1pt solid #000000;padding:5pt;vertical-align:top;">
+          <p style="text-align:center;"><strong>Medio de comunicación</strong></p>
+        </td>
+      </tr>
+      <tr>
+        <td style="border-bottom:1pt solid #000000;border-left:1pt solid #000000;border-right:1pt solid #000000;border-top:1pt solid #000000;padding:5pt;vertical-align:top;">Puestos usuario Servicios</td>
+        <td style="border-bottom:1pt solid #000000;border-left:1pt solid #000000;border-right:1pt solid #000000;border-top:1pt solid #000000;padding:5pt;vertical-align:top;">Helpdesk</td>
+        <td style="border-bottom:1pt solid #000000;border-left:1pt solid #000000;border-right:1pt solid #000000;border-top:1pt solid #000000;padding:5pt;vertical-align:top;">RT - SD-Vulnerability_Management</td>
+      </tr>
+      <tr>
+        <td style="border-bottom:1pt solid #000000;border-left:1pt solid #000000;border-right:1pt solid #000000;border-top:1pt solid #000000;padding:5pt;vertical-align:top;">Puestos usuarios Sistemas</td>
+        <td style="border-bottom:1pt solid #000000;border-left:1pt solid #000000;border-right:1pt solid #000000;border-top:1pt solid #000000;padding:5pt;vertical-align:top;">Sistemas</td>
+        <td style="border-bottom:1pt solid #000000;border-left:1pt solid #000000;border-right:1pt solid #000000;border-top:1pt solid #000000;padding:5pt;vertical-align:top;">RT - SD-Vulnerability_Management</td>
+      </tr>
+      <tr>
+        <td style="border-bottom:1pt solid #000000;border-left:1pt solid #000000;border-right:1pt solid #000000;border-top:1pt solid #000000;padding:5pt;vertical-align:top;">Puestos usuarios Tech</td>
+        <td style="border-bottom:1pt solid #000000;border-left:1pt solid #000000;border-right:1pt solid #000000;border-top:1pt solid #000000;padding:5pt;vertical-align:top;">Tecnología</td>
+        <td style="border-bottom:1pt solid #000000;border-left:1pt solid #000000;border-right:1pt solid #000000;border-top:1pt solid #000000;padding:5pt;vertical-align:top;">¿?</td>
+      </tr>
+      <tr>
+        <td style="border-bottom:1pt solid #000000;border-left:1pt solid #000000;border-right:1pt solid #000000;border-top:1pt solid #000000;padding:5pt;vertical-align:top;">Puestos usuarios ATQ</td>
+        <td style="border-bottom:1pt solid #000000;border-left:1pt solid #000000;border-right:1pt solid #000000;border-top:1pt solid #000000;padding:5pt;vertical-align:top;">Helpdesk</td>
+        <td style="border-bottom:1pt solid #000000;border-left:1pt solid #000000;border-right:1pt solid #000000;border-top:1pt solid #000000;padding:5pt;vertical-align:top;">RT - SD-Vulnerability_Management</td>
+      </tr>
+      <tr>
+        <td style="border-bottom:1pt solid #000000;border-left:1pt solid #000000;border-right:1pt solid #000000;border-top:1pt solid #000000;padding:5pt;vertical-align:top;">Dispositivos móviles</td>
+        <td style="border-bottom:1pt solid #000000;border-left:1pt solid #000000;border-right:1pt solid #000000;border-top:1pt solid #000000;padding:5pt;vertical-align:top;">HelpDesk</td>
+        <td style="border-bottom:1pt solid #000000;border-left:1pt solid #000000;border-right:1pt solid #000000;border-top:1pt solid #000000;padding:5pt;vertical-align:top;">RT - SD-Vulnerability_Management</td>
+      </tr>
+      <tr>
+        <td style="border-bottom:1pt solid #000000;border-left:1pt solid #000000;border-right:1pt solid #000000;border-top:1pt solid #000000;padding:5pt;vertical-align:top;">Servidores sistemas</td>
+        <td style="border-bottom:1pt solid #000000;border-left:1pt solid #000000;border-right:1pt solid #000000;border-top:1pt solid #000000;padding:5pt;vertical-align:top;">Sistemas</td>
+        <td style="border-bottom:1pt solid #000000;border-left:1pt solid #000000;border-right:1pt solid #000000;border-top:1pt solid #000000;padding:5pt;vertical-align:top;">RT - SD-Vulnerability_Management</td>
+      </tr>
+      <tr>
+        <td style="border-bottom:1pt solid #000000;border-left:1pt solid #000000;border-right:1pt solid #000000;border-top:1pt solid #000000;padding:5pt;vertical-align:top;">Servidores TECH</td>
+        <td style="border-bottom:1pt solid #000000;border-left:1pt solid #000000;border-right:1pt solid #000000;border-top:1pt solid #000000;padding:5pt;vertical-align:top;">Tecnología</td>
+        <td style="border-bottom:1pt solid #000000;border-left:1pt solid #000000;border-right:1pt solid #000000;border-top:1pt solid #000000;padding:5pt;vertical-align:top;">¿?</td>
+      </tr>
+      <tr>
+        <td style="border-bottom:1pt solid #000000;border-left:1pt solid #000000;border-right:1pt solid #000000;border-top:1pt solid #000000;padding:5pt;vertical-align:top;">Servidores ATQ</td>
+        <td style="border-bottom:1pt solid #000000;border-left:1pt solid #000000;border-right:1pt solid #000000;border-top:1pt solid #000000;padding:5pt;vertical-align:top;">Sistemas/GT3?</td>
+        <td style="border-bottom:1pt solid #000000;border-left:1pt solid #000000;border-right:1pt solid #000000;border-top:1pt solid #000000;padding:5pt;vertical-align:top;">RT - SD-Vulnerability_Management</td>
+      </tr>
+      <tr>
+        <td style="border-bottom:1pt solid #000000;border-left:1pt solid #000000;border-right:1pt solid #000000;border-top:1pt solid #000000;padding:5pt;vertical-align:top;">Servidores SWAL</td>
+        <td style="border-bottom:1pt solid #000000;border-left:1pt solid #000000;border-right:1pt solid #000000;border-top:1pt solid #000000;padding:5pt;vertical-align:top;">Soporte SWAL</td>
+        <td style="border-bottom:1pt solid #000000;border-left:1pt solid #000000;border-right:1pt solid #000000;border-top:1pt solid #000000;padding:5pt;vertical-align:top;">RT - GT3¿?</td>
+      </tr>
+      <tr>
+        <td style="border-bottom:1pt solid #000000;border-left:1pt solid #000000;border-right:1pt solid #000000;border-top:1pt solid #000000;padding:5pt;vertical-align:top;">Servidores I+D+I</td>
+        <td style="border-bottom:1pt solid #000000;border-left:1pt solid #000000;border-right:1pt solid #000000;border-top:1pt solid #000000;padding:5pt;vertical-align:top;">I+D+I</td>
+        <td style="border-bottom:1pt solid #000000;border-left:1pt solid #000000;border-right:1pt solid #000000;border-top:1pt solid #000000;padding:5pt;vertical-align:top;">¿?</td>
+      </tr>
+      <tr>
+        <td style="border-bottom:1pt solid #000000;border-left:1pt solid #000000;border-right:1pt solid #000000;border-top:1pt solid #000000;padding:5pt;vertical-align:top;">Electrónica de red</td>
+        <td style="border-bottom:1pt solid #000000;border-left:1pt solid #000000;border-right:1pt solid #000000;border-top:1pt solid #000000;padding:5pt;vertical-align:top;">Comunicaciones</td>
+        <td style="border-bottom:1pt solid #000000;border-left:1pt solid #000000;border-right:1pt solid #000000;border-top:1pt solid #000000;padding:5pt;vertical-align:top;">RT - SD-Vulnerability_Management</td>
+      </tr>
+      <tr>
+        <td style="border-bottom:1pt solid #000000;border-left:1pt solid #000000;border-right:1pt solid #000000;border-top:1pt solid #000000;padding:5pt;vertical-align:top;">WP Espublicogestiona</td>
+        <td style="border-bottom:1pt solid #000000;border-left:1pt solid #000000;border-right:1pt solid #000000;border-top:1pt solid #000000;padding:5pt;vertical-align:top;">Sistemas</td>
+        <td style="border-bottom:1pt solid #000000;border-left:1pt solid #000000;border-right:1pt solid #000000;border-top:1pt solid #000000;padding:5pt;vertical-align:top;">RT - SD-Vulnerability_Management</td>
+      </tr>
+      <tr>
+        <td style="border-bottom:1pt solid #000000;border-left:1pt solid #000000;border-right:1pt solid #000000;border-top:1pt solid #000000;padding:5pt;vertical-align:top;">WP comunicacion</td>
+        <td style="border-bottom:1pt solid #000000;border-left:1pt solid #000000;border-right:1pt solid #000000;border-top:1pt solid #000000;padding:5pt;vertical-align:top;">Sistemas</td>
+        <td style="border-bottom:1pt solid #000000;border-left:1pt solid #000000;border-right:1pt solid #000000;border-top:1pt solid #000000;padding:5pt;vertical-align:top;">RT - SD-Vulnerability_Management</td>
+      </tr>
+      <tr>
+        <td style="border-bottom:1pt solid #000000;border-left:1pt solid #000000;border-right:1pt solid #000000;border-top:1pt solid #000000;padding:5pt;vertical-align:top;">WP fundacion</td>
+        <td style="border-bottom:1pt solid #000000;border-left:1pt solid #000000;border-right:1pt solid #000000;border-top:1pt solid #000000;padding:5pt;vertical-align:top;">Sistemas</td>
+        <td style="border-bottom:1pt solid #000000;border-left:1pt solid #000000;border-right:1pt solid #000000;border-top:1pt solid #000000;padding:5pt;vertical-align:top;">RT - SD-Vulnerability_Management</td>
+      </tr>
+      <tr>
+        <td style="border-bottom:1pt solid #000000;border-left:1pt solid #000000;border-right:1pt solid #000000;border-top:1pt solid #000000;padding:5pt;vertical-align:top;">WP administracionpublica</td>
+        <td style="border-bottom:1pt solid #000000;border-left:1pt solid #000000;border-right:1pt solid #000000;border-top:1pt solid #000000;padding:5pt;vertical-align:top;">Sistemas</td>
+        <td style="border-bottom:1pt solid #000000;border-left:1pt solid #000000;border-right:1pt solid #000000;border-top:1pt solid #000000;padding:5pt;vertical-align:top;">RT - SD-Vulnerability_Management</td>
+      </tr>
+      <tr>
+        <td style="border-bottom:1pt solid #000000;border-left:1pt solid #000000;border-right:1pt solid #000000;border-top:1pt solid #000000;padding:5pt;vertical-align:top;">Academy.espublico.com</td>
+        <td style="border-bottom:1pt solid #000000;border-left:1pt solid #000000;border-right:1pt solid #000000;border-top:1pt solid #000000;padding:5pt;vertical-align:top;">¿?</td>
+        <td style="border-bottom:1pt solid #000000;border-left:1pt solid #000000;border-right:1pt solid #000000;border-top:1pt solid #000000;padding:5pt;vertical-align:top;">¿?</td>
+      </tr>
+      <tr>
+        <td style="border-bottom:1pt solid #000000;border-left:1pt solid #000000;border-right:1pt solid #000000;border-top:1pt solid #000000;padding:5pt;vertical-align:top;">Gestiona</td>
+        <td style="border-bottom:1pt solid #000000;border-left:1pt solid #000000;border-right:1pt solid #000000;border-top:1pt solid #000000;padding:5pt;vertical-align:top;">&nbsp;</td>
+        <td style="border-bottom:1pt solid #000000;border-left:1pt solid #000000;border-right:1pt solid #000000;border-top:1pt solid #000000;padding:5pt;vertical-align:top;">&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="border-bottom:1pt solid #000000;border-left:1pt solid #000000;border-right:1pt solid #000000;border-top:1pt solid #000000;padding:5pt;vertical-align:top;">SWAL</td>
+        <td style="border-bottom:1pt solid #000000;border-left:1pt solid #000000;border-right:1pt solid #000000;border-top:1pt solid #000000;padding:5pt;vertical-align:top;">&nbsp;</td>
+        <td style="border-bottom:1pt solid #000000;border-left:1pt solid #000000;border-right:1pt solid #000000;border-top:1pt solid #000000;padding:5pt;vertical-align:top;">&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="border-bottom:1pt solid #000000;border-left:1pt solid #000000;border-right:1pt solid #000000;border-top:1pt solid #000000;padding:5pt;vertical-align:top;">esFirma</td>
+        <td style="border-bottom:1pt solid #000000;border-left:1pt solid #000000;border-right:1pt solid #000000;border-top:1pt solid #000000;padding:5pt;vertical-align:top;">&nbsp;</td>
+        <td style="border-bottom:1pt solid #000000;border-left:1pt solid #000000;border-right:1pt solid #000000;border-top:1pt solid #000000;padding:5pt;vertical-align:top;">&nbsp;</td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h3>Anexo B - Sistemas críticos (pendiente)</h3>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
