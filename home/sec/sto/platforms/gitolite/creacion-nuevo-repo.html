@@ -2,7 +2,7 @@
 title: Creación de nuevo repositorio
 description: 
 published: true
-date: 2024-01-19T08:34:18.001Z
+date: 2024-01-19T08:42:14.691Z
 tags: soc, git, gitolite, creacion, repo
 editor: ckeditor
 dateCreated: 2024-01-19T08:34:18.001Z
@@ -41,6 +41,12 @@ config multimailhook.emailprefix = "[esPublico][SEC][CM][SOC_VM] "</code></pre>
 <p>Y para que sólo esté accesible con user/pass añadir este</p>
 <pre><code class="language-plaintext">R   = nobody</code></pre>
 <p>&nbsp;</p>
-<p>Por separar las cosas la gestión de usuarios y grupos irá en otro post.</p>
+<p>Una vez realizados los cambios añadir el fichero a git y hacer un commit con los cambios</p>
+<pre><code class="language-plaintext">git add gitolite.conf
+git commit -m “your commit description”
+git push</code></pre>
+<p>&nbsp;</p>
+<p>La gestión de usuarios se ha explicado en la entrada <a href="https://wiki.security.espublico.com/es/home/sec/sto/platforms/gitolite/gestion-usuarios-grupos">Gestión de usuarios y grupos</a></p>
+<p>&nbsp;</p>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
