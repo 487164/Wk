@@ -2,7 +2,7 @@
 title: Gestión de usuarios y grupos
 description: 
 published: true
-date: 2024-01-19T11:52:35.075Z
+date: 2024-01-19T11:54:16.398Z
 tags: soc, git, gitolite, user, group
 editor: ckeditor
 dateCreated: 2024-01-19T08:41:37.713Z
@@ -20,13 +20,13 @@ dateCreated: 2024-01-19T08:41:37.713Z
 <pre><code class="language-plaintext">cp /path/to/your/key.pub /opt/espublico/gitolite-admin/keydir/</code></pre>
 <p>Y hacer un commit de los cambios</p>
 <pre><code class="language-plaintext">git add you-key.pub
-git commit -m “your commit description”
+git commit -m "your commit description"
 git push</code></pre>
 <p>&nbsp;</p>
 <h3>Eliminar usuario</h3>
 <p>En caso de querer eliminar un usuario</p>
 <pre><code class="language-plaintext">git rm your-key.pub
-git commit -m “your commit description”
+git commit -m "your commit description"
 git push</code></pre>
 <p>&nbsp;</p>
 <h3>Acceso por http</h3>
@@ -67,7 +67,7 @@ chmod 600 git.passwd</code></pre>
 <p>Se pueden utilizar tantos usuarios como se desee separando los mismos por el carácter espacio. Posteriormente el grupo se definirán los permisos del grupo en cada repositorio para evitar la asignación de cada usuario independiente.</p>
 <p>Una vez realizados los cambios añadir el fichero a git y hacer un commit con los cambios</p>
 <pre><code class="language-plaintext">git add gitolite.conf
-git commit -m “your commit description”
+git commit -m "your commit description"
 git push</code></pre>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
