@@ -1,0 +1,77 @@
+<!--
+title: Preparación máquina tools
+description: 
+published: true
+date: 2024-01-19T15:04:46.032Z
+tags: soc, linux, pam, identity, tools
+editor: ckeditor
+dateCreated: 2024-01-19T15:04:46.032Z
+-->
+
+<h1 style="text-align:center;">Preparación máquina tools</h1>
+<p>&nbsp;</p>
+<p>Los servidores de tools serán las máquinas que ocuparán el rol de servidor de salto para los diferentes usuarios sin quitar los permisos actuales de que disponen.</p>
+<p>Para el montaje de un servidor de tools con la solución PAM serán necesarios una serie de pasos.</p>
+<p>&nbsp;</p>
+<h2>Creación del usuario para PAM</h2>
+<p>En primer lugar se creará el usuario utilizado para el almacenamiento y disposición del listado de usuarios y grupos y de las claves públicas de los mismos, para ello crear el usuario con el siguiente comando donde el nombre de usuario estará formado de la siguiente forma</p>
+<ul>
+  <li>location → &nbsp;primera letra de la localización, por ejemplo para zaragoza sería z</li>
+  <li>caracteres svt → servicios tools</li>
+  <li>uid → 5000 (este usuario tendrá el mismo id en todas las máquinas tools)</li>
+</ul>
+<p>Viendo esto un ejemplo para la máquina de tools de zaragoza sería zsvt5000</p>
+<p>Creamos el usuario con el siguiente comando</p>
+<pre><code class="language-plaintext">useradd -u 5000 -c "Identity Admin" -s /bin/bash USERNAME</code></pre>
+<p>Y modificamos el id del grupo</p>
+<pre><code class="language-plaintext">groupmod -g 5000 USERNAME</code></pre>
+<p>Completada esta parte se debe de generar una clave ssh&nbsp;</p>
+<pre><code class="language-plaintext">ssh-keygen -t rsa -b 8192 -f /PATH/TO/STORE/KEYNAME</code></pre>
+<p>Se deberá añadir la clave pública al fichero authorized_keys del usuario y crear la estructura de directorio de ssh si no existe</p>
+<pre><code class="language-plaintext">mkdir /home/USERNAME/.ssh
+cat /PATH/TO/STORE/KEYNAME.pub &gt; /home/USERNAME/.ssh/authorized_keys
+chmod 700 /home/USERNAME/.ssh
+chmod 600 /home/USERNAME/.ssh/authorized_keys</code></pre>
+<p>Una vez completada esta parte se deberá mover la clave privada al servidor de jump de la solución y sólo debería de estar en dicha máquina.</p>
+<p>Una vez movida la clave privada verificar el acceso.</p>
+<p>&nbsp;</p>
+<h2>Instalación y configuración del servicio de nginx</h2>
+<p>Instalar el servidor nginx ya sea la versión compilada de iubaris o la actual disponible en los repositorios del servidor.</p>
+<pre><code class="language-plaintext">dnf install nginx</code></pre>
+<p>&nbsp;</p>
+<p>Una vez instalado aplicar la configuración existente en el resto de nginx y configurar un site nuevo para el cual dejo a continuación un ejemplo del virtualhost</p>
+<pre><code class="language-plaintext">server {
+
+	listen FQDN:80;
+	listen FQDN:443 ssl;
+
+	server_name FQDN;
+	
+	ssl_certificate     /etc/ssl/certs/{LOCATION}tools-selfsigned.crt;
+        ssl_certificate_key /etc/ssl/private/{LOCATION}tools-selfsigned.key;
+
+	if ($scheme = http) {
+                rewrite ^/(.*)$ https://$host/$1 permanent;
+        }
+
+	access_log /var/log/nginx/FQDN.log main;
+
+	location / {
+		root /opt/espublico/identity/tmp;
+	}
+
+
+}</code></pre>
+<p>&nbsp;</p>
+<p>A continuación se deberá generar un certificado autofirmado para servir el portal bajo https, para ello utilizar el siguiente comando</p>
+<pre><code class="language-plaintext">sudo openssl req -x509 -nodes -days 3650 -newkey rsa:4096 -keyout /etc/pki/tls/private/NAME.key -out /etc/pki/tls/certs/NAME.crt</code></pre>
+<p>Verificar que la configuración aplicada es correcta</p>
+<pre><code class="language-plaintext">nginx -t</code></pre>
+<p>y levantar el servicio</p>
+<pre><code class="language-plaintext">systemctl start nginx</code></pre>
+<p>Completada esta parte aplicar la configuración para el envío de logs al SIEM, tal y como se explica en el documento <a href="https://wiki.security.espublico.com/es/home/sec/soc/lm/procedures/envio-logs-nginx">Envío logs nginx</a></p>
+<p>&nbsp;</p>
+<h2>Ejecución de setup e identity</h2>
+<p>Una vez completada dicha configuración se deberá proceder con la ejecución del setup y de la parte de identity para completar la instalación de la máquina.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
