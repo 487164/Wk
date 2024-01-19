@@ -2,7 +2,7 @@
 title: Descarga de repositorio
 description: 
 published: true
-date: 2024-01-19T11:44:31.405Z
+date: 2024-01-19T11:55:53.781Z
 tags: soc, git, linux, windows, ssh
 editor: ckeditor
 dateCreated: 2024-01-19T11:44:31.405Z
@@ -30,7 +30,7 @@ dateCreated: 2024-01-19T11:44:31.405Z
 <p>&nbsp;</p>
 <h2>Descarga por http</h2>
 <p>En caso de que la descarga se realice por http se deberá solicitar un usuario de acceso, en caso contrario están almacenadas en teampass las credenciales del usuario nobody para la lectura de algunos de los repositorios por lo que no es necesario disponer de credenciales nominales.</p>
-<p>Para descargar el repositorio ejecutar el siguiente comando</p>
+<p>Para descargar el repositorio ejecutar el siguiente comando (debido a que se utiliza un certificado autofirmado hay que añadir la opción de sslVerify=false)</p>
 <pre><code class="language-plaintext">$ git -c http.sslVerify=false clone https://cm.security.espublico.com/git/REPO_NAME</code></pre>
 <p>Cuando se lance solicitará las credenciales como se ve en el siguiente ejemplo:</p>
 <pre><code class="language-plaintext">$ git -c http.sslVerify=false clone https://cm.security.espublico.com/git/Security-monitoring
