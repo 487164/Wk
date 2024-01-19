@@ -2,7 +2,7 @@
 title: Playbook LM Scheduled Tasks
 description: 
 published: true
-date: 2024-01-16T10:24:11.049Z
+date: 2024-01-19T12:08:04.885Z
 tags: soc, lm, task, playbook, scheduled
 editor: ckeditor
 dateCreated: 2024-01-16T10:24:11.049Z
@@ -52,9 +52,10 @@ dateCreated: 2024-01-16T10:24:11.049Z
 <h3><strong>Servidores</strong></h3>
 <p style="text-align:justify;">La revisión se deberá realizar en los siguientes servidores:</p>
 <ul>
-  <li>zgz-data-lake-svcs</li>
-  <li>nbx-data-lake-svcs</li>
-  <li>itx-data-lake-svcs</li>
+  <li>zgz-data-lake-svcs.zaragoza.espublico.com</li>
+  <li>nbx-data-lake-svcs.madrid.espublico.com</li>
+  <li>itx-data-lake-svcs.madrid.espublico.com</li>
+  <li>dpz.c-security.espublico.com</li>
 </ul>
 <p>&nbsp;</p>
 <h3><strong>Acciones</strong></h3>
@@ -138,9 +139,39 @@ dateCreated: 2024-01-16T10:24:11.049Z
 <h3><strong>Acciones</strong></h3>
 <p>Revisar el estado de los recursos del servidor del soar, CPU, memoria, procesos con el fin de identificar si existe algún problema en el mismo o en la ejecución de alguna de las APIs existentes en el mismo.</p>
 <p>Revisar el estado de los procesos y que no se hayan quedado lockfiles por error.</p>
-<ul>
-  <li>script sentinel2misp, revisar que el proceso está corriendo, o si no lo está, que no exista el fichero de lock en /var/lock/subsys/sentinel2misp</li>
-</ul>
+<p>Se ha generado un script para la revisión de estas tareas, ejecutar con el siguiente comando:</p>
+<pre><code class="language-plaintext">sudo /opt/scripts/soar/soar-checks.sh</code></pre>
+<p>A continuación se ve un ejemplo de su ejecución:</p>
+<pre><code class="language-plaintext">sudo /opt/scripts/soar/soar-checks.sh 
+[*] Checking CPU...
+ 13:06:35 up 154 days,  1:04,  4 users,  load average: 0,75, 0,49, 0,32
+
+[*] Checking memory...
+               total        used        free      shared  buff/cache   available
+Mem:            7620        1384        1401         161        5294        6236
+Swap:           2047          55        1992
+
+[*] Checking lock files...
+total 0
+-rw-r--r--. 1 root root 0 ene 19 13:06 misp2qradar
+
+[*] Checking running processes...
+root      228637  0.0  0.0  10024  3252 ?        Ss   13:06   0:00 /bin/sh -c /opt/scripts/qradar/misp2qradar.sh &gt; /dev/null 2&gt;&amp;1
+root      228642  0.0  0.0  10156  3772 ?        S    13:06   0:00 /bin/bash /opt/scripts/qradar/misp2qradar.sh
+root      228888  0.0  0.1  19500  8788 pts/4    S+   13:06   0:00 sudo /opt/scripts/soar/soar-checks.sh
+root      228890  0.0  0.0  10156  4288 pts/4    S+   13:06   0:00 /bin/bash /opt/scripts/soar/soar-checks.sh
+
+[*] Checking disks...
+Filesystem                   Size  Used Avail Use% Mounted on
+devtmpfs                     4,0M     0  4,0M   0% /dev
+tmpfs                        3,8G     0  3,8G   0% /dev/shm
+tmpfs                        1,5G  169M  1,4G  12% /run
+/dev/mapper/rocky-root        17G  6,0G   12G  35% /
+/dev/sda1                   1014M  422M  593M  42% /boot
+/dev/mapper/vg_data-lv_data   20G   12G  8,5G  58% /data
+tmpfs                        763M  4,0K  763M   1% /run/user/1007
+tmpfs                        763M  4,0K  763M   1% /run/user/1005
+</code></pre>
 <p>&nbsp;</p>
 <h2>SIEM APP Updates</h2>
 <p>&nbsp;</p>
@@ -267,8 +298,8 @@ dateCreated: 2024-01-16T10:24:11.049Z
   <li>MISP</li>
   <li>OpenCTI - Actualizar la excel <a href="https://docs.google.com/spreadsheets/u/0/d/165iGElFnuULC307HSUX30P9bbAB3gOG1Zm8rnPiZwBI/edit"><u>Opencti - Environments and containers</u></a></li>
   <li>OpenCVE - Actualizar la excel <a href="https://docs.google.com/spreadsheets/u/0/d/1ms_v1cClkvJvFyPQZj34tYkQPAwTNxKmnKjTjYqxiTs/edit"><u>OpenCVE - Environments and containers</u></a></li>
-  <li>WikiJS - Actualizar la excel&nbsp;</li>
-  <li>BitWarden ?&nbsp;</li>
+  <li>WikiJS - Actualizar la excel</li>
+  <li>BitWarden ?</li>
 </ul>
 <p>&nbsp;</p>
 <h3><strong>Acciones</strong></h3>
