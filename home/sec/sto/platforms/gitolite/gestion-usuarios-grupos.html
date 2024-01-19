@@ -2,7 +2,7 @@
 title: Gestión de usuarios y grupos
 description: 
 published: true
-date: 2024-01-19T08:41:37.713Z
+date: 2024-01-19T11:52:35.075Z
 tags: soc, git, gitolite, user, group
 editor: ckeditor
 dateCreated: 2024-01-19T08:41:37.713Z
@@ -28,6 +28,33 @@ git push</code></pre>
 <pre><code class="language-plaintext">git rm your-key.pub
 git commit -m “your commit description”
 git push</code></pre>
+<p>&nbsp;</p>
+<h3>Acceso por http</h3>
+<p>El acceso a los repositorios por defecto será por ssh, en caso de necesitar acceso por http/s se deberá crear un usuario con el mismo nombre creado anteriormente y dispondrá de los mismos permisos configurados en el repositorio de gitolite-admin.</p>
+<p>Para crear el usuario acceder a la máquina de itx-sec-cm-01 y acceder a la ruta</p>
+<pre><code class="language-plaintext">/etc/httpd/htpasswd.d</code></pre>
+<p>Para evitar problemas hacer una copia del fichero actual</p>
+<pre><code class="language-plaintext">$ cp git.passwd git.passwd.bkp</code></pre>
+<p>Y ahora para la gestión de usuarios se exponen varios comandos en función de la tarea a realizar.</p>
+<p>&nbsp;</p>
+<h4>Crear usuario</h4>
+<p>Para crear un usuario ejecutar el siguiente comando y solicitará introducir dos veces la password del mismo</p>
+<pre><code class="language-plaintext">$ htpasswd -B git.passwd USERNAME</code></pre>
+<p>Se utiliza el carácter -B para especificar el cifrado utilizado, en este caso se utiliza bcrypt ya que es el más robusto de que dispone.</p>
+<p>&nbsp;</p>
+<h4>Modificar usuario</h4>
+<p>Para modificar la password de un usuario se puede ejecutar el mismo comando que para su creación y simplemente actualizará la password del usuario.</p>
+<p>&nbsp;</p>
+<h4>Eliminar usuario</h4>
+<p>Para eliminar un usuario lanzar el siguiente comando</p>
+<pre><code class="language-plaintext">$ htpasswd -D git.passwd USERNAME</code></pre>
+<p>&nbsp;</p>
+<h4>Rollback</h4>
+<p>En caso de cometer algún error simplemente restaurar el fichero de backup con el comando</p>
+<pre><code class="language-plaintext">cp git.passwd.bkp git.passwd</code></pre>
+<p>Y corregir los permisos del fichero</p>
+<pre><code class="language-plaintext">chown apache:apache git.passwd
+chmod 600 git.passwd</code></pre>
 <p>&nbsp;</p>
 <h2>Gestión de grupos</h2>
 <p>Los grupos, al igual que los repositorios, se configuran desde el fichero de configuración, así que acceder al directorio</p>
