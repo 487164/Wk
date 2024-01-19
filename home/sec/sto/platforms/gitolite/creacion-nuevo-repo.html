@@ -1,0 +1,46 @@
+<!--
+title: Creación de nuevo repositorio
+description: 
+published: true
+date: 2024-01-19T08:34:18.001Z
+tags: soc, git, gitolite, creacion, repo
+editor: ckeditor
+dateCreated: 2024-01-19T08:34:18.001Z
+-->
+
+<h1 style="text-align:center;">Creación de nuevo repositorio</h1>
+<p>&nbsp;</p>
+<p>Para la creación de un nuevo repositorio se deberá acceder al servidor itx-sec-cm-01-svcs.madrid.espublico.com y una vez dentro escalar al usuario root, ya que es el único con permisos para poder editar el repositorio principal.</p>
+<p>Acceder al directorio&nbsp;</p>
+<pre><code class="language-plaintext">/opt/espublico/gitolite-admin/conf</code></pre>
+<p>Y editar el fichero</p>
+<pre><code class="language-plaintext">gitolite.conf</code></pre>
+<p>Para añadir un nuevo repositorio se deberá seguir la siguiente estructura</p>
+<pre><code class="language-plaintext">## Comentario referenciando al repositorio
+repo YOUR-REPO-NAME
+       # config multimailhook.mailinglist = "YOUR_MAIL"
+       # config multimailhook.emailprefix = "YOUR_SUBJECT_PREFIX "
+       YOUR_PERMISSIONS</code></pre>
+<p>&nbsp;</p>
+<p>En caso de quere enviar por correo cualquier cambio que se realice sobre el repositorio descomentar las siguientes líneas y configurarlas&nbsp;</p>
+<pre><code class="language-plaintext">config multimailhook.mailinglist = "soc@espublico.it"
+config multimailhook.emailprefix = "[esPublico][SEC][CM][SOC_VM] "</code></pre>
+<p>&nbsp;</p>
+<p>Para los permisos se establecerán en función del acceso que deba tener el usuario</p>
+<ul>
+  <li>R → read only</li>
+  <li>RW → permite control sobre la rama actual pero sólo puede crear ramas nuevas, no puede actualizar ni borrar ramas</li>
+  <li>RW+ → permiso total en la rama actual y en el resto de ramas</li>
+  <li>- &nbsp;→ para denegar el acceso a un recurso</li>
+</ul>
+<p>&nbsp;</p>
+<p>Por defecto se debrán establecer los siguientes permisos para dar permisos a los administradores</p>
+<pre><code class="language-plaintext">RW+ = @secadmins # grupo de secadmin</code></pre>
+<p>Si se desea que el repositorio sea accesible a través de http/s se deberá añadir el siguiente</p>
+<pre><code class="language-plaintext">R   = daemon</code></pre>
+<p>Y para que sólo esté accesible con user/pass añadir este</p>
+<pre><code class="language-plaintext">R   = nobody</code></pre>
+<p>&nbsp;</p>
+<p>Por separar las cosas la gestión de usuarios y grupos irá en otro post.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
