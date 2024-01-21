@@ -2,7 +2,7 @@
 title: Update checklist
 description: 
 published: true
-date: 2024-01-21T09:52:25.688Z
+date: 2024-01-21T10:47:10.277Z
 tags: soc, qradar, lm, ibm, update, checklist
 editor: ckeditor
 dateCreated: 2024-01-21T09:52:25.688Z
@@ -46,20 +46,24 @@ dateCreated: 2024-01-21T09:52:25.688Z
 </ul>
 <p>Ejecutar desde la consola el script&nbsp;</p>
 <pre><code class="language-plaintext">/opt/qradar/support/deployment_info.sh</code></pre>
+<p>&nbsp;</p>
 <ul>
   <li><strong>Version</strong> -&gt; Revisar que todos los nodos se encuentran en la misma versión de QRadar.</li>
 </ul>
 <p>Para ello ejecutar el siguiente comando desde la consola activa:</p>
 <pre><code class="language-plaintext">/opt/qradar/support/all_servers.sh -C -k "/opt/qradar/bin/myver -v"</code></pre>
+<p>&nbsp;</p>
 <ul>
   <li><strong>Espacio</strong> -&gt; Verificar que todas las máquinas tienen espacio suficiente para la actualización. Para ello lanzar el siguiente comando desde la consola activa:</li>
 </ul>
 <pre><code class="language-plaintext">/opt/qradar/support/all_servers.sh -C -k "df -h /root /var/log"</code></pre>
+<p>&nbsp;</p>
 <ul>
   <li><strong>Mount</strong> -&gt; Revisar las unidades montadas en cada máquina.</li>
 </ul>
 <p>Para ello lanzar el siguiente comando desde la consola activa:</p>
 <pre><code class="language-plaintext">/opt/qradar/support/all_servers.sh -C -k "df -h"</code></pre>
+<p>&nbsp;</p>
 <ul>
   <li><strong>Nodo no HA</strong>
     <ul>
@@ -72,7 +76,8 @@ dateCreated: 2024-01-21T09:52:25.688Z
       </li>
     </ul>
   </li>
-  <li><strong>Nodo HA</strong>&nbsp;<ul>
+  <li><strong>Nodo HA</strong>
+    <ul>
       <li>En caso de ser un nodo primario debe de tener montados los mismos puntos que un nodo que no tenga capacidad de HA</li>
       <li>En caso de ser un nodo secundario no debe tener montado el punto de montaje de /store</li>
     </ul>
@@ -80,17 +85,20 @@ dateCreated: 2024-01-21T09:52:25.688Z
   <li><strong>Mount Updates</strong> -&gt; Verificar que no hay ninguna unidad montada en los servidores. Para ello ejecutar el siguiente comando desde la consola activa:</li>
 </ul>
 <pre><code class="language-plaintext">/opt/qradar/support/all_servers.sh -C -k "umount /media/updates"</code></pre>
+<p>&nbsp;</p>
 <ul>
   <li><strong>Iptables</strong> -&gt; Hacer un backup de las reglas custom creadas en iptables.</li>
 </ul>
 <p>Para ello lanzar los siguientes comandos desde la consola activa:</p>
 <pre><code class="language-plaintext">/opt/qradar/support/all_servers.sh -C -k "cp /opt/qradar/conf/iptables.pre /root/iptables.pre.bkp"
 /opt/qradar/support/all_servers.sh -C -k "cp /opt/qradar/conf/iptables.post /root/iptables.post.bkp"</code></pre>
+<p>&nbsp;</p>
 <ul>
   <li><strong>Rutas</strong> -&gt; Hacer un backup de las rutas estáticas configuradas.</li>
 </ul>
 <p>Para ello lanzar el siguiente comando desde la consola activa:</p>
 <pre><code class="language-plaintext">/opt/qradar/support/all_servers.sh -C -k "ip ro &gt; /root/routes-`hostname`.txt"</code></pre>
+<p>&nbsp;</p>
 <ul>
   <li><strong>Heap Dumps</strong> -&gt; Verificar que no hay backups de memoria en la ruta /store/jheap</li>
 </ul>
@@ -107,13 +115,14 @@ dateCreated: 2024-01-21T09:52:25.688Z
 <pre><code class="language-plaintext">/opt/qradar/support/all_servers.sh -C -k "drq -v &gt; /root/drq-`hostname`.log"</code></pre>
 <p>Hay dos bugs conocidos en las consolas:</p>
 <ul>
-  <li>FAILURE]&nbsp;&nbsp;</li>
+  <li>FAILURE]</li>
 </ul>
 <pre><code class="language-plaintext">Error getting appliance type: Unable to retrieve softwareType or
 applianceType from /opt/qradar/conf/capabilities/hostcapabilities.xml.
 Check is unable to continue.</code></pre>
+<p>&nbsp;</p>
 <ul>
-  <li>[INVALID] &nbsp;</li>
+  <li>[INVALID]</li>
 </ul>
 <pre><code class="language-plaintext">error running applicability(): Error running applicable(): runtime
 error: [string "?"]:174: attempt to compare number with nil stack
@@ -148,6 +157,7 @@ traceback:     [C]: in metamethod '__le'     [string "?"]:174: in function
 <pre><code class="language-plaintext">/opt/qradar/support/all_servers.sh -C 'systemctl is-active accumulator'</code></pre>
 <p>Si en algun servidor no está levantado el servicio, acceder por ssh al mismo y lanzar el siguiente comando:</p>
 <pre><code class="language-plaintext">systemctl restart accumulator</code></pre>
+<p>&nbsp;</p>
 <ul>
   <li><strong>Log activity</strong> -&gt; Revisar que se reciben logs en cada collector.</li>
 </ul>
@@ -179,10 +189,16 @@ traceback:     [C]: in metamethod '__le'     [string "?"]:174: in function
   <li><strong>Services</strong> -&gt; Revisar en cada servidor que los servicios necesarios para el mismo se encuentran activos. Para ello acceder por ssh a cada uno de ellos y lanzar el siguiente script:</li>
 </ul>
 <pre><code class="language-plaintext">/opt/qradar/upgrade/util/setup/upgrades/wait_for_start.sh</code></pre>
+<p>&nbsp;</p>
 <ul>
   <li><strong>DRQ</strong> -&gt; Ejecutar la utilidad drq en cada servidor para verificar que no hay errores en el sistema, en caso de encontrar alguno se deberá solventar antes de continuar.</li>
 </ul>
 <p>Para ello ejecutar desde la consola activa el siguiente comando:</p>
 <pre><code class="language-plaintext">/opt/qradar/support/all_servers.sh -C -k "drq -v &gt; /root/drq-`hostname`.log"</code></pre>
+<p>&nbsp;</p>
+<ul>
+  <li><strong>HA</strong> → Acceder por consola al nodo primario o secundario en los que tengan ha y lanzar el siguiente comando para revisar que el estado es correcto. El nodo primario debería apareceder como activo y el nodo secundario como standby.</li>
+</ul>
+<pre><code class="language-plaintext">/opt/qradar/ha/bin/ha cstate</code></pre>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
