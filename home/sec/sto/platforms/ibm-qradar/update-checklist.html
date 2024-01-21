@@ -1,0 +1,188 @@
+<!--
+title: Update checklist
+description: 
+published: true
+date: 2024-01-21T09:52:25.688Z
+tags: soc, qradar, lm, ibm, update, checklist
+editor: ckeditor
+dateCreated: 2024-01-21T09:52:25.688Z
+-->
+
+<h1 style="text-align:center;">Update checklist</h1>
+<p>&nbsp;</p>
+<p>En este documento se explicarán cada uno de los puntos a verificar antes y después de realizar una actualización de QRadar.</p>
+<p>Cuando se realicen los chequeos se deben cumplimentar los resultados en la excel <a href="https://docs.google.com/spreadsheets/d/1Vafni_YEYCun0IFuBw7zvZVpvhc_kwDF69IrL-AMUHs/edit#gid=0">QRadar - Update checklist</a></p>
+<p>&nbsp;</p>
+<h2><i><strong>PRE Checks</strong></i></h2>
+<p>En esta sección se explicará cada uno de los puntos a verificar antes de realizar la actualización de QRadar.&nbsp;</p>
+<p>Los puntos a revisar son los siguientes:</p>
+<p>&nbsp;</p>
+<h4><strong>GUI Web</strong></h4>
+<ul>
+  <li><strong>Procesos</strong> -&gt; Verificar que no hay escaneos ni reportes en proceso</li>
+  <li><strong>HA</strong> -&gt; Verificar que los nodos en HA tienen ambos nodos activos y que el nodo primario está activo y el nodo secundario en standby</li>
+  <li><strong>Notificaciones del sistema</strong> -&gt; Antes de realizar el update de QRadar verificar que no hay ninguna de las siguientes notificaciones, en caso de haberlas se deben de resolver antes de proceder con la actualización:<ul>
+      <li>Performance or event pipeline degradation notifications</li>
+      <li>Memory notifications</li>
+      <li>TX sentry messages or process stopped notifications</li>
+      <li>HA active or HA standby failure system notifications</li>
+      <li>Disk failure system notifications</li>
+      <li>Disk Sentry noticed one or more storage partitions are unavailable notifications</li>
+      <li>Time synchronization system notifications</li>
+      <li>Unable to execute a backup request notification</li>
+      <li>Data replication experiencing difficulty notifications</li>
+      <li>RAID controller misconfiguration notifications</li>
+    </ul>
+  </li>
+  <li><strong>Deploy</strong> -&gt; Revisar que no hay cambios pendientes de desplegar.</li>
+  <li><strong>Backup</strong> -&gt; Verificar que el último backup de datos y configuración se ha realizado correctamente y hacer una copia del mismo a una máquina ajena a QRadar.</li>
+  <li><strong>APPs</strong> -&gt; Revisar que todas las aplicaciones se encuentran actualizadas y que ninguna se encuentra en un estado de ERROR.</li>
+</ul>
+<p>Opcional -&gt; se pueden parar todas las aplicaciones antes de la actualización aunque no es necesario ya que el mismo proceso de actualización realizará la parada de las mismas.</p>
+<p>&nbsp;</p>
+<h4><strong>Linux Console</strong></h4>
+<ul>
+  <li><strong>Hosts</strong> -&gt; Obtener el listado de host existentes en el despliegue</li>
+</ul>
+<p>Ejecutar desde la consola el script&nbsp;</p>
+<pre><code class="language-plaintext">/opt/qradar/support/deployment_info.sh</code></pre>
+<ul>
+  <li><strong>Version</strong> -&gt; Revisar que todos los nodos se encuentran en la misma versión de QRadar.</li>
+</ul>
+<p>Para ello ejecutar el siguiente comando desde la consola activa:</p>
+<pre><code class="language-plaintext">/opt/qradar/support/all_servers.sh -C -k "/opt/qradar/bin/myver -v"</code></pre>
+<ul>
+  <li><strong>Espacio</strong> -&gt; Verificar que todas las máquinas tienen espacio suficiente para la actualización. Para ello lanzar el siguiente comando desde la consola activa:</li>
+</ul>
+<pre><code class="language-plaintext">/opt/qradar/support/all_servers.sh -C -k "df -h /root /var/log"</code></pre>
+<ul>
+  <li><strong>Mount</strong> -&gt; Revisar las unidades montadas en cada máquina.</li>
+</ul>
+<p>Para ello lanzar el siguiente comando desde la consola activa:</p>
+<pre><code class="language-plaintext">/opt/qradar/support/all_servers.sh -C -k "df -h"</code></pre>
+<ul>
+  <li><strong>Nodo no HA</strong>
+    <ul>
+      <li>Deben de estar montados y accesibles los puntos de montaje<ul>
+          <li>/store</li>
+          <li>/storetmp -&gt; es posible que esté en la raíz</li>
+          <li>/store/tmp -&gt; es posible que no sea un punto aparte sino que este dentro de /store</li>
+          <li>/transient</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><strong>Nodo HA</strong>&nbsp;<ul>
+      <li>En caso de ser un nodo primario debe de tener montados los mismos puntos que un nodo que no tenga capacidad de HA</li>
+      <li>En caso de ser un nodo secundario no debe tener montado el punto de montaje de /store</li>
+    </ul>
+  </li>
+  <li><strong>Mount Updates</strong> -&gt; Verificar que no hay ninguna unidad montada en los servidores. Para ello ejecutar el siguiente comando desde la consola activa:</li>
+</ul>
+<pre><code class="language-plaintext">/opt/qradar/support/all_servers.sh -C -k "umount /media/updates"</code></pre>
+<ul>
+  <li><strong>Iptables</strong> -&gt; Hacer un backup de las reglas custom creadas en iptables.</li>
+</ul>
+<p>Para ello lanzar los siguientes comandos desde la consola activa:</p>
+<pre><code class="language-plaintext">/opt/qradar/support/all_servers.sh -C -k "cp /opt/qradar/conf/iptables.pre /root/iptables.pre.bkp"
+/opt/qradar/support/all_servers.sh -C -k "cp /opt/qradar/conf/iptables.post /root/iptables.post.bkp"</code></pre>
+<ul>
+  <li><strong>Rutas</strong> -&gt; Hacer un backup de las rutas estáticas configuradas.</li>
+</ul>
+<p>Para ello lanzar el siguiente comando desde la consola activa:</p>
+<pre><code class="language-plaintext">/opt/qradar/support/all_servers.sh -C -k "ip ro &gt; /root/routes-`hostname`.txt"</code></pre>
+<ul>
+  <li><strong>Heap Dumps</strong> -&gt; Verificar que no hay backups de memoria en la ruta /store/jheap</li>
+</ul>
+<p>En caso de haberlos copiar los mismos por ejemplo a un directorio temporal en la home de root.</p>
+<ul>
+  <li><strong>SSH</strong> -&gt; Revisar que desde la consola es posible acceder a todos los servidores por ssh con el usuario root y viceversa.</li>
+</ul>
+<p>Las colectoras deben de ser capaces de llegar a su procesadora y viceversa.</p>
+<p>Los nodos en HA deben de ser capaces de llegar a la conexión por cable cruzado, estas suelen ser 169.254.1.1 en el primario y 169.254.1.2 en el secundario.</p>
+<ul>
+  <li><strong>DRQ</strong> -&gt; Ejecutar la utilidad drq en cada servidor para verificar que no hay errores en el sistema, en caso de encontrar alguno se deberá solventar antes de continuar.</li>
+</ul>
+<p>Para ello ejecutar desde la consola activa el siguiente comando:</p>
+<pre><code class="language-plaintext">/opt/qradar/support/all_servers.sh -C -k "drq -v &gt; /root/drq-`hostname`.log"</code></pre>
+<p>Hay dos bugs conocidos en las consolas:</p>
+<ul>
+  <li>FAILURE]&nbsp;&nbsp;</li>
+</ul>
+<pre><code class="language-plaintext">Error getting appliance type: Unable to retrieve softwareType or
+applianceType from /opt/qradar/conf/capabilities/hostcapabilities.xml.
+Check is unable to continue.</code></pre>
+<ul>
+  <li>[INVALID] &nbsp;</li>
+</ul>
+<pre><code class="language-plaintext">error running applicability(): Error running applicable(): runtime
+error: [string "?"]:174: attempt to compare number with nil stack
+traceback:     [C]: in metamethod '__le'     [string "?"]:174: in function
+'encryptedEventCollectorMHExists'     [string "?"]:73: in function
+'applicable'</code></pre>
+<p>&nbsp;</p>
+<h4><strong>ILO</strong></h4>
+<ul>
+  <li><strong>IMM</strong> -&gt; Verificar que la IMM está accesible y no hay errores</li>
+</ul>
+<p>&nbsp;</p>
+<h4><strong>Otros</strong></h4>
+<ul>
+  <li><strong>Descarga</strong> -&gt; Descargar fichero sfs de la versión a actualizar y chequear que el checksum es válido</li>
+</ul>
+<p>&nbsp;</p>
+<h2><i><strong>POST Checks</strong></i></h2>
+<p>En esta sección se explicará cada uno de los puntos a verificar después de realizar la actualización de QRadar.&nbsp;</p>
+<p>Antes de proceder a la revisión verificar que el mensaje siguiente no aparece en ninguno de los servidores:</p>
+<p><strong>Patch still in progress - DO NOT REBOOT!</strong></p>
+<p>Los puntos a revisar son los siguientes:</p>
+<p>&nbsp;</p>
+<h4><strong>GUI WEB</strong></h4>
+<ul>
+  <li><strong>GUI</strong> -&gt; Comprobar que login en la gui web carga correctamente</li>
+  <li><strong>Deploy</strong> -&gt; Acceder a la administración y lanzar un full deploy. (Este paso no será siempre necesario, si el update se aplica de forma paralela al completar el update en la consola, esta realizará ya el deploy)</li>
+  <li><strong>Notifications</strong> -&gt; Revisar las notificaciones del sistema y corregir los errores pertinentes en caso de haberlos</li>
+  <li><strong>Dashboards</strong> -&gt; Revisar que los dashboard cargan correctamente.</li>
+</ul>
+<p>En caso de que no carguen, verificar el servicio accumulator ejecutando el siguiente comando desde la consola activa:</p>
+<pre><code class="language-plaintext">/opt/qradar/support/all_servers.sh -C 'systemctl is-active accumulator'</code></pre>
+<p>Si en algun servidor no está levantado el servicio, acceder por ssh al mismo y lanzar el siguiente comando:</p>
+<pre><code class="language-plaintext">systemctl restart accumulator</code></pre>
+<ul>
+  <li><strong>Log activity</strong> -&gt; Revisar que se reciben logs en cada collector.</li>
+</ul>
+<p>Para ello ir a la pestaña de log activity y buscar en tiempo real filtrando por la property “Event Collector ID”. Para obtener el id de cada colector se puede acceder a&nbsp;</p>
+<p>Admin -&gt; Log sources</p>
+<p>Y buscar por el log source type “SIM Generic Log DSM”</p>
+<p>El id se encontrará en el nombre del log source:</p>
+<p>ej: SIM Generic Log DSM-<strong>103</strong> :: mad-qradar-ec-01</p>
+<ul>
+  <li><strong>Network activity</strong>&nbsp; -&gt; Seguir el mismo proceso que en log activity, si procede.</li>
+  <li><strong>Search</strong>&nbsp; -&gt; Realizar una búsqueda simple para verificar que no aparecen errores.</li>
+  <li><strong>Offenses</strong>&nbsp; -&gt; Navegar por la pantalla de offenses y verificar que no existe ningún error en la misma. Forzar si es posible la generación de una alerta o esperar un corto lapso de tiempo para verificar que funciona correctamente.</li>
+  <li><strong>Assets</strong>&nbsp; -&gt; Revisar en la página de assets que todo funciona correctamente y no aparecen errores.</li>
+  <li><strong>APPs</strong>&nbsp; -&gt; Verificar que todas las aplicaciones han levantado correctamente.</li>
+</ul>
+<p>Para ello acceder a la aplicación Assistant y ver el estado de todas ellas, reiniciar si es necesario aquella que haya fallado y verificar que la misma levanta correctamente.</p>
+<p>En caso de no encontrarse levantada la aplicación de Assistant, revisar la documentación de gestión de aplicaciones y levantarla manualmente.</p>
+<p>Una vez verificadas que están todas levantadas, <strong>acceder a cada una de ellas</strong> para verificar el correcto funcionamiento de las mismas.</p>
+<p>&nbsp;</p>
+<h4><strong>Linux Console</strong></h4>
+<ul>
+  <li><strong>SSH</strong> -&gt; Verificar el acceso por ssh a todos los servidores que forman el despliegue</li>
+  <li><strong>Disc</strong> -&gt; Desmontar la unidad /media/updates en todos los servidores.</li>
+</ul>
+<p>Lanzar el siguiente comando desde la consola activa:</p>
+<pre><code class="language-plaintext">/opt/qradar/support/all_servers.sh -C -k "umount /media/updates"</code></pre>
+<p>O ir uno por uno por todos los servidores.</p>
+<ul>
+  <li><strong>Services</strong> -&gt; Revisar en cada servidor que los servicios necesarios para el mismo se encuentran activos. Para ello acceder por ssh a cada uno de ellos y lanzar el siguiente script:</li>
+</ul>
+<pre><code class="language-plaintext">/opt/qradar/upgrade/util/setup/upgrades/wait_for_start.sh</code></pre>
+<ul>
+  <li><strong>DRQ</strong> -&gt; Ejecutar la utilidad drq en cada servidor para verificar que no hay errores en el sistema, en caso de encontrar alguno se deberá solventar antes de continuar.</li>
+</ul>
+<p>Para ello ejecutar desde la consola activa el siguiente comando:</p>
+<pre><code class="language-plaintext">/opt/qradar/support/all_servers.sh -C -k "drq -v &gt; /root/drq-`hostname`.log"</code></pre>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
