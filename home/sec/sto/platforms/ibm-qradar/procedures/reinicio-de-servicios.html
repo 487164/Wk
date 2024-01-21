@@ -2,7 +2,7 @@
 title: Reinicio de servicios
 description: 
 published: true
-date: 2024-01-15T11:30:11.852Z
+date: 2024-01-21T10:13:20.469Z
 tags: sm, soc, qradar, lm, ibm, procedure
 editor: ckeditor
 dateCreated: 2024-01-15T11:30:11.852Z
@@ -14,7 +14,7 @@ dateCreated: 2024-01-15T11:30:11.852Z
 <p>El orden correcto de parada de servicios es el siguiente:</p>
 <ol>
   <li>hostcontext</li>
-  <li>tomcat&nbsp;</li>
+  <li>tomcat</li>
   <li>hostservices</li>
 </ol>
 <p>&nbsp;</p>
@@ -26,10 +26,10 @@ dateCreated: 2024-01-15T11:30:11.852Z
 </ol>
 <p>&nbsp;</p>
 <p>Para realizar el arranque o parada el comando en cuestión sería el siguiente:</p>
-<p><code>systemctl stop|start SERVICENAME</code></p>
+<pre><code class="language-plaintext">systemctl stop|start SERVICENAME</code></pre>
 <p>&nbsp;</p>
 <p>Para verificar en una máquina que se encuentran levantados los servicios que necesita hay un script que hace dicha comprobación:</p>
-<p><code>/opt/qradar/upgrade/util/setup/upgrades/wait_for_start.sh</code></p>
+<pre><code class="language-plaintext">/opt/qradar/upgrade/util/setup/upgrades/wait_for_start.sh</code></pre>
 <p>&nbsp;</p>
 <p>En el siguiente punto se incluyen desglosados cada uno de los servicios.</p>
 <p>&nbsp;</p>
@@ -62,7 +62,7 @@ dateCreated: 2024-01-15T11:30:11.852Z
 </ul>
 <p>&nbsp;</p>
 <p>Los servicios que controlará dependerán del rol del servidor pero se puede ver en concreto cuales incluye la máquina con el siguiente comando:</p>
-<p><code>grep COMPONENT /opt/qradar/conf/nva.hostcontext.conf</code></p>
+<pre><code class="language-plaintext">grep COMPONENT /opt/qradar/conf/nva.hostcontext.conf</code></pre>
 <p>&nbsp;</p>
 <h4><strong>Servicio tomcat</strong></h4>
 <p>El servicio de tomcat se encargará de controlar los siguientes servicios</p>
@@ -75,7 +75,7 @@ dateCreated: 2024-01-15T11:30:11.852Z
 <h4><strong>Servicio hostservices</strong></h4>
 <p>El servicio de hostservices se encargará del control de los siguientes servicios:</p>
 <ul>
-  <li>Message Queues (IMQ)&nbsp;<ul>
+  <li>Message Queues (IMQ)<ul>
       <li>Es el servicio encargado de controlar las comunicaciones entre los diferentes procesos internos de QRadar en el servidor.</li>
     </ul>
   </li>
