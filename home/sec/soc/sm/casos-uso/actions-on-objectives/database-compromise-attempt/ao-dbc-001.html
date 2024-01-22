@@ -1,0 +1,69 @@
+<!--
+title: AO-DBC-001 [ALTA] [MYSQL] Fallo de autenticación en servidor MySQL
+description: 
+published: true
+date: 2024-01-22T12:20:43.424Z
+tags: 
+editor: ckeditor
+dateCreated: 2024-01-22T12:20:43.424Z
+-->
+
+<h1>AO-DBC-001 [ALTA] [MYSQL] Fallo de autenticación en servidor MySQL</h1>
+<h2>Descripción</h2>
+<p style="text-align:justify;">Este caso de uso identifica fallos en el Login de un usuario en un servidor MySQL, saltando en el caso de que se produzcan hasta 5 fallos en un intervalo de tiempo de 10 minutos.</p>
+<ul>
+  <li><strong>Nombre</strong>: Fallo de autenticación en servidor MySQL</li>
+  <li><strong>Criticidad</strong>: Alta</li>
+  <li><strong>Tiempo de Atención</strong>: 30 minutos</li>
+  <li><strong>Tecnologías utilizadas</strong>: MySQL Audit</li>
+</ul>
+<h2>MITRE</h2>
+<p>TA0006 - Credential Access</p>
+<p>T1110 Brute Force</p>
+<h2>What to do</h2>
+<p style="text-align:justify;">En el momento que se produzcan hasta 5 fallos de autenticación en un servidor MySQL en un intervalo de 10 minutos se generará una alerta.</p>
+<p style="text-align:justify;">Para el seguimiento de los fallos de autenticación en MySQL se puede revisar el <i>QID: 1004500012 (MySQL Login Failed)</i>&nbsp;</p>
+<p style="text-align:justify;">Deberá revisarse en que servidor MySQL se han intentado autenticar, que usuario ha sido y la dirección IP desde la que lo ha intentado.&nbsp;</p>
+<p style="text-align:justify;">En caso de ser una actividad esperada por el usuario, lo definiríamos como FP descartando un incidente de seguridad, y proporcionando la nota de cierre correspondiente con la investigación realizada.</p>
+<h2>Notas de cierre</h2>
+<p>Puntos mínimos que debe de tener un cierre:</p>
+<ul>
+  <li>Usuario que ha generado los fallos de autenticación&nbsp;</li>
+  <li>Servidor MySQL objetivo</li>
+  <li>Fecha/Hora</li>
+  <li>Seguimiento posterior de la actividad del usuario</li>
+  <li>Resumen del análisis</li>
+</ul>
+<h2>Matriz de escalado</h2>
+<p>Aunque la matriz de escalado debería ser la misma para todos los casos de uso, puede haber casos que por falta de capacidades, por dependencias de otros servicio o incluso por que así se acuerde para un caso concreto, se debe definir la matriz de escalado.</p>
+<p>En horario laboral: Atiende N1 y escala a N2</p>
+<p>Fuera del horario Atiende N0 y escala a Guardia</p>
+<h2>Reglas de caso de uso</h2>
+<figure class="image image_resized" style="width:658px;"><img src="https://lh7-eu.googleusercontent.com/7drfT488NRNxTzHrCpyYSK7b7CzrN81H8omssHAoAUmOuatcPVh2IahW0qfWw90kYEP3QJTopFb1VL-CC1d2zZEUryyzQd-H7exYXO1KAIlr_ZyajRmB1KoQjbDgg_SI1obkzUD7cFuO"></figure>
+<h2>Campos Necesarios&nbsp;</h2>
+<p>Los campos mínimos que deben seleccionarse para llevar a cabo la investigación:</p>
+<ul>
+  <li>Start Time</li>
+  <li>Username</li>
+  <li>Hostname (custom)</li>
+  <li>Source IP</li>
+  <li>Event Count</li>
+</ul>
+<h2>Cierre por defecto</h2>
+<p>Nota de cierre que se debería de rellenar a la hora de cerrar una alerta:</p>
+<p>Falso positivo:</p>
+<ul>
+  <li>Se ha detectado un fallo de autenticación en servidor MySQL por parte del usuario [<strong>Username</strong>], con la IP [<strong>Source IP</strong>] a la máquina [<strong>Hostname (Custom)</strong>], se observa que el usuario [<strong>Username</strong>]&nbsp; [<strong>Análisis de la actividad del Usuario y la actividad realizada</strong>].</li>
+</ul>
+<p>Falso positivo con ajuste:</p>
+<ul>
+  <li>Se ha detectado un fallo de autenticación en servidor MySQL por parte del usuario [<strong>Username</strong>], con la IP [<strong>Source IP</strong>] a la máquina [<strong>Hostname (Custom)</strong>], se observa que el usuario [<strong>Username</strong>]&nbsp; [<strong>Análisis de la actividad del Usuario y la actividad realizada</strong>], sin embargo se localiza un&nbsp; fallo en la regla en la que [<strong>Descripción del ajuste necesario</strong>], por lo cual se abre ticket en “<a href="https://soporte.iubaris.com/"><u>https://soporte.iubaris.com/</u></a>” (RT) con numero [<strong>Nº de ticket abierto</strong>].</li>
+</ul>
+<p>Positivo contenido:</p>
+<ul>
+  <li>Se ha detectado un fallo de autenticación en servidor MySQL por parte del usuario [<strong>Username</strong>], con la IP [<strong>Source IP</strong>] a la máquina [<strong>Hostname (Custom)</strong>], se observa que el usuario [<strong>Username</strong>]&nbsp; [<strong>Análisis de la actividad del Usuario, la actividad realizada y modo de contención</strong>],&nbsp;</li>
+</ul>
+<p>Positivo:</p>
+<ul>
+  <li>Se ha detectado un fallo de autenticación en servidor MySQL por parte del usuario [<strong>Username</strong>], con la IP [<strong>Source IP</strong>] a la máquina [<strong>Hostname (Custom)</strong>], se observa que el usuario [<strong>Username</strong>]&nbsp; [<strong>Análisis de la actividad del Usuario, la actividad realizada</strong>], el intento de acceso no verídico no ha logrado ser contenido.</li>
+</ul>
