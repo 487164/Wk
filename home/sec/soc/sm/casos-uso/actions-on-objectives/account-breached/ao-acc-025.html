@@ -1,0 +1,45 @@
+<!--
+title: AO-ACC-025 [MEDIA] [ESPUBLICO] [AD-DS] Adición de usuario en grupo no critico
+description: 
+published: true
+date: 2024-01-22T12:13:07.586Z
+tags: 
+editor: ckeditor
+dateCreated: 2024-01-22T12:13:07.586Z
+-->
+
+<h1>AO-ACC-025 [MEDIA] [ESPUBLICO] [AD-DS] Adición de usuario en grupo no critico</h1>
+<h2>Descripción</h2>
+<p style="text-align:justify;">Este caso de uso identifica una inclusión o borrado de un usuario sobre uno de los grupos considerados críticos.&nbsp;</p>
+<ul>
+  <li><strong>Nombre</strong>: Adición de usuario en grupo no critico</li>
+  <li><strong>Criticidad</strong>: Media</li>
+  <li><strong>Tiempo de Atención</strong>: 60 minutos</li>
+  <li><strong>Tecnologías utilizadas</strong>: Logs de DC (Microsoft Windows Security Event Log @ adX.auloce.local)</li>
+</ul>
+<h2>MITRE</h2>
+<p>TA0001 - Initial Access.</p>
+<p>TA0006 – Credential Access.</p>
+<h2>What to do</h2>
+<p style="text-align:justify;">Cuando salte la alerta, verificar el usuario que está realizando el cambio, grupo sobre el que lo está haciendo y el usuario que está incluyendo. Primero de todo verificar si esa actividad está ligada a algún ticket y si es necesario preguntar, hacedlo. Si no es actividad autorizada o hecha a conciencia bloquear el usuario que lo está haciendo máquina y el usuario destino al que incluyen en el grupo. Posteriormente verificar la actividad de ambos usuarios para identificar posibles comportamientos anómalos o sospechosos que nos indicaran una posible vulneración en nuestros sistemas.</p>
+<h2>Notas de cierre</h2>
+<p>Puntos mínimos que debe de tener un cierre</p>
+<ul>
+  <li>Usuario realizando la actividad</li>
+  <li>Usuario al que incluyen/borran en el grupo</li>
+  <li>Grupo afectado</li>
+  <li>Indicar si es una acción legítima o no</li>
+  <li>Resumen del análisis</li>
+</ul>
+<h2>Matriz de escalado</h2>
+<p>En horario laboral: Atiende en primera instancia N1 y si es necesario escalar, pasaría a N2.</p>
+<p>Fuera del horario Atiende el técnico de 24/7 que se encuentre y en caso necesario escalaría a Guardia ya que al ser una alerta ALTA se podría.</p>
+<h2>Reglas de Casos de Uso</h2>
+<figure class="image image_resized" style="width:567px;"><img src="https://lh7-eu.googleusercontent.com/jmEGlsp40l25i_fJpzq5qmpXvtz7uYHyL6776Ovx3M-pcddbFtKo6rcyO0zz10EHneHVrcrJR-z0uo4FMo4OM7yBR3IYTzM3nEn1SUlrmv2lS_rohBe4KJ2-LAnEGSXqHREISFQJi-9j"></figure>
+<h2>Campos Necesarios</h2>
+<p>Los campos mínimos que deben seleccionarse para llevar a cabo la investigación:</p>
+<ul>
+  <li>Usuario realizando la actividad</li>
+  <li>Usuario al que incluyen en el grupo</li>
+  <li>Grupo afectado</li>
+</ul>
