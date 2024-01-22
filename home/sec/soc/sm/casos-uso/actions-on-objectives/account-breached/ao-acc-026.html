@@ -1,0 +1,47 @@
+<!--
+title: AO-ACC-026 [MEDIA] [ESPUBLICO] [AD-DS] Multiples intentos de conexion RDP fallidas a un DC fallidas
+description: 
+published: true
+date: 2024-01-22T12:13:57.116Z
+tags: 
+editor: ckeditor
+dateCreated: 2024-01-22T12:13:57.116Z
+-->
+
+<h1>AO-ACC-026 [MEDIA] [ESPUBLICO] [AD-DS] Multiples intentos de conexion RDP fallidas a un DC fallidas</h1>
+<h2>Descripción</h2>
+<p style="text-align:justify;">Este caso de uso identifica una inclusión o borrado de un usuario sobre uno de los grupos considerados críticos.&nbsp;</p>
+<ul>
+  <li><strong>Nombre</strong>: Multiples intentos de conexion RDP fallidas a un DC fallidas</li>
+  <li><strong>Criticidad</strong>: Media</li>
+  <li><strong>Tiempo de Atención</strong>: 60 minutos</li>
+  <li><strong>Tecnologías utilizadas</strong>: Logs de DC (Microsoft Windows Security Event Log @ adX.auloce.local)</li>
+</ul>
+<h2>MITRE</h2>
+<p>TA0001 - Initial Access.</p>
+<p>TA0006 – Credential Access.</p>
+<h2>What to do</h2>
+<p style="text-align:justify;">Cuando salte la alerta, debido a que los campos no se encuentran parseados correctamente, comprobar en el payload el usuario que se está intentando loguear (Asunto:&nbsp; Nombre de usuario: XXXXXXX). Comprobar si dicho usuario es normal que se este logueando (p.ej que sea de sistemas) dado que si es alguien que no debería estar intentando acceder por RDP a un AD, habría que bloquearle directamente siendo la detección positiva si se diera el caso... Si es alguien de sistemas o que tenga que acceder al AD por ticket o actividad autorizada, comprobar si finalmente ha podido loguearse dejando de generar fallos, tratándose de un FP.</p>
+<h2>Notas de cierre</h2>
+<p>Puntos mínimos que debe de tener un cierre</p>
+<ul>
+  <li>Usuario realizando la actividad</li>
+  <li>Veces que ha intentado loguearse</li>
+  <li>Actividad del usuario y su máquina en los momentos del intento de login</li>
+  <li>Indicar si es una acción legítima o no, asi como si depende de un ticket o del motivo que sea</li>
+  <li>Resumen del análisis</li>
+</ul>
+<h2>Matriz de escalado</h2>
+<p>En horario laboral: Atiende en primera instancia N1 y si es necesario escalar, pasaría a N2.</p>
+<p>Fuera del horario Atiende el técnico de 24/7 que se encuentre y en caso necesario escalaría a Guardia ya que al ser una alerta ALTA se podría.</p>
+<h2>Reglas de Casos de Uso</h2>
+<figure class="image image_resized" style="width:567px;"><img src="https://lh7-eu.googleusercontent.com/tBkPvGfITQXpBbod4Nul_ayuTrtue1AjTAZYRRpmHao7Bpv_OGGeHlkj1NrcxKJLGOsViPrJVJK-HNxajx7BsjF9uLkxwjHipkrKetOUf8LqGoJ-raV4FKdwsptSE8ZOQpCnAgimBEAF"></figure>
+<h2>Campos Necesarios</h2>
+<p>Los campos mínimos que deben seleccionarse para llevar a cabo la investigación:</p>
+<ul>
+  <li>Usuario realizando la actividad</li>
+  <li>DC al que se intenta conectar</li>
+  <li>Ticket en caso de haber</li>
+  <li>Motivo del intento de login</li>
+  <li>Resumen de la investigacion</li>
+</ul>
