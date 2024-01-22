@@ -1,0 +1,64 @@
+<!--
+title: AO-ACC-003 [ALTA] [MULTI] Autenticación valida después de varios intentos desde un origen
+description: 
+published: true
+date: 2024-01-22T11:45:13.973Z
+tags: 
+editor: ckeditor
+dateCreated: 2024-01-22T11:45:13.973Z
+-->
+
+<h1>AO-ACC-003 [ALTA] [MULTI] Autenticación valida después de varios intentos desde un origen</h1>
+<h2>Descripción</h2>
+<p>Este caso de uso identifica un login satisfactorio después de varios fallidos (10 en en 5 minutos) con la misma IP y diferentes nombres de usuario.</p>
+<ul>
+  <li><strong>Nombre</strong>: Múltiples fallos de autenticación desde un origen.</li>
+  <li><strong>Criticidad</strong>: Alta</li>
+  <li><strong>Tiempo de Atención</strong>: 30 minutos</li>
+  <li><strong>Tecnologías utilizadas</strong>: Logs locales</li>
+</ul>
+<h2>MITRE</h2>
+<p>TA0006 – Credential Access.</p>
+<p>TA0007 - Discovery.</p>
+<p>TA0001 - Initial Access.</p>
+<h2>What to do</h2>
+<p>Una vez identificada la IP que ha provocado los fallos de login y posteriormente se ha logueado correctamente, se tendría que identificar con cuantos nombres de usuario se ha intentado identificar, cuantas veces con cada usuario lo ha intentado, y con qué usuario ha conseguido loguearse.</p>
+<p>Una vez identificada la IP que ha provocado los fallos, sería identificar el nombre del equipo que está provocando los fallos y a quién pertenece el equipo.</p>
+<p>Una vez identificado el equipo, sería estudiar si la incidencia ha sido fortuita, y no premeditada&nbsp; (No es lo mismo intentar loguearse con 10 usuarios que con 100 a la vez). Identificar que no haya sido un ataque de fuerza bruta.</p>
+<p>Una vez que se ha identificado que no ha sido un error casual, habría que identificar si la incidencia la ha provocado, el usuario propietario del equipo, o un usuario externo (Malware o robo del HW), en caso de ello pasaremos al punto 4 para proceder con el escalado correspondiente.</p>
+<p>En caso de no encontrar acciones adicionales sospechosas lo definiríamos como FP descartando un incidente de seguridad y proporcionando la nota de cierre correspondiente con la investigación realizada.</p>
+<h2>Notas de cierre</h2>
+<p>Puntos mínimos que debe de tener un cierre</p>
+<ul>
+  <li>Explicación del código error.</li>
+  <li>Verificación de si ha podido iniciar sesión posteriormente, y nombrar o enumerar los usuarios con los que ha intentado loguearse (Siempre que no sea un ataque de fuerza y sea casi imposible nombrarlos o enumerarlos).</li>
+  <li>Nombre del equipo desde el cual se está realizando el ataque y el propietario de este.</li>
+  <li>En caso de disponer de la IP externa desde la cuál se está realizando el ataque mencionarla y verificar su “legitimidad”.</li>
+  <li>Resumen del análisis</li>
+</ul>
+<h2>Matriz de escalado</h2>
+<p>En horario laboral: Atiende N1 y escala a N2</p>
+<p>Fuera del horario Atiende el técnico de 24/7 que se encuentre y en caso necesario escalaría a Guardia ya que al ser una alerta ALTA se podría.</p>
+<h2>Reglas de caso de uso</h2>
+<figure class="image image_resized" style="width:648px;"><img src="https://lh7-eu.googleusercontent.com/QwNjxig6lO38uyTUZ3ADVCBnsJro_KPee6aOdSqrwtRUdpswBOuzfT-YP-Drb35JbBQqI2m9KVKsyvoMZVpDfZYLVKZrFi5vfBIJWQhgDsO4hSbRHkHCdArOihIGcP8By6PbcMKOFOSD"></figure>
+<h2>Campos Necesarios</h2>
+<p>Los campos mínimos que deben seleccionarse para llevar a cabo la investigación:</p>
+<p style="text-align:center;"><i>(Alerta desactivada por el momento)</i></p>
+<h2>Cierre por defecto</h2>
+<p>Nota de cierre que se debería de rellenar a la hora de cerrar una alerta:</p>
+<p>Falso positivo:</p>
+<ul>
+  <li>Se han detectado múltiples fallos de inicio de sesión con diferentes usuarios [<strong>Username</strong>] desde la misma IP [<strong>Source IP</strong>], después de analizar los usuarios, la IP y el código de error se llega a la conclusión de que son fallos verídicos.</li>
+</ul>
+<p>Falso positivo con ajuste:</p>
+<ul>
+  <li>Se han detectado múltiples fallos de inicio de sesión con diferentes usuarios [<strong>Username</strong>] desde la misma IP [<strong>Source IP</strong>], después de analizar los usuarios, la IP y el código de error se llega a la conclusión de que son fallos verídicos, sin embargo se localiza un&nbsp; fallo en la regla en la que [<strong>Descripción del ajuste necesario</strong>], por lo cual se abre ticket en “<a href="https://soporte.iubaris.com/"><u>https://soporte.iubaris.com/</u></a>” (RT) con número [<strong>Nº de ticket abierto</strong>].</li>
+</ul>
+<p>Positivo contenido:</p>
+<ul>
+  <li>Se han detectado múltiples fallos de inicio de sesión con diferentes usuarios [<strong>Username</strong>] desde la misma IP [<strong>Source IP</strong>], después de analizar los usuarios, la IP y el código de error se llega a la conclusión de ha sido un ataque de&nbsp; “Password Spraying” en el que no ha logrado acceder con ninguna cuenta.</li>
+</ul>
+<p>Positivo:</p>
+<ul>
+  <li>Se han detectado múltiples fallos de inicio de sesión con diferentes usuarios [<strong>Username</strong>] desde la misma IP [<strong>Source IP</strong>], después de analizar los usuarios, la IP y el código de error se llega a la conclusión de ha sido un ataque de&nbsp; “Password Spraying”en el que ha logrado acceder con la cuenta [<strong>Cuenta vulnerada</strong>].</li>
+</ul>
