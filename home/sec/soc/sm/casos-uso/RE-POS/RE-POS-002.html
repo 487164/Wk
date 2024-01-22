@@ -2,10 +2,38 @@
 title: RE-POS-002 [BAJA] [FW] Denegaciones excesivas del Firewall desde un servidor local
 description: 
 published: true
-date: 2024-01-22T09:55:30.616Z
+date: 2024-01-22T09:58:16.540Z
 tags: 
 editor: ckeditor
 dateCreated: 2024-01-22T09:55:30.616Z
 -->
 
-<p>RE-POS-002 [BAJA] [FW] Denegaciones excesivas del Firewall desde un servidor local</p>
+<h1 style="text-align:right;">RE-POS-002 [BAJA] [FW] Denegaciones excesivas del Firewall desde un servidor local.</h1>
+<h2 style="text-align:justify;">Descripción</h2>
+<p style="text-align:justify;">Este caso de uso identifica un elevado número de denegaciones del firewall detectadas en el desde un sistema local, siendo local a local o local a remoto, también cuando la categoría de evento es una de las siguientes “Access.ACL Deny”, “Access.Firewall Deny”, “Access.Access Denied”, “Access.Database Action Denied”, “Access.FTP Action Denied”, “Access.IPS Deny” o “Access.Session Denied”, coincida con la misma IP de origen más de 40&nbsp; veces en 40 IP de destino en 5 minutos, y no&nbsp; cuando un evento coincida con los eventos detectados por el proxy local y el puerto de destino sea 3128, 1080, 3127 siendo la IP de destino 127.0.0.2 o 195.77.90.109.&nbsp;</p>
+<ul>
+  <li style="text-align:justify;"><strong>Nombre</strong>: Denegaciones excesivas del Firewall desde un servidor local</li>
+  <li style="text-align:justify;"><strong>Criticidad</strong>: Baja</li>
+  <li style="text-align:justify;"><strong>Tiempo de Atención</strong>: 180 minutos</li>
+  <li style="text-align:justify;"><strong>Tecnologías utilizadas</strong>: Logs locales</li>
+</ul>
+<h2 style="text-align:justify;">MITRE</h2>
+<p style="text-align:justify;">T1595.002 - Vulnerability Scanning</p>
+<p style="text-align:justify;">T1596.005 – Scan Databases</p>
+<h2 style="text-align:justify;">What to do</h2>
+<p style="text-align:justify;">Una vez entremos en la alerta buscaremos en los eventos tendremos que tener muy en cuenta los siguientes datos:<br>Username: Comprobar la actividad de dicho usuario e intentar averiguar si fuera el caso si realmente es el.<br>IP de origen: Localizarla para indicar donde se ha producido el incidente pudiéndose comprobar en<a href="https://ipam.iubaris.com/"><u> IPAM</u></a>, donde nos interesará conocer el propietario y el host al que pertenece.<br>IP de destino: Mismo procedimiento que con la IP de origen.<br>Puerto de&nbsp; origen: El puerto nos puede dar pistas de lo ocurrido por los programas que los utilizan, por lo que puede ser interesante para la investigación.<br>Puerto de destino:&nbsp; Mismo procedimiento que con el puerto de origen.<br>Service Name (custom): Veremos el servicio que se ha intentado realizar.<br>Payload: Hay podremos encontrar todos los datos anteriores y tendremos que hacer especial hincapié en verificar que en “action” es “deny”, indicándonos que realmente se ha denegado.</p>
+<p style="text-align:justify;">Si hay un usuario hay que comprobar que está haciendo, pudiendo ser desde una aplicación intentando comunicarse con otros equipos</p>
+<h2 style="text-align:justify;">Notas de cierre</h2>
+<p style="text-align:justify;">Puntos mínimos que debe de tener un cierre</p>
+<ul>
+  <li style="text-align:justify;">IP de origen, indicando el host y el propietario si fuera necesario</li>
+  <li style="text-align:justify;">El servicio realizado</li>
+  <li style="text-align:justify;">Que usuario que ha realizado la acción y si era legítimamente el.</li>
+  <li style="text-align:justify;">resumen del análisis</li>
+</ul>
+<h2 style="text-align:justify;">Matriz de escalado</h2>
+<p style="text-align:justify;">Aunque la matriz de escalado debería ser la misma para todos los casos de uso, puede haber casos que por falta de capacidades, por dependencias de otros servicio o incluso por que así se acuerde para un caso concreto, se debe definir la matriz de escalado.</p>
+<p style="text-align:justify;">En horario laboral: Atiende en primera instancia N1 y si es necesario escalar, pasaría a N2.</p>
+<p style="text-align:justify;">Fuera del horario Atiende el técnico de 24/7 que se encuentre y escalara después del análisis inicia a Guardia ya que hay que ponerse en contacto con terceros para una correcta resolución.</p>
+<h2 style="text-align:justify;">Reglas de caso de uso</h2>
+<figure class="image image_resized" style="width:831px;"><img src="https://lh7-eu.googleusercontent.com/pY1i-t0Iv9zDCg2bYDd7PpTla8u6PkuzRVIFIteSnz_lXK7gOHIwbeqSoLZcHGiqTyQbcgGuo6X_yEMThti4UdcQrn2yKDjV_6IBsjnQDJ84NmmeI4ANLCBzacDWO5DAnAh4AAfMUTs"></figure>
