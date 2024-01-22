@@ -1,0 +1,50 @@
+<!--
+title: AO-ACC-004 [ALTA] [SSH] Conexión válida con servidor Warrior desde fuera de España
+description: 
+published: true
+date: 2024-01-22T10:12:08.853Z
+tags: 
+editor: ckeditor
+dateCreated: 2024-01-22T10:12:08.853Z
+-->
+
+<h1>AO-ACC-004 [ALTA] [SSH] Conexión válida con servidor Warrior desde fuera de España</h1>
+<h2>Descripción</h2>
+<p style="text-align:justify;">Este caso de uso identifica una conexión SSH válida con un servidor Warrior desde fuera de España. La importancia de tener visibilidad sobre este tipo de conexiones y que se alerten, se debe a que es un servicio crítico, ya que actúa como “máquina de salto” hacia diferentes servidores. Por lo que existe el riesgo de que se produzcan movimientos laterales hacia estos en caso de acceso.</p>
+<ul>
+  <li><strong>Nombre</strong>: Conexión SSH válida contra un servidor Warrior desde fuera de España.</li>
+  <li><strong>Criticidad</strong>: Alta</li>
+  <li><strong>Tiempo de Atención</strong>: 30 minutos</li>
+  <li><strong>Tecnologías utilizadas</strong>: Logs locales</li>
+</ul>
+<ol>
+  <li>MITRE</li>
+</ol>
+<p>TA0001 - Initial Access.</p>
+<p>TA0003 - Persistence.</p>
+<p>TA0006 – Credential Access.</p>
+<p>TA0007 - Discovery.</p>
+<h2>What to do</h2>
+<p style="text-align:justify;">Una vez identificada desde qué dirección IP / país y en qué franja horaria se ha producido la conexión, deberá verificarse si se trata de un miembro de la compañía o no. Para ello también tendremos visibilidad sobre el usuario que ha realizado la conexión, los cuales cuentan con certificado para los accesos.&nbsp;&nbsp;&nbsp;</p>
+<p style="text-align:justify;">En caso de ser una dirección IP anómala y que no correspondiera a nadie de la compañía, debería escalarse para tomar las medidas oportunas.&nbsp;&nbsp;</p>
+<p style="text-align:justify;">Se deberá revisar si han conseguido dar el salto a alguno de los servidores que están a disposición del servidor Warrior y si se ha llegado a ejecutar el acceso. De esta forma se determinará el alcance de la incidencia y hasta donde se ha podido llegar a expandir.&nbsp;</p>
+<p style="text-align:justify;">En los logs del SIEM QRadar se podrá monitorizar como origen el servidor Warrior en la franja horaria del incidente para determinar las conexiones que ha intentado realizar a otros servidores.&nbsp;</p>
+<p style="text-align:justify;">Se podrá comprobar que ya no se visualizan más conexiones desde la dirección IP anómala, o si por el contrario hay persistencia. Deberá monitorizarse como destino el servidor SSH Warrior para identificar otras posibles IP atacantes que no estén contempladas en el bloqueo.&nbsp;</p>
+<p style="text-align:justify;">En caso de tratarse de alguien perteneciente a la compañía y confirmado por él, lo definiríamos como Falso_Positivo descartando un incidente de seguridad y proporcionando la nota de cierre correspondiente con la investigación realizada.</p>
+<h2>Notas de cierre</h2>
+<p>Puntos mínimos que debe de tener un cierre</p>
+<ul>
+  <li>Dirección IP desde la que se ha realizado la conexión&nbsp;</li>
+  <li>País desde el que se ha realizado la conexión&nbsp;</li>
+  <li>Usuario afectado</li>
+  <li>Fecha/Hora de las conexiones</li>
+  <li>Conexiones destino realizadas desde el SSH Warrior (si las ha habido)</li>
+  <li>Resumen del análisis</li>
+</ul>
+<h2>Matriz de escalado</h2>
+<p style="text-align:justify;">En esta alerta, el escalado se realizaría si después de terminar la investigación ya sea por falta de conocimientos o por sucesos sospechosos que se hayan visto no se pueda descartar un posible incidente de seguridad. Dependiendo del horario en que nos encontremos el escalado será distinto:</p>
+<p style="text-align:justify;">En horario laboral: Atiende en primera instancia N1 y si es necesario escalar, pasaría a N2.</p>
+<p style="text-align:justify;">Fuera del horario Atiende el técnico de 24/7 que se encuentre y en caso necesario escalaría a Guardia ya que al ser una alerta ALTA se podría dar un incidente de seguridad.</p>
+<h2>Reglas de caso de uso</h2>
+<p style="text-align:justify;">A continuación se muestran las reglas que tienen que darse para que salte la alerta:</p>
+<figure class="image image_resized" style="width:684px;"><img src="https://lh7-eu.googleusercontent.com/scb_qTfwEeSq06W0ZEBW1zCapdDWcs-O8RT2ylvKjBf-9zx3MAUc-yOfL9AEHRQsZMvZ2jguwLTCOeiOlckBtmzLDT7SK3ZRfHICUNAP1vwixi8nb30-TWdY-ubUjNehdpLlxSxja-ZsbFJktEpXDA"></figure>
