@@ -1,0 +1,66 @@
+<!--
+title: RE-MAP-003 [MEDIA] [MAIL] O365 Posible enumeración de cuentas desde una misma IP
+description: 
+published: true
+date: 2024-01-22T12:27:15.513Z
+tags: 
+editor: ckeditor
+dateCreated: 2024-01-22T12:27:15.513Z
+-->
+
+<h1>RE-MAP-003 [MEDIA] [MAIL] O365 Posible enumeración de cuentas desde una misma IP</h1>
+<h2>Descripción</h2>
+<p>Este caso de uso identifica una posible enumeración de cuentas desde una misma IP.</p>
+<ul>
+  <li><strong>Nombre</strong>: Posible enumeración de cuentas desde una misma IP.</li>
+  <li><strong>Criticidad</strong>: Media</li>
+  <li><strong>Tiempo de Atención</strong>: 90 minutos</li>
+  <li><strong>Tecnologías utilizadas</strong>: Logs locales</li>
+</ul>
+<h2>MITRE</h2>
+<p>TA0007 – Discovery</p>
+<p>T1087 - Account Discovery</p>
+<p>.003 - Email Account</p>
+<p>TA0011 – Command and Control</p>
+<p>T1071 - Application Layer Protocol</p>
+<p>.003 - Mail Protocols</p>
+<h2>What to do</h2>
+<p style="text-align:justify;">Hay que identificar quien es el correo o correos que están enviando los mensajes a los diferentes buzones de correo. Identificar que estos envían solo mensajes a correos existentes, si es así, identificar el dominio e IP del correo o correos que envían dichos mensajes. Si con legítimos descartar como Falso_Positivo. Si no son legítimos o identificamos que lo que están intentando es averiguar qué correos están activos en nuestro dominio (Debido a que vemos que intentan enviar mensajes a buzones de correos inexistentes), en ambos casos escalamos (<a href="https://docs.google.com/document/d/1PRVArQpj5fJjOc6H32CmnC5w5It3m2JH/edit#heading=h.cj5gzq7oewwg"><u>Veáse punto 5</u></a>). Se podría valorar meter la IP en la lista negra, para que no siga intentando averiguar correos existentes.</p>
+<h2>Notas de cierre</h2>
+<p>Puntos mínimos que debe de tener un cierre</p>
+<ul>
+  <li>Explicacion del codigo error</li>
+  <li>Investigación llevada a cabo sobre los correos e IPs de la alerta</li>
+  <li>Verificación si ha sido una alerta legítima o no, y verificación de si se envían correos a buzones inexistentes.</li>
+  <li>Resumen del análisis</li>
+</ul>
+<h2>Matriz de escalado</h2>
+<p>Aunque la matriz de escalado debería ser la misma para todos los casos de uso, puede haber casos que por falta de capacidades, por dependencias de otros servicio o incluso por que así se acuerde para un caso concreto, se debe definir la matriz de escalado.</p>
+<p>En horario laboral: Atiende N1 y escala a N2</p>
+<p>Fuera del horario Atiende N0 y escala a Guardia</p>
+<h2>Reglas de caso de uso</h2>
+<figure class="image image_resized" style="width:649px;"><img src="https://lh7-eu.googleusercontent.com/Y8uGJDnQz0Ix2eAAT_QS_JAde9DDhX9S0XfX9ydXMxadBwCXUqWhWexU8N-h3fUpkdVYcQ0u0zoksYIjepUDhVTOV2pn8ntF1N0wuDcuQKAKHuQIqDVvlWCBXe9fuBikt9lDtzPZONw-"></figure>
+<h2>Campos Necesarios</h2>
+<p style="text-align:justify;">Los campos mínimos que deben seleccionarse para llevar a cabo la investigación:</p>
+<ul>
+  <li>Start Time</li>
+  <li>SenderAddress (custom)</li>
+  <li>FromIP (custom)</li>
+  <li>RecipientAddress (custom)</li>
+  <li>Status (custom)</li>
+  <li>MessageTraceID (custom)</li>
+</ul>
+<h2>Cierre por defecto</h2>
+<p>Nota de cierre que se debería de rellenar a la hora de cerrar una alerta:</p>
+<p>Falso positivo:</p>
+<ul>
+  <li>Se ha detectado una posible enumeración de cuentas desde el sender [<strong>SenderAddress (custmon)</strong>] y la IP [<strong>Source IP</strong>], en el cual se detecta un número reducido de receptores incorrectos, después del análisis del correo enviado y verificar que el número de receptores incorrectos es reducido no se considera que no entraña ningún riesgo.</li>
+</ul>
+<p>Falso positivo con ajuste:</p>
+<ul>
+  <li>Se ha detectado una posible enumeración de cuentas desde el sender [<strong>SenderAddress (custmon)</strong>] y la IP [<strong>Source IP</strong>], en el cual se detecta un número reducido de receptores incorrectos, después del análisis del correo enviado y verificar que el número de receptores incorrectos es reducido no se considera que no entraña ningún riesgo, sin embargo se localiza un&nbsp; fallo en la regla en la que [<strong>Descripción del ajuste necesario</strong>], por lo cual se abre ticket en “<a href="https://soporte.iubaris.com/"><u>https://soporte.iubaris.com/</u></a>” (RT) con número [<strong>Nº de ticket abierto</strong>].</li>
+</ul>
+<p>Positivo:</p>
+<ul>
+  <li>Se ha detectado una enumeración de cuentas de correo desde el sender [<strong>SenderAddress (custmon)</strong>] y la IP [<strong>Source IP</strong>], en el cual se ha detectado un número elevado de receptores incorrectos o inexistentes, [<strong>Análisis del correo enviado y de las direcciones de correo incorrectas</strong> ] se considera que ha sido un ataque de enumeración de cuentas.</li>
+</ul>
