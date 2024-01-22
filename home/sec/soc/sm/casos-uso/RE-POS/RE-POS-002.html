@@ -2,7 +2,7 @@
 title: RE-POS-002 [BAJA] [FW] Denegaciones excesivas del Firewall desde un servidor local
 description: 
 published: true
-date: 2024-01-22T09:58:55.864Z
+date: 2024-01-22T10:02:59.212Z
 tags: 
 editor: ckeditor
 dateCreated: 2024-01-22T09:55:30.616Z
@@ -20,8 +20,17 @@ dateCreated: 2024-01-22T09:55:30.616Z
 <h2 style="text-align:justify;">MITRE</h2>
 <p style="text-align:justify;">T1595.002 - Vulnerability Scanning</p>
 <p style="text-align:justify;">T1596.005 – Scan Databases</p>
-<h2 style="text-align:justify;">What to do</h2>
-<p style="text-align:justify;">Una vez entremos en la alerta buscaremos en los eventos tendremos que tener muy en cuenta los siguientes datos:<br>Username: Comprobar la actividad de dicho usuario e intentar averiguar si fuera el caso si realmente es el.<br>IP de origen: Localizarla para indicar donde se ha producido el incidente pudiéndose comprobar en<a href="https://ipam.iubaris.com/"><u> IPAM</u></a>, donde nos interesará conocer el propietario y el host al que pertenece.<br>IP de destino: Mismo procedimiento que con la IP de origen.<br>Puerto de&nbsp; origen: El puerto nos puede dar pistas de lo ocurrido por los programas que los utilizan, por lo que puede ser interesante para la investigación.<br>Puerto de destino:&nbsp; Mismo procedimiento que con el puerto de origen.<br>Service Name (custom): Veremos el servicio que se ha intentado realizar.<br>Payload: Hay podremos encontrar todos los datos anteriores y tendremos que hacer especial hincapié en verificar que en “action” es “deny”, indicándonos que realmente se ha denegado.</p>
+<h2 style="text-align:justify;">What to Do</h2>
+<p style="text-align:justify;">Una vez entremos en la alerta buscaremos en los eventos tendremos que tener muy en cuenta los siguientes datos:</p>
+<ul>
+  <li style="text-align:justify;">Username: Comprobar la actividad de dicho usuario e intentar averiguar si fuera el caso si realmente es el.</li>
+  <li style="text-align:justify;">IP de origen: Localizarla para indicar donde se ha producido el incidente pudiéndose comprobar en <a href="https://ipam.iubaris.com/">IPAM</a>, donde nos interesará conocer el propietario y el host al que pertenece.</li>
+  <li style="text-align:justify;">IP de destino: Mismo procedimiento que con la IP de origen.</li>
+  <li style="text-align:justify;">Puerto de&nbsp; origen: El puerto nos puede dar pistas de lo ocurrido por los programas que los utilizan, por lo que puede ser interesante para la investigación.</li>
+  <li style="text-align:justify;">Puerto de destino:&nbsp; Mismo procedimiento que con el puerto de origen.</li>
+  <li style="text-align:justify;">Service Name (custom): Veremos el servicio que se ha intentado realizar.</li>
+  <li style="text-align:justify;">Payload: Hay podremos encontrar todos los datos anteriores y tendremos que hacer especial hincapié en verificar que en “action” es “deny”, indicándonos que realmente se ha denegado.</li>
+</ul>
 <p style="text-align:justify;">Si hay un usuario hay que comprobar que está haciendo, pudiendo ser desde una aplicación intentando comunicarse con otros equipos</p>
 <h2 style="text-align:justify;">Notas de cierre</h2>
 <p style="text-align:justify;">Puntos mínimos que debe de tener un cierre</p>
@@ -33,7 +42,9 @@ dateCreated: 2024-01-22T09:55:30.616Z
 </ul>
 <h2 style="text-align:justify;">Matriz de escalado</h2>
 <p style="text-align:justify;">Aunque la matriz de escalado debería ser la misma para todos los casos de uso, puede haber casos que por falta de capacidades, por dependencias de otros servicio o incluso por que así se acuerde para un caso concreto, se debe definir la matriz de escalado.</p>
-<p style="text-align:justify;">En horario laboral: Atiende en primera instancia N1 y si es necesario escalar, pasaría a N2.</p>
-<p style="text-align:justify;">Fuera del horario Atiende el técnico de 24/7 que se encuentre y escalara después del análisis inicia a Guardia ya que hay que ponerse en contacto con terceros para una correcta resolución.</p>
+<ul>
+  <li style="text-align:justify;">En horario laboral: Atiende en primera instancia N1 y si es necesario escalar, pasaría a N2.</li>
+  <li style="text-align:justify;">Fuera del horario Atiende el técnico de 24/7 que se encuentre y escalara después del análisis inicia a Guardia ya que hay que ponerse en contacto con terceros para una correcta resolución.</li>
+</ul>
 <h2 style="text-align:justify;">Reglas de caso de uso</h2>
 <figure class="image image_resized" style="width:831px;"><img src="https://lh7-eu.googleusercontent.com/pY1i-t0Iv9zDCg2bYDd7PpTla8u6PkuzRVIFIteSnz_lXK7gOHIwbeqSoLZcHGiqTyQbcgGuo6X_yEMThti4UdcQrn2yKDjV_6IBsjnQDJ84NmmeI4ANLCBzacDWO5DAnAh4AAfMUTs"></figure>
