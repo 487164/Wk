@@ -2,7 +2,7 @@
 title: RE-MAP-001 [MEDIA] [MAIL] Numero anomalo de correos a direcciones no validas
 description: 
 published: true
-date: 2024-01-22T10:08:14.445Z
+date: 2024-01-22T10:09:06.944Z
 tags: soc-sm, casos-de-uso
 editor: ckeditor
 dateCreated: 2024-01-22T10:08:14.445Z
@@ -20,8 +20,8 @@ dateCreated: 2024-01-22T10:08:14.445Z
 <h2>MITRE</h2>
 <p>TA0006 – Credential Access</p>
 <p>TA0042 - Resources Development</p>
-<p>T1586 Compromise Accounts</p>
-<p>.002 Email Accounts</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;T1586 Compromise Accounts</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.002 Email Accounts</p>
 <h2>What to do</h2>
 <p>Una vez se ha identificado el correo que está haciendo saltar la alerta, lo primero que debemos de valorar, es si es porque ha sido un fallo humano, es decir el usuario ha escrito mal el correo más de 5 veces y ha hecho saltar la alerta,&nbsp; o si es por otro tipo de factor. En caso de que haya sido un fallo humano, se cierra como falso positivo, indicando el correo emisor y los correos erróneos.</p>
 <p>Si vemos que no ha sido un fallo humano y por ejemplo vemos que se han enviado varios correos desde la misma cuenta a correos inexistentes y además siguen un patrón (Ej: <a href="mailto:email1@gmail.com"><u>email1@gmail.com</u></a>, <a href="mailto:email2@gmail.com"><u>email2@gmail.com</u></a>), en este caso se tendría que identificar al dueño de la cuenta de correo, el equipo desde donde se ha realizado y escalar (v<u>éase punto 5</u>), ya que podría ser un ataque de phishing. En este caso se cerrará como positivo, y en caso de que se haya intentado realizar pero a sido detenido positivo contenido.</p>
