@@ -1,0 +1,43 @@
+<!--
+title: RE-MAP-001 [MEDIA] [MAIL] Numero anomalo de correos a direcciones no validas
+description: 
+published: true
+date: 2024-01-22T10:08:14.445Z
+tags: soc-sm, casos-de-uso
+editor: ckeditor
+dateCreated: 2024-01-22T10:08:14.445Z
+-->
+
+<h1>RE-MAP-001[MEDIA][MAIL] Número anómalo de correos a direcciones no válidas.</h1>
+<h2>Descripción</h2>
+<p>Este caso de uso identifica un envío de emails, a correos inexistentes o inválidos.</p>
+<ul>
+  <li><strong>Nombre</strong>: Número anómalo de correos a direcciones no válidas.</li>
+  <li><strong>Criticidad</strong>: Media</li>
+  <li><strong>Tiempo de Atención</strong>: 90 minutos</li>
+  <li><strong>Tecnologías utilizadas</strong>: Logs locales</li>
+</ul>
+<h2>MITRE</h2>
+<p>TA0006 – Credential Access</p>
+<p>TA0042 - Resources Development</p>
+<p>T1586 Compromise Accounts</p>
+<p>.002 Email Accounts</p>
+<h2>What to do</h2>
+<p>Una vez se ha identificado el correo que está haciendo saltar la alerta, lo primero que debemos de valorar, es si es porque ha sido un fallo humano, es decir el usuario ha escrito mal el correo más de 5 veces y ha hecho saltar la alerta,&nbsp; o si es por otro tipo de factor. En caso de que haya sido un fallo humano, se cierra como falso positivo, indicando el correo emisor y los correos erróneos.</p>
+<p>Si vemos que no ha sido un fallo humano y por ejemplo vemos que se han enviado varios correos desde la misma cuenta a correos inexistentes y además siguen un patrón (Ej: <a href="mailto:email1@gmail.com"><u>email1@gmail.com</u></a>, <a href="mailto:email2@gmail.com"><u>email2@gmail.com</u></a>), en este caso se tendría que identificar al dueño de la cuenta de correo, el equipo desde donde se ha realizado y escalar (v<u>éase punto 5</u>), ya que podría ser un ataque de phishing. En este caso se cerrará como positivo, y en caso de que se haya intentado realizar pero a sido detenido positivo contenido.</p>
+<h2>Notas de cierre</h2>
+<p>Puntos mínimos que debe de tener un cierre</p>
+<ul>
+  <li>Explicación del código de error</li>
+  <li>Verificación del correo y usuario de este</li>
+  <li>Equipo de origen de los errores</li>
+  <li>Emails erróneos</li>
+  <li>Resumen del análisis</li>
+</ul>
+<h2>Matriz de escalado</h2>
+<ul>
+  <li>En horario laboral: Atiende N1 y escala a N2</li>
+  <li>Fuera del horario Atiende N0 y escala a Guardia</li>
+</ul>
+<h2>Reglas de caso de uso.</h2>
+<figure class="image image_resized" style="width:792px;"><img src="https://lh7-eu.googleusercontent.com/v9grQSbF7uf_BXN_Z210csETjzYcPZmOStX6TortQUuOlLdtQl5_7OFSiQT1v6pGMnxM98OnewF5zzngQYnW1qHieU1Oep9GHYY8DtdOxnwViRo-szD8l-CHAy0Wn_8_79KKFhEQK9U"></figure>
