@@ -1,0 +1,59 @@
+<!--
+title: AO-ACC-002 [ALTA] [MULTI] Autenticación valida después de varios intentos fallidos a un usuario
+description: 
+published: true
+date: 2024-01-22T11:43:40.230Z
+tags: 
+editor: ckeditor
+dateCreated: 2024-01-22T11:43:40.230Z
+-->
+
+<h1>AO-ACC-002 [ALTA] [MULTI] Autenticación valida después de varios intentos fallidos a un usuario.</h1>
+<h2>Descripción</h2>
+<p>Este caso de uso identifica un login satisfactorio después de varios fallidos (10 en un minuto) sobre un mismo usuario.</p>
+<ul>
+  <li><strong>Nombre</strong>: Autenticación valida después de varios intentos fallidos a un usuario.</li>
+  <li><strong>Criticidad</strong>: Alta</li>
+  <li><strong>Tiempo de Atención</strong>: 30 minutos</li>
+  <li><strong>Tecnologías utilizadas</strong>: Logs locales</li>
+</ul>
+<h2>MITRE</h2>
+<p>TA0001 - Initial Access.</p>
+<p>TA0006 – Credential Access.</p>
+<p>TA0007 - Discovery.</p>
+<h2>What to do</h2>
+<p>Una vez identificado el usuario que ha provocado los fallos de login y posteriormente se ha logueado correctamente, lo primero sería identificar el porqué de esos fallos de login yendo al principio de los mismos.&nbsp;</p>
+<p>En esos logs podremos ver según el código de error (campo error_code en QRadar) porque se ha provocado el fallo, por ejemplo, si tenemos el código de error 0xC0000064 nos estaría informando acerca de un usuario no válido.</p>
+<p>Ya que después de los fallos según la lógica de la regla nos está informando que el usuario ha llegado a loguearse correctamente, verificar la actividad posterior del usuario por si se encontrase comportamiento sospechoso (navegación, ejecuciones, etc) para descartar un posible ataque de fuerza bruta que finalmente hubiera sido satisfactorio, en caso de ello pasaremos al punto 4 para proceder con el escalado correspondiente. También hay que tener en cuenta los fallos ocasionados por el usuario, ya que no es lo mismo 5 que 100 intentos de login erróneos.&nbsp;</p>
+<p>En caso de no encontrar acciones adicionales sospechosas lo definiríamos como Falso_Positivo descartando un incidente de seguridad y proporcionando la nota de cierre correspondiente con la investigación realizada.</p>
+<h2>Notas de cierre</h2>
+<p>Puntos mínimos que debe de tener un cierre</p>
+<ul>
+  <li>Usuario que ha generado los fallos</li>
+  <li>Explicacion del codigo error</li>
+  <li>Verificación de si a podido iniciar sesión posteriormente</li>
+  <li>Equipo de origen de los errores</li>
+  <li>Resumen del análisis</li>
+</ul>
+<h2>Matriz de escalado</h2>
+<p>En horario laboral: Atiende en primera instancia N1 y si es necesario escalar, pasaría a N2.</p>
+<p>Fuera del horario Atiende el técnico de 24/7 que se encuentre y en caso necesario escalaría a Guardia ya que al ser una alerta ALTA se podría.</p>
+<h2>Reglas de Casos de Uso</h2>
+<figure class="image image_resized" style="width:648px;"><img src="https://lh7-eu.googleusercontent.com/Wpkfj61rV1pupsON5tBD9CEL7qFJsZeIxR8GOw4dVY_FieZNDaWiNUIwC6iZMmv8HkeKe0lkKH5fuwaABFQooVjb17qcLd_Hnjgj_b0p0UkZRTACXVe2O8qtDuIKDS7Jv1KwliAq3oVS"></figure>
+<h2>Campos Necesarios</h2>
+<p>Los campos mínimos que deben seleccionarse para llevar a cabo la investigación:</p>
+<p style="text-align:center;"><i>(Alerta desactivada por el momento)</i></p>
+<h2>Cierre por defecto</h2>
+<p>Nota de cierre que se debería de rellenar a la hora de cerrar una alerta:</p>
+<p>Falso positivo:</p>
+<ul>
+  <li>Se han detectado múltiples fallos de inicio de sesión con el usuario [<strong>Username</strong>] por error [<strong>Indicar el código de error Kerberos o Pre-Kerberos que corresponda con su significado</strong>], se puede comprobar cómo una vez solventado el error se loguea correctamente desde su equipo.</li>
+</ul>
+<p>Falso positivo con ajuste:</p>
+<ul>
+  <li>Se han detectado múltiples fallos de inicio de sesión con el usuario [<strong>Username</strong>] por error [<strong>Indicar el código de error Kerberos o Pre-Kerberos que corresponda con su significado</strong>], se puede comprobar cómo una vez solventado el error se loguea correctamente desde su equipo, sin embargo se localiza un&nbsp; fallo en la regla en la que [<strong>Descripción del ajuste necesario</strong>], por lo cual se abre ticket en “<a href="https://soporte.iubaris.com/"><u>https://soporte.iubaris.com/</u></a>” (RT) con número [<strong>Nº de ticket abierto</strong>].</li>
+</ul>
+<p>Positivo:</p>
+<ul>
+  <li>Se han detectado múltiples fallos de inicio de sesión con el usuario [<strong>Username</strong>] por error [<strong>Indicar el código de error Kerberos o Pre-Kerberos que corresponda con su significado</strong>], se observa como se loguea correctamente sin estar desde su equipo de trabajo, se realiza un análisis de la IP [<strong>Source IP</strong>] [<strong>Explicación del análisis de la IP</strong>], por lo que se llega a la conclusión de que la cuenta ha sido vulnerada.</li>
+</ul>
