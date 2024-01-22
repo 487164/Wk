@@ -1,0 +1,69 @@
+<!--
+title: RE-POS-003 [BAJA] [FW] R2L Escaneo de puertos detectado
+description: 
+published: true
+date: 2024-01-22T12:29:29.624Z
+tags: 
+editor: ckeditor
+dateCreated: 2024-01-22T12:29:29.624Z
+-->
+
+<h1>RE-POS-003 [BAJA] [FW] R2L Escaneo de puertos detectado</h1>
+<h2>Descripción</h2>
+<p style="text-align:justify;">Este caso de uso identifica un escaneo de puertos desde una dirección IP externa hacia una dirección IP de la organización.&nbsp;</p>
+<ul>
+  <li><strong>Nombre</strong>: R2L Escaneo de puertos detectado</li>
+  <li><strong>Criticidad</strong>: Baja</li>
+  <li><strong>Tiempo de Atención</strong>: 180 minutos</li>
+  <li><strong>Tecnologías utilizadas</strong>: Logs del Firewall</li>
+</ul>
+<h2>MITRE</h2>
+<p>TA0043 - Reconnaissance</p>
+<p>T1595 Active Scanning</p>
+<h2>What to do</h2>
+<p style="text-align:justify;">Una vez identificada la dirección IP desde la que se está haciendo un escaneo de puertos, deberá comprobarse hacia qué direcciones IP está actuando.</p>
+<p style="text-align:justify;">Deberán comprobarse los puertos escaneados y si ha conseguido realizar el escaneo, o por el contrario todos los eventos corresponden a “firewall deny”.&nbsp;</p>
+<ul>
+  <li>Firewall Deny (QID 20.257.872)</li>
+</ul>
+<p style="text-align:justify;">También se revisará mediante herramientas OSINT de la categorización que tiene dicha dirección IP.</p>
+<p style="text-align:justify;">En caso de que todos los eventos sean “firewall deny”, lo definiríamos como FP descartando un incidente de seguridad, y proporcionando la nota de cierre correspondiente con la investigación realizada.&nbsp;</p>
+<h2>Notas de cierre</h2>
+<p>Puntos mínimos que debe de tener un cierre</p>
+<ul>
+  <li>IP atacante (Geolocalización)</li>
+  <li>Categorizacion IP atacante</li>
+  <li>IP objetivos</li>
+  <li>Puertos escaneados</li>
+  <li>Resumen del análisis</li>
+</ul>
+<h2>Matriz de escalado</h2>
+<p>Aunque la matriz de escalado debería ser la misma para todos los casos de uso, puede haber casos que por falta de capacidades, por dependencias de otros servicio o incluso por que así se acuerde para un caso concreto, se debe definir la matriz de escalado.</p>
+<p>En horario laboral: Atiende en primera instancia N1 y si es necesario escalar, pasaría a N2.</p>
+<p>Fuera del horario Atiende el técnico de 24/7 que se encuentre y escalara después del análisis inicia a Guardia ya que hay que ponerse en contacto con terceros para una correcta resolución.</p>
+<h2>Reglas de caso de uso</h2>
+<figure class="image image_resized" style="width:659px;"><img src="https://lh7-eu.googleusercontent.com/QoIVvHkq797sW8Xp80JucmBBDSxIB_xs3z8Y0xLazrdpufOMtjyjaMSMjMeC0EPOPsyxuhMhjZlkFiGOMWxfGEhP8Yqh2HViqIH3w9JAdOmX09D5zgDEnDak849vZ1a9oA4mkyXPZUBj"></figure>
+<h2>Campos Necesarios</h2>
+<p style="text-align:justify;">Los campos mínimos que deben seleccionarse para llevar a cabo la investigación:</p>
+<ul>
+  <li>Start Time</li>
+  <li>Event Name</li>
+  <li>Policy Name (custom)</li>
+  <li>Source IP</li>
+  <li>Destination IP</li>
+  <li>Destination Port</li>
+</ul>
+<h2>Cierre por defecto</h2>
+<p>Nota de cierre que se debería de rellenar a la hora de cerrar una alerta:</p>
+<p>Falso positivo:</p>
+<ul>
+  <li>Se ha detectado que la IP de origen [<strong>Source IP</strong>] ha realizado un escaneo de puertos a las IPs [<strong>Introducir rangos de las IPs escaneadas</strong>] todos los intentos de conexión han sido rechazados por el Firewall [<strong>Status (Custom)</strong>], se realiza un análisis de la IP [<strong>Source IP</strong>] [<strong>Resumen del análisis de la IP</strong>].</li>
+</ul>
+<p>Falso positivo con ajuste:</p>
+<ul>
+  <li>Se ha detectado que la IP de origen [<strong>Source IP</strong>] ha realizado un escaneo de puertos a las IPs [<strong>Introducir rangos de las IPs escaneadas</strong>] todos los intentos de conexión han sido rechazados por el Firewall [<strong>Status (Custom)</strong>], se realiza un análisis de la IP [<strong>Source IP</strong>] [<strong>Resumen del análisis de la IP</strong>], sin embargo se localiza un&nbsp; fallo en la regla en la que [<strong>Descripción del ajuste necesario</strong>], por lo cual se abre ticket en “<a href="https://soporte.iubaris.com/"><u>https://soporte.iubaris.com/</u></a>” (RT) con número [<strong>Nº de ticket abierto</strong>].</li>
+</ul>
+<p>Positivo:</p>
+<ul>
+  <li>Se ha detectado que la IP de origen [<strong>Source IP</strong>] ha realizado un escaneo de puertos a las IPs [<strong>Introducir rangos de las IPs escaneadas</strong>] todos los intentos de conexión han sido rechazados por el Firewall [<strong>Status (Custom)</strong>], se realiza un análisis de la IP [<strong>Source IP</strong>] [<strong>Resumen del análisis de la IP</strong>], una vez analizada la alerta se comprueba que [<strong>Resolución del análisis completo</strong>].</li>
+</ul>
