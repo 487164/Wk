@@ -2,7 +2,7 @@
 title: Gestión de usuarios y grupos
 description: 
 published: true
-date: 2024-01-22T09:49:19.176Z
+date: 2024-01-22T12:03:04.927Z
 tags: soc, git, gitolite, user, group
 editor: ckeditor
 dateCreated: 2024-01-19T08:41:37.713Z
@@ -14,6 +14,11 @@ dateCreated: 2024-01-19T08:41:37.713Z
 <p>Para la creación de usuarios en gitolite se deberá acceder al servidor itx-sec-cm-01-svcs.madrid.espublico.com y una vez dentro <strong>escalar al usuario root</strong>, ya que es el único con permisos para poder editar el repositorio principal.</p>
 <p>Acceder al directorio&nbsp;</p>
 <pre><code class="language-plaintext">/opt/espublico/gitolite-admin/keydir</code></pre>
+<p>&nbsp;</p>
+<blockquote>
+  <p><strong>NOTA</strong>: Para poder hacer un push de los cambios hay que impersonarse como root. Para ello lanzar el comando</p>
+  <pre><code class="language-plaintext">sudo su -</code></pre>
+</blockquote>
 <p>&nbsp;</p>
 <h3>Crear usuario</h3>
 <p>En caso de añadir un usuario nuevo copiar la clave pública del usuario con extensión .pub</p>
