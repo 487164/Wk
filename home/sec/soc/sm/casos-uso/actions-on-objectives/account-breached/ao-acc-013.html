@@ -1,0 +1,75 @@
+<!--
+title: AO-ACC-013 [MEDIA] [MULTI] O365 Posible cuenta comprometida
+description: 
+published: true
+date: 2024-01-22T11:57:47.907Z
+tags: 
+editor: ckeditor
+dateCreated: 2024-01-22T11:57:47.907Z
+-->
+
+<h1>AO-ACC-013 [MEDIA] [MULTI] O365 Posible cuenta comprometida</h1>
+<h2>Descripción</h2>
+<p style="text-align:justify;">Este caso de uso identifica una posible cuenta comprometida de Office 365, detectando al menos dos eventos de login desde diferentes direcciones IP.</p>
+<ul>
+  <li><strong>Nombre</strong>: O365 Cuenta Comprometida</li>
+  <li><strong>Criticidad</strong>: Media</li>
+  <li><strong>Tiempo de Atención</strong>: 90 minutos</li>
+  <li><strong>Tecnologías utilizadas</strong>: Office365</li>
+</ul>
+<h2>MITRE</h2>
+<p>TA0006 – Credential Access.</p>
+<p>TA0007 - Discovery.</p>
+<p>TA0001 - Initial Access.</p>
+<h2>What to do</h2>
+<p style="text-align:justify;">Una vez identificado el usuario que posiblemente haya sido comprometido, deberá revisarse desde qué direcciones IP y país se han realizado los Login.</p>
+<p style="text-align:justify;">En QRadar el QID que hace referencia al login de los usuarios con el <i>log source</i> de “Microsoft Office 365”:</p>
+<ul>
+  <li>QID: 101.251.840 (<i>User logged in Successfully</i>)</li>
+</ul>
+<p style="text-align:justify;">También puede comprobarse si tiempo antes ha habido algún bloqueo de la cuenta desde cualquiera otra dirección IP desde la que se haya intentado acceder:</p>
+<ul>
+  <li>QID: 101.251.985 (<i>LogonError-IdsLocked</i>)</li>
+</ul>
+<p style="text-align:justify;">De esta forma, podrá comprobarse si se ha intentado acceder a la cuenta por fuerza bruta desde diferentes direcciones IP, antes de que haya conseguido autenticarse.</p>
+<p style="text-align:justify;">Deberá verificarse que las direcciones IP desde las que se han visto autenticaciones correctas no sean de la red VPN ni de la propia dirección IP del proxy.</p>
+<p style="text-align:justify;">En caso de duda, deberá ponerse en contacto con el usuario propietario de la cuenta para verificar si ha sido él y el motivo por el que se han registrado dos direcciones IP distintas.</p>
+<p style="text-align:justify;">En caso de que el usuario confirme que es consciente de dichos Login, lo definiríamos como FP descartando un incidente de seguridad y proporcionando la nota de cierre correspondiente con la investigación realizada.</p>
+<h2>Notas de cierre</h2>
+<p>Puntos mínimos que debe de tener un cierre</p>
+<ul>
+  <li>Posible cuenta comprometida</li>
+  <li>Fecha / Hora de los Login sospechosos</li>
+  <li>Dirección IP donde se han producido los Login</li>
+  <li>Geolocalización de dichas IP</li>
+  <li>Resumen del análisis</li>
+</ul>
+<h2>Matriz de escalado</h2>
+<p style="text-align:justify;">Aunque la matriz de escalado debería ser la misma para todos los casos de uso, puede haber casos que por falta de capacidades, por dependencias de otros servicio o incluso por que así se acuerde para un caso concreto, se debe definir la matriz de escalado.</p>
+<p>En horario laboral: Atiende N1 y escala a N2</p>
+<p>Fuera del horario Atiende N0 y escala a Guardia</p>
+<h2>Reglas de caso de uso</h2>
+<figure class="image image_resized" style="width:670px;"><img src="https://lh7-eu.googleusercontent.com/BBIYcjv0JZFKYF_fd7sxHHXshklwVp4r557SbCncXFCqdjmJOWeLaS1aT5dJKxxcq-vehKo0uhYeiJAUimqsQ2-H6YVVjd0U1Oc039qN2xlkRUqyGDD6qojdeTjSl9tv0KY7-ChstDhM"></figure>
+<h2>Campos Necesarios</h2>
+<p>Los campos mínimos que deben seleccionarse para llevar a cabo la investigación:</p>
+<ul>
+  <li>Start Time</li>
+  <li>Event Name</li>
+  <li>Source IP</li>
+  <li>Username</li>
+  <li>Event Count</li>
+</ul>
+<h2>Cierre por defecto</h2>
+<p>Nota de cierre que se debería de rellenar a la hora de cerrar una alerta:</p>
+<p>Falso positivo:</p>
+<ul>
+  <li>Se han detectado que el usuario [<strong>Username</strong>]&nbsp; se ha logueado desde diferentes ubicaciones, en las cuales sería imposible desplazarse utilizando el tiempo entre conexiones, por lo que se han analizado las IPs de origen que nos muestra la alerta, y al usuario en Azure, también se verifica si ha habido MFA y la ubicación de sus conexiones sin encontrar nada sospechoso, se determina que ha habido un fallo en la geolocalización del usuario.</li>
+</ul>
+<p>Falso positivo con ajuste:</p>
+<ul>
+  <li>Se han detectado que el usuario [<strong>Username</strong>]&nbsp; se ha logueado desde diferentes ubicaciones, en las cuales sería imposible desplazarse utilizando el tiempo entre conexiones, por lo que se han analizado las IPs de origen que nos muestra la alerta, y al usuario en Azure, también se verifica si ha habido MFA y la ubicación de sus conexiones sin encontrar nada sospechoso, se determina que ha habido un fallo en la geolocalización del usuario, sin embargo se localiza un&nbsp; fallo en la regla en la que [<strong>Descripción del ajuste necesario</strong>], por lo cual se abre ticket en “<a href="https://soporte.iubaris.com/"><u>https://soporte.iubaris.com/</u></a>” (RT) con número [<strong>Nº de ticket abierto</strong>].</li>
+</ul>
+<p>Positivo:</p>
+<ul>
+  <li>Se han detectado que el usuario [<strong>Username</strong>]&nbsp; se ha logueado desde diferentes ubicaciones, en las cuales sería imposible desplazarse utilizando el tiempo entre conexiones, por lo que se han analizado las IPs de origen que nos muestra la alerta, así mismo se comprueba la actividad del usuario en Azure, determinando que la cuenta del usuario ha sido comprometido siendo utilizada por otra persona.</li>
+</ul>
