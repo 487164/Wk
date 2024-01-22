@@ -1,0 +1,63 @@
+<!--
+title: AO-ACC-020 [MEDIA] [ESPUBLICO] [MISP] Autenticacion correcta despues de varios intentos fallido
+description: 
+published: true
+date: 2024-01-22T12:07:05.134Z
+tags: 
+editor: ckeditor
+dateCreated: 2024-01-22T12:07:05.134Z
+-->
+
+<h1>AO-ACC-020 [MEDIA] [ESPUBLICO] [MISP] Autenticacion correcta despues de varios intentos fallido</h1>
+<h2>Descripción</h2>
+<p style="text-align:justify;">Este caso de uso identifica un login satisfactorio en la MISP después de varios fallos (5 en dos minutos) sobre un mismo usuario.</p>
+<ul>
+  <li><strong>Nombre</strong>: Autenticación valida después de varios intentos fallidos</li>
+  <li><strong>Criticidad</strong>: Media</li>
+  <li><strong>Tiempo de Atención</strong>: 90 minutos</li>
+  <li><strong>Tecnologías utilizadas</strong>: Logs de de MISP Audit</li>
+</ul>
+<h2>MITRE</h2>
+<p>TA0001 - Initial Access.</p>
+<p>TA0006 – Credential Access.</p>
+<p>TA0007 - Discovery.</p>
+<h2>What to do</h2>
+<p style="text-align:justify;">Una vez identificado el usuario que ha provocado los fallos de login y posteriormente se ha logueado correctamente, deberá verse los movimientos anteriores al login y posteriores al mismo para comprobar que ha hecho.&nbsp;</p>
+<p style="text-align:justify;">Si se viera un borrado de eventos en la MISP o algo anómalo, deberia ponerse en contacto con el usuario.&nbsp;</p>
+<p>En caso de no encontrar acciones adicionales sospechosas lo definiríamos como Falso_Positivo, descartando un incidente de seguridad y proporcionando la nota de cierre correspondiente con la investigación realizada.</p>
+<h2>Notas de cierre</h2>
+<p>Puntos mínimos que debe de tener un cierre</p>
+<ul>
+  <li>Usuario que ha generado los fallos</li>
+  <li>Verificación de si a podido iniciar sesión posteriormente</li>
+  <li>Equipo de origen de los errores</li>
+  <li>Resumen del análisis</li>
+</ul>
+<h2>Matriz de escalado</h2>
+<p>En horario laboral: Atiende en primera instancia N1 y si es necesario escalar, pasaría a N2.</p>
+<p>Fuera del horario Atiende el técnico de 24/7 que se encuentre y en caso necesario escalaría a Guardia ya que al ser una alerta ALTA se podría.</p>
+<h2>Reglas de Casos de Uso</h2>
+<figure class="image image_resized" style="width:655px;"><img src="https://lh7-eu.googleusercontent.com/8I8VC_gz98R6_gA5yx1Int_4paTR0HMuRVwsmRwwi9_3CRSuNYd8_Tq2-AYHZPGDC9Fk62AuAS1_Q6W9l0XKod6DOKleCts0V0uI5YOE3Y0UI4mYQ0WF3AAmZQtMCeJiWXLIwscFBFIO"></figure>
+<h2>Campos Necesarios</h2>
+<p>Los campos mínimos que deben seleccionarse para llevar a cabo la investigación:</p>
+<ul>
+  <li>Event Name</li>
+  <li>Start Time</li>
+  <li>Count</li>
+  <li>SourceIP</li>
+  <li>Username</li>
+</ul>
+<h2>Cierre por defecto</h2>
+<p>Nota de cierre que se debería de rellenar a la hora de cerrar una alerta:</p>
+<p>Falso positivo:</p>
+<ul>
+  <li>Se han detectado múltiples fallos de inicio de sesión con el usuario [<strong>Username</strong>] , se trata de un fallo humano a la hora de introducir la contraseña.</li>
+</ul>
+<p>Falso positivo con ajuste:</p>
+<ul>
+  <li>Se han detectado múltiples fallos de inicio de sesión con el usuario [<strong>Username</strong>], se encuentra una mejora que realizar en la lógica de la regla en la que [<strong>Descripción del ajuste necesario</strong>], por lo cual se abre ticket en “<a href="https://soporte.iubaris.com/"><u>https://soporte.iubaris.com/</u></a>” (RT) con número [<strong>Nº de ticket abierto</strong>].</li>
+</ul>
+<p>Positivo:</p>
+<ul>
+  <li>Se han detectado múltiples fallos de inicio de sesión con el usuario [<strong>Username</strong>], se observa como se loguea correctamente y realiza acciones anómalas en la MISP, por lo que se llega a la conclusión de que la cuenta ha sido vulnerada.</li>
+</ul>
