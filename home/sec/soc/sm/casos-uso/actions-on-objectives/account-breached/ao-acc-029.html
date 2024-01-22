@@ -1,0 +1,59 @@
+<!--
+title: AO-ACC-029 [MEDIA] [ESPUBLICO] [CMDB] Detectado login por parte del usuario glpi
+description: 
+published: true
+date: 2024-01-22T12:15:46.572Z
+tags: 
+editor: ckeditor
+dateCreated: 2024-01-22T12:15:46.572Z
+-->
+
+<h1>AO-ACC-029 [MEDIA] [ESPUBLICO] [CMDB] Detectado login por parte del usuario glpi</h1>
+<h2>Descripción</h2>
+<p style="text-align:justify;">Este caso de uso identifica el inicio de sesión del usuario glpi en la CMBD, el cual es un super admin.</p>
+<ul>
+  <li><strong>Nombre</strong>: Login Successful glpi</li>
+  <li><strong>Criticidad</strong>: Media</li>
+  <li><strong>Tiempo de Atención</strong>: 90 minutos</li>
+  <li><strong>Tecnologías utilizadas</strong>: CMDB</li>
+</ul>
+<h2>MITRE</h2>
+<p>TA0001 - Initial Access</p>
+<h2>What to do</h2>
+<p style="text-align:justify;">Una vez identificada el inicio de sesión en la CMDB por parte del usuario glpi, habrá que comprobar la IP de origen para comprobar desde qué activo se ha realizado el login.&nbsp;</p>
+<p style="text-align:justify;">Nadie debería hacer uso del usuario glpi, ya que es un super admin, por lo que habría que consultar si hay una razón justificada para hacer uso del mismo.</p>
+<p style="text-align:justify;">Cada usuario tiene su propio usuario nominal en la cmdb, por lo que deben hacer uso de los mismos para tener controlada la actividad.</p>
+<h2>Notas de cierre</h2>
+<p>Puntos mínimos que debe de tener un cierre</p>
+<ul>
+  <li>Fecha / Hora del login de glpi</li>
+  <li>IP de origen</li>
+  <li>Resumen del análisis</li>
+</ul>
+<h2>Matriz de escalado</h2>
+<p style="text-align:justify;">Aunque la matriz de escalado debería ser la misma para todos los casos de uso, puede haber casos que por falta de capacidades, por dependencias de otros servicio o incluso por que así se acuerde para un caso concreto, se debe definir la matriz de escalado.</p>
+<p>En horario laboral: Atiende N1 y escala a N2</p>
+<p>Fuera del horario Atiende N0 y escala a Guardia</p>
+<h2>Reglas de caso de uso</h2>
+<figure class="image image_resized" style="width:663px;"><img src="https://lh7-eu.googleusercontent.com/dyCeDjnsEphXcPSAGDHHVWufFdHTCki-SCBhVNLji_ng5I3IH6tl0axDCtO427O3InAAAFjzjEn3BY6ilAmekfKnR5h8daHh1G53JRC-Gt5Xag4CRQmzpJoQYn_KyH3MqfHV8R9Qrl_7"></figure>
+<h2>Campos Necesarios</h2>
+<p>Los campos mínimos que deben seleccionarse para llevar a cabo la investigación:</p>
+<ul>
+  <li>Source IP</li>
+  <li>Username</li>
+  <li>Time</li>
+</ul>
+<h2>Cierre por defecto</h2>
+<p>Nota de cierre que se debería de rellenar a la hora de cerrar una alerta:</p>
+<p style="text-align:justify;">Falso positivo:</p>
+<ul>
+  <li>Se ha detectado que desde la [<strong>SourceIP</strong>]&nbsp; se ha hecho una login en la CMDB con [<strong>Username</strong>]. Tras analizar la alerta y consultarla con el usuario, ha habido una causa justificada para realizar dicha acción.&nbsp;</li>
+</ul>
+<p style="text-align:justify;">Falso positivo con ajuste:</p>
+<ul>
+  <li>Se ha detectado que desde la [<strong>SourceIP</strong>]&nbsp; se ha hecho una login en la CMDB con [<strong>Username</strong>]. Tras analizar la alerta se encuentra un&nbsp; fallo en la regla en la que [<strong>Descripción del ajuste necesario</strong>], teniendo que abrir un ticket en “<a href="https://soporte.iubaris.com/"><u>https://soporte.iubaris.com/</u></a>” (RT) con número [<strong>Nº de ticket abierto</strong>].</li>
+</ul>
+<p style="text-align:justify;">Positivo:</p>
+<ul>
+  <li>Se ha detectado que desde la [<strong>SourceIP</strong>]&nbsp; se ha hecho una login en la CMDB con [<strong>Username</strong>]. Tras analizar la alerta y consultarla con el usuario, se trata de un acceso sin consentimiento para actuar como glpi.&nbsp;</li>
+</ul>
