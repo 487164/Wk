@@ -1,0 +1,70 @@
+<!--
+title: RE-MAP-002 [MEDIA] [MAIL] O365 Posible enumeración de cuentas desde un mismo sender
+description: 
+published: true
+date: 2024-01-22T12:26:09.269Z
+tags: 
+editor: ckeditor
+dateCreated: 2024-01-22T12:26:09.269Z
+-->
+
+<h1 style="text-align:justify;">RE-MAP-002 [MEDIA] [MAIL] O365 Posible enumeración de cuentas desde un mismo sender</h1>
+<h2>Descripción</h2>
+<p>Este caso de uso identifica una posible enumeración de cuentas desde un mismo remitente.&nbsp;</p>
+<ul>
+  <li><strong>Nombre</strong>: Posible enumeración de cuentas desde un mismo sender</li>
+  <li><strong>Criticidad</strong>: Media</li>
+  <li><strong>Tiempo de Atención</strong>: 90 minutos</li>
+  <li><strong>Tecnologías utilizadas</strong>: Microsoft Office 365 Message Trace</li>
+</ul>
+<h2>MITRE</h2>
+<p>TA0007 – Discovery</p>
+<p>T1087.003 - Account Discovery: Email Account</p>
+<p>TA0011 – Command and Control</p>
+<p>T1071 - Application Layer Protocol</p>
+<p>.003 - Mail Protocols</p>
+<h2>What to do</h2>
+<p style="text-align:justify;">Cuando se detecten diversos fallos en el envío de correos electrónicos, habrá que identificar desde qué remitente se están produciendo.</p>
+<p>Se pueden detectar en QRadar con el QID: 115000006 (Message Delivery Failed).</p>
+<p>Se revisarán cuántos correos electrónicos ha estado mandando con fallos y en qué intervalo de tiempo. Se comprobará si se está intentando hacer una enumeración de cuentas de correo, intentando envíos a varias cuentas de correo similares para detectar cual es la cuenta de correo existente.</p>
+<p style="text-align:justify;">Además de revisar los fallos en el envío de correos, también deberá tenerse en cuenta los delivery (QID: 115000004) que haya generado el remitente sospechoso, para poder detectar qué cuentas de correo ha podido llegar a descubrir, y poder estar atentos a cualquier actividad sospechosa que se genere contra esos usuarios.</p>
+<p style="text-align:justify;">En caso de no encontrar actividades sospechosas, y que se trate simplemente de fallos en el envío de correo por motivos ajenos a una posible actividad ilegítima, lo definiríamos como FP descartando un incidente de seguridad, y proporcionando la nota de cierre correspondiente con la investigación realizada.</p>
+<h2>Notas de cierre</h2>
+<p>Puntos mínimos que debe de tener un cierre:</p>
+<ul>
+  <li>Remitente sospechoso</li>
+  <li>Número de correos fallidos</li>
+  <li>Intervalo de tiempo&nbsp;</li>
+  <li>Cuentas de correo a las que les ha entregado un correo electrónico</li>
+  <li>Resumen del análisis</li>
+</ul>
+<h2>Matriz de escalado</h2>
+<p>Aunque la matriz de escalado debería ser la misma para todos los casos de uso, puede haber casos que por falta de capacidades, por dependencias de otros servicio o incluso por que así se acuerde para un caso concreto, se debe definir la matriz de escalado.</p>
+<p>En horario laboral: Atiende N1 y escala a N2</p>
+<p>Fuera del horario Atiende N0 y escala a Guardia</p>
+<h2>Reglas de caso de uso</h2>
+<p>Adjuntar una captura de pantalla, con la información de la regla del caso de uso que se esté realizando.</p>
+<figure class="image image_resized" style="width:657px;"><img src="https://lh7-eu.googleusercontent.com/5tWN-T3kU5PUNBX4tZlZ1SV-4NPINOw9u6MSw52epHtg6g-rXOzS8IumRtEQt5nqw7ERKi_u700olmQPNlc-4dnzbPW9evI_IaFo_Zs1hI-PG9APLsb_y18xkfql_y2rRuHnINMfy-lM"></figure>
+<h2>Campos Necesarios</h2>
+<p style="text-align:justify;">Los campos mínimos que deben seleccionarse para llevar a cabo la investigación:</p>
+<ul>
+  <li>Start Time</li>
+  <li>SenderAddress (custom)</li>
+  <li>RecipientAddress (custom)</li>
+  <li>Status (custom)</li>
+  <li>MessageTraceID (custom)</li>
+</ul>
+<h2>Cierre por defecto</h2>
+<p>Nota de cierre que se debería de rellenar a la hora de cerrar una alerta:</p>
+<p>Falso positivo:</p>
+<ul>
+  <li>Se ha detectado una posible enumeración de cuentas desde el sender [<strong>SenderAddress (custmon)</strong>], en el cual se detecta un número reducido de receptores incorrectos, después del análisis del correo enviado y verificar que el número de receptores incorrectos es reducido no se considera que no entraña ningún riesgo.</li>
+</ul>
+<p>Falso positivo con ajuste:</p>
+<ul>
+  <li>Se ha detectado una posible enumeración de cuentas desde el sender [<strong>SenderAddress (custmon)</strong>], en el cual se detecta un número reducido de receptores incorrectos, después del análisis del correo enviado y verificar que el número de receptores incorrectos es reducido no se considera que no entraña ningún riesgo, sin embargo se localiza un&nbsp; fallo en la regla en la que [<strong>Descripción del ajuste necesario</strong>], por lo cual se abre ticket en “<a href="https://soporte.iubaris.com/"><u>https://soporte.iubaris.com/</u></a>” (RT) con número [<strong>Nº de ticket abierto</strong>].</li>
+</ul>
+<p>Positivo:</p>
+<ul>
+  <li>Se ha detectado una enumeración de cuentas de correo desde el sender [<strong>SenderAddress (custmon)</strong>], en el cual se ha detectado un número elevado de receptores incorrectos o inexistentes, [<strong>Análisis del correo enviado y de las direcciones de correo incorrectas</strong> ] se considera que ha sido un ataque de enumeración de cuentas.</li>
+</ul>
