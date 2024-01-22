@@ -1,0 +1,70 @@
+<!--
+title: RE-PAS-001 [MEDIA] [ESPUBLICO] [DNS] Transferencia de zona exitosa
+description: 
+published: true
+date: 2024-01-22T12:59:08.137Z
+tags: 
+editor: ckeditor
+dateCreated: 2024-01-22T12:59:08.137Z
+-->
+
+<h1>RE-PAS-001 [MEDIA] [ESPUBLICO] [DNS] Transferencia de zona exitosa</h1>
+<h2>Descripción</h2>
+<p>Este caso de uso identifica una posible transferencia de zona DNS a un servidor esclavo no conocido.</p>
+<ul>
+  <li><strong>Nombre</strong>: Transferencia de zona</li>
+  <li><strong>Criticidad</strong>: Media</li>
+  <li><strong>Tiempo de Atención</strong>: 90 minutos</li>
+  <li><strong>Tecnologías utilizadas</strong>: ISC BIND</li>
+</ul>
+<h2>MITRE</h2>
+<ul>
+  <li>TA0043 – Reconnaissance<ul>
+      <li>T1596 - Search Open Technical Databases<ul>
+          <li>T1596.001 - DNS/Passive DNS</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+<h2>What to do</h2>
+<p style="text-align:justify;">Hay que identificar el servidor que ha solicitado la transferencia de zona, al cual se le ha realizado con éxito. Dado que hay 5 servidores dns, cualquiera que no sea uno de ellos no debería estar recibiendo una transferencia de zona:</p>
+<p style="text-align:justify;">DNS permitidos: ns1.iubaris.com, ns2.iubaris.com,ns3.iubaris.com, ns4.iubaris.com y ns-master-iubaris.</p>
+<p style="text-align:justify;">Por lo que, a no ser que se hubiera incluido un nuevo servidor DNS que no estuviera contemplado, o haya fallado la lógica de la regla, dándose un Falso Positivo, se estaría tratando de un reconocimiento ilegítimo de la infraestructura.</p>
+<h2>Notas de cierre</h2>
+<p>Puntos mínimos que debe de tener un cierre</p>
+<ul>
+  <li>Start Time</li>
+  <li>Event Name</li>
+  <li>Source IP</li>
+  <li>Destination IP</li>
+  <li>Resumen del análisis</li>
+</ul>
+<h2>Matriz de escalado</h2>
+<p style="text-align:justify;">Aunque la matriz de escalado debería ser la misma para todos los casos de uso, puede haber casos que por falta de capacidades, por dependencias de otros servicio o incluso por que así se acuerde para un caso concreto, se debe definir la matriz de escalado.</p>
+<p>En horario laboral: Atiende N1 y escala a N2</p>
+<p>Fuera del horario Atiende N0 y escala a Guardia</p>
+<h2>Reglas de caso de uso</h2>
+<figure class="image image_resized" style="width:663px;"><img src="https://lh7-eu.googleusercontent.com/eOLeOhvpwHM8Bb883G1V94lQ2zHvseeqBkg1QfPtEJaqKFH04TpoXeZNezQH2wRgGDiQc4BDXAuBXPlq53B_watmAwWNWOqn2X6Jh_8NymeStueiaM4pjwlXV_GS_wie0qYvyKy7jjmL"></figure>
+<h2>Campos Necesarios</h2>
+<p style="text-align:justify;">Los campos mínimos que deben seleccionarse para llevar a cabo la investigación:</p>
+<ul>
+  <li>Start Time</li>
+  <li>Event Name</li>
+  <li>Source IP</li>
+  <li>Destination IP</li>
+</ul>
+<h2>Cierre por defecto</h2>
+<p>Nota de cierre que se debería de rellenar a la hora de cerrar una alerta:</p>
+<p>Falso positivo:</p>
+<ul>
+  <li>Se ha detectado una transferencia de zona hacia [<strong>Destination IP</strong>], un servidor no contemplado. Dado que se trata de un servidor que no estaba contemplado, ya sea por su creación reciente o desconocimiento, se cierra como FP.</li>
+</ul>
+<p style="text-align:justify;">Falso positivo con ajuste:</p>
+<ul>
+  <li>Se ha detectado una transferencia de zona hacia [<strong>Destination IP</strong>], un servidor no contemplado. Dado que se trata de un servidor que no estaba contemplado, ya sea por su creación reciente o desconocimiento, se procede a modificar la regla en la que [<strong>Descripción del ajuste necesario</strong>], por lo cual se abre ticket en “<a href="https://soporte.iubaris.com/"><u>https://soporte.iubaris.com/</u></a>” (RT) con número [<strong>Nº de ticket abierto</strong>].</li>
+</ul>
+<p style="text-align:justify;">Positivo:</p>
+<ul>
+  <li>Se ha detectado una transferencia de zona hacia [<strong>Destination IP</strong>], un servidor no contemplado. Dado que se trata de un servidor catalogado como malicioso, o directamente desconocido y ajeno a la organización, puede haber habido una exfiltración de información importante respecto a la infraestructura de la organización.</li>
+</ul>
