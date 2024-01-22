@@ -1,0 +1,67 @@
+<!--
+title: AO-COL-001 [BAJA] [ESPUBLICO] [TEAMPASS] Recolección de contraseñas 
+description: 
+published: true
+date: 2024-01-22T12:19:25.185Z
+tags: 
+editor: ckeditor
+dateCreated: 2024-01-22T12:19:25.185Z
+-->
+
+<h1>AO-COL-001 [BAJA] [ESPUBLICO] [TEAMPASS] Recolección de contraseñas&nbsp;</h1>
+<h2>Descripción</h2>
+<p style="text-align:justify;">Este caso de uso identifica una posible recolección de credenciales para un uso ilegítimo.</p>
+<ul>
+  <li><strong>Nombre</strong>: Recolección de contraseñas en el TeamPass</li>
+  <li><strong>Criticidad</strong>: BAJA</li>
+  <li><strong>Tiempo de Atención</strong>: 180 minutos</li>
+  <li><strong>Tecnologías utilizadas</strong>: Logs de TeamPass@operations.it.iubaris.com</li>
+</ul>
+<h2>MITRE</h2>
+<p>TA0009 - Collection</p>
+<h2>What to do</h2>
+<p style="text-align:justify;">Una vez identificada una posible recolección de contraseñas en el TeamPass por parte de un usuario en un corto intervalo de tiempo, habrá que determinar si se trata de una acción legítima.&nbsp;</p>
+<p style="text-align:justify;">Pueden verse los<i> ‘itemname (custom)’</i> en QRadar para saber qué contraseñas se estarían copiando y poder ver la criticidad de las mismas.&nbsp;</p>
+<p style="text-align:justify;">Por lo general no se accede a tantas contraseñas en un corto intervalo de tiempo, por lo que habría que determinar también la situación del usuario en la empresa.</p>
+<p style="text-align:justify;">En caso de que se trate de una acción legítima y controlada por parte del usuario, lo definiríamos como FP descartando un incidente de seguridad, y proporcionando la nota de cierre correspondiente con la investigación realizada.&nbsp;</p>
+<h2>Notas de cierre</h2>
+<p>Puntos mínimos que debe de tener un cierre:</p>
+<ul>
+  <li>Fecha / Hora</li>
+  <li>Username</li>
+  <li>Itemname (custom)</li>
+  <li>Número de contraseñas copiadas</li>
+  <li>Resumen del análisis</li>
+</ul>
+<h2>Matriz de escalado</h2>
+<p>Aunque la matriz de escalado debería ser la misma para todos los casos de uso, puede haber casos que por falta de capacidades, por dependencias de otros servicio o incluso por que así se acuerde para un caso concreto, se debe definir la matriz de escalado.</p>
+<p>En horario laboral: Atiende en primera instancia N1 y si es necesario escalar, pasaría a N2.</p>
+<p>Fuera del horario Atiende el técnico de 24/7 que se encuentre y escalara después del análisis inicia a Guardia ya que hay que ponerse en contacto con terceros para una correcta resolución.</p>
+<h2>Reglas de caso de uso</h2>
+<figure class="image image_resized" style="width:667px;"><img src="https://lh7-eu.googleusercontent.com/Rfp_uk-JZ83sFSsW2gIJGffOwIYbIOghLYAaE3MYgM9rLXGj2ZiqStEFmUSiRt994-Gh40YryONnUCr6tjuUNoHyiVqpJCRpHdbpBQJI5bDiNyCgU9kWGKDBTWB7ywcS3gZBTvYz7TSh"></figure>
+<h2>Campos Necesarios</h2>
+<p style="text-align:justify;">Los campos mínimos que deben seleccionarse para llevar a cabo la investigación:</p>
+<ul>
+  <li>Start Time</li>
+  <li>Event Name</li>
+  <li>itemname (custom)</li>
+  <li>Username</li>
+</ul>
+<h2>Cierre por defecto</h2>
+<p>Nota de cierre que se debería de rellenar a la hora de cerrar una alerta:</p>
+<p>Falso positivo:</p>
+<ul>
+  <li>Se ha detectado una recolección de contraseñas del TeamPass con el usuario [<strong>Username</strong>] en un intervalo corto de tiempo. Después de analizar el evento se determina que es una acción legítima.</li>
+</ul>
+<p>Falso positivo con ajuste:</p>
+<ul>
+  <li>Se ha detectado una recolección de contraseñas del TeamPass con el usuario [<strong>Username</strong>] en un intervalo corto de tiempo. Después de analizar el evento se determina que es una acción legítima. Si esta situación suele repetirse a menudo, deberá modificarse la regla para aumentar el umbral. Se abre ticket en “<a href="https://soporte.iubaris.com/"><u>https://soporte.iubaris.com/</u></a>” (RT) con número [<strong>Nº de ticket abierto</strong>] para solicitar el ajuste.</li>
+</ul>
+<p>Positivo contenido:</p>
+<ul>
+  <li>Se ha detectado una recolección de contraseñas del TeamPass con el usuario [<strong>Username</strong>] en un intervalo corto de tiempo. Dada la situación del usuario se&nbsp; ha determinado que se trataba de una actividad anómala o ilegítima y se han tomado las medidas pertinentes. Las contraseñas que se habrían podido exfiltrar son [<strong>itemname</strong>].</li>
+</ul>
+<p>Positivo:</p>
+<ul>
+  <li>Se ha detectado una recolección de contraseñas del TeamPass con el usuario [<strong>Username</strong>] en un intervalo corto de tiempo. Dada la situación del usuario se ha determinado que se trataba de una actividad anómala. Las contraseñas que se han podido exfiltrar son [<strong>itemname</strong>].</li>
+</ul>
