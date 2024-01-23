@@ -1,0 +1,73 @@
+<!--
+title: FE-EXF-005 [ALTA] [ESPUBLICO] [INTELX] Posible exposición de credenciales Intelx
+description: 
+published: true
+date: 2024-01-23T11:57:08.112Z
+tags: 
+editor: ckeditor
+dateCreated: 2024-01-23T11:57:08.112Z
+-->
+
+<h1 style="text-align:center;">FE-EXF-005 [ALTA] [ESPUBLICO] [INTELX] Posible exposición de credenciales Intelx</h1>
+<h2>Descripción</h2>
+<p style="text-align:justify;">En este caso de uso detecta una posible filtración de credenciales de usuarios de Gestiona, siendo reportados por la plataforma de IntelX.</p>
+<ul>
+  <li><strong>Nombre</strong>: Posible exposición de credenciales Intelx</li>
+  <li><strong>Criticidad</strong>: Alta</li>
+  <li><strong>Tiempo de Atención</strong>: 30 minutos</li>
+  <li><strong>Tecnologías utilizadas</strong>: Logs del correo electrónico</li>
+</ul>
+<h2>MITRE</h2>
+<ul>
+  <li>TA0010 - Exfiltration</li>
+</ul>
+<h2>What to do</h2>
+<p style="text-align:justify;">Una vez la alerta salte, se escalará directamente de n1 a n2/guardia.&nbsp;</p>
+<p style="text-align:justify;">Una vez escalado, el n2 se encargará de revisar la notificación que llega al buzón del SOC, para investigar la posible filtración en IntelX. Si se trata de una exposición de credenciales, se deberá revisar el excel de usuarios reportados por si se ha reportado recientemente:</p>
+<p style="text-align:justify;"><i>&nbsp;</i><a href="https://docs.google.com/spreadsheets/d/1NkLmStHp7YMMx1GC103HKPu522-TZ6YV/edit#gid=1866393291"><i><u>https://docs.google.com/spreadsheets/d/1NkLmStHp7YMMx1GC103HKPu522-TZ6YV/edit#gid=1866393291</u></i></a></p>
+<p style="text-align:justify;">En caso de haber sido ya reportado recientemente, no se vuelve a reportar, dado que posiblemente sea una filtración ya analizada.</p>
+<p style="text-align:justify;">Se le mandará un correo electrónico a <a href="mailto:cumplimientonormativo@espublico.com"><i><u>cumplimientonormativo@espublico.com</u></i></a><i> con </i>el CISO y miembros del equipo de Threat Intel en copia.</p>
+<p style="text-align:justify;">Lo que Cumplimiento hace es Deshabilitar la cuenta en la entidad, cosa que por el momento Seguridad no puede hacer. (en caso que el usuario no cuente con 2FA)</p>
+<p style="text-align:justify;">El proceso a seguir es:</p>
+<ul>
+  <li>Comprobar que hay una credencial/cookie</li>
+  <li>Mandar correo a cumplimiento</li>
+  <li>Incluir en el correo usuario, pool, fecha de exposición y posible fecha de infección (Si no la tenemos, nada)</li>
+  <li>Si se identifica que hay grabber, comprobar los archivos por si se diera otra vez un caso en el que habría que avisar a la entidad por una brecha mayor. En este caso, informar también al CISO.</li>
+</ul>
+<p style="text-align:center;"><i><u>RECORDAR No incluir contraseña o cookies en el correo.</u></i></p>
+<p style="text-align:justify;">Es importante en IntelX revisar la notificación y archivos extraídos, ya que en ocasiones puede ser más grave de lo que en un primer momento parece. En caso de encontrar algo de ese tipo se debería poner como información adicional.</p>
+<h2>Notas de cierre</h2>
+<p>Puntos mínimos que debe de tener un cierre</p>
+<ul>
+  <li>Poner si se ha revisado o no</li>
+  <li>Si era un falso positivo o no</li>
+</ul>
+<h2>Matriz de escalado</h2>
+<p>En horario laboral: Atiende N1 y escala a N2</p>
+<p>Fuera del horario: Atiende N0 y escala a Guardia</p>
+<h2>Reglas de caso de uso</h2>
+<figure class="image image_resized" style="width:77.35%;"><img src="https://lh7-eu.googleusercontent.com/nILWJMvyTkaJ0gT_8-cRA76v6l8oQlrzNLGSYGgYbaO6l5eWtK5HHTEgGWwX9rhf5w5oLdWlMRsvovs3O3gNtj2P1nEoyzsG9Qhl3mgkjfsr0b6Pw07fGa8b3OH1seZarmWnpJmcqZUP"></figure>
+<h2>Campos Necesarios</h2>
+<p>Los campos mínimos que deben seleccionarse para llevar a cabo la investigación:</p>
+<ul>
+  <li>Start Time</li>
+  <li>Sender Address (custom)</li>
+  <li>RecipientAddress custom)</li>
+  <li>Subject (custom)</li>
+  <li>MessageTraceId (custom)</li>
+</ul>
+<h2>Cierre por defecto</h2>
+<p>Nota de cierre que se debería de rellenar a la hora de cerrar una alerta:</p>
+<p><strong>Falso positivo:</strong></p>
+<ul>
+  <li>Se ha detectado una posible exposición de credenciales la cual tras revisar se identifica que se trata de un falso positivo.</li>
+</ul>
+<p><strong>Falso positivo con ajuste:</strong></p>
+<ul>
+  <li>Tras revisar la alerta se ha identificado que ha saltado erróneamente por un fallo en XXXXX por lo cual se procede a hacer el ajuste correspondiente sobre la regla. Ticket de cambio XXXXX.</li>
+</ul>
+<p><strong>Positivo:</strong></p>
+<ul>
+  <li>Se ha identificado una posible exposición de datos la cual tras revisar se ha observado que se trata de un positivo. Se reporta el/los usuario/s a cumplimiento normativo para su correspondiente deshabilitado y cambio de contraseña.</li>
+</ul>
