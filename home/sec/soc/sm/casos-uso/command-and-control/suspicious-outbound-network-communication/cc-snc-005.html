@@ -2,13 +2,13 @@
 title: CC-SNC-005 [MEDIA] [ESPUBLICO] [DNS] Peticion DNS a un subdominio con mas de 64 caracteres
 description: 
 published: true
-date: 2024-01-23T09:55:00.810Z
+date: 2024-01-23T12:05:11.176Z
 tags: 
 editor: ckeditor
 dateCreated: 2024-01-23T09:55:00.810Z
 -->
 
-<h1>CC-SNC-005 [MEDIA] [ESPUBLICO] [DNS] Peticion DNS a un subdominio con mas de 64 caracteres</h1>
+<h1 style="text-align:center;">CC-SNC-005 [MEDIA] [ESPUBLICO] [DNS] Peticion DNS a un subdominio con mas de 64 caracteres</h1>
 <h2>Descripción</h2>
 <p style="text-align:justify;">Se trata de una petición DNS con más de 64 caracteres, lo que se convertiría en una petición DNS sospechosa ya que ninguna debería pasar los 63 caracteres como máximo. Esta regla se encuentra vinculada tanto al ticket 57959 como al documento de https://www.linkedin.com/pulse/threat-hunting-dns-queries-anomalies-parastoo-razi.</p>
 <ul>
@@ -19,7 +19,7 @@ dateCreated: 2024-01-23T09:55:00.810Z
 </ul>
 <h2>MITRE</h2>
 <ul>
-  <li style="text-align:justify;">T1071.004.&nbsp;</li>
+  <li style="text-align:justify;">T1071.004.</li>
 </ul>
 <h2>What to do</h2>
 <p style="text-align:justify;">Identificar la query dns realizada y analizar tanto la petición completa como el maindomain a donde la está realizando, posteriormente verificar la actividad del equipo en el momento de la petición (observar bien el log source time de ISC Bind por posibles variaciones de tiempo). Si se trata de un equipo con Crowd se puede investigar el mismo en el EDR en busca de más información, una vez verificado el origen de la petición proceder con el cierre de la alerta y consiguiente cierre. Si no se puede verificar la legitimidad de la petición u origen se deberá escalar por posible incidente.</p>
@@ -28,7 +28,7 @@ dateCreated: 2024-01-23T09:55:00.810Z
 <ul>
   <li>Query DNS</li>
   <li>Equipo origen de la petición</li>
-  <li>Investigación de la query así como al servidor DNS al que la realizan&nbsp;</li>
+  <li>Investigación de la query así como al servidor DNS al que la realizan</li>
   <li>Motivo de la petición en caso de ser posible</li>
   <li>Resumen del análisis</li>
 </ul>
