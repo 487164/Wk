@@ -1,0 +1,68 @@
+<!--
+title: RE-BRU-001 [MEDIA] [MULTI] Múltiples fallos de autenticación a un destino
+description: 
+published: true
+date: 2024-01-23T11:34:43.603Z
+tags: 
+editor: ckeditor
+dateCreated: 2024-01-23T11:34:43.603Z
+-->
+
+<h1>RE-BRU-001 [MEDIA] [MULTI] Múltiples fallos de autenticación a un destino</h1>
+<h2>Descripción</h2>
+<p style="text-align:justify;">Este caso de uso identifica un posible ataque de “Password Spraying”, desde varias direcciones IP, en el que se intente loguear en un equipo o servidor con varios usuarios diferentes en un intervalo de 5 minutos.</p>
+<ul>
+  <li><strong>Nombre</strong>: Múltiples fallos de autenticación desde un origen</li>
+  <li><strong>Criticidad</strong>: Media</li>
+  <li><strong>Tiempo de Atención</strong>: 90 minutos</li>
+  <li><strong>Tecnologías utilizadas</strong>: Logs de Servidores (se excluye Gestiona)</li>
+</ul>
+<h2>MITRE</h2>
+<ul>
+  <li>TA0006 - Credential Access</li>
+  <li>T1110 Brute Force <i>(.002 Password Spraying)</i></li>
+  <li>TA0007 - Discovery</li>
+  <li>T1087 Account Discovery</li>
+</ul>
+<p>&nbsp;</p>
+<h2>What to do</h2>
+<p style="text-align:justify;">Una vez identificado un posible ataque de “Password Spraying”, lo primero será localizar en qué equipo/servidor se está intentado acceder y con qué listado de usuarios. Se localizan las distintas direcciones IP desde las que se está tratando de acceder para determinar desde donde se está lanzando, y que categorización y geolocalización tienen.&nbsp;&nbsp;</p>
+<p style="text-align:justify;">No se tienen en cuenta las direcciones de los proxy para no dar lugar a errores.&nbsp;</p>
+<p style="text-align:justify;">Habrá que determinar qué usuarios existen en el sistema para comprobar si están entre el listado de usuarios que se han intentado loguear, o por el contrario no ha aparecido, siendo imposible que logren acceder.&nbsp;</p>
+<p style="text-align:justify;">Deberá comprobarse si se ha producido algún login correcto con algún usuario, o por el contrario han sido todo fallos y no han conseguido acceder.</p>
+<p style="text-align:justify;">En caso de que se trate de un error de detección o un usuario intentando una actividad legítima pero que por error humano haya generado eventos, lo definiríamos como FP descartando un incidente de seguridad, y proporcionando la nota de cierre correspondiente con la investigación realizada.&nbsp;</p>
+<h2>Notas de cierre</h2>
+<p>Puntos mínimos que debe de tener un cierre:</p>
+<ul>
+  <li>Equipo/Servidor comprometido</li>
+  <li>Lista de usuarios utilizados</li>
+  <li>Direcciones IP atacantes</li>
+  <li>Resumen del análisis</li>
+</ul>
+<h2>Matriz de escalado</h2>
+<p>Aunque la matriz de escalado debería ser la misma para todos los casos de uso, puede haber casos que por falta de capacidades, por dependencias de otros servicio o incluso por que así se acuerde para un caso concreto, se debe definir la matriz de escalado.</p>
+<p>En horario laboral: Atiende en primera instancia N1 y si es necesario escalar, pasaría a N2.</p>
+<p>Fuera del horario Atiende el técnico de 24/7 que se encuentre y escalara después del análisis inicia a Guardia ya que hay que ponerse en contacto con terceros para una correcta resolución.</p>
+<h2>Reglas de caso de uso</h2>
+<figure class="image image_resized" style="width:74.31%;"><img src="https://lh7-eu.googleusercontent.com/0PSUexL_8d07kWI4_kA3Q-4zxJLtfYMLer5ulxeL4XcBkAvapDzjsBPV1VS8tIwKLr2xo6LB4_nOjuwMdG_4D2S6FluLB6-qQ9uKmonoWxLU6Pas_-7esEchjvcuq3eiTizPVhY0Ts3Y"></figure>
+<h2>Campos Necesarios</h2>
+<p style="text-align:justify;">Los campos mínimos que deben seleccionarse para llevar a cabo la investigación:</p>
+<p style="text-align:center;"><i>(Alerta desactivada por el momento)</i></p>
+<h2>Cierre por defecto</h2>
+<p>Nota de cierre que se debería de rellenar a la hora de cerrar una alerta:</p>
+<p><strong>Falso positivo:</strong></p>
+<ul>
+  <li>Se han detectado múltiples fallos de inicio de sesión con diferentes usuarios [<strong>Username</strong>] desde la misma IP [<strong>Source IP</strong>] y su atributo [<strong>Attribute (custom)</strong>], después de analizar los usuarios, la IP y el código de error se llega a la conclusión de que son fallos verídicos.</li>
+</ul>
+<p><strong>Falso positivo con ajuste:</strong></p>
+<ul>
+  <li>Se han detectado múltiples fallos de inicio de sesión con diferentes usuarios [<strong>Username</strong>] desde la misma IP [<strong>Source IP</strong>] y su atributo [<strong>Attribute (custom)</strong>], después de analizar los usuarios, la IP y el código de error se llega a la conclusión de que son fallos verídicos, sin embargo se localiza un&nbsp; fallo en la regla en la que [<strong>Descripción del ajuste necesario</strong>], por lo cual se abre ticket en “<a href="https://soporte.iubaris.com/"><u>https://soporte.iubaris.com/</u></a>” (RT) con número [<strong>Nº de ticket abierto</strong>].</li>
+</ul>
+<p><strong>Positivo contenido:</strong></p>
+<ul>
+  <li>Se han detectado múltiples fallos de inicio de sesión con diferentes usuarios [<strong>Username</strong>] desde la misma IP [<strong>Source IP</strong>] y su atributo [<strong>Attribute (custom)</strong>], después de analizar los usuarios, la IP y el código de error se llega a la conclusión de ha sido un ataque de&nbsp; “Password Spraying”en el que no ha logrado acceder con ninguna cuenta.</li>
+</ul>
+<p><strong>Positivo:</strong></p>
+<ul>
+  <li>Se han detectado múltiples fallos de inicio de sesión con diferentes usuarios [<strong>Username</strong>] desde la misma IP [<strong>Source IP</strong>] y su atributo [<strong>Attribute (custom)</strong>], después de analizar los usuarios, la IP y el código de error se llega a la conclusión de ha sido un ataque de&nbsp; “Password Spraying” en el que ha logrado acceder con la cuenta [<strong>Cuenta vulnerada</strong>].</li>
+</ul>
