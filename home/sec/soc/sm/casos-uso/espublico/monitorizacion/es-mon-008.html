@@ -1,0 +1,58 @@
+<!--
+title: ES-MON-008 [INFO] [ESPUBLICO] [SOAR] Fallo en la ejecucion de SentinelMisp Script
+description: 
+published: true
+date: 2024-01-23T12:18:29.146Z
+tags: 
+editor: ckeditor
+dateCreated: 2024-01-23T12:18:29.146Z
+-->
+
+<h1 style="text-align:center;">ES-MON-008 [INFO] [ESPUBLICO] [SOAR] Fallo en la ejecucion de SentinelMisp Script</h1>
+<h2>Descripción</h2>
+<p style="text-align:justify;">Este caso de uso identifica que no se ha ejecutado el Script de SentinelMisp que hay en la máquina del SOAR. La ejecución del cron es cada 5 minutos.</p>
+<ul>
+  <li><strong>Nombre</strong>: Fallo en la ejecución de SentinelMisp Script</li>
+  <li><strong>Criticidad</strong>: Info</li>
+  <li><strong>Tiempo de Atención</strong>: No hay un SLA marcado</li>
+  <li><strong>Tecnologías utilizadas</strong>: Linux OS @ itx-soar-01-svcs.madrid.espublico.com</li>
+</ul>
+<h2>MITRE</h2>
+<p>No aplica.</p>
+<h2>What to do</h2>
+<p style="text-align:justify;">Una vez salte la alerta, significa que la ejecución del cron configurado en la máquina del SOAR no se ha realizado. Por lo tanto, puede ser que la máquina del SOAR esté en mantenimiento por parte de algún operador, donde se estén modificando algunos scripts, afectando a la ejecución de alguno de ellos.&nbsp;</p>
+<p style="text-align:justify;">También se puede dar el caso de que hayamos dejado de recibir logs de la máquina del SOAR, por lo que habría que revisar el envío de syslog.</p>
+<p style="text-align:justify;">Este caso de uso no está pensado para identificar un riesgo de seguridad, sino un fallo en la operatividad del SOAR, donde alguno de los scripts automatizados no se ha lanzado.</p>
+<p style="text-align:justify;">Se puede hacer búsqueda en QRadar por el campo <i>command (custom)</i> y el nombre del Script para ver cuando ha dejado de ejecutarse.&nbsp;</p>
+<h2>Notas de cierre</h2>
+<p>Puntos mínimos que debe de tener un cierre</p>
+<ul>
+  <li>Start Time</li>
+  <li>Command (custom)</li>
+</ul>
+<h2><strong>Matriz de escalado</strong></h2>
+<p style="text-align:justify;">Aunque la matriz de escalado debería ser la misma para todos los casos de uso, puede haber casos que por falta de capacidades, por dependencias de otros servicio o incluso por que así se acuerde para un caso concreto, se debe definir la matriz de escalado.</p>
+<p>En horario laboral: Atiende N1 y escala a N2</p>
+<p>Fuera del horario Atiende N0 y escala a Guardia</p>
+<h2><strong>Reglas de caso de uso</strong></h2>
+<figure class="image image_resized" style="width:58.23%;"><img src="https://lh7-eu.googleusercontent.com/XzPdjTc3B3zeFZubzqFd1Ayh_iwNkBdygIs1RpV8RLJdMRad-qomYLRy0rC6U0VjHpUL9LJ5szDpQJ6dTYYyMLbQqJHgx5JsQi9Kubv-tichf1Kjbdx8a4hEWMMXdRGeXGW4X1KopIhp"></figure>
+<h2><strong>Campos Necesarios</strong></h2>
+<p>Los campos mínimos que deben seleccionarse para llevar a cabo la investigación:</p>
+<ul>
+  <li>Start Time</li>
+  <li>Command (custom)</li>
+</ul>
+<h2><strong>Cierre por defecto</strong></h2>
+<p>Nota de cierre que se debería de rellenar a la hora de cerrar una alerta:</p>
+<p><strong>Falso positivo:</strong></p>
+<ul>
+  <li>Se ha detectado que el script [<strong>Command (custom)</strong>] no se ha ejecutado. Puede ser debido a la entrada en mantenimiento del servidor SOAR o modificación de alguna configuración.</li>
+</ul>
+<p><strong>Falso positivo con ajuste:</strong></p>
+<ul>
+  <li>Se ha detectado que el script [<strong>Command (custom)</strong>] no se ha ejecutado. Puede ser que el periodo de ejecución del cron se haya modificado, y por ello sea necesario modificarlo en la lógica de la regla, por lo que se cierra la alerta como FPA [<strong>Descripción del ajuste necesario</strong>], abriendo ticket en “<a href="https://soporte.iubaris.com/"><u>https://soporte.iubaris.com/</u></a>” (RT) con número [<strong>Nº de ticket abierto</strong>].</li>
+</ul>
+<p><strong>Positivo:</strong></p>
+<ul>
+  <li>Se ha detectado que el script [<strong>Command (custom)</strong>] no se ha ejecutado. No estaba prevista la NO ejecución del mismo ni se ha estado modificando nada en el servidor SOAR. Será necesario revisarlo para ver porque está fallando y si hay alguno más que tampoco se esté ejecutando. También deberá revisarse si se han dejado de recibir los logs del SOAR.</li>
+</ul>
