@@ -1,0 +1,49 @@
+<!--
+title: CC-SNC-003 [MEDIA] [ESPUBLICO] [FW] Comunicación desde una Botnet conocida
+description: 
+published: true
+date: 2024-01-23T09:28:53.356Z
+tags: 
+editor: ckeditor
+dateCreated: 2024-01-23T09:28:53.356Z
+-->
+
+<h1>CC-SNC-003 [MEDIA] [ESPUBLICO] [FW] Comunicación desde una Botnet conocida</h1>
+<h2>Descripción</h2>
+<p style="text-align:justify;">Esta alerta se activa cuando se detecta una comunicación desde una IP potencialmente maliciosa, la cual pertenece a una botnet conocida. De manera que nos alerte de un posible Command &amp; Control.&nbsp;</p>
+<ul>
+  <li><strong>Nombre</strong>: Comunicación desde una botnet conocida</li>
+  <li><strong>Criticidad</strong>: Media</li>
+  <li><strong>Tiempo de Atención</strong>: 90 minutos</li>
+  <li><strong>Tecnologías utilizadas</strong>: Logs locales</li>
+</ul>
+<h2>MITRE</h2>
+<ul>
+  <li>TA0011 – Command and Control</li>
+</ul>
+<h2>What to do</h2>
+<p style="text-align:justify;">Una vez detectada la alerta hay que revisar la IP de origen para comprobar su categorización por diversas fuentes de inteligencia, y poder ahondar a quién pertenece. También deberá revisarse toda la comunicación que pueda estar viéndose desde esa dirección IP y si la Destination IP está entablando comunicación.</p>
+<p style="text-align:justify;">En caso de no encontrar nada sospechoso lo definiríamos como FP descartando un incidente de seguridad y proporcionando la nota de cierre correspondiente con la investigación realizada.</p>
+<h2>Notas de cierre</h2>
+<p>Puntos mínimos que debe de tener un cierre</p>
+<ul>
+  <li>Source IP</li>
+  <li>Destination IP</li>
+  <li>Actividad de la Source IP</li>
+  <li>Resumen del análisis</li>
+</ul>
+<h2>Matriz de escalado</h2>
+<p style="text-align:justify;">Aunque la matriz de escalado debería ser la misma para todos los casos de uso, puede haber casos que por falta de capacidades, por dependencias de otros servicio o incluso por que así se acuerde para un caso concreto, se debe definir la matriz de escalado.</p>
+<p>En horario laboral: Atiende N1 y escala a N2</p>
+<p>Fuera del horario Atiende N0 y escala a Guardia</p>
+<h2>Reglas de caso de uso</h2>
+<figure class="image image_resized" style="width:668px;"><img src="https://lh7-eu.googleusercontent.com/9wZejhYOHdpbNb52p5Q4VGgLRgMlUp4ZqUIT_OP_mQk8CnGoYYLFxomCcABJo7UBee1BJuDqgoCUc3d7ReO7kZuGCST_KRpMddNKgUt5dIC50A5B1zHZ5sd0cScf1M20ay3TGUzWhXRW"></figure>
+<h2>Campos Necesarios</h2>
+<p>Los campos mínimos que deben seleccionarse para llevar a cabo la investigación:</p>
+<ul>
+  <li>Start Time</li>
+  <li>Event Name</li>
+  <li>Source IP</li>
+  <li>Destination IP</li>
+  <li>Destination Port</li>
+</ul>
