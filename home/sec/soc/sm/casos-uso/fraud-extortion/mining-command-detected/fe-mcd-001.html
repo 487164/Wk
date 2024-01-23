@@ -1,0 +1,70 @@
+<!--
+title: FE-MCD-001 [MEDIA] [ESPUBLICO] [LINUX] Ejecución de comandos de minería de criptomonedas
+description: 
+published: true
+date: 2024-01-23T10:09:19.607Z
+tags: 
+editor: ckeditor
+dateCreated: 2024-01-23T10:09:19.607Z
+-->
+
+<h1>FE-MCD-001 [MEDIA] [ESPUBLICO] [LINUX] Ejecución de comandos de minería de criptomonedas</h1>
+<h2>Descripción</h2>
+<p style="text-align:justify;">En este caso de uso se detecta un comando de minería de criptomonedas. Esto podría indicar una máquina infectada por un malware o un mal uso de un activo corporativo.</p>
+<ul>
+  <li><strong>Nombre</strong>: Ejecución de comandos de minería de criptomonedas.</li>
+  <li><strong>Criticidad</strong>: Media</li>
+  <li><strong>Tiempo de Atención</strong>: 90 minutos</li>
+  <li><strong>Tecnologías utilizadas</strong>: Logs locales</li>
+</ul>
+<h2>MITRE</h2>
+<ul>
+  <li>TA0011 - Command and Control</li>
+  <li>T1071 - Application Layer Protocol<ul>
+      <li>T1071,003 -Mail Protocols</li>
+    </ul>
+  </li>
+  <li>TA0010 - Exfiltration</li>
+  <li>T1029 - Transferencia programada</li>
+  <li>T1537 - Transferir datos a la cuenta en la nube</li>
+</ul>
+<h2>What to do</h2>
+<p style="text-align:justify;">Lo primero que tendremos que hacer es identificar si en el argumento del comando&nbsp; introducido tiene alguno de los siguientes argumentos:<br><strong>miner | pool | coin | coinhive | cryptonight | ethereum | xrp | stellar | monero | bitcoin</strong></p>
+<p style="text-align:justify;">Y no cuando sea:</p>
+<p style="text-align:justify;"><strong>spool | -pool-</strong></p>
+<p style="text-align:justify;">Para analizar este Caso de uso tendremos que revisar la definición “Command Arguments (custom)” (pudiéndose agregar como columna en el listado de eventos), para verificar que no aparecen ninguno de los argumentos anteriormente mencionados, en caso de que aparezcan como parte de una palabra se deberá de cerrar como Falso_Positivo, descartando un incidente de seguridad y proporcionando la nota de cierre correspondiente con la investigación realizada. También se comprobará que no pertenezca a un script al que haga referencia a un archivo temporal (.tmp).</p>
+<p style="text-align:justify;">Sin embargo sí hace referencia a un argumento de los anteriormente mencionados sería un verdadero positivo, se deberá escalar inmediatamente al N2 que se encuentre en el momento para que pueda tomar medidas de contención inmediatas, como bloquear el tráfico de red o cerrar los puertos para evitar la transferencia de información no autorizada.</p>
+<h2>Notas de cierre</h2>
+<p>Puntos mínimos que debe de tener un cierre</p>
+<ul>
+  <li>IP de origen.</li>
+  <li>“Command Arguments” que aparece en la alerta.</li>
+  <li>Fecha de inicio desde el primer evento.</li>
+</ul>
+<h2>Matriz de escalado</h2>
+<p>Aunque la matriz de escalado debería ser la misma para todos los casos de uso, puede haber casos que por falta de capacidades, por dependencias de otros servicio o incluso por que así se acuerde para un caso concreto, se debe definir la matriz de escalado.</p>
+<p>En horario laboral: Atiende N1 y escala a N2</p>
+<p>Fuera del horario Atiende N0 y escala a Guardia</p>
+<h2>Reglas de caso de uso</h2>
+<figure class="image image_resized" style="width:758px;"><img src="https://lh7-eu.googleusercontent.com/G-BDw2505qGEbJ8nmckqQIUyPMEpF3fcuITmrKI5CFVJ_qz7PeOB6aFwyaHOT7aChZMPVqNVOjli67wmpR4P5yol3SEG3-JBumZ-KI0iCJ3QCK0secFsT1jzLBw6R_0LAEGhVykHif64"></figure>
+<h2>Campos Necesarios</h2>
+<p>Los campos mínimos que deben seleccionarse para llevar a cabo la investigación:</p>
+<ul>
+  <li>Start Time</li>
+  <li>Source IP</li>
+  <li>Command&nbsp; Arguments (custom)</li>
+</ul>
+<h2>Cierre por defecto</h2>
+<p>Nota de cierre que se debería de rellenar a la hora de cerrar una alerta:</p>
+<p><strong>Falso positivo:</strong></p>
+<ul>
+  <li>Se ha detectado la ejecución de comandos de minería de criptomonedas en el equipo [<strong>Source IP (custom)</strong>] ejecutado el comando&nbsp; [<strong>Command&nbsp; Arguments (custom)</strong>], donde se puede apreciar se ha identificado el argumento [<strong>Command (custom) referenciado del Caso de uso</strong>] en la palabra [<strong>Palabra que contiene dicho Command</strong>] generando este falso positivo.</li>
+</ul>
+<p><strong>Falso positivo con ajuste:</strong></p>
+<ul>
+  <li>Se ha detectado la ejecución de comandos de minería de criptomonedas en el equipo [<strong>Source IP (custom)</strong>] ejecutado el comando&nbsp; [<strong>Command&nbsp; Arguments (custom)</strong>], donde se puede apreciar se ha identificado el argumento [<strong>Command (custom) referenciado del Caso de uso</strong>] en la palabra [<strong>Palabra que contiene dicho Command</strong>] generando este falso positivo, sin embargo se localiza un&nbsp; fallo en la regla en la que [<strong>Descripción del ajuste necesario</strong>], por lo cual se abre ticket en “<a href="https://soporte.iubaris.com/"><u>https://soporte.iubaris.com/</u></a>” (<strong>RT</strong>) con número [<strong>Nº de ticket abierto</strong>].</li>
+</ul>
+<p><strong>Positivo:</strong></p>
+<ul>
+  <li>Se ha detectado la ejecución de comandos de minería de criptomonedas en el equipo [<strong>Source IP (custom)</strong>] ejecutado el comando&nbsp; [<strong>Command&nbsp; Arguments (custom)</strong>], donde se puede apreciar la criptomoneda minada.<br>Siendo un verdadero positivo.&nbsp;<br>se pone en conocimiento del escalón superior para tomar medidas de contención y remediación.&nbsp;</li>
+</ul>
