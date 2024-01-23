@@ -1,0 +1,57 @@
+<!--
+title: ES-MON-015 [INFO] [ESPUBLICO] [FORTIPROXY] Fallo en el analisis de un fichero en SandBox
+description: 
+published: true
+date: 2024-01-23T12:31:38.919Z
+tags: 
+editor: ckeditor
+dateCreated: 2024-01-23T12:31:38.919Z
+-->
+
+<h1 style="text-align:center;">ES-MON-015 [INFO] [ESPUBLICO] [FORTIPROXY] Fallo en el analisis de un fichero en SandBox</h1>
+<h2>Descripción</h2>
+<p style="text-align:justify;">Este caso de uso identifica que no se ha podido analizar un archivo potencialmente malicioso por el Forti Proxy debido a su tamaño. Aun así, habría sido bloqueado, lo único que no se habría subido a la SandBox.</p>
+<ul>
+  <li><strong>Nombre</strong>: Fallo en el análisis de un fichero en SandBox</li>
+  <li><strong>Criticidad</strong>: Info</li>
+  <li><strong>Tiempo de Atención</strong>: No hay un SLA marcado</li>
+  <li><strong>Tecnologías utilizadas</strong>: FortiGate @ zgz-fortiproxy-01</li>
+</ul>
+<h2>MITRE</h2>
+<p>No aplica.</p>
+<h2>What to do</h2>
+<p style="text-align:justify;">Una vez salte la alerta, significa que no se ha podido subir y analizar un fichero potencialmente malicioso a la SandBox de Forti. Esto puede producirse debido al tamaño del fichero, ya que hay un límite establecido en la configuración.</p>
+<p style="text-align:justify;">Aunque no se haya podido subir para analizar, el fichero habrá sido bloqueado, por lo que se tendrá que ver de qué fichero se trata y el tamaño del mismo.</p>
+<p style="text-align:justify;">Se trata de una alerta con una finalidad meramente informativa, para poder estar al tanto de si algún fichero que pueda estar comprometido no se ha analizado en la SandBox por su tamaño.&nbsp;</p>
+<h2>Notas de cierre</h2>
+<p>Puntos mínimos que debe de tener un cierre</p>
+<ul>
+  <li>Start Time</li>
+  <li>Fortinet Source IP (custom)</li>
+  <li>Filename (custom)</li>
+</ul>
+<h2>Matriz de escalado</h2>
+<p style="text-align:justify;">Aunque la matriz de escalado debería ser la misma para todos los casos de uso, puede haber casos que por falta de capacidades, por dependencias de otros servicio o incluso por que así se acuerde para un caso concreto, se debe definir la matriz de escalado.</p>
+<p>En horario laboral: Atiende N1 y escala a N2</p>
+<p>Fuera del horario Atiende N0 y escala a Guardia</p>
+<h2>Reglas de caso de uso</h2>
+<figure class="image image_resized" style="width:57.44%;"><img src="https://lh7-eu.googleusercontent.com/bc8FL1o-DXt2ZdyBwjSEdiHLXzWj18Q0DWMuYihN10b5DbQtnFcB-CINbQd5XNwqT8Z6dMeho5SRMT29EPgo1oR4-MK6po9e00ZzX2-6FIxal98qJXVaUQN9L8LZg2RsizBBayyk1WGs"></figure>
+<h2>Campos Necesarios</h2>
+<p>Los campos mínimos que deben seleccionarse para llevar a cabo la investigación:</p>
+<ul>
+  <li>Start Time</li>
+  <li>Action (custom)</li>
+  <li>Fortinet Source IP (custom)</li>
+  <li>Filename (custom)</li>
+  <li>URL (custom)</li>
+</ul>
+<h2>Cierre por defecto</h2>
+<p>Nota de cierre que se debería de rellenar a la hora de cerrar una alerta:</p>
+<p><strong>Falso positivo:</strong></p>
+<ul>
+  <li>Se ha detectado un fichero malicioso que no ha podido ser analizado. Se trata de [<strong>Filename (custom)</strong>] encontrado en [<strong>Fortinet Source IP (custom)</strong>] No ha sido analizado pero sí ha sido bloqueado.&nbsp;&nbsp;</li>
+</ul>
+<p><strong>Falso positivo con ajuste:</strong></p>
+<ul>
+  <li>La regla no funciona correctamente, por lo que se cierra la alerta como FPA [<strong>Descripción del ajuste necesario</strong>], abriendo ticket en “<a href="https://soporte.iubaris.com/"><u>https://soporte.iubaris.com/</u></a>” (RT) con número [<strong>Nº de ticket abierto</strong>].</li>
+</ul>
