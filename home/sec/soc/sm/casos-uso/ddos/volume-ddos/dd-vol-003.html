@@ -1,0 +1,72 @@
+<!--
+title: DD-VOL-003 [MEDIA] [ESPUBLICO] [HTTP] Excesivos errores de estado 499
+description: 
+published: true
+date: 2024-01-23T12:00:55.609Z
+tags: 
+editor: ckeditor
+dateCreated: 2024-01-23T12:00:55.609Z
+-->
+
+<h1 style="text-align:center;">DD-VOL-003 [MEDIA] [ESPUBLICO] [HTTP] Excesivos errores de estado 499</h1>
+<h2>Descripción</h2>
+<p style="text-align:justify;">Este caso de uso identifica una cantidad excesiva de errores 499 a servidores web.</p>
+<ul>
+  <li><strong>Nombre</strong>: Excesivos errores de estado 499</li>
+  <li><strong>Criticidad</strong>: Media</li>
+  <li><strong>Tiempo de Atención</strong>: 90 minutos</li>
+  <li><strong>Tecnologías utilizadas</strong>: Apache HTTP Server y NGINX HTTP Server</li>
+</ul>
+<p>&nbsp;</p>
+<h2>MITRE</h2>
+<ul>
+  <li>TA 0040 - Impact</li>
+  <li>T1499 Endpoint Denial of Service<ul>
+      <li>T1499.002 Service Exhaustion Flood</li>
+    </ul>
+  </li>
+</ul>
+<h2>What to do</h2>
+<p style="text-align:justify;">El código de estado HTTP 499, también conocido como «solicitud cerrada por el cliente», es un caso especial del error 502 Bad Gateway. Indica que el cliente ha cerrado la conexión mientras el servidor sigue procesando la petición</p>
+<p style="text-align:justify;">Cuando se generan una gran cantidad de errores 499 desde un origen hacia uno de nuestros servidores (<i>R2L</i>) saltara esta alerta. Habrá que revisar si la ip de origen está catalogada como maliciosa, la geolocalización y descartar que se trate de un ayuntamiento teniendo problemas de conexión.&nbsp;</p>
+<p style="text-align:justify;">Las 3 acciones que desencadena esta regla son:</p>
+<p style="text-align:justify;">- Mandará un correo a jvinado y achicano para que se informe del bloqueo de una dirección IP.</p>
+<p style="text-align:justify;">- Añadirá la IP de origen que ha generado más de 100 errores 499 al RS de Blacklist de 3 horas. (RS_Blacklist_IOCs_IP_TTL_3H)</p>
+<p style="text-align:justify;">- Ejecutará la Custom Action <i>Err4992Slack</i>, la cual mostrará la dirección IP bloqueada por el canal de <i>c-soc-blasklist-feed-siem</i></p>
+<h2>Notas de cierre</h2>
+<p>Puntos mínimos que debe de tener un cierre</p>
+<ul>
+  <li>Ip origen</li>
+  <li>IP de destino</li>
+  <li>Lapso de tiempo</li>
+  <li>Conteo de errores 499</li>
+  <li>Resumen del análisis</li>
+</ul>
+<h2>Matriz de escalado</h2>
+<p style="text-align:justify;">Aunque la matriz de escalado debería ser la misma para todos los casos de uso, puede haber casos que por falta de capacidades, por dependencias de otros servicio o incluso por que así se acuerde para un caso concreto, se debe definir la matriz de escalado.</p>
+<p>En horario laboral: Atiende N1 y escala a N2</p>
+<p>Fuera del horario Atiende N0 y escala a Guardia</p>
+<h2>Reglas de Casos de Uso</h2>
+<figure class="image image_resized" style="width:649px;"><img src="https://lh7-eu.googleusercontent.com/YP8oZ_hnNktdLpIlASRiCHBnGlyvt5DyIKYj0xRDDxZMB5PhaXtL5GmJKgDkh-Pk2NUuXj7ppmb9bYJgeHRItwWFb8zCFhfu47wNzLiLQoYf5XQuMjWy-QuLee4zh_2L7WF8p1_A9o_o"></figure>
+<h2>Campos Necesarios</h2>
+<p>Los campos mínimos que deben seleccionarse para llevar a cabo la investigación:</p>
+<ul>
+  <li>Event Name</li>
+  <li>Start Time</li>
+  <li>IP origen</li>
+  <li>IP de destino</li>
+</ul>
+<h2>Cierre por defecto</h2>
+<p>Nota de cierre que se debería de rellenar a la hora de cerrar una alerta:</p>
+<p><strong>Falso positivo:</strong></p>
+<ul>
+  <li>Se han detectado solicitudes desde diferentes [<strong>SourceIP</strong>], enviando peticiones a [<strong>DestinationIP</strong>]. No ha desencadenado ningún tipo de impacto.&nbsp;</li>
+</ul>
+<p><strong>Falso positivo con ajuste:</strong></p>
+<ul>
+  <li>Se han detectado solicitudes desde diferentes [<strong>SourceIP</strong>], enviando peticiones a [<strong>DestinationIP</strong>]. No ha desencadenado ningún tipo de impacto.&nbsp; Sin embargo, se trata de un error y hay que realizar ajuste en la lógica de la regla en la que [<strong>Descripción del ajuste necesario</strong>], por lo cual se abre ticket en “<a href="https://soporte.iubaris.com/"><u>https://soporte.iubaris.com/</u></a>” (RT) con número [<strong>Nº de ticket abierto</strong>].</li>
+</ul>
+<p><strong>Positivo:</strong></p>
+<ul>
+  <li>Se han detectado solicitudes desde diferentes [<strong>SourceIP</strong>], enviando peticiones a [<strong>DestinationIP</strong>]. Ha acabado desencadenando algún tipo de impacto, como dejar fuera de servicio un servicio web.&nbsp;</li>
+</ul>
