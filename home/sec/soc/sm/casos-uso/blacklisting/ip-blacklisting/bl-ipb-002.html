@@ -1,0 +1,79 @@
+<!--
+title: BL-IPB-002 [MEDIA] [ESPUBLICO] [FW] Nodos TOR: Tráfico saliente detectado hacia redes TOR 
+description: 
+published: true
+date: 2024-01-23T10:17:03.253Z
+tags: 
+editor: ckeditor
+dateCreated: 2024-01-23T10:17:03.253Z
+-->
+
+<h1 style="text-align:center;">BL-IPB-002 [MEDIA] [ESPUBLICO] [FW] Nodos TOR: Tráfico saliente detectado hacia redes TOR&nbsp;</h1>
+<h2>Descripción</h2>
+<p>Detecta tráfico L2R desde activos de la organización contra direcciones IP que pertenecen a las redes TOR.</p>
+<ul>
+  <li><strong>Nombre</strong>: Nodos TOR: Tráfico saliente detectado hacia redes TOR</li>
+  <li><strong>Criticidad</strong>: Media</li>
+  <li><strong>Tiempo de Atención</strong>: 90 minutos</li>
+  <li><strong>Tecnologías utilizadas</strong>: Logs firewall</li>
+</ul>
+<h2>MITRE</h2>
+<ul>
+  <li>TA0011 – Command and Control</li>
+  <li>T1573 - Encrypted Channel<ul>
+      <li>T1573.002 - Encrypted Channel: Asymmetric Cryptography</li>
+    </ul>
+  </li>
+  <li>T1090 - Proxy<ul>
+      <li>T1090.003 - Proxy: Multi-hop Proxy</li>
+    </ul>
+  </li>
+</ul>
+<h2>What to do</h2>
+<p style="text-align:justify;">Se identifica la dirección IP contra la que se están conectando, y cual es el activo que está realizando la conexión. Se analiza con las diferentes herramientas OSINT (Virustotal, X-Force, e.t.c)</p>
+<p style="text-align:justify;">Se comprueba la persistencia de las conexiones y que es lo que las está lanzando desde el posible equipo infectado. También el estado de las conexiones, para comprobar si el firewall las ha estado denegando o han sido satisfactorias.&nbsp;</p>
+<p style="text-align:justify;">&nbsp;</p>
+<p style="text-align:justify;">En caso de que todas las conexiones hayan sido rechazadas por el firewall, se cierra como FP, siempre y cuando se determine las causas del beaconing.&nbsp;</p>
+<h2>Notas de cierre</h2>
+<p>Puntos mínimos que debe de tener un cierre</p>
+<ul>
+  <li>IP destino</li>
+  <li>IP origen.</li>
+  <li>Origen de las conexiones</li>
+  <li>resumen del análisis</li>
+</ul>
+<h2>Matriz de escalado</h2>
+<p>Aunque la matriz de escalado debería ser la misma para todos los casos de uso, puede haber casos que por falta de capacidades, por dependencias de otros servicio o incluso por que así se acuerde para un caso concreto, se debe definir la matriz de escalado.</p>
+<p>En horario laboral: Atiende N1 y escala a N2</p>
+<p>Fuera del horario Atiende N0 y escala a Guardia</p>
+<h2>Reglas de caso de uso</h2>
+<figure class="image image_resized" style="width:79.43%;"><img src="https://lh7-eu.googleusercontent.com/FOIWjnhcz0Cd_DbZNZ9MAH3JUDrL7s7PV6whMl21QGujc8QXYdqpILWpBO4S0o7I8qLjmFM8kGag_3z4_6AJS2zkbQYXvNYbuYsxO_PkbPQE4xkl_N2D9JN21MtJqNakmayicAqpL7Sr"></figure>
+<h2>Campos Necesarios</h2>
+<p>Los campos mínimos que deben seleccionarse para llevar a cabo la investigación:</p>
+<ul>
+  <li>En caso de un escaneo de puertos:</li>
+  <li>Start Time</li>
+  <li>Event Name</li>
+  <li>Source IP</li>
+  <li>Destination IP</li>
+  <li>Destination Port</li>
+  <li>Event Count</li>
+</ul>
+<h2>Cierre por defecto</h2>
+<p>Nota de cierre que se debería de rellenar a la hora de cerrar una alerta:</p>
+<p><strong>Falso positivo:</strong></p>
+<ul>
+  <li>Se han detectado comunicación hacia redes TOR, analizando la alerta se averigua que es por el protocolo NTP (Network Time Protocol) el cual utiliza para la sincronización de los relojes, después de analizar las IPs de destino se verifica que no hay comunicación&nbsp; con dicha IP</li>
+</ul>
+<p><strong>Falso positivo con ajuste:</strong></p>
+<ul>
+  <li>Después de analizar la alerta se averigua que ha saltado por un evento que no entraña amenaza por lo que se analiza la regla y se localiza un posible ajuste de la regla en la que [<strong>Descripción del ajuste necesario</strong>], por lo cual se abre ticket en “<a href="https://soporte.iubaris.com/"><u>https://soporte.iubaris.com/</u></a>” (RT) con número [<strong>Nº de ticket abierto</strong>].</li>
+</ul>
+<p><strong>Positivo contenido:</strong></p>
+<ul>
+  <li>Se ha detectado tráfico saliente hacia una red TOR que ha sido contenido por el FortiGate, en la investigación se descubre que [<strong>Análisis de la investigación tanto de la IP de destino como del motivo del tráfico hacia la red TOR</strong>]</li>
+</ul>
+<p><strong>Positivo:</strong></p>
+<ul>
+  <li>Se han detectado tráfico saliente que no ha podido ser contenido por el FortiGate en la investigación se descubre que [<strong>Análisis de la investigación tanto de la IP de destino como del motivo del tráfico hacia la red TOR</strong>]</li>
+</ul>
