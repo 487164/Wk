@@ -1,0 +1,40 @@
+<!--
+title: CC-SNC-009 [MEDIA] [ESPUBLICO] [FW] Posible gusano local detectado
+description: 
+published: true
+date: 2024-01-23T09:59:31.439Z
+tags: 
+editor: ckeditor
+dateCreated: 2024-01-23T09:59:31.439Z
+-->
+
+<h1>CC-SNC-009 [MEDIA] [ESPUBLICO] [FW] Posible gusano local detectado</h1>
+<h2>Descripción</h2>
+<p style="text-align:justify;">Se trata de peticiones basadas en el BB de BB:CategoryDefinition: Worm Events basado en la categoría de eventos nombradas así por IBM de Exploit.Worm Active.</p>
+<ul>
+  <li><strong>Nombre</strong>: Posible gusano local detectado</li>
+  <li><strong>Criticidad</strong>: Media</li>
+  <li><strong>Tiempo de Atención</strong>: 60 minutos</li>
+  <li><strong>Tecnologías utilizadas</strong>: Firewall</li>
+</ul>
+<h2>MITRE</h2>
+<ul>
+  <li style="text-align:justify;">T1102</li>
+</ul>
+<h2>What to do</h2>
+<p style="text-align:justify;">Identificar el equipo que esta realizando las conexiones e intentar observar el por qué de estas peticiones. Para ello es recomendable ir al EDR en el momento del las conexiones ya que en ocasiones es posible que al abrir chrome y cargue la caché se realicen conexiones a multitud de sitios web con sus respectivas IPs. Se se observa que el origen de estas peticiones no es ningún software sospechoso se cerrará como FP. En caso de detectar alguna anomalía o software no esperado hacer estas conexiones, se debe escalar a n2.</p>
+<h2>Notas de cierre</h2>
+<p>Puntos mínimos que debe de tener un cierre:</p>
+<ul>
+  <li>Equipo origen de las peticiones</li>
+  <li>Investigación del origen de las peticiones</li>
+  <li>Software que ha podido causar/causa general de las peticiones</li>
+  <li>Resumen del análisis</li>
+</ul>
+<h2>Matriz de escalado</h2>
+<p style="text-align:justify;">En esta alerta, el escalado se realizaría si después de terminar la investigación ya sea por falta de conocimientos o por sucesos sospechosos que se hayan visto no se pueda descartar un posible incidente de seguridad. Dependiendo del horario en que nos encontremos el escalado será distinto:</p>
+<p style="text-align:justify;">En horario laboral: Atiende en primera instancia N1 y si es necesario escalar, pasaría a N2.</p>
+<p style="text-align:justify;">Fuera del horario: -.</p>
+<h2>Reglas de caso de uso</h2>
+<p style="text-align:justify;">A continuación se muestran las reglas que tienen que darse para que salte la alerta:</p>
+<figure class="image image_resized" style="width:100%;"><img src="https://lh7-eu.googleusercontent.com/y33pUbqUTnc_luGP_IM5gcdjvkfT9leFQKeqBYa8RFRXc4nvK_MJOs_e-drr5vPnbpC1fgTLA72mu75dMk3p9t_y4HY2MeU_YOF4AGQnP9MKXTwSJCBU8YnlMQz1aCVRmjvvyesdpWuDohItkUfCJy0"></figure>
