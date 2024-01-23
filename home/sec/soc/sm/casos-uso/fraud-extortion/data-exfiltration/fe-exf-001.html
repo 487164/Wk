@@ -1,0 +1,72 @@
+<!--
+title: FE-EXF-001 [BAJA] [MAIL] O365 Posible DLP Envío de correos a cuentas personales.
+description: 
+published: true
+date: 2024-01-23T11:55:31.434Z
+tags: 
+editor: ckeditor
+dateCreated: 2024-01-23T11:55:31.434Z
+-->
+
+<h1 style="text-align:center;">FE-EXF-001 [BAJA] [MAIL] O365 Posible DLP Envío de correos a cuentas personales.</h1>
+<h2>Descripción</h2>
+<p style="text-align:justify;">En este caso de uso se detecta el envío de correos a cuentas personales siendo estos eventos detectados por el sistema local, de manera que revisa los correos entregados desde un dominio corporativo a uno que no lo es, siendo 5 mensajes en el plazo de una hora.</p>
+<ul>
+  <li><strong>Nombre</strong>: O365 Posible DLP Envío de correos a cuentas personales.</li>
+  <li><strong>Criticidad</strong>: Baja</li>
+  <li><strong>Tiempo de Atención</strong>: 180 minutos</li>
+  <li><strong>Tecnologías utilizadas</strong>: Logs locales</li>
+</ul>
+<h2>MITRE</h2>
+<ul>
+  <li>TA0011 - Command and Control</li>
+  <li>T1071 - Application Layer Protocol<ul>
+      <li>T1071.003 - Mail Protocols</li>
+    </ul>
+  </li>
+  <li>TA0010 - Exfiltration</li>
+  <li>T1029 - Transferencia programada<br>T1537 - Transferir datos a la cuenta en la nube</li>
+</ul>
+<h2>What to do</h2>
+<p style="text-align:justify;">Lo primero que tendremos que hacer es identificar es al usuario que ha emitido el correo, y comprobar que el receptor no sea el mismo con otra cuenta de otro dominio, si ha mandado algún archivo o enlace por sharepoint, en este caso tendremos que revisar el tipo de archivo, en este caso tendremos que comprobar si el destinatario es algún posible cliente o compañero, si es el caso y los correos son verídicos se cierra como Falso_Positivo, descartando un incidente de seguridad y proporcionando la nota de cierre correspondiente con la investigación realizada.</p>
+<p style="text-align:justify;">Si los destinatarios no son clientes ni compañeros, habría que indagar más en el contenido del archivo y en el destinatario, si este puede suponer una exfiltración de datos se tendría que cerrar como Verdadero_Positivo.</p>
+<p>En caso de duda escalar al nivel superior para la verificación de los datos.</p>
+<h2>Notas de cierre</h2>
+<p>Puntos mínimos que debe de tener un cierre</p>
+<ul>
+  <li>Emisor del correo</li>
+  <li>Receptor del correo</li>
+  <li>Fecha de emisión de correo</li>
+  <li>Archivos o enlaces a Sharepoint adjuntos al correo</li>
+  <li>resumen del análisis</li>
+</ul>
+<h2>Matriz de escalado</h2>
+<p>Aunque la matriz de escalado debería ser la misma para todos los casos de uso, puede haber casos que por falta de capacidades, por dependencias de otros servicio o incluso por que así se acuerde para un caso concreto, se debe definir la matriz de escalado.</p>
+<p>En horario laboral: Atiende N1 y escala a N2</p>
+<p>Fuera del horario Atiende N0 y escala a Guardia</p>
+<h2>Reglas de caso de uso</h2>
+<figure class="image image_resized" style="width:75.22%;"><img src="https://lh7-eu.googleusercontent.com/2Jw-UiMHhXKJAa3Ny22CGDEcCmC6YfW-YptBPSL_7cnLbQrAbRiypicwzFATnYQKSK2RELSwCLxLDpp8GDRCYTGqvNkb-mg8DHSYw1YfbtOGQC91EWSNAa5XCm44M2RMxs8BSPywwZEl"></figure>
+<h2>Campos Necesarios</h2>
+<p>Los campos mínimos que deben seleccionarse para llevar a cabo la investigación:</p>
+<ul>
+  <li>Start Time</li>
+  <li>Sender Address (custom)</li>
+  <li>RecipientAddress custom)</li>
+  <li>Subject (custom)</li>
+  <li>MessageTraceId (custom)</li>
+</ul>
+<h2>Cierre por defecto</h2>
+<p>Nota de cierre que se debería de rellenar a la hora de cerrar una alerta:</p>
+<p><strong>Falso positivo:</strong></p>
+<ul>
+  <li>Se ha detectado que el sender [<strong>SenderAddress (custom)</strong>] ha mandado correos a la cuenta [<strong>RecipientAddress (custom)</strong>], con el asunto [<strong>subject (custom)</strong>]&nbsp; se observa [<strong>Análisis tanto del emisor como receptor así mismo como el correo</strong>], después de analizar la alerta se verifica que no supone ningún riesgo.</li>
+</ul>
+<p><strong>Falso positivo con ajuste:</strong></p>
+<ul>
+  <li>Se ha detectado que el sender [<strong>SenderAddress (custom)</strong>] ha mandado correos a la cuenta [<strong>RecipientAddress (custom)</strong>], con el asunto [<strong>subject (custom)</strong>]&nbsp; se observa [<strong>Análisis tanto del emisor como receptor así mismo como el correo</strong>], después de analizar la alerta se verifica que no supone ningún riesgo, después de analizar la alerta y la Query inyectada se verifica que no supone ningún riesgo, sin embargo se localiza un&nbsp; fallo en la regla en la que [<strong>Descripción del ajuste necesario</strong>], por lo cual se abre ticket en “<a href="https://soporte.iubaris.com/"><u>https://soporte.iubaris.com/</u></a>” (RT) con número [<strong>Nº de ticket abierto</strong>].</li>
+</ul>
+<p><strong>Positivo:</strong></p>
+<ul>
+  <li>Se ha detectado que el sender [<strong>SenderAddress (custom)</strong>] ha mandado correos a la cuenta [<strong>RecipientAddress (custom)</strong>], con el asunto [<strong>subject (custom)</strong>]&nbsp; se observa [<strong>Análisis tanto del emisor como receptor así mismo como el correo</strong>], después de analizar la alerta se verifica que ha habido una exfiltración de datos por parte de [<strong>SenderAddress (custom)</strong>], donde [<strong>analisis de los datos exif trados</strong>].</li>
+</ul>
+<p>&nbsp;</p>
