@@ -1,0 +1,41 @@
+<!--
+title: CC-SNC-005 [MEDIA] [ESPUBLICO] [DNS] Peticion DNS a un subdominio con mas de 64 caracteres
+description: 
+published: true
+date: 2024-01-23T09:55:00.810Z
+tags: 
+editor: ckeditor
+dateCreated: 2024-01-23T09:55:00.810Z
+-->
+
+<h1>CC-SNC-005 [MEDIA] [ESPUBLICO] [DNS] Peticion DNS a un subdominio con mas de 64 caracteres</h1>
+<h2>Descripción</h2>
+<p style="text-align:justify;">Se trata de una petición DNS con más de 64 caracteres, lo que se convertiría en una petición DNS sospechosa ya que ninguna debería pasar los 63 caracteres como máximo. Esta regla se encuentra vinculada tanto al ticket 57959 como al documento de https://www.linkedin.com/pulse/threat-hunting-dns-queries-anomalies-parastoo-razi.</p>
+<ul>
+  <li><strong>Nombre</strong>: Peticion DNS a un subdominio con mas de 64 caracteres</li>
+  <li><strong>Criticidad</strong>: Media</li>
+  <li><strong>Tiempo de Atención</strong>: 60 minutos</li>
+  <li><strong>Tecnologías utilizadas</strong>: ISC Bind</li>
+</ul>
+<h2>MITRE</h2>
+<ul>
+  <li style="text-align:justify;">T1071.004.&nbsp;</li>
+</ul>
+<h2>What to do</h2>
+<p style="text-align:justify;">Identificar la query dns realizada y analizar tanto la petición completa como el maindomain a donde la está realizando, posteriormente verificar la actividad del equipo en el momento de la petición (observar bien el log source time de ISC Bind por posibles variaciones de tiempo). Si se trata de un equipo con Crowd se puede investigar el mismo en el EDR en busca de más información, una vez verificado el origen de la petición proceder con el cierre de la alerta y consiguiente cierre. Si no se puede verificar la legitimidad de la petición u origen se deberá escalar por posible incidente.</p>
+<h2>Notas de cierre</h2>
+<p>Puntos mínimos que debe de tener un cierre:</p>
+<ul>
+  <li>Query DNS</li>
+  <li>Equipo origen de la petición</li>
+  <li>Investigación de la query así como al servidor DNS al que la realizan&nbsp;</li>
+  <li>Motivo de la petición en caso de ser posible</li>
+  <li>Resumen del análisis</li>
+</ul>
+<h2>Matriz de escalado</h2>
+<p style="text-align:justify;">En esta alerta, el escalado se realizaría si después de terminar la investigación ya sea por falta de conocimientos o por sucesos sospechosos que se hayan visto no se pueda descartar un posible incidente de seguridad. Dependiendo del horario en que nos encontremos el escalado será distinto:</p>
+<p style="text-align:justify;">En horario laboral: Atiende en primera instancia N1 y si es necesario escalar, pasaría a N2.</p>
+<p style="text-align:justify;">Fuera del horario: -.</p>
+<h2>Reglas de caso de uso</h2>
+<p style="text-align:justify;">A continuación se muestran las reglas que tienen que darse para que salte la alerta:</p>
+<figure class="image image_resized" style="width:86.69%;"><img src="https://lh7-eu.googleusercontent.com/nJWAVHsCgroUp0-JIG9PPd6r2aMx0fvEqzJSOD6ZtLeF3lYFk1-WmD1iqpIB-WoNis1Vr_ROXhm_p_NlmorHFY-I7GQY6Wxds0VJFD4dm-dSOEHq94YHXThH4YElYUgo33KfUWBaNkNzYn38C8RZaYY"></figure>
