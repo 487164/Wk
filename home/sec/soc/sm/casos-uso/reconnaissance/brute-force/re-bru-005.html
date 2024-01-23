@@ -1,0 +1,75 @@
+<!--
+title: RE-BRU-005 [MEDIA] [ESPUBLICO] [IPAM] Posible descubrimiento de cuentas de usuario
+description: 
+published: true
+date: 2024-01-23T11:47:43.622Z
+tags: 
+editor: ckeditor
+dateCreated: 2024-01-23T11:47:43.622Z
+-->
+
+<h1 style="text-align:center;">RE-BRU-005 [MEDIA] [ESPUBLICO] [IPAM] Posible descubrimiento de cuentas de usuario</h1>
+<h2>Descripción</h2>
+<p style="text-align:justify;">Este caso de uso identifica un posible ataque de “Password Spraying”, en el que se intentan loguear en el IPAM de la organización, haciendo uso de varios usuarios diferentes en un intervalo de 2 minutos, los cuales la mayoría posiblemente no existan, dado que se está intentado descubrir usuarios que existan en el sistema.</p>
+<ul>
+  <li><strong>Nombre</strong>: Posible descubrimiento de cuentas de usuario en el IPAM</li>
+  <li><strong>Criticidad</strong>: Media</li>
+  <li><strong>Tiempo de Atención</strong>: 90 minutos</li>
+  <li><strong>Tecnologías utilizadas</strong>: Logs de&nbsp; PHPIpam @ operations.it.iubaris.com</li>
+</ul>
+<h2>MITRE</h2>
+<ul>
+  <li>TA0006 - Credential Access</li>
+  <li>T1110 Brute Force<ul>
+      <li>T1110.002 Password Spraying</li>
+    </ul>
+  </li>
+  <li>TA0007 - Discovery</li>
+  <li>T1087 Account Discovery</li>
+</ul>
+<p>&nbsp;</p>
+<h2>What to do</h2>
+<p style="text-align:justify;">Una vez identificado un posible ataque de “Password Spraying”, lo primero será localizar desde que dispositivo se está intentado acceder y con qué listado de usuarios.&nbsp;</p>
+<p style="text-align:justify;">Habrá que determinar qué usuarios existen en el sistema para comprobar si están entre el listado de usuarios que se han intentado loguear, o por el contrario no ha aparecido, siendo imposible que logren acceder. De esta forma se comprueba si se ha adivinado algún usuario existente en el sistema y puede sufrir una vulneración.&nbsp;</p>
+<p style="text-align:justify;">Deberá comprobarse si se ha producido algún login correcto con algún usuario, o por el contrario han sido todos fallos y no han conseguido acceder. El acceso de usuarios existentes en el sistema cuentan con 2FA.</p>
+<p style="text-align:justify;">En caso de que se trate de un error de detección o un usuario intentando una actividad legítima pero que por error humano haya generado eventos, lo definiríamos como FP descartando un incidente de seguridad, y proporcionando la nota de cierre correspondiente con la investigación realizada.&nbsp;</p>
+<h2>Notas de cierre</h2>
+<p>Puntos mínimos que debe de tener un cierre:</p>
+<ul>
+  <li>Fecha / Hora</li>
+  <li>Ip de origen</li>
+  <li>Lista de usuarios utilizados</li>
+  <li>Resumen del análisis</li>
+</ul>
+<h2>Matriz de escalado</h2>
+<p style="text-align:justify;">Aunque la matriz de escalado debería ser la misma para todos los casos de uso, puede haber casos que por falta de capacidades, por dependencias de otros servicio o incluso por que así se acuerde para un caso concreto, se debe definir la matriz de escalado.</p>
+<p style="text-align:justify;">En horario laboral: Atiende en primera instancia N1 y si es necesario escalar, pasaría a N2.</p>
+<p style="text-align:justify;">Fuera del horario Atiende el técnico de 24/7 que se encuentre y escalara después del análisis inicia a Guardia ya que hay que ponerse en contacto con terceros para una correcta resolución.</p>
+<h2>Reglas de caso de uso</h2>
+<figure class="image image_resized" style="width:66.85%;"><img src="https://lh7-eu.googleusercontent.com/V4LVJWt2qL-4CaHBk29h1KaMS4ZW6HEJOYyx6EO3c1Qly2ABZlQJatoP8YBND3Q4mn9r0TjtBZ5R4kBZP8THbemohIOdjr8MUiwixxM-Gz4pwwlhFjbAlB3ATphdY1WzkoxYMyvM7ytG"></figure>
+<h2>Campos Necesarios</h2>
+<p style="text-align:justify;">Los campos mínimos que deben seleccionarse para llevar a cabo la investigación:</p>
+<ul>
+  <li>Start Time</li>
+  <li>Username</li>
+  <li>Source IP</li>
+  <li>Event Count</li>
+</ul>
+<h2>Cierre por defecto</h2>
+<p>Nota de cierre que se debería de rellenar a la hora de cerrar una alerta:</p>
+<p><strong>Falso positivo:</strong></p>
+<ul>
+  <li>Se han detectado múltiples fallos de inicio de sesión con diferentes usuarios [<strong>Username</strong>] desde la misma IP [<strong>Source IP</strong>], después de analizar los usuarios y la IP se llega a la conclusión de que son fallos producidos por error humano.</li>
+</ul>
+<p><strong>Falso positivo con ajuste:</strong></p>
+<ul>
+  <li>Se han detectado múltiples fallos de inicio de sesión con diferentes usuarios [<strong>Username</strong>] desde la misma IP [<strong>Source IP</strong>], sin embargo se localiza un&nbsp; fallo en la regla en la que [<strong>Descripción del ajuste necesario</strong>], por lo cual se abre ticket en “<a href="https://soporte.iubaris.com/"><u>https://soporte.iubaris.com/</u></a>” (RT) con número [<strong>Nº de ticket abierto</strong>].</li>
+</ul>
+<p><strong>Positivo contenido:</strong></p>
+<ul>
+  <li>Se han detectado múltiples fallos de inicio de sesión con diferentes usuarios [<strong>Username</strong>] desde la misma IP [<strong>Source IP</strong>]. Después de analizar los usuarios y la IP, se llega a la conclusión de que ha sido un ataque de&nbsp; “Password Spraying”en el que no se ha logrado acceder con ninguna cuenta.</li>
+</ul>
+<p><strong>Positivo:</strong></p>
+<ul>
+  <li>Se han detectado múltiples fallos de inicio de sesión con diferentes usuarios [<strong>Username</strong>] desde la misma IP [<strong>Source IP</strong>]. Después de analizar los usuarios y la IP, se llega a la conclusión de que ha sido un ataque de&nbsp; “Password Spraying”, en el cual se ha logrado identificar una cuenta existente en el sistema y atacar por fuerza bruta contra ella.</li>
+</ul>
