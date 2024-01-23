@@ -1,0 +1,46 @@
+<!--
+title: CC-SNC-004 [MEDIA] [MULTI] Comunicacion desde direccion ip maliciosa
+description: 
+published: true
+date: 2024-01-23T09:30:38.556Z
+tags: 
+editor: ckeditor
+dateCreated: 2024-01-23T09:30:38.556Z
+-->
+
+<h1>CC-SNC-004 [MEDIA] [MULTI] Comunicacion desde direccion ip maliciosa</h1>
+<h2>Descripción</h2>
+<p style="text-align:justify;">Esta alerta se activa cuando se detecta una comunicación desde una IP potencialmente maliciosa, la cual es categorizada como tal por X-Force o de contenedores de referencia.&nbsp; De manera que nos alerta de las comunicaciones de remoto a local, también cuando el evento no fuera detectado por el sistema local, en “Action (custom)” y “rule_staus (custom)” es “DENY”, la IP de destino no es “195.77.90.84” y el puerto de destino no es el “80” ni el “443”.&nbsp;</p>
+<ul>
+  <li><strong>Nombre</strong>: Comunicación desde una dirección IP maliciosa.</li>
+  <li><strong>Criticidad</strong>: Media</li>
+  <li><strong>Tiempo de Atención</strong>: 30 minutos</li>
+  <li><strong>Tecnologías utilizadas</strong>: Logs locales</li>
+</ul>
+<h2>MITRE</h2>
+<ul>
+  <li>TA0011 – Command and Control</li>
+</ul>
+<h2>What to do</h2>
+<p style="text-align:justify;">Una vez detectada la alerta hay que revisar la IP de origen para ver si es maliciosa, para ello se deberán usar varias herramientas incluyendo la de X-Force, ya que X-Force conserva los delitos de una IP durante años, por lo que tendremos que sumar los resultados de las otras herramientas para verificar el tipo de actividad maliciosa que podría tener dicha IP, analizando los datos y las fechas de los últimos incidentes asignados a dicha IP se puede determinar si es un Falso_Positivo, o un Positivo_Contenido.</p>
+<h2>Notas de cierre</h2>
+<p>Puntos mínimos que debe de tener un cierre</p>
+<ul>
+  <li>Análisis de la IP que ha provocado el salto de la alerta</li>
+  <li>Control de la actividad de dicha IP en las últimas semanas.&nbsp;</li>
+  <li>Resumen del análisis</li>
+</ul>
+<h2>Matriz de escalado</h2>
+<p>En horario laboral: Atiende en primera instancia N1 y si es necesario escalar, pasaría a N2.</p>
+<p>Fuera del horario Atiende el técnico de 24/7 que se encuentre y escalara después del análisis inicia a Guardia si fuera necesario.</p>
+<h2>Reglas de caso de uso</h2>
+<figure class="image image_resized" style="width:649px;"><img src="https://lh7-eu.googleusercontent.com/YaCtnNZ8uK29kuzB34XFBE6eYE_7MqP81D50r_hEbA86Kd-uvJXQEd07ONdoMiKHEd52DDoHUaTk7rQwot_ZliCSm4pQGi_iYtC9YIUfSfJyEj4h5XHQ-uGJsoSHPs7xifUp60ToZ8LP"></figure>
+<h2>Campos Necesarios</h2>
+<p>Los campos mínimos que deben seleccionarse para llevar a cabo la investigación:</p>
+<ul>
+  <li>Start Time</li>
+  <li>Event Name</li>
+  <li>Source IP</li>
+  <li>Destination IP</li>
+  <li>Destination Port</li>
+</ul>
