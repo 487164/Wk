@@ -2,13 +2,13 @@
 title: AO-ACC-029 [MEDIA] [ESPUBLICO] [CMDB] Detectado login por parte del usuario glpi
 description: 
 published: true
-date: 2024-01-22T12:15:46.572Z
+date: 2024-01-24T09:36:46.513Z
 tags: 
 editor: ckeditor
 dateCreated: 2024-01-22T12:15:46.572Z
 -->
 
-<h1>AO-ACC-029 [MEDIA] [ESPUBLICO] [CMDB] Detectado login por parte del usuario glpi</h1>
+<h1 style="text-align:center;">AO-ACC-029 [MEDIA] [ESPUBLICO] [CMDB] Detectado login por parte del usuario glpi</h1>
 <h2>Descripción</h2>
 <p style="text-align:justify;">Este caso de uso identifica el inicio de sesión del usuario glpi en la CMBD, el cual es un super admin.</p>
 <ul>
@@ -18,7 +18,9 @@ dateCreated: 2024-01-22T12:15:46.572Z
   <li><strong>Tecnologías utilizadas</strong>: CMDB</li>
 </ul>
 <h2>MITRE</h2>
-<p>TA0001 - Initial Access</p>
+<ul>
+  <li>TA0001 - Initial Access</li>
+</ul>
 <h2>What to do</h2>
 <p style="text-align:justify;">Una vez identificada el inicio de sesión en la CMDB por parte del usuario glpi, habrá que comprobar la IP de origen para comprobar desde qué activo se ha realizado el login.&nbsp;</p>
 <p style="text-align:justify;">Nadie debería hacer uso del usuario glpi, ya que es un super admin, por lo que habría que consultar si hay una razón justificada para hacer uso del mismo.</p>
@@ -35,7 +37,7 @@ dateCreated: 2024-01-22T12:15:46.572Z
 <p>En horario laboral: Atiende N1 y escala a N2</p>
 <p>Fuera del horario Atiende N0 y escala a Guardia</p>
 <h2>Reglas de caso de uso</h2>
-<figure class="image image_resized" style="width:663px;"><img src="https://lh7-eu.googleusercontent.com/dyCeDjnsEphXcPSAGDHHVWufFdHTCki-SCBhVNLji_ng5I3IH6tl0axDCtO427O3InAAAFjzjEn3BY6ilAmekfKnR5h8daHh1G53JRC-Gt5Xag4CRQmzpJoQYn_KyH3MqfHV8R9Qrl_7"></figure>
+<figure class="image image_resized" style="width:66.86%;"><img src="https://lh7-eu.googleusercontent.com/dyCeDjnsEphXcPSAGDHHVWufFdHTCki-SCBhVNLji_ng5I3IH6tl0axDCtO427O3InAAAFjzjEn3BY6ilAmekfKnR5h8daHh1G53JRC-Gt5Xag4CRQmzpJoQYn_KyH3MqfHV8R9Qrl_7"></figure>
 <h2>Campos Necesarios</h2>
 <p>Los campos mínimos que deben seleccionarse para llevar a cabo la investigación:</p>
 <ul>
@@ -45,15 +47,15 @@ dateCreated: 2024-01-22T12:15:46.572Z
 </ul>
 <h2>Cierre por defecto</h2>
 <p>Nota de cierre que se debería de rellenar a la hora de cerrar una alerta:</p>
-<p style="text-align:justify;">Falso positivo:</p>
+<p style="text-align:justify;"><strong>Falso positivo:</strong></p>
 <ul>
-  <li>Se ha detectado que desde la [<strong>SourceIP</strong>]&nbsp; se ha hecho una login en la CMDB con [<strong>Username</strong>]. Tras analizar la alerta y consultarla con el usuario, ha habido una causa justificada para realizar dicha acción.&nbsp;</li>
+  <li>Se ha detectado que desde la [<strong>SourceIP</strong>]&nbsp; se ha hecho una login en la CMDB con [<strong>Username</strong>]. Tras analizar la alerta y consultarla con el usuario, ha habido una causa justificada para realizar dicha acción.</li>
 </ul>
-<p style="text-align:justify;">Falso positivo con ajuste:</p>
+<p style="text-align:justify;"><strong>Falso positivo con ajuste:</strong></p>
 <ul>
   <li>Se ha detectado que desde la [<strong>SourceIP</strong>]&nbsp; se ha hecho una login en la CMDB con [<strong>Username</strong>]. Tras analizar la alerta se encuentra un&nbsp; fallo en la regla en la que [<strong>Descripción del ajuste necesario</strong>], teniendo que abrir un ticket en “<a href="https://soporte.iubaris.com/"><u>https://soporte.iubaris.com/</u></a>” (RT) con número [<strong>Nº de ticket abierto</strong>].</li>
 </ul>
-<p style="text-align:justify;">Positivo:</p>
+<p style="text-align:justify;"><strong>Positivo:</strong></p>
 <ul>
-  <li>Se ha detectado que desde la [<strong>SourceIP</strong>]&nbsp; se ha hecho una login en la CMDB con [<strong>Username</strong>]. Tras analizar la alerta y consultarla con el usuario, se trata de un acceso sin consentimiento para actuar como glpi.&nbsp;</li>
+  <li>Se ha detectado que desde la [<strong>SourceIP</strong>]&nbsp; se ha hecho una login en la CMDB con [<strong>Username</strong>]. Tras analizar la alerta y consultarla con el usuario, se trata de un acceso sin consentimiento para actuar como glpi.</li>
 </ul>
