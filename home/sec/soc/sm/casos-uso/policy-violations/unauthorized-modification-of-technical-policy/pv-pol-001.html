@@ -1,0 +1,60 @@
+<!--
+title: PV-POL-001 [BAJA] [ESPUBLICO] [FW] Modificación no autorizada en el firewall GT3
+description: 
+published: true
+date: 2024-01-24T08:24:53.008Z
+tags: 
+editor: ckeditor
+dateCreated: 2024-01-24T08:24:53.008Z
+-->
+
+<h1 style="text-align:center;">PV-POL-001 [BAJA] [ESPUBLICO] [FW] Modificación no autorizada en el firewall GT3</h1>
+<h2>Descripción</h2>
+<p style="text-align:justify;">Este caso de uso identifica un cambio de configuración en el firewall GT3 no permitido, ya que solo deberían poder hacer cambios en él los usuarios <i>jamateo </i>o <i>aabian</i>.</p>
+<ul>
+  <li><strong>Nombre</strong>: Modificación no autorizada en el firewall GT3</li>
+  <li><strong>Criticidad</strong>: Baja</li>
+  <li><strong>Tiempo de Atención</strong>: 180 minutos</li>
+  <li><strong>Tecnologías utilizadas</strong>: Fortigate @ FTGT3</li>
+</ul>
+<p>&nbsp;</p>
+<h2>MITRE</h2>
+<p>No aplica</p>
+<h2>What to do</h2>
+<p style="text-align:justify;">Esta regla trata de monitorizar los cambios que se hagan en reglas o políticas del firewall de GT3. No deberían verse cambios en el firewall que no provengan de los usuarios jamateo y aabian.&nbsp;</p>
+<h2>Notas de cierre</h2>
+<p>Puntos mínimos que debe de tener un cierre</p>
+<ul>
+  <li>StartTime</li>
+  <li>Username</li>
+  <li>Fortinet Message</li>
+  <li>Resumen del análisis</li>
+</ul>
+<h2>Matriz de escalado</h2>
+<p style="text-align:justify;">Aunque la matriz de escalado debería ser la misma para todos los casos de uso, puede haber casos que por falta de capacidades, por dependencias de otros servicio o incluso por que así se acuerde para un caso concreto, se debe definir la matriz de escalado.</p>
+<p>En horario laboral: Atiende N1 y escala a N2</p>
+<p>Fuera del horario Atiende N0 y escala a Guardia</p>
+<h2>Reglas de Casos de Uso</h2>
+<figure class="image image_resized" style="width:76.23%;"><img src="https://lh7-eu.googleusercontent.com/RCw8yrBMT724rhST0nrK8RzGibvCpTN7xRixr2qQOFPtQgd-6alAc-lpHWNi12_J_hn1uEBKTDV1qyvZs5zpmplsIF1CjD48dYvlkIgjLQ4FDRn_6jiJ6HSAyBGYANNv5vL8P6elm_-a"></figure>
+<h2>Campos Necesarios</h2>
+<p>Los campos mínimos que deben seleccionarse para llevar a cabo la investigación:</p>
+<ul>
+  <li>StartTime</li>
+  <li>Username</li>
+  <li>Fortinet Message</li>
+</ul>
+<h2>Cierre por defecto</h2>
+<p>Nota de cierre que se debería de rellenar a la hora de cerrar una alerta:</p>
+<p><strong>Falso positivo:</strong></p>
+<ul>
+  <li>Se han detectado cambios [<strong>FortinetMessage</strong>] en el firewall de GT3 realizados por el usuario [<strong>username</strong>]. Es un caso conocido y permitido.</li>
+</ul>
+<p><strong>Falso positivo con ajuste:</strong></p>
+<ul>
+  <li>Se han detectado cambios [<strong>FortinetMessage</strong>] en el firewall de GT3 realizados por el usuario [<strong>username</strong>]. Es un caso conocido y permitido. Sin embargo, se trata de un error y hay que realizar ajuste en la lógica de la regla en la que [<strong>Descripción del ajuste necesario</strong>], por lo cual se abre ticket en “<a href="https://soporte.iubaris.com/"><u>https://soporte.iubaris.com/</u></a>” (RT) con número [<strong>Nº de ticket abierto</strong>].</li>
+</ul>
+<p><strong>Positivo:</strong></p>
+<ul>
+  <li>Se han detectado cambios [<strong>FortinetMessage</strong>] en el firewall de GT3 realizados por el usuario [<strong>username</strong>]. Este usuario no debería poder hacer estos cambios, por lo que debe revisarse.&nbsp;</li>
+</ul>
+<p style="text-align:justify;">&nbsp;</p>
