@@ -1,0 +1,70 @@
+<!--
+title: AO-WEB-001 [MEDIA] [ESPUBLICO] [WEB] Trafico sospechoso a web server interno
+description: 
+published: true
+date: 2024-01-24T08:22:35.637Z
+tags: 
+editor: ckeditor
+dateCreated: 2024-01-24T08:22:35.637Z
+-->
+
+<h1 style="text-align:center;">AO-WEB-001 [MEDIA] [ESPUBLICO] [WEB] Trafico sospechoso a web server interno</h1>
+<h2>Descripción</h2>
+<p style="text-align:justify;">Se trata de la regla clonada original de “Suspicious Network Traffic to Internal Web Server” por lo que se debería seguir el mismo procedimiento/investigación que se hacia con ella.</p>
+<ul>
+  <li><strong>Nombre</strong>: Trafico sospechoso a web server interno</li>
+  <li><strong>Criticidad</strong>: Media</li>
+  <li><strong>Tiempo de Atención</strong>: 90 minutos</li>
+  <li><strong>Tecnologías utilizadas</strong>: Logs web (sigue el BB de Web servers)</li>
+</ul>
+<p>&nbsp;</p>
+<h2>MITRE</h2>
+<ul>
+  <li>TA0011 - C&amp;C</li>
+  <li>T1102</li>
+</ul>
+<p>&nbsp;</p>
+<h2>What to do</h2>
+<p style="text-align:justify;">Una vez salta la alerta debemos fijarnos en la IP origen que está realizando las peticiones, analizarla y poner un contexto sobre la misma (si es maliciosa, si no, si pertenece a una diputación o cliente, etc). Después fijarnos hacia dónde va, por ejemplo, gestiona y ver que tipo de petición es para que haya sido identificada como maliciosa.&nbsp;</p>
+<p style="text-align:justify;">Si tras la investigación se identifica que es un ataque, si es necesario y no se ninguna ip de cliente se puede añadir a la blacklist con el fin de denegar cualquier tipo de ataque procedente de la misma siempre y cuando no haya sido añadida con anterioridad por el sentinel.</p>
+<p style="text-align:justify;">Filtrar por la ip realizando las peticiones para verificar si se tratan peticiones puntuales o es posible que este incluso utilizando una herramienta automatizada para testear vulnerabilidades como OWASP ZAP o Nessus</p>
+<p style="text-align:justify;">&nbsp;</p>
+<h2>Notas de cierre</h2>
+<p>Puntos mínimos que debe de tener un cierre</p>
+<ul>
+  <li>IP de origen&nbsp;</li>
+  <li>IP de destino&nbsp;</li>
+  <li>Si va a gestiona o donde corresponda el ataque</li>
+  <li>Identificar que tipo de ataque se puede llegar a ver en las peticiones</li>
+  <li>Investigación de la IP origen</li>
+  <li>Resumen del análisis</li>
+</ul>
+<h2>Matriz de escalado</h2>
+<p style="text-align:justify;">Aunque la matriz de escalado debería ser la misma para todos los casos de uso, puede haber casos que por falta de capacidades, por dependencias de otros servicio o incluso por que así se acuerde para un caso concreto, se debe definir la matriz de escalado.</p>
+<p>En horario laboral: Atiende N1 y escala a N2</p>
+<p>Fuera del horario Atiende N0 y escala a Guardia</p>
+<h2>Reglas de Casos de Uso</h2>
+<figure class="image image_resized" style="width:91.43%;"><img src="https://lh7-eu.googleusercontent.com/xAeTThBcxtw7NRqlsyh3kBz_nqVmEUxH7q8-xCRFm3LI_WcVH_ihSXKpYrfREHk5LoaGgM9kooIWMYfmDy_cTHn0_PLtUCymOA7cea4FYviefnuH43390PYq4I4UGmYvmEHm8QN2t0vTdTTrcAosw2SgtBeKoFQhMO-aa6IleMw_Q0gMoNw4NshxQk0CVmvk"></figure>
+<h2>Campos Necesarios</h2>
+<p>Los campos mínimos que deben seleccionarse para llevar a cabo la investigación:</p>
+<ul>
+  <li>Start Time</li>
+  <li>IP de origen&nbsp;</li>
+  <li>IP de destino</li>
+  <li>Petición/es sospechosa identificada</li>
+  <li>Resumen investigacion</li>
+</ul>
+<h2>Cierre por defecto</h2>
+<p>Nota de cierre que se debería de rellenar a la hora de cerrar una alerta:</p>
+<p><strong>Falso positivo:</strong></p>
+<ul>
+  <li>Se ha detectado trafico sospechoso hacia la web XXXXX. Al analizar los eventos se observa que el trafico tiene como IP de origen XXXXXX la cual tras ser analizada, se observa que pertenece al dominio XXXXXXXX, y que esta catalogada como maliciosa por [distintos motivos]. En los eventos se observa como realiza un escaneo/peticiones de XXXXXX sin comportamiento malicioso. Se cierra como FP.</li>
+</ul>
+<p><strong>Falso positivo con ajuste:</strong></p>
+<ul>
+  <li>No deberia darse el caso.</li>
+</ul>
+<p><strong>Positivo:</strong></p>
+<ul>
+  <li>Se ha detectado trafico sospechoso hacia la web XXXXX. Al analizar los eventos se observa que el trafico tiene como IP de origen XXXXXX la cual tras ser analizada, se observa que pertenece al dominio XXXXXXXX, y que esta catalogada como maliciosa por [distintos motivos]. En los eventos se observa como realiza un escaneo/peticiones de XXXXXX con comportamiento malicioso. Ademas, se verifica que la ip esta haciendo multitud de peticiones y escaneos por lo que es posible el uso de herramientas de automatización de pruebas de vulnerabilidades. Se incluye la ip en la blacklist tras verificar que no hay ningun cliente usando la misma.</li>
+</ul>
