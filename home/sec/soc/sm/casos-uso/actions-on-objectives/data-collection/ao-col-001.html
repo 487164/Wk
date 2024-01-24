@@ -2,13 +2,13 @@
 title: AO-COL-001 [BAJA] [ESPUBLICO] [TEAMPASS] Recolección de contraseñas 
 description: 
 published: true
-date: 2024-01-22T12:19:25.185Z
+date: 2024-01-24T09:43:35.398Z
 tags: 
 editor: ckeditor
 dateCreated: 2024-01-22T12:19:25.185Z
 -->
 
-<h1>AO-COL-001 [BAJA] [ESPUBLICO] [TEAMPASS] Recolección de contraseñas&nbsp;</h1>
+<h1 style="text-align:center;">AO-COL-001 [BAJA] [ESPUBLICO] [TEAMPASS] Recolección de contraseñas&nbsp;</h1>
 <h2>Descripción</h2>
 <p style="text-align:justify;">Este caso de uso identifica una posible recolección de credenciales para un uso ilegítimo.</p>
 <ul>
@@ -18,7 +18,9 @@ dateCreated: 2024-01-22T12:19:25.185Z
   <li><strong>Tecnologías utilizadas</strong>: Logs de TeamPass@operations.it.iubaris.com</li>
 </ul>
 <h2>MITRE</h2>
-<p>TA0009 - Collection</p>
+<ul>
+  <li>TA0009 - Collection</li>
+</ul>
 <h2>What to do</h2>
 <p style="text-align:justify;">Una vez identificada una posible recolección de contraseñas en el TeamPass por parte de un usuario en un corto intervalo de tiempo, habrá que determinar si se trata de una acción legítima.&nbsp;</p>
 <p style="text-align:justify;">Pueden verse los<i> ‘itemname (custom)’</i> en QRadar para saber qué contraseñas se estarían copiando y poder ver la criticidad de las mismas.&nbsp;</p>
@@ -38,7 +40,7 @@ dateCreated: 2024-01-22T12:19:25.185Z
 <p>En horario laboral: Atiende en primera instancia N1 y si es necesario escalar, pasaría a N2.</p>
 <p>Fuera del horario Atiende el técnico de 24/7 que se encuentre y escalara después del análisis inicia a Guardia ya que hay que ponerse en contacto con terceros para una correcta resolución.</p>
 <h2>Reglas de caso de uso</h2>
-<figure class="image image_resized" style="width:667px;"><img src="https://lh7-eu.googleusercontent.com/Rfp_uk-JZ83sFSsW2gIJGffOwIYbIOghLYAaE3MYgM9rLXGj2ZiqStEFmUSiRt994-Gh40YryONnUCr6tjuUNoHyiVqpJCRpHdbpBQJI5bDiNyCgU9kWGKDBTWB7ywcS3gZBTvYz7TSh"></figure>
+<figure class="image image_resized" style="width:60.17%;"><img src="https://lh7-eu.googleusercontent.com/Rfp_uk-JZ83sFSsW2gIJGffOwIYbIOghLYAaE3MYgM9rLXGj2ZiqStEFmUSiRt994-Gh40YryONnUCr6tjuUNoHyiVqpJCRpHdbpBQJI5bDiNyCgU9kWGKDBTWB7ywcS3gZBTvYz7TSh"></figure>
 <h2>Campos Necesarios</h2>
 <p style="text-align:justify;">Los campos mínimos que deben seleccionarse para llevar a cabo la investigación:</p>
 <ul>
@@ -49,19 +51,19 @@ dateCreated: 2024-01-22T12:19:25.185Z
 </ul>
 <h2>Cierre por defecto</h2>
 <p>Nota de cierre que se debería de rellenar a la hora de cerrar una alerta:</p>
-<p>Falso positivo:</p>
+<p><strong>Falso positivo:</strong></p>
 <ul>
   <li>Se ha detectado una recolección de contraseñas del TeamPass con el usuario [<strong>Username</strong>] en un intervalo corto de tiempo. Después de analizar el evento se determina que es una acción legítima.</li>
 </ul>
-<p>Falso positivo con ajuste:</p>
+<p><strong>Falso positivo con ajuste:</strong></p>
 <ul>
   <li>Se ha detectado una recolección de contraseñas del TeamPass con el usuario [<strong>Username</strong>] en un intervalo corto de tiempo. Después de analizar el evento se determina que es una acción legítima. Si esta situación suele repetirse a menudo, deberá modificarse la regla para aumentar el umbral. Se abre ticket en “<a href="https://soporte.iubaris.com/"><u>https://soporte.iubaris.com/</u></a>” (RT) con número [<strong>Nº de ticket abierto</strong>] para solicitar el ajuste.</li>
 </ul>
-<p>Positivo contenido:</p>
+<p><strong>Positivo contenido:</strong></p>
 <ul>
   <li>Se ha detectado una recolección de contraseñas del TeamPass con el usuario [<strong>Username</strong>] en un intervalo corto de tiempo. Dada la situación del usuario se&nbsp; ha determinado que se trataba de una actividad anómala o ilegítima y se han tomado las medidas pertinentes. Las contraseñas que se habrían podido exfiltrar son [<strong>itemname</strong>].</li>
 </ul>
-<p>Positivo:</p>
+<p><strong>Positivo:</strong></p>
 <ul>
   <li>Se ha detectado una recolección de contraseñas del TeamPass con el usuario [<strong>Username</strong>] en un intervalo corto de tiempo. Dada la situación del usuario se ha determinado que se trataba de una actividad anómala. Las contraseñas que se han podido exfiltrar son [<strong>itemname</strong>].</li>
 </ul>
