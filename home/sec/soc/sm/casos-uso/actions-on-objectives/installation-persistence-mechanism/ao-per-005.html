@@ -1,0 +1,64 @@
+<!--
+title: AO-PER-005 [ALTA] [ESPUBLICO] [MULTI] Descarga o decodificación de fichero seguida de actividad sospechosa
+description: 
+published: true
+date: 2024-01-24T11:09:43.372Z
+tags: 
+editor: ckeditor
+dateCreated: 2024-01-24T11:09:43.372Z
+-->
+
+<h1 style="text-align:center;">AO-PER-005 [ALTA] [ESPUBLICO] [MULTI] Descarga o decodificación de fichero seguida de actividad sospechosa</h1>
+<h2>Descripción</h2>
+<p style="text-align:justify;">Detecta el uso de herramientas como certutil para descifrar un archivo. Esto podría indicar que un usuario malicioso está descargando un archivo cifrado y descifrándolo para evadir la seguridad</p>
+<ul>
+  <li><strong>Nombre</strong>: Descarga o decodificación de fichero seguida de actividad sospechosa</li>
+  <li><strong>Criticidad</strong>: Alta</li>
+  <li><strong>Tiempo de Atención</strong>: 30 minutos</li>
+  <li><strong>Tecnologías utilizadas</strong>: Logs Locales</li>
+</ul>
+<h2>MITRE</h2>
+<ul>
+  <li>TA0040 - Impact</li>
+</ul>
+<p>&nbsp;</p>
+<h2>What to do</h2>
+<p style="text-align:justify;">Se deberá identificar el path completo del archivo/directorio el cual se ha accedido y la máquina en la que se encuentra dicho archivo/directorio. Una vez identificado, deberemos obtener la información de las acciones realizadas. Posteriormente, se deberán justificar dichas modificaciones para descartar el incidente de seguridad</p>
+<h2>Notas de cierre</h2>
+<p>Puntos mínimos que debe de tener un cierre:</p>
+<ul>
+  <li>Archivo/Directorio modificado</li>
+  <li>IP de la máquina en la que se encuentra el archivo/directorio</li>
+  <li>Acciones realizadas</li>
+  <li>Resumen del análisis</li>
+</ul>
+<h2>Matriz de escalado</h2>
+<p style="text-align:justify;">Aunque la matriz de escalado debería ser la misma para todos los casos de uso, puede haber casos que por falta de capacidades, por dependencias de otros servicio o incluso por que así se acuerde para un caso concreto, se debe definir la matriz de escalado.</p>
+<p style="text-align:justify;">En horario laboral: Atiende N1 y escala a N2</p>
+<p style="text-align:justify;">Fuera del horario Atiende N0 y escala a Guardia</p>
+<h2>Reglas de caso de uso</h2>
+<figure class="image image_resized" style="width:81.45%;"><img src="https://lh7-eu.googleusercontent.com/j4I2adv0TB3cIxY99GER94udUHLBwThck1LdTQQWHI0xaYaCKoPmMkBd0LXBbTqCd_c1F5srP6MYPOe1rwk7VukfJS-GqGELi0NIyobbzYbxToOYp3aDcJmd6FLQ1lRDC8A1m9R1Vmvm"></figure>
+<h2>Campos Necesarios&nbsp;</h2>
+<p>Los campos mínimos que deben seleccionarse para llevar a cabo la investigación:</p>
+<ul>
+  <li>Start Time</li>
+  <li>Event name</li>
+  <li>File directory (custom)</li>
+  <li>Filename (custom)</li>
+  <li>Source IP</li>
+</ul>
+<h2>Cierre por defecto</h2>
+<p>Nota de cierre que se debería de rellenar a la hora de cerrar una alerta:</p>
+<p><strong>Falso positivo:</strong></p>
+<ul>
+  <li>Se ha detectado que en se han realizado modificaciones [<strong>Acciones correspondientes</strong>] en el fichero [<strong>Filename</strong>] que se encuentra en la máquina [<strong>Source IP</strong>]. Tras consultarlo con el equipo, se trata de modificaciones controladas y estaba autorizado para realizarlas.</li>
+</ul>
+<p><strong>Falso positivo con ajuste:</strong></p>
+<ul>
+  <li>Se ha detectado que en se han realizado modificaciones [<strong>Acciones correspondientes</strong>] en el fichero [<strong>Filename</strong>] que se encuentra en la máquina [<strong>Source IP</strong>]. Tras consultarlo con el equipo, se trata de modificaciones controladas y estaba autorizado para realizarlas, sin embargo se localizara un fallo en la regla, en la que [<strong>Descripción del fallo o ajuste necesario</strong>], y se abriría ticket en “<a href="https://soporte.iubaris.com/"><u>https://soporte.iubaris.com/</u></a>” (RT) con numero [<strong>Nº de ticket abierto</strong>].</li>
+</ul>
+<p><strong>Positivo:</strong></p>
+<ul>
+  <li>Se ha detectado que en se han realizado modificaciones [<strong>Acciones correspondientes</strong>] en el fichero [<strong>Filename</strong>] que se encuentra en la máquina [<strong>Source IP</strong>]. Tras consultarlo con el equipo, no se tenía en conocimiento de la realización de dichas acciones [<strong>Análisis</strong>]</li>
+</ul>
+<p>&nbsp;</p>
