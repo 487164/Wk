@@ -1,0 +1,65 @@
+<!--
+title: AO-PER-006 [ALTA] [ESPUBLICO] [MULTI] Proceso crítico de seguridad parado
+description: 
+published: true
+date: 2024-01-24T11:11:10.118Z
+tags: 
+editor: ckeditor
+dateCreated: 2024-01-24T11:11:10.118Z
+-->
+
+<h1 style="text-align:center;">AO-PER-006 [ALTA] [ESPUBLICO] [MULTI] Proceso crítico de seguridad parado</h1>
+<h2>Descripción</h2>
+<p style="text-align:justify;">Detecta cuando un proceso crítico de seguridad ha sido parado</p>
+<ul>
+  <li><strong>Nombre</strong>: Proceso crítico de seguridad parado</li>
+  <li><strong>Criticidad</strong>: Alta</li>
+  <li><strong>Tiempo de Atención</strong>: 30 minutos</li>
+  <li><strong>Tecnologías utilizadas</strong>: Logs Locales</li>
+</ul>
+<h2>MITRE</h2>
+<ul>
+  <li>TA0040 - Impact</li>
+  <li>T1489 - Service Stop</li>
+</ul>
+<p>&nbsp;</p>
+<h2>What to do</h2>
+<p style="text-align:justify;">Se deberá identificar qué proceso ha sido parado y en qué máquina. Tras obtener esta información se tendrá que averiguar por qué se ha parado dicho proceso, si ha sido una parada manual o se ha parado solo. En caso de que haya dudas, consultar con el equipo.</p>
+<h2>Notas de cierre</h2>
+<p>Puntos mínimos que debe de tener un cierre:</p>
+<ul>
+  <li>Proceso detenido</li>
+  <li>Path del proceso</li>
+  <li>IP de la máquina en la que se ejecuta el proceso</li>
+  <li>Resumen del análisis</li>
+</ul>
+<h2>Matriz de escalado</h2>
+<p style="text-align:justify;">Aunque la matriz de escalado debería ser la misma para todos los casos de uso, puede haber casos que por falta de capacidades, por dependencias de otros servicio o incluso por que así se acuerde para un caso concreto, se debe definir la matriz de escalado.</p>
+<p style="text-align:justify;">En horario laboral: Atiende N1 y escala a N2</p>
+<p style="text-align:justify;">Fuera del horario Atiende N0 y escala a Guardia</p>
+<h2>Reglas de caso de uso</h2>
+<figure class="image image_resized" style="width:81.61%;"><img src="https://lh7-eu.googleusercontent.com/XK7mCVAgmrwxnNK1F1c6tezrXMq4dEjpNPMA3s_HoYfpHBlHKfaJ5l8c2zOHwPIABVgfCpfa9DXT9PWFNOpquY9A5ApMVWNZAKr2br1Vy-YBxAbCENRxgt8euecwUwsyHTEqnu8nN7d3"></figure>
+<h2>Campos Necesarios&nbsp;</h2>
+<p>Los campos mínimos que deben seleccionarse para llevar a cabo la investigación:</p>
+<ul>
+  <li>Start Time</li>
+  <li>Event name</li>
+  <li>File directory (custom)</li>
+  <li>Process name (custom)</li>
+  <li>Source IP</li>
+</ul>
+<h2>Cierre por defecto</h2>
+<p>Nota de cierre que se debería de rellenar a la hora de cerrar una alerta:</p>
+<p><strong>Falso positivo:</strong></p>
+<ul>
+  <li>Se ha detectado la parada del proceso [<strong>Process name</strong>] en la máquina [<strong>Source IP</strong>]. Tras analizar los eventos se llega a la conclusión de que ha sido una parada controlada [<strong>Razonamiento de la parada</strong>], descartando el incidente de seguridad.</li>
+</ul>
+<p><strong>Falso positivo con ajuste:</strong></p>
+<ul>
+  <li>Se ha detectado la parada del proceso [<strong>Process name</strong>] en la máquina [<strong>Source IP</strong>]. Tras analizar los eventos se llega a la conclusión de que ha sido una parada controlada [<strong>Razonamiento de la parada</strong>], descartando el incidente de seguridad, sin embargo se localiza un fallo en la regla, en la que [<strong>Descripción del fallo o ajuste necesario</strong>], y se abriría ticket en “<a href="https://soporte.iubaris.com/"><u>https://soporte.iubaris.com/</u></a>” (RT) con numero [<strong>Nº de ticket abierto</strong>].</li>
+</ul>
+<p><strong>Positivo:</strong></p>
+<ul>
+  <li>Se ha detectado la parada del proceso [<strong>Process name</strong>] en la máquina [<strong>Source IP</strong>]. Tras analizar los eventos y consultarlo con el equipo no se contempla que haya sido una parada controlada, [<strong>Análisis</strong>]</li>
+</ul>
+<p>&nbsp;</p>
