@@ -2,7 +2,7 @@
 title: AppLocker - Windows Security
 description: 
 published: true
-date: 2024-01-24T09:06:31.500Z
+date: 2024-01-24T09:15:10.940Z
 tags: 
 editor: ckeditor
 dateCreated: 2024-01-24T08:59:43.929Z
@@ -13,6 +13,68 @@ dateCreated: 2024-01-24T08:59:43.929Z
 <p>Servidores independientes</p>
 <p>En Local Security Policy (secpol.mmc)&gt;AppLocker importar applocker_policy.xml</p>
 <figure class="image"><img src="/sec/sto/os-files/windows/applocker/importar.jpg"></figure>
+<p>&nbsp;</p>
+<pre><code class="language-plaintext">&lt;AppLockerPolicy Version="1"&gt;
+  &lt;RuleCollection Type="Dll" EnforcementMode="NotConfigured" /&gt;
+  &lt;RuleCollection Type="Exe" EnforcementMode="Enabled"&gt;
+    &lt;FilePathRule Id="469ce2f7-428c-4f04-8bb7-8c2c0c97a8d5" Name="%WINDIR%\*" Description="" UserOrGroupSid="S-1-1-0" Action="Allow"&gt;
+      &lt;Conditions&gt;
+        &lt;FilePathCondition Path="%WINDIR%\*" /&gt;
+      &lt;/Conditions&gt;
+    &lt;/FilePathRule&gt;
+    &lt;FilePathRule Id="4df1c124-885c-4471-a0dc-104d21cb97ad" Name="%PROGRAMFILES%\*" Description="" UserOrGroupSid="S-1-1-0" Action="Allow"&gt;
+      &lt;Conditions&gt;
+        &lt;FilePathCondition Path="%PROGRAMFILES%\*" /&gt;
+      &lt;/Conditions&gt;
+    &lt;/FilePathRule&gt;
+    &lt;FilePathRule Id="7189ff73-9082-47cc-874a-3103687b3a28" Name="%WINDIR%\Temp\*" Description="" UserOrGroupSid="S-1-1-0" Action="Deny"&gt;
+      &lt;Conditions&gt;
+        &lt;FilePathCondition Path="%WINDIR%\Temp\*" /&gt;
+      &lt;/Conditions&gt;
+    &lt;/FilePathRule&gt;
+    &lt;FilePathRule Id="8f5e7030-ef4c-47c7-be8b-c993b435d558" Name="Permitir ejecucion desde CD, DVD solo para Administradores" Description="" UserOrGroupSid="S-1-5-32-544" Action="Allow"&gt;
+      &lt;Conditions&gt;
+        &lt;FilePathCondition Path="%REMOVABLE%\*" /&gt;
+      &lt;/Conditions&gt;
+    &lt;/FilePathRule&gt;
+    &lt;FilePathRule Id="01ebedb9-7da8-4f55-9493-003ef28c000a" Name="%OSDRIVE%\apps\*" Description="" UserOrGroupSid="S-1-5-32-544" Action="Allow"&gt;
+      &lt;Conditions&gt;
+        &lt;FilePathCondition Path="%OSDRIVE%\apps\*" /&gt;
+      &lt;/Conditions&gt;
+    &lt;/FilePathRule&gt;
+  &lt;/RuleCollection&gt;
+  &lt;RuleCollection Type="Msi" EnforcementMode="NotConfigured"&gt;
+    &lt;FilePublisherRule Id="b7af7102-efde-4369-8a89-7a6a392d1473" Name="(Default Rule) All digitally signed Windows Installer files" Description="Allows members of the Everyone group to run digitally signed Windows Installer files." UserOrGroupSid="S-1-1-0" Action="Allow"&gt;
+      &lt;Conditions&gt;
+        &lt;FilePublisherCondition PublisherName="*" ProductName="*" BinaryName="*"&gt;
+          &lt;BinaryVersionRange LowSection="0.0.0.0" HighSection="*" /&gt;
+        &lt;/FilePublisherCondition&gt;
+      &lt;/Conditions&gt;
+    &lt;/FilePublisherRule&gt;
+    &lt;FilePathRule Id="5b290184-345a-4453-b184-45305f6d9a54" Name="(Default Rule) All Windows Installer files in %systemdrive%\Windows\Installer" Description="Allows members of the Everyone group to run all Windows Installer files located in %systemdrive%\Windows\Installer." UserOrGroupSid="S-1-1-0" Action="Allow"&gt;
+      &lt;Conditions&gt;
+        &lt;FilePathCondition Path="%WINDIR%\Installer\*" /&gt;
+      &lt;/Conditions&gt;
+    &lt;/FilePathRule&gt;
+    &lt;FilePathRule Id="3f6b8b94-69c9-4f03-9712-d65627924b64" Name="%WINDIR%\Temp\*" Description="" UserOrGroupSid="S-1-1-0" Action="Deny"&gt;
+      &lt;Conditions&gt;
+        &lt;FilePathCondition Path="%WINDIR%\Temp\*" /&gt;
+      &lt;/Conditions&gt;
+    &lt;/FilePathRule&gt;
+    &lt;FilePathRule Id="f962f8e2-bf50-4f90-8897-c5c2b70b88bf" Name="%OSDRIVE%\apps\*" Description="" UserOrGroupSid="S-1-5-32-544" Action="Allow"&gt;
+      &lt;Conditions&gt;
+        &lt;FilePathCondition Path="%OSDRIVE%\apps\*" /&gt;
+      &lt;/Conditions&gt;
+    &lt;/FilePathRule&gt;
+    &lt;FilePathRule Id="f6e72ef0-98e2-402a-ab7f-c1e4ab184c22" Name="Permitir ejecucion desde CD, DVD solo para Administradores" Description="" UserOrGroupSid="S-1-5-32-544" Action="Allow"&gt;
+      &lt;Conditions&gt;
+        &lt;FilePathCondition Path="%REMOVABLE%\*" /&gt;
+      &lt;/Conditions&gt;
+    &lt;/FilePathRule&gt;
+  &lt;/RuleCollection&gt;
+  &lt;RuleCollection Type="Script" EnforcementMode="NotConfigured" /&gt;
+  &lt;RuleCollection Type="Appx" EnforcementMode="NotConfigured" /&gt;
+&lt;/AppLockerPolicy&gt;</code></pre>
 <p>Crear c:\apps, la carpeta desde la que los administradores pueden ejecutar sin generar alerta</p>
 <p>Asegurarse de que el servicio AppIDSvc (Application Identity) está en ejecutándose y en inicio automático.</p>
 <p>&nbsp;</p>
