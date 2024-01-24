@@ -1,0 +1,68 @@
+<!--
+title: [TEST] AO-PER-002 [INFO] [ESPUBLICO] [MULTI] Actividad sospechosa seguida de una tarea de administración en un endpoint
+description: 
+published: true
+date: 2024-01-24T11:06:18.828Z
+tags: 
+editor: ckeditor
+dateCreated: 2024-01-24T11:06:18.828Z
+-->
+
+<h1 style="text-align:center;">[TEST] AO-PER-002 [INFO] [ESPUBLICO] [MULTI] Actividad sospechosa seguida de una tarea de administración en un endpoint</h1>
+<h2>Descripción</h2>
+<p style="text-align:justify;">Detecta una actividad sospechosa (comunicación con un host malicioso, enmascaramiento de procesos, reconocimiento de contraseñas, etc.) que es seguida por una tarea de administración común (gestión de cuentas, escalación de privilegios, etc.)</p>
+<ul>
+  <li><strong>Nombre</strong>: Actividad sospechosa seguida de una tarea de administración en un endpoint</li>
+  <li><strong>Criticidad</strong>: Info</li>
+  <li><strong>Tiempo de Atención</strong>: - -</li>
+  <li><strong>Tecnologías utilizadas</strong>: Logs Locales</li>
+</ul>
+<h2>MITRE</h2>
+<ul>
+  <li>TA0042 - Resource development</li>
+  <li>TA0006 - Credential access</li>
+  <li>TA0007 - Discovery</li>
+  <li>TA0040 - Impact</li>
+</ul>
+<p>&nbsp;</p>
+<h2>What to do</h2>
+<p style="text-align:justify;">Se deberán identificar las acciones realizadas (creación de ficheros o procesos, ejecución de comandos, etc.), y en qué máquina se han llevado a cabo. Dependiendo de las acciones realizadas se deberá aportar la información correspondiente (nombres de ficheros, directorios, etc.). Se consultará con el equipo para comprobar que las acciones son controladas y no se trata de un incidente de seguridad.</p>
+<h2>Notas de cierre</h2>
+<p>Puntos mínimos que debe de tener un cierre:</p>
+<ul>
+  <li>Usuario que ha realizado las modificaciones</li>
+  <li>IP de la máquina en la que se encuentra el archivo/directorio</li>
+  <li>Acciones realizadas</li>
+  <li>Resumen del análisis</li>
+</ul>
+<h2>Matriz de escalado</h2>
+<p style="text-align:justify;">Aunque la matriz de escalado debería ser la misma para todos los casos de uso, puede haber casos que por falta de capacidades, por dependencias de otros servicio o incluso por que así se acuerde para un caso concreto, se debe definir la matriz de escalado.</p>
+<p style="text-align:justify;">En horario laboral: Atiende N1 y escala a N2</p>
+<p style="text-align:justify;">Fuera del horario Atiende N0 y escala a Guardia</p>
+<h2>Reglas de caso de uso</h2>
+<figure class="image image_resized" style="width:78.57%;"><img src="https://lh7-eu.googleusercontent.com/0GsRC5ySAQcwLKXtHch519_3A_jHzOlv0gBP-0OVvrrqfvjhp0HrE43pVpre5QWp5tq_SRwHIgto-BxlQre-6ihsgGDz12cYuN0FUYP8FG34ygDwhBtTbE1dpY1yLSqeqUhKWP4O_Kxr"></figure>
+<h2>Campos Necesarios&nbsp;</h2>
+<p>Los campos mínimos que deben seleccionarse para llevar a cabo la investigación:</p>
+<ul>
+  <li>Start Time</li>
+  <li>Event name</li>
+  <li>File directory (custom)</li>
+  <li>Filename (custom)</li>
+  <li>Process Path (custom)</li>
+  <li>Source IP</li>
+</ul>
+<h2>Cierre por defecto</h2>
+<p>Nota de cierre que se debería de rellenar a la hora de cerrar una alerta:</p>
+<p><strong>Falso positivo:</strong></p>
+<ul>
+  <li>Se ha detectado [<strong>Análisis de la actividad realizada con la correspondiente información</strong>]. Tras consultarlo con el equipo, se trata de modificaciones controladas y tenía permiso para realizarlas.</li>
+</ul>
+<p><strong>Falso positivo con ajuste:</strong></p>
+<ul>
+  <li>Se ha detectado [<strong>Análisis de la actividad realizada con la correspondiente información</strong>]. Tras consultarlo con el equipo, se trata de modificaciones controladas y tenía permiso para realizarlas, sin embargo se localizara un fallo en la regla, en la que [<strong>Descripción del fallo o ajuste necesario</strong>], y se abriría ticket en “<a href="https://soporte.iubaris.com/"><u>https://soporte.iubaris.com/</u></a>” (RT) con numero [<strong>Nº de ticket abierto</strong>].</li>
+</ul>
+<p><strong>Positivo:</strong></p>
+<ul>
+  <li>Se ha detectado [<strong>Análisis de la actividad realizada con la correspondiente información</strong>]. Tras consultarlo con el equipo se concluye que las acciones realizadas no son legítimas [<strong>Análisis</strong>]</li>
+</ul>
+<p>&nbsp;</p>
