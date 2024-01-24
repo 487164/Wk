@@ -1,0 +1,74 @@
+<!--
+title: DD-EMA-001 [BAJA] [MAIL] O365 Posible DOS envio masivo de correos a un mismo recipiente
+description: 
+published: true
+date: 2024-01-24T08:35:09.208Z
+tags: 
+editor: ckeditor
+dateCreated: 2024-01-24T08:35:09.208Z
+-->
+
+<h1 style="text-align:center;">DD-EMA-001 [BAJA] [MAIL] O365 Posible DOS envio masivo de correos a un mismo recipiente</h1>
+<h2>Descripción</h2>
+<p style="text-align:justify;">Este caso de uso identifica un posible ataque DOS a una cuenta de correo, donde se envía un gran volumen de correos a una cuenta de correo perteneciente a esPublico.</p>
+<ul>
+  <li><strong>Nombre</strong>: Posible DOS envio masivo de correos a un mismo recipiente</li>
+  <li><strong>Criticidad</strong>: Baja</li>
+  <li><strong>Tiempo de Atención</strong>: 180 minutos</li>
+  <li><strong>Tecnologías utilizadas</strong>: Microsoft Office 365 Message Trace</li>
+</ul>
+<h2>MITRE</h2>
+<ul>
+  <li>TA0040 – Impact</li>
+  <li>*Endpoint Denial of Service</li>
+  <li>T1498.001 - Service Exhaustion Flood</li>
+  <li>T1498.002 - Application Exhaustion Flood</li>
+</ul>
+<h2>What to do</h2>
+<p style="text-align:justify;">Una vez identificado el usuario que ha recibido un gran volumen de correos en un lapso corto de tiempo, se debe localizar quién es el remitente (o los remitentes) desde los que se está mandando una cantidad inusual de correos electrónicos.</p>
+<p style="text-align:justify;">También se revisará cuál es la dirección IP del servidor de correo desde el que se están enviando los correos electrónicos, y si está dentro de una Blacklist.&nbsp;</p>
+<p style="text-align:justify;">En caso de ser una actividad esperada por el usuario o una mala detección por parte de QRadar al hacer el conteo de eventos, lo definiríamos como FP descartando un incidente de seguridad, y proporcionando la nota de cierre correspondiente con la investigación realizada.</p>
+<h2>Notas de cierre</h2>
+<p>Puntos mínimos que debe de tener un cierre:</p>
+<ul>
+  <li>Recipiente afectado</li>
+  <li>Remitente(s)</li>
+  <li>Número de correos recibidos</li>
+  <li>Dirección IP del servidor de correo desde el que se han mandado los correos</li>
+  <li>Fecha / Hora</li>
+  <li>Resumen del análisis</li>
+</ul>
+<h2>Matriz de escalado</h2>
+<p>Aunque la matriz de escalado debería ser la misma para todos los casos de uso, puede haber casos que por falta de capacidades, por dependencias de otros servicio o incluso por que así se acuerde para un caso concreto, se debe definir la matriz de escalado.</p>
+<p>En horario laboral: Atiende N1 y escala a N2</p>
+<p>Fuera del horario Atiende N0 y escala a Guardia</p>
+<h2>Reglas de caso de uso</h2>
+<p>Información de la regla:</p>
+<figure class="image image_resized" style="width:78.87%;"><img src="https://lh7-eu.googleusercontent.com/4mwivFo7dOJ4To0UmF8E6BfnuAFOxZx0Weu3wIl8QYsqSZHnb1ERBQyRbmyk8a1-cGLuBnRTZsG518rwYUKVyK5A8wd_THAFpJBMf2mLlxAL2HNgaaC7VgkVdfB98ED9GOU6z27E7awi"></figure>
+<h2>Campos Necesarios</h2>
+<p>Los campos mínimos que deben seleccionarse para llevar a cabo la investigación:</p>
+<ul>
+  <li>Start Time</li>
+  <li>Sender Address (custom)</li>
+  <li>RecipientAddress (custom)</li>
+  <li>Subject (custom)</li>
+  <li>MessageTraceId (custom)</li>
+</ul>
+<h2>Cierre por defecto</h2>
+<p>Nota de cierre que se debería de rellenar a la hora de cerrar una alerta:</p>
+<p><strong>Falso positivo:</strong></p>
+<ul>
+  <li>Se ha detectado que el usuario [<strong>Username</strong>] ha enviado un volumen excesivo de mensajes en un corto periodo de tiempo a [<strong>RecipientAddress (custom)</strong>] después de analizar la alerta y revisar los correos, no se perciben como correos maliciosos o pertenecientes a un ataque DOS ni suponen ningún riesgo.</li>
+</ul>
+<p><strong>Falso positivo con ajuste:</strong></p>
+<ul>
+  <li>Se ha detectado que el usuario [<strong>Username</strong>] ha enviado un volumen excesivo de mensajes en un corto periodo de tiempo a [<strong>RecipientAddress (custom)</strong>] después de analizar la alerta y revisar los correos, no se perciben como correos maliciosos o pertenecientes a un ataque DOS ni suponen ningún riesgo, sin embargo se localiza un&nbsp; fallo en la regla en la que [<strong>Descripción del ajuste necesario</strong>], por lo cual se abre ticket en “<a href="https://soporte.iubaris.com/"><u>https://soporte.iubaris.com/</u></a>” (RT) con numero [<strong>Nº de ticket abierto</strong>].</li>
+</ul>
+<p><strong>Positivo contenido:</strong></p>
+<ul>
+  <li>Se ha detectado que el usuario [<strong>Username</strong>] ha enviado un volumen excesivo de mensajes en un corto periodo de tiempo a [<strong>RecipientAddress (custom)</strong>] después de analizar la alerta y revisar los correos, son pertenecientes a un ataque DOS que han sido contenidos por Microsoft Exchange</li>
+</ul>
+<p><strong>Positivo:</strong></p>
+<ul>
+  <li>Se ha detectado que el usuario [<strong>Username</strong>] ha enviado un volumen excesivo de mensajes en un corto periodo de tiempo a [<strong>RecipientAddress (custom)</strong>] después de analizar la alerta y revisar los correos, son pertenecientes a un ataque DOS que no han podido ser contenidos por Microsoft Exchange</li>
+</ul>
