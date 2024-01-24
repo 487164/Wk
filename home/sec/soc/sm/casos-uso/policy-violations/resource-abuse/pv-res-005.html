@@ -1,0 +1,69 @@
+<!--
+title: PV-RES-005 [MEDIA] [MULTI] Excesivos eventos de descarga de ficheros desde un mismo origen
+description: 
+published: true
+date: 2024-01-24T10:21:21.549Z
+tags: 
+editor: ckeditor
+dateCreated: 2024-01-24T10:21:21.549Z
+-->
+
+<h1 style="text-align:center;">PV-RES-005 [MEDIA] [MULTI] Excesivos eventos de descarga de ficheros desde un mismo origen</h1>
+<h2>Descripción</h2>
+<p style="text-align:justify;">Este caso de uso identifica el excesivo número de descarga de ficheros desde un mismo origen, los eventos serán detectados por el sistema local, el&nbsp; archivo ha de tener nombre, la IP de destino no puede ser “172_16_0_0” ni “192.0.2.0/24” y tiene que haber al menos 10 eventos, en los que la dirección de origen, el registro de origen, el nombre de usuario y el nombre de&nbsp; archivo es diferente, en un periodo de 5 minutos&nbsp;</p>
+<ul>
+  <li><strong>Nombre</strong>:Excesivos eventos de descarga de ficheros desde un mismo origen</li>
+  <li><strong>Criticidad</strong>: Media</li>
+  <li><strong>Tiempo de Atención</strong>: 90 minutos</li>
+  <li><strong>Tecnologías utilizadas</strong>: Microsoft Office 365</li>
+</ul>
+<h2>MITRE</h2>
+<ul>
+  <li>TA0010 - Exfiltration<br><br>&nbsp;</li>
+</ul>
+<h2>What to do</h2>
+<p style="text-align:justify;">(Para esta investigación si se quiere agilizar es recomendable editar la búsqueda agregando las columnas “Affected Workload (custom)” (event source), “File Directory (custom)” (SiteUrl), “Filename (custom)” (SourceFileName), una vez tengamos las tres columnas nos puede dar una visión más amplia de a qué archivos ha accedido y sabiendo quien es el usuario podremos verificar si podria estar autorizado.)</p>
+<p style="text-align:justify;">Lo primero que tendremos que hacer será identificar al usuario que ha realizado la descarga, para ello podremos mirar en el “Path” “Username”, se indicará el día y hora del suceso, se analizaran los archivos descargados, su ubicacion y la plataforma usada, los más habituales son "SharePoint", "OneDrive" y "Teams", sabiendo el tipo de archivos que son, y la plataforma podremos investigar mejor si es verídico cuando investiguemos al usuario, tendremos que indicar la IP de origen, en “Azure Active Directory” podremos ver si esa IP de conexión es habitual, la ubicación de la misma y si requiere “Autenticación multifactor” lo cual le da veracidad a que ha sido dicho usuario, desde el azure podremos ver a qué grupos pertenece y por lo tanto si puede tener acceso a los archivos descargados, si todo parece correcto, se podría considerar un Falso positivo, pero si por el contrario la IP de origen no es suya, las ubicaciones o los archivos no se corresponden con su departamento, habría que consultar al propio usuario para verificar que ha sido él quien ha accedido a esos archivos, si la IP es correcta pero los archivos no se corresponden a su departamento, había que escalar indicando todos los datos recabados y especificando que no se considera que el usuario tuviera que haber accedido a dichos archivos.</p>
+<h2>Notas de cierre</h2>
+<p>Puntos mínimos que debe de tener un cierre:</p>
+<ul>
+  <li>Usuario indicando su departamento</li>
+  <li>Hora/Fecha inicial</li>
+  <li>Análisis de los archivos descargados</li>
+  <li>La plataforma utilizada</li>
+  <li>Analizar que el usuario e IP de origen</li>
+  <li>Acciones realizadas</li>
+  <li>Número de archivos a los que se ha accedido</li>
+  <li>Resumen del análisis</li>
+</ul>
+<h2>Matriz de escalado</h2>
+<p>Aunque la matriz de escalado debería ser la misma para todos los casos de uso, puede haber casos que por falta de capacidades, por dependencias de otros servicio o incluso por que así se acuerde para un caso concreto, se debe definir la matriz de escalado.</p>
+<p>En horario laboral: Atiende N1 y escala a N2</p>
+<p>Fuera del horario Atiende N0 y escala a Guardia</p>
+<h2>Reglas de caso de uso</h2>
+<p>Información de la regla:</p>
+<figure class="image image_resized" style="width:81.15%;"><img src="https://lh7-eu.googleusercontent.com/a_PEvdpBtmRXckQJmCwq_Ze2Z_FWssJqjkJGRjLHzjeOdAUtzAePf3j2ChXdmWWgdfyE8qXt3Fdphsp-SktpnCFOXUjRrkocFXQQrIY6K2x6MuRxWLyFUN_Oq6HxmXhMIOAcjwJ5SUNG"></figure>
+<h2>Campos Necesarios</h2>
+<p>Los campos mínimos que deben seleccionarse para llevar a cabo la investigación:</p>
+<ul>
+  <li>Start Time</li>
+  <li>Affected Workload (custom)</li>
+  <li>Username</li>
+  <li>Event Name</li>
+  <li>File Directory (custom)</li>
+  <li>Filename (custom)</li>
+</ul>
+<h2>Cierre por defecto</h2>
+<p>Nota de cierre que se debería de rellenar a la hora de cerrar una alerta:</p>
+<p><strong>Falso positivo:</strong></p>
+<ul>
+  <li>Se ha detectado que el usuario [<strong>Username</strong>] ha tenido acceso a diferentes archivos ubicados en [<strong>File Directory (custom)</strong>] a las [<strong>Start Time</strong>] a los cuales se ha accedido desde [<strong>Affected Workload (custom)</strong>], despues del analisis del usuario se verifica que está autorizado.</li>
+</ul>
+<p><strong>Falso positivo con ajuste:</strong></p>
+<ul>
+  <li>Se ha detectado que el usuario [<strong>Username</strong>] ha tenido acceso a diferentes archivos ubicados en [<strong>File Directory (custom)</strong>] a las [<strong>Start Time</strong>] a los cuales se ha accedido desde [<strong>Affected Workload (custom)</strong>], despues del analisis del usuario se verifica que está autorizado, sin embargo se localiza un&nbsp; fallo en la regla en la que [<strong>Descripción del ajuste necesario</strong>], por lo cual se abre ticket en “<a href="https://soporte.iubaris.com/"><u>https://soporte.iubaris.com/</u></a>” (RT) con número [<strong>Nº de ticket abierto</strong>].</li>
+</ul>
+<p><strong>Positivo:</strong></p>
+<ul>
+  <li>Se ha detectado que el usuario [<strong>Username</strong>] ha tenido acceso a diferentes archivos ubicados en [<strong>File Directory (custom)</strong>] a las [<strong>Start Time</strong>] a los cuales se ha accedido desde [<strong>Affected Workload (custom)</strong>], despues del analisis de la alerta se averigua que [<strong>Indicar tipo de positivo, usuario comprometido o usuario no autorizado</strong>] desde la IP [<strong>Source IP</strong>] [<strong>Análisis de la IP de origen</strong>].</li>
+</ul>
