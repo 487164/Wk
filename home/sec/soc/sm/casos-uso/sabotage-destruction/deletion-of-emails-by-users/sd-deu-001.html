@@ -1,0 +1,67 @@
+<!--
+title: SD-DEU-001 [MEDIA] [MAIL] Elemento del buzón eliminado por un usuario ajeno
+description: 
+published: true
+date: 2024-01-24T08:29:55.667Z
+tags: 
+editor: ckeditor
+dateCreated: 2024-01-24T08:29:55.667Z
+-->
+
+<h1 style="text-align:center;">SD-DEU-001 [MEDIA] [MAIL] Elemento del buzón eliminado por un usuario ajeno</h1>
+<h2>Descripción</h2>
+<p style="text-align:justify;">La regla se aplica cuando el sistema local detecta que un elemento de un buzón es eliminado por un usuario diferente o NULL, la categoría del evento es "mensaje eliminado".</p>
+<ul>
+  <li><strong>Nombre</strong>: Elemento del buzón grupal eliminado por un usuario</li>
+  <li><strong>Criticidad</strong>:Media</li>
+  <li><strong>Tiempo de Atención</strong>: 60 minutos</li>
+  <li><strong>Tecnologías utilizadas</strong>: Logs de Servidores Web</li>
+</ul>
+<h2>MITRE</h2>
+<ul>
+  <li>T1565 - Data Manipulation</li>
+</ul>
+<p>&nbsp;</p>
+<h2>What to do</h2>
+<p>La regla saltara cuando un usuario elimine un correo o de una cuenta en la cual no es administrador, por ello lo primero que tendremos que hacer es recopilar toda la información respecto a este usuario y comparándola con los datos que nos indican en la alerta, donde podremos ver la hora de la eliminación del mensaje y desde el "Azure" podremos verificar si se ha logueado correctamente con MFA, en este caso sería Falso Positivo.</p>
+<p>Si por el contrario, el usuario no es miembro del grupo o ha borrado un mensaje de una cuenta ajena a la suya, habría que indicar que usuario ha realizado la acción, cuando ha realizado la acción, desde que IP y equipo ha realizado la acción, habría que investigar al usuario para comprobar si tiene una actividad anómala, comprobar su ubicación y si es habitual, una vez realizadas estas acciones habría que escalar a quien corresponda según matriz de escalado.</p>
+<h2>Notas de cierre</h2>
+<p>Puntos mínimos que debe de tener un cierre</p>
+<ul>
+  <li>Usuario que realiza la acción&nbsp;</li>
+  <li>Grupo o usuario al cual se le ha eliminado el correo</li>
+  <li>Hora de cuando se ha eliminado</li>
+  <li>IP del usuario</li>
+  <li>Ubicación de la IP del usuario</li>
+  <li>Equipo del usuario</li>
+  <li>Análisis de la investigacion del usuario</li>
+  <li>Resumen del análisis en general</li>
+</ul>
+<h2>Matriz de escalado</h2>
+<p>Aunque la matriz de escalado debería ser la misma para todos los casos de uso, puede haber casos que por falta de capacidades, por dependencias de otros servicio o incluso por que así se acuerde para un caso concreto, se debe definir la matriz de escalado.</p>
+<p>En horario laboral: Atiende en primera instancia N1 y si es necesario escalar, pasaría a N2.</p>
+<p>Fuera del horario Atiende el técnico de 24/7 que se encuentre y escalara después del análisis inicia a Guardia ya que hay que ponerse en contacto con terceros para una correcta resolución.</p>
+<h2>Reglas de caso de uso</h2>
+<figure class="image image_resized" style="width:61.44%;"><img src="https://lh7-eu.googleusercontent.com/Q6G6D1jbRh-axeAue8-Ztvc_7ac7BPsmQDgZGMzfMfV7k8mAJCI2Cih8HHE9UO2R0ZpSDjbTxpUz3dZ1bCitmNaAWlWoBitRUpSEXhJbgDz4R2HHuU_g4yJbTOqe8fy6iDKKqvJ5xm1i"></figure>
+<h2>Campos Necesarios</h2>
+<p style="text-align:justify;">Los campos mínimos que deben seleccionarse para llevar a cabo la investigación:</p>
+<ul>
+  <li>Start Time</li>
+  <li>Username</li>
+  <li>Subject (custom)</li>
+  <li>Target Username (custom)</li>
+</ul>
+<h2>Cierre por defecto</h2>
+<p>Nota de cierre que se debería de rellenar a la hora de cerrar una alerta:</p>
+<p><strong>Falso positivo:</strong></p>
+<ul>
+  <li>Se ha detectado que el usuario [<strong>Username</strong>] ha eliminado un elemento de un buzón de correo correspondiente a [<strong>Target Username (Custom</strong>), el cual se analiza en&nbsp; “<a href="https://admin.exchange.microsoft.com/#/groups"><u>https://admin.exchange.microsoft.com/#/groups</u></a>” verificando que el usuario está autorizado&nbsp; a realizar dicha acción.</li>
+</ul>
+<p><strong>Falso positivo con ajuste:</strong></p>
+<ul>
+  <li>Se ha detectado que el usuario [<strong>Username</strong>] ha eliminado un elemento de un buzón de correo correspondiente a [<strong>Target Username (Custom</strong>), el cual se analiza en&nbsp; “<a href="https://admin.exchange.microsoft.com/#/groups"><u>https://admin.exchange.microsoft.com/#/groups</u></a>” verificando que el usuario está autorizado&nbsp; a realizar dicha acción, sin embargo se localiza un&nbsp; fallo en la regla en la que [<strong>Descripción del ajuste necesario</strong>], por lo cual se abre ticket en “<a href="https://soporte.iubaris.com/"><u>https://soporte.iubaris.com/</u></a>” (RT) con número [<strong>Nº de ticket abierto</strong>].</li>
+</ul>
+<p><strong>Positivo:</strong></p>
+<ul>
+  <li>Se ha detectado que el usuario [<strong>Username</strong>] ha eliminado un elemento de un buzón de correo correspondiente a [<strong>Target Username (Custom</strong>), el cual se analiza en&nbsp; “<a href="https://admin.exchange.microsoft.com/#/groups"><u>https://admin.exchange.microsoft.com/#/groups</u></a>” comprobando que el usuario no está autorizado para realizar dicha acción.</li>
+</ul>
