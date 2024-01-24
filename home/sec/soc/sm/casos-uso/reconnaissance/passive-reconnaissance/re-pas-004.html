@@ -1,0 +1,68 @@
+<!--
+title: RE-PAS-004 [BAJA] [ESPUBLICO] [WEB] Mineria de datos desde España o Portugal
+description: 
+published: true
+date: 2024-01-24T08:45:51.818Z
+tags: 
+editor: ckeditor
+dateCreated: 2024-01-24T08:45:51.818Z
+-->
+
+<h1 style="text-align:center;">RE-PAS-004 [BAJA] [ESPUBLICO] [WEB] Mineria de datos desde España o Portugal</h1>
+<h2>Descripción</h2>
+<p style="text-align:justify;">Este caso de uso identifica el uso de agentes relacionados con actividades de crawling que intentan sacar información de alguno de nuestros servicios web, mediante la técnica conocida como web scrapping. En este caso se centra sobre IP con geolocalización en España o Portugal.&nbsp;</p>
+<ul>
+  <li><strong>Nombre</strong>: Mineria de datos</li>
+  <li><strong>Criticidad</strong>: Baja</li>
+  <li><strong>Tiempo de Atención</strong>: 120 minutos</li>
+  <li><strong>Tecnologías utilizadas</strong>: Nginx HTTP Server, Apache HTTP Server, Microsoft IIS</li>
+</ul>
+<h2>MITRE</h2>
+<ul>
+  <li>TA0043 – Reconnaissance</li>
+</ul>
+<h2>What to do</h2>
+<p style="text-align:justify;">Esta regla, al contrario que la RE-PAS-003, sí que genera alerta.&nbsp;</p>
+<p style="text-align:justify;">El objetivo no es bloquear ni meter en un RS las IPs de origen español o portugues, las cuales hacen uso de agentes relacionados con actividades de:<br><i>crawlers / bad robots / suspicious spiders / junk web-scrapers / malicious spammersResource Development</i>&nbsp;&nbsp;</p>
+<p style="text-align:justify;">Dado que trabajamos tanto con entidades de España como Portugal, se quiere evitar FP donde se bloqueen dichas entidades por error. Es por eso que solo se buscará monitorizar y estar al tanto de cualquier actividad sospechosa dentro de nuestra geolocalización de trabajo. Para más información, se especifica en el ticket:</p>
+<p style="text-align:justify;"><a href="https://soporte.espublico.it/Ticket/Display.html?id=79153"><u>https://soporte.espublico.it/Ticket/Display.html?id=79153</u></a></p>
+<h2>Notas de cierre</h2>
+<p>Puntos mínimos que debe de tener un cierre</p>
+<ul>
+  <li>Start Time</li>
+  <li>Event Name</li>
+  <li>Source IP</li>
+  <li>Destination IP</li>
+  <li>User_Agent</li>
+  <li>Resumen del análisis</li>
+</ul>
+<h2>Matriz de escalado</h2>
+<p style="text-align:justify;">Aunque la matriz de escalado debería ser la misma para todos los casos de uso, puede haber casos que por falta de capacidades, por dependencias de otros servicio o incluso por que así se acuerde para un caso concreto, se debe definir la matriz de escalado.</p>
+<p>En horario laboral: Atiende N1 y escala a N2</p>
+<p>Fuera del horario Atiende N0 y escala a Guardia</p>
+<h2>Reglas de caso de uso</h2>
+<figure class="image image_resized" style="width:67.47%;"><img src="https://lh7-eu.googleusercontent.com/vNbwK_z7Vah-6t87rPckZ1X9mWBcP4YeB1dOn9MiNykstBn4zl2JtfXT_09_YhRGwNG6Xq2-XR8dC_i_lDF6OXjJm9pf8NFzkMtfTYjvcOUzoK5eUIuo6o2MXUovxOnLf6YQO46lwdAV"></figure>
+<h2>Campos Necesarios</h2>
+<p style="text-align:justify;">Los campos mínimos que deben seleccionarse para llevar a cabo la investigación:</p>
+<ul>
+  <li>Start Time</li>
+  <li>Event Name</li>
+  <li>Source IP</li>
+  <li>Destination IP</li>
+  <li>User_Agent</li>
+  <li>Resumen del análisis</li>
+</ul>
+<h2>Cierre por defecto</h2>
+<p>Nota de cierre que se debería de rellenar a la hora de cerrar una alerta:</p>
+<p><strong>Falso positivo:</strong></p>
+<ul>
+  <li>Se ha detectado el uso del agente [<strong>User_Agent</strong>]&nbsp; desde la IP [<strong>Source IP</strong>], hacia la IP [<strong>Destination IP</strong>]. Se debe identificar la localización de la dirección IP de origen, la reputación de la misma, y la finalidad del agente utilizado.</li>
+</ul>
+<p style="text-align:justify;"><strong>Falso positivo con ajuste || Error:</strong></p>
+<ul>
+  <li>Se ha detectado el uso del agente [<strong>User_Agent</strong>]&nbsp; desde la IP [<strong>Source IP</strong>], hacia la IP [<strong>Destination IP</strong>]. Se debe identificar la localización de la dirección IP de origen, la reputación de la misma, y la finalidad del agente utilizado. En caso de detectar un fallo en la lógica de la regla, ya sea por la geolocalización o la inclusión de un agente en el RS que debiera considerarse como legítimo, deberá ajustarse la lógica o quitarse del RS dicho agente para evitar ruido innecesario.</li>
+</ul>
+<p style="text-align:justify;"><strong>Positivo:</strong></p>
+<ul>
+  <li>Se ha detectado el uso del agente [<strong>User_Agent</strong>]&nbsp; desde la IP [<strong>Source IP</strong>], hacia la IP [<strong>Destination IP</strong>]. Se debe identificar la localización de la dirección IP de origen, la reputación de la misma, y la finalidad del agente utilizado. En caso de tener mala reputación tanto la IP de origen como el agente utilizado, verificar que no pertenece a ningún organismo público y barajar el bloquear dicha IP si persiste en sus actividades.&nbsp;</li>
+</ul>
