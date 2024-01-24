@@ -1,0 +1,44 @@
+<!--
+title: AO-ACC-008 [MEDIA] [VPN] Autenticación valida de un usuario desde diferentes orígenes en menos de 2 horas
+description: 
+published: true
+date: 2024-01-24T09:14:20.177Z
+tags: 
+editor: ckeditor
+dateCreated: 2024-01-24T09:14:20.177Z
+-->
+
+<h1 style="text-align:center;">AO-ACC-008 [MEDIA] [VPN] Autenticación valida de un usuario desde diferentes orígenes en menos de 2 horas</h1>
+<h2>Descripción</h2>
+<p>Este caso de uso identifica varias autenticaciones de usuario válidas desde diferentes IPs en menos de 2 horas en eventos detectados por el sistema local [por openVPN].</p>
+<ul>
+  <li><strong>Nombre</strong>: Autenticación válida de un usuario desde diferentes orígenes en menos de 2 horas</li>
+  <li><strong>Criticidad</strong>: Media</li>
+  <li><strong>Tiempo de Atención</strong>: 90 minutos</li>
+  <li><strong>Tecnologías utilizadas</strong>: Logs locales</li>
+</ul>
+<h2>MITRE</h2>
+<ul>
+  <li>TA0001 - Initial Access.</li>
+  <li>TA0003 - Persistence</li>
+  <li>T1133 - External Remote Services</li>
+  <li>TA0006 - Credential Access</li>
+  <li>TA0007 - Discovery</li>
+</ul>
+<h2>What to do</h2>
+<p>Una vez que se detecta la autentificación de usuario por el sistema local desde diferentes IP en un plazo de 2 horas, saltará la alerta.&nbsp;</p>
+<p>Por lo que se deberá identificar a dicho usuario y comprobar que es una conexión verídica realizada por dicho usuario, siendo este caso un Falso_Positivo. [Buscar algo de información de la IP/s desde donde se ha conectado y comentar que se ha encontrado: perteneciente a X ISP, mala reputación, etc…]. Si, por el contrario, el usuario no ha realizado dicha conexión sería un Verdadero_Positivo, en este caso habría que escalarla y realizar una investigación de la misma.</p>
+<h2>Notas de cierre</h2>
+<p>Puntos mínimos que debe de tener un cierre</p>
+<ul>
+  <li>Usuario que ha generado los fallos</li>
+  <li>Explicación del código error</li>
+  <li>Análisis de la IP de origen</li>
+  <li>Verificación de que el usuario ha realizado dicha conexión</li>
+  <li>Resumen del análisis</li>
+</ul>
+<h2>Matriz de escalado</h2>
+<p>En horario laboral: Atiende en primera instancia N1 y si es necesario escalar, pasaría a N2.</p>
+<p>Fuera del horario Atiende el técnico de 24/7 que se encuentre y en caso necesario escalaría a Guardia.</p>
+<h2>Reglas de caso de uso</h2>
+<figure class="image image_resized" style="width:790px;"><img src="https://lh7-eu.googleusercontent.com/Bdd7lSA4xaCVovmZBdyK4QKzAaAFnL_NoHSb4hbIL_o9JHmSKKzFS1iE_8Y4MIrk2nwPWzWRYUhOex6xRb0eLpWKOa0vg8Y8iaJ8LVnWhlhc0SHS3csEk7eBfj5pwq_LYFrGzLg4xzs"></figure>
