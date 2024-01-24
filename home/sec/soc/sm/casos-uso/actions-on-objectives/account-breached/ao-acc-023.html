@@ -2,13 +2,13 @@
 title: AO-ACC-023 [MEDIA] [ESPUBLICO] [RT] Autenticacion en Zabbix desde fuera de España
 description: 
 published: true
-date: 2024-01-22T12:11:04.351Z
+date: 2024-01-24T09:33:08.287Z
 tags: 
 editor: ckeditor
 dateCreated: 2024-01-22T12:11:04.351Z
 -->
 
-<h1>AO-ACC-023 [MEDIA] [ESPUBLICO] [RT] Autenticacion en Zabbix desde fuera de España</h1>
+<h1 style="text-align:center;">AO-ACC-023 [MEDIA] [ESPUBLICO] [RT] Autenticacion en Zabbix desde fuera de España</h1>
 <h2>Descripción</h2>
 <p style="text-align:justify;">Este caso de uso identifica un login satisfactorio desde fuera de España en el sistema de monitorización de redes (Zabbix), ya que este sistema está publicado al exterior.&nbsp;</p>
 <ul>
@@ -18,9 +18,11 @@ dateCreated: 2024-01-22T12:11:04.351Z
   <li><strong>Tecnologías utilizadas</strong>: Logs de @zabbix.iubaris.com</li>
 </ul>
 <h2>MITRE</h2>
-<p>TA0001 - Initial Access.</p>
-<p>TA0006 – Credential Access.</p>
-<p>TA0007 - Discovery.</p>
+<ul>
+  <li>TA0001 - Initial Access.</li>
+  <li>TA0006 - Credential Access.</li>
+  <li>TA0007 - Discovery.</li>
+</ul>
 <h2>What to do</h2>
 <p style="text-align:justify;">Una vez identificado el usuario que ha realizado el Login, deberá identificarse desde qué dirección IP ha realizado el Login. Deberá comprobarse la categorización de la IP para comprobar si forma parte de alguna categoría maliciosa.&nbsp;</p>
 <p style="text-align:justify;">Debería ponerse en contacto con el usuario para contrastar que ha sido él, ya que el RT está publicado en el exterior.&nbsp;</p>
@@ -28,7 +30,7 @@ dateCreated: 2024-01-22T12:11:04.351Z
 <h2>Notas de cierre</h2>
 <p>Puntos mínimos que debe de tener un cierre</p>
 <ul>
-  <li>Usuario&nbsp;</li>
+  <li>Usuario</li>
   <li>IP de origen</li>
   <li>Resumen del análisis</li>
 </ul>
@@ -36,26 +38,26 @@ dateCreated: 2024-01-22T12:11:04.351Z
 <p>En horario laboral: Atiende en primera instancia N1 y si es necesario escalar, pasaría a N2.</p>
 <p>Fuera del horario Atiende el técnico de 24/7 que se encuentre y en caso necesario escalaría a Guardia ya que al ser una alerta ALTA se podría.</p>
 <h2>Reglas de Casos de Uso</h2>
-<figure class="image image_resized" style="width:668px;"><img src="https://lh7-eu.googleusercontent.com/NXGqlE7DA-Ha5BDH2X8XQiY6dXvT75kW5D38oudPGyihHpT7PREBWpmZ_m4NMiEYSi6IwXwHCE-75sKF7QmccCxF7ii-6BjBy_2c-wCaSLnhgynJnxe1HSUtElIdloB2DpvUmmYcw4P_"></figure>
+<figure class="image image_resized" style="width:81.98%;"><img src="https://lh7-eu.googleusercontent.com/NXGqlE7DA-Ha5BDH2X8XQiY6dXvT75kW5D38oudPGyihHpT7PREBWpmZ_m4NMiEYSi6IwXwHCE-75sKF7QmccCxF7ii-6BjBy_2c-wCaSLnhgynJnxe1HSUtElIdloB2DpvUmmYcw4P_"></figure>
 <h2>Campos Necesarios</h2>
 <p>Los campos mínimos que deben seleccionarse para llevar a cabo la investigación:</p>
 <ul>
   <li>Event Name</li>
   <li>Start Time</li>
-  <li>Usuario&nbsp;</li>
+  <li>Usuario</li>
   <li>IP de origen</li>
 </ul>
 <h2>Cierre por defecto</h2>
 <p>Nota de cierre que se debería de rellenar a la hora de cerrar una alerta:</p>
-<p>Falso positivo:</p>
+<p><strong>Falso positivo:</strong></p>
 <ul>
-  <li>Se ha detectado Login externo a España con el usuario [<strong>Username</strong>], desde [<strong>SourceIP</strong>]. El usuario es consciente de este acceso.&nbsp;</li>
+  <li>Se ha detectado Login externo a España con el usuario [<strong>Username</strong>], desde [<strong>SourceIP</strong>]. El usuario es consciente de este acceso.</li>
 </ul>
-<p>Falso positivo con ajuste:</p>
+<p><strong>Falso positivo con ajuste:</strong></p>
 <ul>
   <li>Se han detectado múltiples fallos de inicio de sesión con el usuario [<strong>Username</strong>], se encuentra una mejora que realizar en la lógica de la regla en la que [<strong>Descripción del ajuste necesario</strong>], por lo cual se abre ticket en “<a href="https://soporte.iubaris.com/"><u>https://soporte.iubaris.com/</u></a>” (RT) con número [<strong>Nº de ticket abierto</strong>].</li>
 </ul>
-<p>Positivo:</p>
+<p><strong>Positivo:</strong></p>
 <ul>
   <li>Se han detectado múltiples fallos de inicio de sesión con el usuario [<strong>Username</strong>], siendo desconocida esta actividad por el usuario, por lo que se llega a la conclusión de que la cuenta ha sido vulnerada.</li>
 </ul>
