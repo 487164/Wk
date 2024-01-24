@@ -2,13 +2,13 @@
 title: AO-ACC-003 [ALTA] [MULTI] Autenticación valida después de varios intentos desde un origen
 description: 
 published: true
-date: 2024-01-22T11:45:13.973Z
+date: 2024-01-24T09:10:03.459Z
 tags: 
 editor: ckeditor
 dateCreated: 2024-01-22T11:45:13.973Z
 -->
 
-<h1>AO-ACC-003 [ALTA] [MULTI] Autenticación valida después de varios intentos desde un origen</h1>
+<h1 style="text-align:center;">AO-ACC-003 [ALTA] [MULTI] Autenticación valida después de varios intentos desde un origen</h1>
 <h2>Descripción</h2>
 <p>Este caso de uso identifica un login satisfactorio después de varios fallidos (10 en en 5 minutos) con la misma IP y diferentes nombres de usuario.</p>
 <ul>
@@ -18,9 +18,11 @@ dateCreated: 2024-01-22T11:45:13.973Z
   <li><strong>Tecnologías utilizadas</strong>: Logs locales</li>
 </ul>
 <h2>MITRE</h2>
-<p>TA0006 – Credential Access.</p>
-<p>TA0007 - Discovery.</p>
-<p>TA0001 - Initial Access.</p>
+<ul>
+  <li>TA0006 - Credential Access.</li>
+  <li>TA0007 - Discovery.</li>
+  <li>TA0001 - Initial Access.</li>
+</ul>
 <h2>What to do</h2>
 <p>Una vez identificada la IP que ha provocado los fallos de login y posteriormente se ha logueado correctamente, se tendría que identificar con cuantos nombres de usuario se ha intentado identificar, cuantas veces con cada usuario lo ha intentado, y con qué usuario ha conseguido loguearse.</p>
 <p>Una vez identificada la IP que ha provocado los fallos, sería identificar el nombre del equipo que está provocando los fallos y a quién pertenece el equipo.</p>
@@ -40,25 +42,25 @@ dateCreated: 2024-01-22T11:45:13.973Z
 <p>En horario laboral: Atiende N1 y escala a N2</p>
 <p>Fuera del horario Atiende el técnico de 24/7 que se encuentre y en caso necesario escalaría a Guardia ya que al ser una alerta ALTA se podría.</p>
 <h2>Reglas de caso de uso</h2>
-<figure class="image image_resized" style="width:648px;"><img src="https://lh7-eu.googleusercontent.com/QwNjxig6lO38uyTUZ3ADVCBnsJro_KPee6aOdSqrwtRUdpswBOuzfT-YP-Drb35JbBQqI2m9KVKsyvoMZVpDfZYLVKZrFi5vfBIJWQhgDsO4hSbRHkHCdArOihIGcP8By6PbcMKOFOSD"></figure>
+<figure class="image image_resized" style="width:79.5%;"><img src="https://lh7-eu.googleusercontent.com/QwNjxig6lO38uyTUZ3ADVCBnsJro_KPee6aOdSqrwtRUdpswBOuzfT-YP-Drb35JbBQqI2m9KVKsyvoMZVpDfZYLVKZrFi5vfBIJWQhgDsO4hSbRHkHCdArOihIGcP8By6PbcMKOFOSD"></figure>
 <h2>Campos Necesarios</h2>
 <p>Los campos mínimos que deben seleccionarse para llevar a cabo la investigación:</p>
 <p style="text-align:center;"><i>(Alerta desactivada por el momento)</i></p>
 <h2>Cierre por defecto</h2>
 <p>Nota de cierre que se debería de rellenar a la hora de cerrar una alerta:</p>
-<p>Falso positivo:</p>
+<p><strong>Falso positivo:</strong></p>
 <ul>
   <li>Se han detectado múltiples fallos de inicio de sesión con diferentes usuarios [<strong>Username</strong>] desde la misma IP [<strong>Source IP</strong>], después de analizar los usuarios, la IP y el código de error se llega a la conclusión de que son fallos verídicos.</li>
 </ul>
-<p>Falso positivo con ajuste:</p>
+<p><strong>Falso positivo con ajuste:</strong></p>
 <ul>
   <li>Se han detectado múltiples fallos de inicio de sesión con diferentes usuarios [<strong>Username</strong>] desde la misma IP [<strong>Source IP</strong>], después de analizar los usuarios, la IP y el código de error se llega a la conclusión de que son fallos verídicos, sin embargo se localiza un&nbsp; fallo en la regla en la que [<strong>Descripción del ajuste necesario</strong>], por lo cual se abre ticket en “<a href="https://soporte.iubaris.com/"><u>https://soporte.iubaris.com/</u></a>” (RT) con número [<strong>Nº de ticket abierto</strong>].</li>
 </ul>
-<p>Positivo contenido:</p>
+<p><strong>Positivo contenido:</strong></p>
 <ul>
   <li>Se han detectado múltiples fallos de inicio de sesión con diferentes usuarios [<strong>Username</strong>] desde la misma IP [<strong>Source IP</strong>], después de analizar los usuarios, la IP y el código de error se llega a la conclusión de ha sido un ataque de&nbsp; “Password Spraying” en el que no ha logrado acceder con ninguna cuenta.</li>
 </ul>
-<p>Positivo:</p>
+<p><strong>Positivo:</strong></p>
 <ul>
   <li>Se han detectado múltiples fallos de inicio de sesión con diferentes usuarios [<strong>Username</strong>] desde la misma IP [<strong>Source IP</strong>], después de analizar los usuarios, la IP y el código de error se llega a la conclusión de ha sido un ataque de&nbsp; “Password Spraying”en el que ha logrado acceder con la cuenta [<strong>Cuenta vulnerada</strong>].</li>
 </ul>
