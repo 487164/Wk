@@ -2,13 +2,13 @@
 title: AO-ACC-009 [MEDIA] [ESFIRMA] [EJBCA] Autenticación Web Admin
 description: 
 published: true
-date: 2024-01-22T11:54:52.861Z
+date: 2024-01-24T09:14:54.819Z
 tags: 
 editor: ckeditor
 dateCreated: 2024-01-22T11:54:52.861Z
 -->
 
-<h1>AO-ACC-009 [MEDIA] [ESFIRMA] [EJBCA] Autenticación Web Admin</h1>
+<h1 style="text-align:center;">AO-ACC-009 [MEDIA] [ESFIRMA] [EJBCA] Autenticación Web Admin</h1>
 <h2>Descripción</h2>
 <p style="text-align:justify;">Este caso de uso identifica un acceso válido en el panel web de la ejbca no contemplado con un usuario no administrador de ejbca.</p>
 <ul>
@@ -18,9 +18,11 @@ dateCreated: 2024-01-22T11:54:52.861Z
   <li><strong>Tecnologías utilizadas</strong>: PKI Ejbca</li>
 </ul>
 <h2>MITRE</h2>
-<p>TA0006 – Credential Access.</p>
-<p>TA0001 - Initial Access</p>
-<p>TA0004 - Privilege Escalation</p>
+<ul>
+  <li>TA0006 - Credential Access.</li>
+  <li>TA0001 - Initial Access</li>
+  <li>TA0004 - Privilege Escalation</li>
+</ul>
 <h2>What to do</h2>
 <p style="text-align:justify;">Una vez identificado un posible acceso a Web Admin, habrá que identificar qué usuario ha sido y desde qué dirección IP.</p>
 <p style="text-align:justify;">Se deberá poner en contacto con el usuario para verificar si el inicio de sesión es controlado, y revisar los movimientos posteriores al login.&nbsp;</p>
@@ -39,7 +41,7 @@ dateCreated: 2024-01-22T11:54:52.861Z
 <p>En horario laboral: Atiende N1 y escala a N2</p>
 <p>Fuera del horario Atiende N0 y escala a Guardia</p>
 <h2>Reglas de caso de uso</h2>
-<figure class="image image_resized" style="width:637px;"><img src="https://lh7-eu.googleusercontent.com/dV2wZX_oToumwKIxh6nQQdvBvbMa43Li6tCTm1Ctt4g2Q7dR0iRPX9zhTTS81ytC_j64Pp3XovAfz7DPl07rFbAiwsl0FEz3LG2vzsTSnh8CDtu3gI7DI9pdr9L_TvJ-H2WU7Z6yR4KS"></figure>
+<figure class="image image_resized" style="width:66.49%;"><img src="https://lh7-eu.googleusercontent.com/dV2wZX_oToumwKIxh6nQQdvBvbMa43Li6tCTm1Ctt4g2Q7dR0iRPX9zhTTS81ytC_j64Pp3XovAfz7DPl07rFbAiwsl0FEz3LG2vzsTSnh8CDtu3gI7DI9pdr9L_TvJ-H2WU7Z6yR4KS"></figure>
 <h2>Campos Necesarios</h2>
 <p>Los campos mínimos que deben seleccionarse para llevar a cabo la investigación:</p>
 <ul>
@@ -52,15 +54,15 @@ dateCreated: 2024-01-22T11:54:52.861Z
 </ul>
 <h2>Cierre por defecto</h2>
 <p>Nota de cierre que se debería de rellenar a la hora de cerrar una alerta:</p>
-<p>Falso positivo:</p>
+<p><strong>Falso positivo:</strong></p>
 <ul>
   <li>Se ha detectado que el usuario [<strong>Username</strong>]&nbsp; ha intentado iniciar sesión en el portal web de la EJBCA desde la IP [<strong>Source IP</strong>]. Tras una investigación de los eventos, se observa que la cuenta [<strong>User account</strong>] se encuentra autorizada para iniciar sesión en el portal web</li>
 </ul>
-<p>Falso positivo con ajuste:</p>
+<p><strong>Falso positivo con ajuste:</strong></p>
 <ul>
   <li>Se ha detectado que el usuario [<strong>Username</strong>]&nbsp; ha intentado iniciar sesión en el portal web de la EJBCA desde la IP [<strong>Source IP</strong>]. Tras una investigación de los eventos, se observa que la cuenta [<strong>User account</strong>] se encuentra autorizada para iniciar sesión en el portal web, sin embargo se localiza un&nbsp; fallo en la regla en la que [<strong>Descripción del ajuste necesario</strong>], por lo cual se abre ticket en “<a href="https://soporte.iubaris.com/"><u>https://soporte.iubaris.com/</u></a>” (RT) con número [<strong>Nº de ticket abierto</strong>].</li>
 </ul>
-<p>Positivo:</p>
+<p><strong>Positivo:</strong></p>
 <ul>
   <li>Se ha detectado que el usuario [<strong>Username</strong>]&nbsp; ha iniciado sesión en el portal web de la EJBCA desde la IP [<strong>Source IP</strong>], y que este no se encontraba autorizado para ello, por lo que se llega a la conclusión de que se ha comprometido la cuenta&nbsp; [<strong>Análisis del robo de credenciales</strong>].</li>
 </ul>
