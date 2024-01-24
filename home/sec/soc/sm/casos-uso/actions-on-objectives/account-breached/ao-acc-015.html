@@ -2,13 +2,13 @@
 title: AO-ACC-015 [ALTA] [ESPUBLICO] [GOOGLE] Login satisfactorio en EsPublico Sistemas desde fuera de España 
 description: 
 published: true
-date: 2024-01-22T12:01:10.128Z
+date: 2024-01-24T09:18:35.557Z
 tags: 
 editor: ckeditor
 dateCreated: 2024-01-22T12:01:10.128Z
 -->
 
-<h1>AO-ACC-015 [ALTA] [ESPUBLICO] [GOOGLE] Login satisfactorio en EsPublico Sistemas desde fuera de España&nbsp;</h1>
+<h1 style="text-align:center;">AO-ACC-015 [ALTA] [ESPUBLICO] [GOOGLE] Login satisfactorio en EsPublico Sistemas desde fuera de España&nbsp;</h1>
 <h2>Descripción</h2>
 <p style="text-align:justify;">Este caso de uso identifica una posible cuenta comprometida de Google Workspace, detectando al menos un login desde una dirección IP con geolocalización fuera de España.</p>
 <ul>
@@ -18,8 +18,10 @@ dateCreated: 2024-01-22T12:01:10.128Z
   <li><strong>Tecnologías utilizadas</strong>: Google Workspace</li>
 </ul>
 <h2>MITRE</h2>
-<p>TA0006 – Credential Access.</p>
-<p>TA0001 - Initial Access.</p>
+<ul>
+  <li>TA0006 - Credential Access.</li>
+  <li>TA0001 - Initial Access.</li>
+</ul>
 <h2>What to do</h2>
 <p style="text-align:justify;">Una vez identificado el usuario que posiblemente haya sido comprometido, deberá revisarse desde qué direcciones IP (geolocalización) se han realizado los Login, y el intervalo de tiempo que hay entre diversos puntos de geolocalización si es que los hay, para detectar así viajes imposibles entre países.&nbsp;</p>
 <p style="text-align:justify;">Deberá verificarse con el usuario o sus responsables si se encuentra físicamente en el país de la detección (ya sea por vacaciones o motivos laborales).&nbsp;</p>
@@ -47,7 +49,7 @@ dateCreated: 2024-01-22T12:01:10.128Z
 <p>En horario laboral: Atiende N1 y escala a N2</p>
 <p>Fuera del horario Atiende N0 y escala a Guardia</p>
 <h2>Reglas de caso de uso</h2>
-<figure class="image image_resized" style="width:658px;"><img src="https://lh7-eu.googleusercontent.com/Qs4yp44qXM-OLTF9RNMe0rqDe5w8Id7mm70hRhL16aTm0Tm4R_FClritzX3IfTxBKMhLny1Wb8jRtFE4ViSPRVTWDWD2zh6xBZJqFZ7U7QYY6Rf8W281cRfCRbhXY8w0sd47xCr8DBJ_"></figure>
+<figure class="image image_resized" style="width:79.54%;"><img src="https://lh7-eu.googleusercontent.com/Qs4yp44qXM-OLTF9RNMe0rqDe5w8Id7mm70hRhL16aTm0Tm4R_FClritzX3IfTxBKMhLny1Wb8jRtFE4ViSPRVTWDWD2zh6xBZJqFZ7U7QYY6Rf8W281cRfCRbhXY8w0sd47xCr8DBJ_"></figure>
 <h2>Campos Necesarios</h2>
 <p>Los campos mínimos que deben seleccionarse para llevar a cabo la investigación:</p>
 <ul>
@@ -59,19 +61,19 @@ dateCreated: 2024-01-22T12:01:10.128Z
 </ul>
 <h2>Cierre por defecto</h2>
 <p>Nota de cierre que se debería de rellenar a la hora de cerrar una alerta:</p>
-<p>Falso positivo 1:</p>
+<p><strong>Falso positivo 1:</strong></p>
 <ul>
   <li>Se ha detectado que el usuario [<strong>Username</strong>]&nbsp; se ha logueado desde una ubicación fuera de España, tras una investigación de la IP [<strong>Source IP</strong>] y del usuario se determina que ha sido un fallo en la geolocalización de Qradar.</li>
 </ul>
-<p>Falso positivo 2:</p>
+<p><strong>Falso positivo 2:</strong></p>
 <ul>
   <li>Se ha detectado que el usuario [<strong>Username</strong>]&nbsp; se ha logueado desde una ubicación fuera de España, tras una investigación de la IP [<strong>Source IP</strong>] y del usuario se determina que es una conexión verídica y que el usuario está autorizado para ello.</li>
 </ul>
-<p>Falso positivo con ajuste:</p>
+<p><strong>Falso positivo con ajuste:</strong></p>
 <ul>
   <li>Se ha detectado que el usuario [<strong>Username</strong>]&nbsp; se ha logueado desde una ubicación fuera de España, tras una investigación de la IP [<strong>Source IP</strong>] y del usuario se determina que ha sido un fallo en la geolocalización, sin embargo se localiza un&nbsp; fallo en la regla en la que [<strong>Descripción del ajuste necesario</strong>], por lo cual se abre ticket en “<a href="https://soporte.iubaris.com/"><u>https://soporte.iubaris.com/</u></a>” (RT) con número [<strong>Nº de ticket abierto</strong>].</li>
 </ul>
-<p>Positivo:</p>
+<p><strong>Positivo:</strong></p>
 <ul>
   <li>Se ha detectado que el usuario [<strong>Username</strong>]&nbsp; se ha logueado desde una ubicación fuera de España, tras una investigación de la IP [<strong>Source IP</strong>] y del usuario se determina que ha sido un fallo en la geolocalización, determinando que la cuenta del usuario ha sido comprometida&nbsp; [<strong>Análisis del robo de credenciales</strong>].</li>
 </ul>
