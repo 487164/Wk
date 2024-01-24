@@ -2,13 +2,13 @@
 title: AO-ACC-001 [ALTA] [MULTI] Autenticación valida después de varios intentos fallidos a un destino
 description: 
 published: true
-date: 2024-01-22T11:42:00.928Z
+date: 2024-01-24T09:09:05.114Z
 tags: 
 editor: ckeditor
 dateCreated: 2024-01-22T11:42:00.928Z
 -->
 
-<h1>AO-ACC-001 [ALTA] [MULTI] Autenticación valida después de varios intentos fallidos a un destino</h1>
+<h1 style="text-align:center;">AO-ACC-001 [ALTA] [MULTI] Autenticación valida después de varios intentos fallidos a un destino</h1>
 <h2>Descripción</h2>
 <p style="text-align:justify;">Este caso de uso identifica múltiples fallos de inicio de sesión en un solo host, seguido de un inicio de sesión exitoso.</p>
 <ul>
@@ -18,9 +18,11 @@ dateCreated: 2024-01-22T11:42:00.928Z
   <li><strong>Tecnologías utilizadas</strong>: Logs locales</li>
 </ul>
 <h2>MITRE</h2>
-<p>TA0001 – Initial ACCESS</p>
-<p>TA0006 – Credential Access</p>
-<p>TA0007 – Discovery</p>
+<ul>
+  <li>TA0001 – Initial ACCESS</li>
+  <li>TA0006 – Credential Access</li>
+  <li>TA0007 – Discovery</li>
+</ul>
 <h2>What to do</h2>
 <p style="text-align:justify;">Una vez identificado el usuario que ha provocado los fallos de login y posteriormente se ha logueado correctamente, lo primero sería identificar el porqué de esos fallos de login yendo al principio de los mismos.&nbsp;</p>
 <p style="text-align:justify;">En esos logs podremos ver según el código de error (campo error_code en QRadar) porque se ha provocado el fallo, por ejemplo, si tenemos el código de error 0xC0000064 nos estaría informando acerca de un usuario no válido.</p>
@@ -41,21 +43,21 @@ dateCreated: 2024-01-22T11:42:00.928Z
 <p style="text-align:justify;">En horario laboral: Atiende N1 y escala a N2</p>
 <p style="text-align:justify;">Fuera del horario Atiende N0 y escala a Guardia</p>
 <h2>Reglas de Caso de Uso</h2>
-<figure class="image image_resized" style="width:640px;"><img src="https://lh7-eu.googleusercontent.com/qASvYuvlu0U9XVBKskbJofb7UxTZUQwnUT11_LjRFNZ2DEehsE_ly70MapNWn9LHIJ_LRv-cid7JwB58WBALHNR2YwYDDPzkpVcfS9Gbve01zdwp-MxyvEuC8A54XB0OOYOSNaQ_ktoc"></figure>
+<figure class="image image_resized" style="width:73.32%;"><img src="https://lh7-eu.googleusercontent.com/qASvYuvlu0U9XVBKskbJofb7UxTZUQwnUT11_LjRFNZ2DEehsE_ly70MapNWn9LHIJ_LRv-cid7JwB58WBALHNR2YwYDDPzkpVcfS9Gbve01zdwp-MxyvEuC8A54XB0OOYOSNaQ_ktoc"></figure>
 <h2>Campos Necesarios</h2>
 <p>Los campos mínimos que deben seleccionarse para llevar a cabo la investigación:</p>
 <p style="text-align:center;"><i>(Alerta desactivada por el momento)</i></p>
 <h2>Cierre por defecto</h2>
 <p>Nota de cierre que se debería de rellenar a la hora de cerrar una alerta:</p>
-<p>Falso positivo:</p>
+<p><strong>Falso positivo:</strong></p>
 <ul>
   <li>Se han detectado múltiples fallos de inicio de sesión con diferentes usuarios [<strong>Username</strong>] desde la misma IP [<strong>Source IP</strong>] y su atributo [<strong>Attribute (custom)</strong>], después de analizar los usuarios, la IP y el código de error se llega a la conclusión de que son fallos verídicos.</li>
 </ul>
-<p>Falso positivo con ajuste:</p>
+<p><strong>Falso positivo con ajuste:</strong></p>
 <ul>
   <li>Se han detectado múltiples fallos de inicio de sesión con diferentes usuarios [<strong>Username</strong>] desde la misma IP [<strong>Source IP</strong>] y su atributo [<strong>Attribute (custom)</strong>], después de analizar los usuarios, la IP y el código de error se llega a la conclusión de que son fallos verídicos, sin embargo se localiza un&nbsp; fallo en la regla en la que [<strong>Descripción del ajuste necesario</strong>], por lo cual se abre ticket en “<a href="https://soporte.iubaris.com/"><u>https://soporte.iubaris.com/</u></a>” (RT) con número [<strong>Nº de ticket abierto</strong>].</li>
 </ul>
-<p>Positivo:</p>
+<p><strong>Positivo:</strong></p>
 <ul>
   <li>Se han detectado múltiples fallos de inicio de sesión con diferentes usuarios [<strong>Username</strong>] desde la misma IP [<strong>Source IP</strong>] y su atributo [<strong>Attribute (custom)</strong>], después de analizar los usuarios, la IP y el código de error se llega a la conclusión de ha sido un ataque de&nbsp; “Password Spraying” en el que ha logrado acceder con la cuenta [<strong>Cuenta vulnerada</strong>].</li>
 </ul>
