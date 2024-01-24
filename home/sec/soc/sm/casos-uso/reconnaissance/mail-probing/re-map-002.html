@@ -2,13 +2,13 @@
 title: RE-MAP-002 [MEDIA] [MAIL] O365 Posible enumeración de cuentas desde un mismo sender
 description: 
 published: true
-date: 2024-01-22T12:26:09.269Z
+date: 2024-01-24T11:28:50.278Z
 tags: 
 editor: ckeditor
 dateCreated: 2024-01-22T12:26:09.269Z
 -->
 
-<h1 style="text-align:justify;">RE-MAP-002 [MEDIA] [MAIL] O365 Posible enumeración de cuentas desde un mismo sender</h1>
+<h1 style="text-align:center;">RE-MAP-002 [MEDIA] [MAIL] O365 Posible enumeración de cuentas desde un mismo sender</h1>
 <h2>Descripción</h2>
 <p>Este caso de uso identifica una posible enumeración de cuentas desde un mismo remitente.&nbsp;</p>
 <ul>
@@ -18,11 +18,15 @@ dateCreated: 2024-01-22T12:26:09.269Z
   <li><strong>Tecnologías utilizadas</strong>: Microsoft Office 365 Message Trace</li>
 </ul>
 <h2>MITRE</h2>
-<p>TA0007 – Discovery</p>
-<p>T1087.003 - Account Discovery: Email Account</p>
-<p>TA0011 – Command and Control</p>
-<p>T1071 - Application Layer Protocol</p>
-<p>.003 - Mail Protocols</p>
+<ul>
+  <li>TA0007 - Discovery</li>
+  <li>T1087.003 - Account Discovery: Email Account</li>
+  <li>TA0011 - Command and Control</li>
+  <li>T1071 - Application Layer Protocol<ul>
+      <li>T1071.003 - Mail Protocols</li>
+    </ul>
+  </li>
+</ul>
 <h2>What to do</h2>
 <p style="text-align:justify;">Cuando se detecten diversos fallos en el envío de correos electrónicos, habrá que identificar desde qué remitente se están produciendo.</p>
 <p>Se pueden detectar en QRadar con el QID: 115000006 (Message Delivery Failed).</p>
@@ -34,7 +38,7 @@ dateCreated: 2024-01-22T12:26:09.269Z
 <ul>
   <li>Remitente sospechoso</li>
   <li>Número de correos fallidos</li>
-  <li>Intervalo de tiempo&nbsp;</li>
+  <li>Intervalo de tiempo</li>
   <li>Cuentas de correo a las que les ha entregado un correo electrónico</li>
   <li>Resumen del análisis</li>
 </ul>
@@ -44,7 +48,7 @@ dateCreated: 2024-01-22T12:26:09.269Z
 <p>Fuera del horario Atiende N0 y escala a Guardia</p>
 <h2>Reglas de caso de uso</h2>
 <p>Adjuntar una captura de pantalla, con la información de la regla del caso de uso que se esté realizando.</p>
-<figure class="image image_resized" style="width:657px;"><img src="https://lh7-eu.googleusercontent.com/5tWN-T3kU5PUNBX4tZlZ1SV-4NPINOw9u6MSw52epHtg6g-rXOzS8IumRtEQt5nqw7ERKi_u700olmQPNlc-4dnzbPW9evI_IaFo_Zs1hI-PG9APLsb_y18xkfql_y2rRuHnINMfy-lM"></figure>
+<figure class="image image_resized" style="width:79.86%;"><img src="https://lh7-eu.googleusercontent.com/5tWN-T3kU5PUNBX4tZlZ1SV-4NPINOw9u6MSw52epHtg6g-rXOzS8IumRtEQt5nqw7ERKi_u700olmQPNlc-4dnzbPW9evI_IaFo_Zs1hI-PG9APLsb_y18xkfql_y2rRuHnINMfy-lM"></figure>
 <h2>Campos Necesarios</h2>
 <p style="text-align:justify;">Los campos mínimos que deben seleccionarse para llevar a cabo la investigación:</p>
 <ul>
@@ -56,15 +60,15 @@ dateCreated: 2024-01-22T12:26:09.269Z
 </ul>
 <h2>Cierre por defecto</h2>
 <p>Nota de cierre que se debería de rellenar a la hora de cerrar una alerta:</p>
-<p>Falso positivo:</p>
+<p><strong>Falso positivo:</strong></p>
 <ul>
   <li>Se ha detectado una posible enumeración de cuentas desde el sender [<strong>SenderAddress (custmon)</strong>], en el cual se detecta un número reducido de receptores incorrectos, después del análisis del correo enviado y verificar que el número de receptores incorrectos es reducido no se considera que no entraña ningún riesgo.</li>
 </ul>
-<p>Falso positivo con ajuste:</p>
+<p><strong>Falso positivo con ajuste:</strong></p>
 <ul>
   <li>Se ha detectado una posible enumeración de cuentas desde el sender [<strong>SenderAddress (custmon)</strong>], en el cual se detecta un número reducido de receptores incorrectos, después del análisis del correo enviado y verificar que el número de receptores incorrectos es reducido no se considera que no entraña ningún riesgo, sin embargo se localiza un&nbsp; fallo en la regla en la que [<strong>Descripción del ajuste necesario</strong>], por lo cual se abre ticket en “<a href="https://soporte.iubaris.com/"><u>https://soporte.iubaris.com/</u></a>” (RT) con número [<strong>Nº de ticket abierto</strong>].</li>
 </ul>
-<p>Positivo:</p>
+<p><strong>Positivo:</strong></p>
 <ul>
   <li>Se ha detectado una enumeración de cuentas de correo desde el sender [<strong>SenderAddress (custmon)</strong>], en el cual se ha detectado un número elevado de receptores incorrectos o inexistentes, [<strong>Análisis del correo enviado y de las direcciones de correo incorrectas</strong> ] se considera que ha sido un ataque de enumeración de cuentas.</li>
 </ul>
