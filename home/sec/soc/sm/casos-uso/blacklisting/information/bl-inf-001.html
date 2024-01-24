@@ -1,0 +1,54 @@
+<!--
+title: BL-INF-001 [MEDIA] [ESPUBLICO] [INTEL] Detectada IP de la infraestructura interna en blacklist
+description: 
+published: true
+date: 2024-01-24T09:39:04.043Z
+tags: 
+editor: ckeditor
+dateCreated: 2024-01-24T09:39:04.043Z
+-->
+
+<h1 style="text-align:center;">BL-INF-001 [MEDIA] [ESPUBLICO] [INTEL] Detectada IP de la infraestructura interna en blacklist&nbsp;</h1>
+<h2>Descripción</h2>
+<p>Detecta cuando se añade una IP de la infraestructura de esPublico en una blacklist conocida</p>
+<ul>
+  <li><strong>Nombre</strong>: Detectada IP de la infraestructura interna en blacklist</li>
+  <li><strong>Criticidad</strong>: Media</li>
+  <li><strong>Tiempo de Atención</strong>: 90 minutos</li>
+  <li><strong>Tecnologías utilizadas</strong>: Threat Intel Checker</li>
+</ul>
+<h2>MITRE</h2>
+<ul>
+  <li>TA0040 - Impact</li>
+</ul>
+<h2>What to do</h2>
+<p style="text-align:justify;">Se debe identificar la dirección IP afectada y la blacklist en la que se ha encontrado</p>
+<h2>Notas de cierre</h2>
+<p>Puntos mínimos que debe de tener un cierre</p>
+<ul>
+  <li>IP afectada de la infraestructura</li>
+  <li>Blacklist en la que se ha añadido</li>
+</ul>
+<h2>Matriz de escalado</h2>
+<p>Aunque la matriz de escalado debería ser la misma para todos los casos de uso, puede haber casos que por falta de capacidades, por dependencias de otros servicio o incluso por que así se acuerde para un caso concreto, se debe definir la matriz de escalado.</p>
+<p>En horario laboral: Atiende N1 y escala a N2</p>
+<p>Fuera del horario Atiende N0 y escala a Guardia</p>
+<h2>Reglas de caso de uso</h2>
+<figure class="image image_resized" style="width:76.67%;"><img src="https://lh7-eu.googleusercontent.com/8jB8_TwiQrq2EDXqySN-aVgkN5OzbRgE8KWyDM_DCDqA7jUMEMJYxEdQ2lFFUQ02XhjlgstAwTyfb4_X7De2U6S7_eYXEpbcrz4tQQGDT6JkbzD5OCbbOSTmDdNRzXolrOrp0sq4Deg6"></figure>
+<h2>Campos Necesarios</h2>
+<p>Los campos mínimos que deben seleccionarse para llevar a cabo la investigación:</p>
+<ul>
+  <li>En caso de un escaneo de puertos:</li>
+  <li>Start Time</li>
+  <li>Event Name</li>
+  <li>blacklisted (custom)</li>
+  <li>IP (custom)</li>
+  <li>detected_by (custom)</li>
+</ul>
+<h2>Cierre por defecto</h2>
+<p>Nota de cierre que se debería de rellenar a la hora de cerrar una alerta:</p>
+<p><strong>Positivo:</strong></p>
+<ul>
+  <li>Se ha detectado la IP [<strong>IP (custom)</strong>], perteneciente a la infraestructura de esPublico, en la blacklist [<strong>detected_by (custom)</strong>]. Se procede a que la eliminen [<strong>Posterior análisis</strong>]</li>
+</ul>
+<p>&nbsp;</p>
