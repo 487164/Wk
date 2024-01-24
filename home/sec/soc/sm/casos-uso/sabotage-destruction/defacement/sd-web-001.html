@@ -1,0 +1,79 @@
+<!--
+title: SD-WEB-001 [ALTA] [ESPUBLICO][WEB] Manipulación de portal web vía SQL injection
+description: 
+published: true
+date: 2024-01-24T08:32:10.303Z
+tags: 
+editor: ckeditor
+dateCreated: 2024-01-24T08:32:10.303Z
+-->
+
+<h1 style="text-align:center;">SD-WEB-001 [ALTA] [ESPUBLICO][WEB] Manipulación de portal web vía SQL injection</h1>
+<h2>Descripción</h2>
+<p style="text-align:justify;">Este caso de uso identifica una posible inyección SQL en alguno de los portales web, tales como los servidores ‘Apache HTTP Server’, ‘Microsoft IIS’, ‘NGINX HTTP Server’ y ‘Amazon AWS Route 53’.</p>
+<ul>
+  <li><strong>Nombre</strong>: Manipulacion de portal web vía SQL Injection</li>
+  <li><strong>Criticidad</strong>: Alta</li>
+  <li><strong>Tiempo de Atención</strong>: 30 minutos</li>
+  <li><strong>Tecnologías utilizadas</strong>: Logs de Servidores Web</li>
+</ul>
+<h2>MITRE</h2>
+<ul>
+  <li>TA0002 - Execution</li>
+  <li>T1203 Exploitation for Client Execution</li>
+  <li>TA0040 - Impact</li>
+  <li>T1565 Data Manipulation</li>
+</ul>
+<p>&nbsp;</p>
+<h2>What to do</h2>
+<p style="text-align:justify;">Esta regla saltara cuando en el campo de “URL Query String” se vea cualquier parámetro perteneciente a una consulta SQL:</p>
+<p style="text-align:center;">&nbsp;<i>(select|union|delete|create|update|drop|insert|alter|merge|char)&nbsp;</i></p>
+<p style="text-align:center;"><i>+</i></p>
+<p style="text-align:center;"><i>(from|in|all|where)</i></p>
+<p style="text-align:justify;">Una vez identificada una posible inyección SQL en alguno de los portales web, deberá identificarse si ha sido exitosa, y que tipo de <i>‘query’ </i>contenía en la inyección para así determinar el alcance del posible impacto. También se revisará desde qué dirección IP se ha intentado lanzar la consulta SQL contra alguno de los portales web.</p>
+<p style="text-align:justify;">En caso de que haya generado un error y la consulta no haya podido completarse, lo definiríamos como FP descartando un incidente de seguridad, y proporcionando la nota de cierre correspondiente con la investigación realizada.&nbsp;</p>
+<h2>Notas de cierre</h2>
+<p>Puntos mínimos que debe de tener un cierre</p>
+<ul>
+  <li>Portal Web / Servidor objetivo</li>
+  <li>Direccion IP atacante</li>
+  <li>Consulta SQL lanzada</li>
+  <li>Estado de la consulta</li>
+  <li>Resumen del análisis</li>
+</ul>
+<h2>Matriz de escalado</h2>
+<p>Aunque la matriz de escalado debería ser la misma para todos los casos de uso, puede haber casos que por falta de capacidades, por dependencias de otros servicio o incluso por que así se acuerde para un caso concreto, se debe definir la matriz de escalado.</p>
+<p>En horario laboral: Atiende en primera instancia N1 y si es necesario escalar, pasaría a N2.</p>
+<p>Fuera del horario Atiende el técnico de 24/7 que se encuentre y escalara después del análisis inicia a Guardia ya que hay que ponerse en contacto con terceros para una correcta resolución.</p>
+<h2>Reglas de caso de uso</h2>
+<figure class="image image_resized" style="width:100%;"><img src="https://lh7-eu.googleusercontent.com/QzLdNlW1hoT0TntPl6ufmvuvdd9WT4Gs0F0MR8dQGTlCnwDSuBrYl_FVbazN9T-ROnKyghEKUxUgdRuMhWgt-hL_-YxSRMj7RU8nZA9qPJRZ6H5nRpLnKV_KWx1HyKG0z68HVycCkYHA"></figure>
+<h2>Campos Necesarios</h2>
+<p style="text-align:justify;">Los campos mínimos que deben seleccionarse para llevar a cabo la investigación:</p>
+<ul>
+  <li>Start Time</li>
+  <li>Event Name</li>
+  <li>Source IP</li>
+  <li>Destination IP</li>
+  <li>Method (custom)</li>
+  <li>URL Referrer (custom)</li>
+  <li>URL Query String (custom)</li>
+  <li>User Agent (custom)</li>
+</ul>
+<h2>Cierre por defecto</h2>
+<p>Nota de cierre que se debería de rellenar a la hora de cerrar una alerta:</p>
+<p><strong>Falso positivo:</strong></p>
+<ul>
+  <li>Se ha detectado que el Host [<strong>Log Source</strong>], la IP [<strong>Source IP</strong>] envía la siguiente query mediante [<strong>Method (custom)</strong>] [<strong>URL Query String (custom)</strong>] se observa [<strong>Análisis de la Query</strong>], después de analizar la alerta y la Query inyectada se verifica que no supone ningún riesgo.</li>
+</ul>
+<p><strong>Falso positivo con ajuste:</strong></p>
+<ul>
+  <li>Se ha detectado que el Host [L<strong>og Source</strong>], la IP [<strong>Source IP</strong>] envía la siguiente query mediante [<strong>Method (custom)</strong>] [<strong>URL Query String (custom)</strong>] se observa [<strong>Análisis de la Query</strong>], después de analizar la alerta y la Query inyectada se verifica que no supone ningún riesgo, sin embargo se localiza un&nbsp; fallo en la regla en la que [<strong>Descripción del ajuste necesario</strong>], por lo cual se abre ticket en “<a href="https://soporte.iubaris.com/"><u>https://soporte.iubaris.com/</u></a>” (RT) con número [<strong>Nº de ticket abierto</strong>].</li>
+</ul>
+<p><strong>Positivo contenido:</strong></p>
+<ul>
+  <li>Se ha detectado que el Host [<strong>Log Source</strong>], la IP [<strong>Source IP</strong>] envía la siguiente query mediante [<strong>Method (custom)</strong>] [<strong>URL Query String (custom)</strong>] se observa [<strong>Análisis de la Query</strong>], después de analizar la alerta y la Query inyectada a sido contenida por las contramedidas aplicadas</li>
+</ul>
+<p><strong>Positivo:</strong></p>
+<ul>
+  <li>Se ha detectado que el Host [<strong>Log Source</strong>], la IP [<strong>Source IP</strong>] envía la siguiente query mediante [<strong>Method (custom)</strong>] [<strong>URL Query String (custom)</strong>] se observa [<strong>Análisis de la Query</strong>], después de analizar la alerta y la Query inyectada se verifica que no&nbsp; ha podido ser contenida por las contramedidas aplicadas</li>
+</ul>
