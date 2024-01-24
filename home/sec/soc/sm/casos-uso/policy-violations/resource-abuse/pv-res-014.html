@@ -1,0 +1,62 @@
+<!--
+title: PV-RES-014[MEDIA] [ESPUBLICO] [O365] Espacio o documento compartido fuera de la organizacion
+description: 
+published: true
+date: 2024-01-24T10:42:28.297Z
+tags: 
+editor: ckeditor
+dateCreated: 2024-01-24T10:42:28.297Z
+-->
+
+<h1 style="text-align:center;">PV-RES-014[MEDIA] [ESPUBLICO] [O365] Espacio o documento compartido fuera de la organizacion</h1>
+<h2>Descripción</h2>
+<p style="text-align:justify;">Caso de uso que identifica cuando se comparte un fichero de SharePoint o un espacio con una cuenta externa a la organización. Así se pretende detectar posibles fugas de datos.</p>
+<ul>
+  <li><strong>Nombre</strong>: Espacio o documento compartido fuera de la organización.</li>
+  <li><strong>Criticidad</strong>: Media</li>
+  <li><strong>Tiempo de Atención</strong>: 90 minutos</li>
+  <li><strong>Tecnologías utilizadas</strong>: Office365</li>
+</ul>
+<h2>MITRE</h2>
+<p><br><br>&nbsp;</p>
+<h2>What to do</h2>
+<p style="text-align:justify;">Saltara alerta cuando se identifique la compartición de un fichero mediante un enlace de SharePoint o el acceso a un espacio de SharePoint a usuarios que no pertenecen a la organización.&nbsp;</p>
+<h2>Notas de cierre</h2>
+<p>Puntos mínimos que debe de tener un cierre:</p>
+<ul>
+  <li>Hora/Fecha inicial</li>
+  <li>Usuario</li>
+  <li>Cuenta de la correo externa</li>
+  <li>Espacio/Fichero compartido</li>
+  <li>Resumen del análisis</li>
+</ul>
+<h2>Matriz de escalado</h2>
+<p>Aunque la matriz de escalado debería ser la misma para todos los casos de uso, puede haber casos que por falta de capacidades, por dependencias de otros servicio o incluso por que así se acuerde para un caso concreto, se debe definir la matriz de escalado.</p>
+<p>En horario laboral: Atiende N1 y escala a N2</p>
+<p>Fuera del horario Atiende N0 y escala a Guardia</p>
+<h2>Reglas de caso de uso</h2>
+<p>Información de la regla:</p>
+<figure class="image image_resized" style="width:70.01%;"><img src="https://lh7-eu.googleusercontent.com/WwBXv4Dunqo1kyaMVLj5bCVmMHMJTjwjHvPsj8gDClQcjqPjJyEZbEnZIJs34_rRBmhb3tawqRXy2Zr7NYB2lHv05bPhzuRd2J72V0_8w8J9O3tsWdjJjWqS_XmozYUGCFKhoxrMqDT3"></figure>
+<h2>Campos Necesarios</h2>
+<p>Los campos mínimos que deben seleccionarse para llevar a cabo la investigación:</p>
+<ul>
+  <li>Start Time</li>
+  <li>Username</li>
+  <li>TargetUserOrGroupName (custom)</li>
+  <li>Espacio/Fichero compartido</li>
+  <li>Resumen del análisis</li>
+</ul>
+<h2>Cierre por defecto</h2>
+<p>Nota de cierre que se debería de rellenar a la hora de cerrar una alerta:</p>
+<p><strong>Falso positivo:</strong></p>
+<ul>
+  <li>Se ha detectado que el usuario [<strong>Username</strong>] ha compartido con la cuenta de correo [<strong>TargetUserOrGroupName (custom)</strong>], el fichero [<strong>Filename (custom)</strong>] o espacio X. Es una actividad esperada por temas laborales.</li>
+</ul>
+<p><strong>Falso positivo Ajuste:</strong></p>
+<ul>
+  <li>Se ha detectado que el usuario [<strong>Username</strong>] ha compartido con la cuenta de correo [<strong>TargetUserOrGroupName (custom)</strong>], el fichero [<strong>Filename (custom)</strong>] o espacio X. Es una actividad esperada por temas laborales, sin embargo se localiza un&nbsp; fallo en la regla en la que [<strong>Descripción del ajuste necesario</strong>], por lo cual se abre ticket en “<a href="https://soporte.iubaris.com/"><u>https://soporte.iubaris.com/</u></a>” (RT) con número [<strong>Nº de ticket abierto</strong>].</li>
+</ul>
+<p><strong>Positivo:</strong></p>
+<ul>
+  <li>Se ha detectado que el usuario [<strong>Username</strong>] ha compartido con la cuenta de correo [<strong>TargetUserOrGroupName (custom)</strong>], el fichero [<strong>Filename (custom)</strong>] o espacio X. Es una actividad anómala y se comprueba que ha existido una filtración de datos no esperada.</li>
+</ul>
