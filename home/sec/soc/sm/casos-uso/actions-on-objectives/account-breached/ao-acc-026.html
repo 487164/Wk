@@ -2,13 +2,13 @@
 title: AO-ACC-026 [MEDIA] [ESPUBLICO] [AD-DS] Multiples intentos de conexion RDP fallidas a un DC fallidas
 description: 
 published: true
-date: 2024-01-22T12:13:57.116Z
+date: 2024-01-24T09:34:48.459Z
 tags: 
 editor: ckeditor
 dateCreated: 2024-01-22T12:13:57.116Z
 -->
 
-<h1>AO-ACC-026 [MEDIA] [ESPUBLICO] [AD-DS] Multiples intentos de conexion RDP fallidas a un DC fallidas</h1>
+<h1 style="text-align:center;">AO-ACC-026 [MEDIA] [ESPUBLICO] [AD-DS] Multiples intentos de conexion RDP fallidas a un DC fallidas</h1>
 <h2>Descripción</h2>
 <p style="text-align:justify;">Este caso de uso identifica una inclusión o borrado de un usuario sobre uno de los grupos considerados críticos.&nbsp;</p>
 <ul>
@@ -18,8 +18,10 @@ dateCreated: 2024-01-22T12:13:57.116Z
   <li><strong>Tecnologías utilizadas</strong>: Logs de DC (Microsoft Windows Security Event Log @ adX.auloce.local)</li>
 </ul>
 <h2>MITRE</h2>
-<p>TA0001 - Initial Access.</p>
-<p>TA0006 – Credential Access.</p>
+<ul>
+  <li>TA0001 - Initial Access.</li>
+  <li>TA0006 - Credential Access.</li>
+</ul>
 <h2>What to do</h2>
 <p style="text-align:justify;">Cuando salte la alerta, debido a que los campos no se encuentran parseados correctamente, comprobar en el payload el usuario que se está intentando loguear (Asunto:&nbsp; Nombre de usuario: XXXXXXX). Comprobar si dicho usuario es normal que se este logueando (p.ej que sea de sistemas) dado que si es alguien que no debería estar intentando acceder por RDP a un AD, habría que bloquearle directamente siendo la detección positiva si se diera el caso... Si es alguien de sistemas o que tenga que acceder al AD por ticket o actividad autorizada, comprobar si finalmente ha podido loguearse dejando de generar fallos, tratándose de un FP.</p>
 <h2>Notas de cierre</h2>
@@ -35,7 +37,7 @@ dateCreated: 2024-01-22T12:13:57.116Z
 <p>En horario laboral: Atiende en primera instancia N1 y si es necesario escalar, pasaría a N2.</p>
 <p>Fuera del horario Atiende el técnico de 24/7 que se encuentre y en caso necesario escalaría a Guardia ya que al ser una alerta ALTA se podría.</p>
 <h2>Reglas de Casos de Uso</h2>
-<figure class="image image_resized" style="width:567px;"><img src="https://lh7-eu.googleusercontent.com/tBkPvGfITQXpBbod4Nul_ayuTrtue1AjTAZYRRpmHao7Bpv_OGGeHlkj1NrcxKJLGOsViPrJVJK-HNxajx7BsjF9uLkxwjHipkrKetOUf8LqGoJ-raV4FKdwsptSE8ZOQpCnAgimBEAF"></figure>
+<figure class="image image_resized" style="width:98.78%;"><img src="https://lh7-eu.googleusercontent.com/tBkPvGfITQXpBbod4Nul_ayuTrtue1AjTAZYRRpmHao7Bpv_OGGeHlkj1NrcxKJLGOsViPrJVJK-HNxajx7BsjF9uLkxwjHipkrKetOUf8LqGoJ-raV4FKdwsptSE8ZOQpCnAgimBEAF"></figure>
 <h2>Campos Necesarios</h2>
 <p>Los campos mínimos que deben seleccionarse para llevar a cabo la investigación:</p>
 <ul>
