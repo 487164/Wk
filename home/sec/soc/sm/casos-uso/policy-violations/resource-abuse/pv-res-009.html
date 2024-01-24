@@ -1,0 +1,55 @@
+<!--
+title: PV-RES-009 [MEDIA] [ESPUBLICO] [ARUBA] Inicio de sesion en switch
+description: 
+published: true
+date: 2024-01-24T10:36:44.109Z
+tags: 
+editor: ckeditor
+dateCreated: 2024-01-24T10:36:44.109Z
+-->
+
+<h1 style="text-align:center;">PV-RES-009 [MEDIA] [ESPUBLICO] [ARUBA] Inicio de sesion en switch</h1>
+<h2>Descripción</h2>
+<p style="text-align:justify;">Caso de uso que identificael inicio de sesion en switch, esta actividad siempre debe ir ligada a un ticket.</p>
+<ul>
+  <li><strong>Nombre</strong>: Inicio de sesion en switch.</li>
+  <li><strong>Criticidad</strong>: Media</li>
+  <li><strong>Tiempo de Atención</strong>: 90 minutos</li>
+  <li><strong>Tecnologías utilizadas</strong>: Aruba AOS-CX Switch</li>
+</ul>
+<h2>MITRE</h2>
+<ul>
+  <li>T1008 - Fallback Channels<br><br>&nbsp;</li>
+</ul>
+<h2>What to do</h2>
+<p style="text-align:justify;">Cuando salte la alerta, verificar el usuario que está realizando el inicio de sesion y sobre que switch. Esta actividad <strong>siempre</strong> debe estar ligada a un ticket. Si no es actividad autorizada o no hay un ticket para esta, escalar la actividad detectada. Adicionalmente, en este ultimo caso, verificar la actividad del usuario origen para identificar posibles comportamientos anómalos o sospechosos que nos indicaran una posible vulneración en nuestros sistemas.</p>
+<h2>Notas de cierre</h2>
+<p>Puntos mínimos que debe de tener un cierre:</p>
+<ul>
+  <li>Usuario realizando la accion</li>
+  <li>Hora/Fecha inicial</li>
+  <li>Switch sobre el que realiza la accion</li>
+  <li>Analisis de la actividad realizada del usuario adicionalmente a la alerta en caso de no ser autorizada</li>
+  <li>Resumen del análisis</li>
+</ul>
+<h2>Matriz de escalado</h2>
+<p>Aunque la matriz de escalado debería ser la misma para todos los casos de uso, puede haber casos que por falta de capacidades, por dependencias de otros servicio o incluso por que así se acuerde para un caso concreto, se debe definir la matriz de escalado.</p>
+<p>En horario laboral: Atiende N1 y escala a N2</p>
+<p>Fuera del horario Atiende N0 y escala a Guardia</p>
+<h2>Reglas de caso de uso</h2>
+<p>Información de la regla:</p>
+<figure class="image image_resized" style="width:79.77%;"><img src="https://lh7-eu.googleusercontent.com/odoiqZss3ch76Dtuuh0yLsuFTJQ5xa2MA7CyogBLHf2VyJ1uR_tSwAfMv7mlA7fqLYpAWrwEBqIQDF-Kp6rLqADT2rWrjZ7UxdmGJScPbKzmLw_MJeojb9j7iggHQ_JmHiYxUnRtltMa"></figure>
+<h2>Campos Necesarios</h2>
+<p>Los campos mínimos que deben seleccionarse para llevar a cabo la investigación:</p>
+<ul>
+  <li>Start Time</li>
+  <li>Número de ticket</li>
+  <li>Username</li>
+  <li>Switch</li>
+</ul>
+<h2>Cierre por defecto</h2>
+<p>Nota de cierre que se debería de rellenar a la hora de cerrar una alerta:</p>
+<p><strong>Falso positivo:</strong></p>
+<ul>
+  <li>Se ha detectado que el usuario [<strong>Username</strong>] ha iniciado sesión en el switch [<strong>switch</strong>], esta actividad se encuentra ligada al ticket [<strong>número de ticket</strong>], después del análisis del usuario se verifica que está realizando actividad autorizada.</li>
+</ul>
