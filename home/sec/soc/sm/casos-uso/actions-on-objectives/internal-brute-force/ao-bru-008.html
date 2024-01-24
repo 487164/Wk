@@ -1,0 +1,46 @@
+<!--
+title: AO-BRU-008 [MEDIA] [OCSP] Número elevado de peticiones revocadas desde un origen en menos de 5 minutos
+description: 
+published: true
+date: 2024-01-24T12:37:48.097Z
+tags: 
+editor: ckeditor
+dateCreated: 2024-01-24T12:37:48.097Z
+-->
+
+<h1 style="text-align:center;">AO-BRU-008 [MEDIA] [OCSP] Número elevado de peticiones revocadas desde un origen en menos de 5 minutos</h1>
+<h2>Descripción</h2>
+<p style="text-align:justify;">Este caso de uso identifica un número elevado de peticiones revocadas desde un mismo origen en un intervalo de tiempo inferior a 5 minutos.&nbsp;</p>
+<p style="text-align:justify;">A su vez, integra otra regla denominada “AUX-02 AO-BRU-008” con algunas condiciones adicionales, donde hay un “Reference Set” que incluye más de 700 OCSP Serials revocados.</p>
+<p style="text-align:justify;">Los OCSP son un protocolo de comprobación del estado de un certificado en línea, un método para determinar el estado de vigencia de un certificado digital X.509 usando otros medios que no sean el uso de CRL (Listas de Revocación de Certificados).&nbsp;</p>
+<ul>
+  <li><strong>Nombre</strong>: Número elevado de peticiones revocadas desde un origen</li>
+  <li><strong>Criticidad</strong>: Media</li>
+  <li><strong>Tiempo de Atención</strong>: 90 minutos</li>
+  <li><strong>Tecnologías utilizadas</strong>: Logs locales</li>
+</ul>
+<h2>MITRE</h2>
+<ul>
+  <li>TA0001 - Initial Access.</li>
+</ul>
+<h2>What to do</h2>
+<p style="text-align:justify;">Se debe analizar desde qué dirección IP se están intentando hacer las reiteradas peticiones contra el servidor.&nbsp;</p>
+<p style="text-align:justify;">Se comprobará en qué periodo de tiempo se han realizado, y si todas las conexiones han sido revocadas, o ha habido alguna petición aceptada.&nbsp;</p>
+<p style="text-align:justify;">En caso de ser revocadas, podrá revisarse en el payload el estado del OCSP request para comprobar el mensaje que arroja, ya que puede ser positivo o negativo, en base al serial del certificado. Si este serial está incluido en el Reference Set donde se almacenan los OCSP Serials, saltará como petición revocada, debido al estado del certificado.&nbsp; En este caso deberá escalarse para comprobar a quién corresponde el certificado.&nbsp;</p>
+<p style="text-align:justify;">De lo contrario, si el serial no está contemplado en el listado de OCSP Serials no debería salir como revocado.</p>
+<p style="text-align:justify;">En caso de tratarse de un certificado válido, lo definiríamos como Falso_Positivo&nbsp; y debería revisarse el motivo por el que ha saltado la regla, pudiendo modificar la regla si estuviera incluido erróneamente en la lista.</p>
+<h2>Notas de cierre</h2>
+<p>Puntos mínimos que debe de tener un cierre:</p>
+<ul>
+  <li>Dirección IP origen</li>
+  <li>Número de peticiones rechazadas</li>
+  <li>OCSP Serial</li>
+  <li>Resumen del Análisis</li>
+</ul>
+<h2>Matriz de escalado</h2>
+<p style="text-align:justify;">En esta alerta, el escalado se realizaría si después de terminar la investigación ya sea por falta de conocimientos o por sucesos sospechosos que se hayan visto no se pueda descartar un posible incidente de seguridad. Dependiendo del horario en que nos encontremos el escalado será distinto:</p>
+<p style="text-align:justify;">En horario laboral: Atiende en primera instancia N1 y si es necesario escalar, pasaría a N2.</p>
+<p style="text-align:justify;">Fuera del horario Atiende el técnico de 24/7 que se encuentre y en caso necesario escalaría a Guardia ya que al ser una alerta ALTA se podría dar un incidente de seguridad.</p>
+<h2>Reglas de caso de uso</h2>
+<p style="text-align:justify;">A continuación se muestran las reglas que tienen que darse para que salte la alerta:</p>
+<figure class="image image_resized" style="width:693px;"><img src="https://lh7-eu.googleusercontent.com/BIH2QZl1j6bNj6k4V0t3Y9iiDQyf9qLmYxdUnVjd8Ge_T-Vx0o1HqwaOKlw5j-Tlq93NOiUbYi2JOil1bE98LASBkRSWJcscFsFiadOPFmnRmsJppCCO97kQwEETnz_UTK5M5C6Ef5IGp6IbkiU88g"></figure>
