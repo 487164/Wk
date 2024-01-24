@@ -2,13 +2,13 @@
 title: AO-ACC-012 [MEDIA] [MULTI] [Google] Workspace Posible cuenta comprometida
 description: 
 published: true
-date: 2024-01-22T11:56:32.392Z
+date: 2024-01-24T09:17:01.192Z
 tags: 
 editor: ckeditor
 dateCreated: 2024-01-22T11:56:32.392Z
 -->
 
-<h1 style="text-align:justify;">AO-ACC-012 [MEDIA] [MULTI] [Google] Workspace Posible cuenta comprometida</h1>
+<h1 style="text-align:center;">AO-ACC-012 [MEDIA] [MULTI] [Google] Workspace Posible cuenta comprometida</h1>
 <h2>Descripción</h2>
 <p>Este caso de uso identifica una posible cuenta comprometida de Google G Suite, detectando al menos dos eventos de login desde diferentes direcciones IP.</p>
 <ul>
@@ -18,9 +18,11 @@ dateCreated: 2024-01-22T11:56:32.392Z
   <li><strong>Tecnologías utilizadas</strong>: Google WorkSpace</li>
 </ul>
 <h2>MITRE</h2>
-<p>TA0006 – Credential Access.</p>
-<p>TA0007 - Discovery.</p>
-<p>TA0001 - Initial Access.</p>
+<ul>
+  <li>TA0006 - Credential Access.</li>
+  <li>TA0007 - Discovery.</li>
+  <li>TA0001 - Initial Access.</li>
+</ul>
 <h2>What to do</h2>
 <p style="text-align:justify;">Una vez identificado el usuario que posiblemente haya sido comprometido, deberá revisarse desde qué direcciones IP y país se han realizado los Login.</p>
 <p style="text-align:justify;">En QRadar hay dos QID que hacen referencia al login de los usuarios con el <i>log source</i> de “Google Workspace”:</p>
@@ -49,7 +51,7 @@ dateCreated: 2024-01-22T11:56:32.392Z
 <p>En horario laboral: Atiende N1 y escala a N2</p>
 <p>Fuera del horario Atiende N0 y escala a Guardia</p>
 <h2>Reglas de caso de uso</h2>
-<figure class="image image_resized" style="width:666px;"><img src="https://lh7-eu.googleusercontent.com/9RAEEzaA3S0TIpgJHzFO82mNXB-ZBzBnhP7Uc1GblkolHhs_UkWKhvMJrg8mjCCsfCo5KvM_a9DyrCxuU95Oo-_JJBuDL5oycpc9OSzdytN2-MYGKBg5sXjKSx5T-EPZ-316WwCh2quu"></figure>
+<figure class="image image_resized" style="width:68.71%;"><img src="https://lh7-eu.googleusercontent.com/9RAEEzaA3S0TIpgJHzFO82mNXB-ZBzBnhP7Uc1GblkolHhs_UkWKhvMJrg8mjCCsfCo5KvM_a9DyrCxuU95Oo-_JJBuDL5oycpc9OSzdytN2-MYGKBg5sXjKSx5T-EPZ-316WwCh2quu"></figure>
 <h2>Campos Necesarios</h2>
 <p>Los campos mínimos que deben seleccionarse para llevar a cabo la investigación:</p>
 <ul>
@@ -61,15 +63,15 @@ dateCreated: 2024-01-22T11:56:32.392Z
 </ul>
 <h2>Cierre por defecto</h2>
 <p>Nota de cierre que se debería de rellenar a la hora de cerrar una alerta:</p>
-<p>Falso positivo:</p>
+<p><strong>Falso positivo:</strong></p>
 <ul>
   <li>Se han detectado que el usuario [<strong>Username</strong>]&nbsp; se ha logueado desde diferentes ubicaciones, en las cuales sería imposible desplazarse utilizando el tiempo entre conexiones, por lo que se han analizado las IPs de origen que nos muestra la alerta, y al usuario en Azure, también se verifica si ha habido MFA y la ubicación de sus conexiones sin encontrar nada sospechoso, se determina que ha habido un fallo en la geolocalización del usuario.</li>
 </ul>
-<p>Falso positivo con ajuste:</p>
+<p><strong>Falso positivo con ajuste:</strong></p>
 <ul>
   <li>Se han detectado que el usuario [<strong>Username</strong>]&nbsp; se ha logueado desde diferentes ubicaciones, en las cuales sería imposible desplazarse utilizando el tiempo entre conexiones, por lo que se han analizado las IPs de origen que nos muestra la alerta, y al usuario en Azure, también se verifica si ha habido MFA y la ubicación de sus conexiones sin encontrar nada sospechoso, se determina que ha habido un fallo en la geolocalización del usuario, sin embargo se localiza un&nbsp; fallo en la regla en la que [<strong>Descripción del ajuste necesario</strong>], por lo cual se abre ticket en “<a href="https://soporte.iubaris.com/"><u>https://soporte.iubaris.com/</u></a>” (RT) con número [<strong>Nº de ticket abierto</strong>].</li>
 </ul>
-<p>Positivo:</p>
+<p><strong>Positivo:</strong></p>
 <ul>
   <li>Se han detectado que el usuario [<strong>Username</strong>]&nbsp; se ha logueado desde diferentes ubicaciones, en las cuales sería imposible desplazarse utilizando el tiempo entre conexiones, por lo que se han analizado las IPs de origen que nos muestra la alerta, así mismo se comprueba la actividad del usuario en Azure, determinando que la cuenta del usuario ha sido comprometido siendo utilizada por otra persona.</li>
 </ul>
