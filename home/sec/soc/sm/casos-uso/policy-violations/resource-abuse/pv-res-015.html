@@ -1,0 +1,59 @@
+<!--
+title: PV-RES-015 [MEDIA] [ESPUBLICO] [O365] Cambios en roles de Azure
+description: 
+published: true
+date: 2024-01-24T10:43:51.798Z
+tags: 
+editor: ckeditor
+dateCreated: 2024-01-24T10:43:51.798Z
+-->
+
+<h1 style="text-align:center;">PV-RES-015 [MEDIA] [ESPUBLICO] [O365] Cambios en roles de Azure</h1>
+<h2>Descripción</h2>
+<p style="text-align:justify;">Caso de uso que identificada la modificacion de un rol en azure, ya sea adicion como borrado de un rol sobre determinado usuario.</p>
+<ul>
+  <li><strong>Nombre</strong>: Cambios en roles de Azure.</li>
+  <li><strong>Criticidad</strong>: Media</li>
+  <li><strong>Tiempo de Atención</strong>: 60 minutos</li>
+  <li><strong>Tecnologías utilizadas</strong>: Office365 (Azure)</li>
+</ul>
+<h2>MITRE</h2>
+<ul>
+  <li>T1098.003 - Account Manipulation: Additional Cloud Roles<br>&nbsp;</li>
+</ul>
+<h2>What to do</h2>
+<p style="text-align:justify;">Cuando salte la alerta, verificar el usuario que está realizando el cambio y sobre que usuario y rol. Esta actividad <strong>siempre</strong> debe estar ligada a un ticket. Si no es actividad autorizada o no hay un ticket para esta, escalar la actividad detectada. En ocasiones durante la investigacion si no esta ligada a ningun ticket, ademas de escalar la actividad verificar cuando se creó el rol y el usuario al que se le esta asignando en busca de actividad sospechosa.&nbsp;</p>
+<h2>Notas de cierre</h2>
+<p>Puntos mínimos que debe de tener un cierre:</p>
+<ul>
+  <li>Usuario realizando la accion</li>
+  <li>Usuario al que se le realiza la accion</li>
+  <li>Rol</li>
+  <li>Ticket en caso de estar ligado a uno</li>
+  <li>Vida del usuario destino y rol (si no esta ligada a un ticket)</li>
+  <li>Analisis de la actividad realizada del usuario adicionalmente a la alerta en caso de no ser autorizada</li>
+  <li>Resumen del análisis</li>
+</ul>
+<h2>Matriz de escalado</h2>
+<p>Aunque la matriz de escalado debería ser la misma para todos los casos de uso, puede haber casos que por falta de capacidades, por dependencias de otros servicio o incluso por que así se acuerde para un caso concreto, se debe definir la matriz de escalado.</p>
+<p>En horario laboral: Atiende N1 y escala a N2</p>
+<p>Fuera del horario Atiende N0 y escala a Guardia</p>
+<h2>Reglas de caso de uso</h2>
+<p>Información de la regla:</p>
+<figure class="image image_resized" style="width:84.57%;"><img src="https://lh7-eu.googleusercontent.com/Mw272GQb4eaOXIQkGHa50RNt93kZM78h65dq4AifaZWLsa6hNDHuy8JK9weaBh2Lyb_WzKJQWmWISh9x-j4a1X-bUafd7EY0AAwhpKw3ASeor43cXDWsZB3dSV0FkMqnd_BuDWEkAyP8"></figure>
+<h2>Campos Necesarios</h2>
+<p>Los campos mínimos que deben seleccionarse para llevar a cabo la investigación:</p>
+<ul>
+  <li>Start Time</li>
+  <li>Numero de ticket</li>
+  <li>Si se da o quita el rol</li>
+  <li>Username: El que modifica el rol</li>
+  <li>Target Username (custom): Al que se le da o quita el rol</li>
+  <li>Role Name (custom): Que rol se modifica</li>
+</ul>
+<h2>Cierre por defecto</h2>
+<p>Nota de cierre que se debería de rellenar a la hora de cerrar una alerta:</p>
+<p><strong>Falso positivo:</strong></p>
+<ul>
+  <li>Se ha detectado que el usuario [<strong>Username</strong>] ha creado/borrado/modificado el rol [<strong>Role Name</strong>] sobre el usuario [<strong>Target Username</strong>], esta actividad se encuentra ligada al ticket [<strong>número de ticket</strong>], después del análisis del usuario se verifica que está realizando actividad autorizada.</li>
+</ul>
