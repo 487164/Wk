@@ -1,0 +1,80 @@
+<!--
+title: PV-RES-001 [MEDIA] [MAIL] Envio de mas de 50 correos desde un origen en menos de 15 minutos
+description: 
+published: true
+date: 2024-01-24T10:17:28.241Z
+tags: 
+editor: ckeditor
+dateCreated: 2024-01-24T10:17:28.241Z
+-->
+
+<h1 style="text-align:center;">PV-RES-001 [MEDIA] [MAIL] Envio de mas de 50 correos desde un origen en menos de 15 minutos</h1>
+<h2>Descripción</h2>
+<p style="text-align:justify;">Este caso de uso identifica un envío de más de 50 correos desde un origen en menos de 15 minutos (R2L or L2R or L2L), pudiendo tratarse de un envío masivo de correos sospechosos desde una cuenta comprometida o sospechosa.</p>
+<ul>
+  <li><strong>Nombre</strong>: Envio de mas de 50 correos desde un origen en menos de 15 minutos</li>
+  <li><strong>Criticidad</strong>: Media</li>
+  <li><strong>Tiempo de Atención</strong>: 90 minutos</li>
+  <li><strong>Tecnologías utilizadas</strong>: Microsoft Office 365</li>
+</ul>
+<h2>MITRE</h2>
+<ul>
+  <li>TA0001 - Initial Access</li>
+  <li>T1566 - Phishing</li>
+  <li>TA0009 - Collection</li>
+  <li>T1114 - Email Collection</li>
+</ul>
+<h2>What to do</h2>
+<p style="text-align:justify;">Una vez identificada la cuenta de correo electrónico que está mandando una cantidad anómala de correos en tan solo 15 minutos, deberá comprobarse a qué cuentas se les ha estado mandando estos correos.&nbsp;</p>
+<p style="text-align:justify;">De esta manera se podrá comprobar si la comunicación es:</p>
+<ul>
+  <li><i><strong>R2L</strong>:</i> Una posible campaña de Phishing hacia diversas cuentas de la compañía. Habrá que comprobar cuál es el contenido de los correos, que cuentas han sido afectadas y si les ha llegado a entrar en su buzón el correo o por el contrario se ha ido a Spam o Cuarentena.&nbsp;</li>
+  <li><i><strong>L2L</strong>:</i> Una posible cuenta de correo corporativa comprometida enviando un gran volumen de correos sospechosos a cuentas corporativas. Habrá que ponerse en contacto con el usuario propietario de la cuenta para ver si es consciente y el motivo de esta actividad.</li>
+  <li><i><strong>L2R</strong></i>: Una posible cuenta de correo corporativa comprometida enviando un gran volumen de correos sospechosos a cuentas externas. Habrá que ponerse en contacto con el usuario propietario de la cuenta para ver si es consciente y el motivo de esta actividad.</li>
+</ul>
+<p style="text-align:justify;">En caso de ser una actividad esperada por el usuario, lo definiríamos como FP descartando un incidente de seguridad, y proporcionando la nota de cierre correspondiente con la investigación realizada.</p>
+<h2>Notas de cierre</h2>
+<p>Puntos mínimos que debe de tener un cierre:</p>
+<ul>
+  <li>Remitente</li>
+  <li>Recipientes</li>
+  <li>Hora/Fecha</li>
+  <li>Número de correos</li>
+  <li>Asunto de los mismos</li>
+  <li>Resumen del análisis</li>
+</ul>
+<h2>Matriz de escalado</h2>
+<p>Aunque la matriz de escalado debería ser la misma para todos los casos de uso, puede haber casos que por falta de capacidades, por dependencias de otros servicio o incluso por que así se acuerde para un caso concreto, se debe definir la matriz de escalado.</p>
+<p>En horario laboral: Atiende N1 y escala a N2</p>
+<p>Fuera del horario Atiende N0 y escala a Guardia</p>
+<h2>Reglas de caso de uso</h2>
+<p>Información de la regla:</p>
+<figure class="image image_resized" style="width:82.13%;"><img src="https://lh7-eu.googleusercontent.com/EJpA-1hZaOWJp6f65H8gbtVB9xesAF7A5ghJvVQ1oj_vQHS09kRqS_g9POouK70NrL8tCnek4LZSyBGt01qtGdqzFCljJVDWfEV8ZYDOHZjpEeayXv6e5bE0ocV3Ohq-0HgnaFqN99Or"></figure>
+<h2>Campos Necesarios</h2>
+<p>Los campos mínimos que deben seleccionarse para llevar a cabo la investigación:</p>
+<ul>
+  <li>Start Time</li>
+  <li>FromIP (custom)</li>
+  <li>Sender Address (custom)</li>
+  <li>RecipientAddress custom)</li>
+  <li>Subject (custom)</li>
+  <li>MessageTraceId (custom)</li>
+</ul>
+<h2>Cierre por defecto</h2>
+<p>Nota de cierre que se debería de rellenar a la hora de cerrar una alerta:</p>
+<p><strong>Falso positivo:</strong></p>
+<ul>
+  <li>Se ha detectado el envío masivo de correos desde [<strong>Sender Address (custom)</strong>] al destinatario [<strong>RecipientAddressDomain (custom)</strong>] enviando un total de [<strong>Nº de correos</strong>] correos a diferentes usuarios a las [<strong>Start Time</strong>] con el asunto<strong> </strong>[<strong>Subject (custom)</strong>], después de analizar el correo a través de “Microsoft Exchange Message Trace” se verifica que no entraña ningún riesgo.</li>
+</ul>
+<p><strong>Falso positivo con ajuste:</strong></p>
+<ul>
+  <li>Se ha detectado el envío masivo de correos desde [<strong>Sender Address (custom)</strong>] al destinatario [<strong>RecipientAddressDomain (custom)</strong>] enviando un total de [<strong>Nº de correos</strong>] correos a diferentes usuarios a las [<strong>Start Time</strong>] con el asunto<strong> </strong>[<strong>Subject (custom)</strong>], después de analizar el correo a través de “Microsoft Exchange Message Trace” se verifica que no entraña ningún riesgo, sin embargo se localiza un&nbsp; fallo en la regla en la que [<strong>Descripción del ajuste necesario</strong>], por lo cual se abre ticket en “<a href="https://soporte.iubaris.com/"><u>https://soporte.iubaris.com/</u></a>” (RT) con numero [<strong>Nº de ticket abierto</strong>].</li>
+</ul>
+<p><strong>Positivo contenido:</strong></p>
+<ul>
+  <li>Se ha detectado el envío masivo de correos desde [<strong>Sender Address (custom)</strong>] al destinatario [<strong>RecipientAddressDomain (custom)</strong>] enviando un total de [<strong>Nº de correos</strong>] correos a diferentes usuarios a las [<strong>Start Time</strong>] con el asunto<strong> </strong>[<strong>Subject (custom)</strong>], después de analizar el correo a través de “Microsoft Exchange Message Trace” se ha comprobando que albergaba [<strong>tipo de amenaza detectada (campaña de Phishing o cuenta de correo corporativa comprometida)</strong>] siendo contenido en&nbsp; “<a href="https://security.microsoft.com/quarantine">https://security.microsoft.com/quarantine</a>”.</li>
+</ul>
+<p><strong>Positivo:</strong></p>
+<ul>
+  <li>Se ha detectado el envío masivo de correos desde [<strong>Sender Address (custom)</strong>] al destinatario [<strong>RecipientAddressDomain (custom)</strong>] enviando un total de [<strong>Nº de correos</strong>] correos a diferentes usuarios a las [<strong>Start Time</strong>] con el asunto<strong> </strong>[<strong>Subject (custom)</strong>], después de analizar el correo a través de “Microsoft Exchange Message Trace” se ha comprobando que albergaba [<strong>tipo de amenaza detectada (campaña de Phishing o cuenta de correo corporativa comprometida)</strong>] no ha podido ser contenida en&nbsp; “<a href="https://security.microsoft.com/quarantine">https://security.microsoft.com/quarantine</a>”.</li>
+</ul>
