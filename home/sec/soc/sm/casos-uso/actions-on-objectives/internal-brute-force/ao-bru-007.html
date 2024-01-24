@@ -1,0 +1,44 @@
+<!--
+title: AO-BRU-007 [MEDIA] [EJBCA] Intento de acceso no valido
+description: 
+published: true
+date: 2024-01-24T12:36:30.750Z
+tags: 
+editor: ckeditor
+dateCreated: 2024-01-24T12:36:30.750Z
+-->
+
+<h1 style="text-align:center;">AO-BRU-007 [MEDIA] [EJBCA] Intento de acceso no valido.</h1>
+<h2>Descripción</h2>
+<p style="text-align:justify;">Este caso de uso identifica un intento de acceso no válido en la entidad EJBCA. Se trata de un software de certificación de código abierto que utiliza “Es Firma”, para autenticar sus firmas electrónicas.&nbsp;</p>
+<ul>
+  <li><strong>Nombre</strong>: Intento de acceso no válido</li>
+  <li><strong>Criticidad</strong>: Media</li>
+  <li><strong>Tiempo de Atención</strong>: 90 minutos</li>
+  <li><strong>Tecnologías utilizadas</strong>: Logs locales</li>
+</ul>
+<h2>MITRE</h2>
+<ul>
+  <li>TA0001 - Initial Access.</li>
+  <li>TA006 - Credential Access</li>
+</ul>
+<h2>What to do</h2>
+<p style="text-align:justify;">Se debe revisar los intentos de login en el panel web de la ejbca, los cuales son con certificado, para comprobar si se trata de un error de configuración o caducidad de certificado, o ha sido un intento de acceso ilegítimo.</p>
+<p style="text-align:justify;">Se pondrá en contacto con el usuario, para determinar las causas y si ha sido consciente de estos intentos. En caso de que el usuario no sea consciente, deberá revisarse la franja horaria en la que se ha intentado acceder al servidor y el usuario con el que se ha intentado acceder.&nbsp;</p>
+<p style="text-align:justify;">Podrá revisarse si se trata de un intento de login de usuarios permitidos en el servidor, los cuales son unos DNI específicos de las personas autorizadas. Cualquier otro usuario dará fallo de autenticación, dado que no existe en el sistema y no será válido.&nbsp;</p>
+<p style="text-align:justify;">En caso de tratarse de alguien que ha fallado de forma consciente, lo definiríamos como Falso_Positivo, descartando un incidente de seguridad y proporcionando la nota de cierre correspondiente con la investigación realizada.</p>
+<h2>Notas de cierre</h2>
+<p>Puntos mínimos que debe de tener un cierre</p>
+<ul>
+  <li>Usuario infractor</li>
+  <li>Geolocalización&nbsp;</li>
+  <li>Fecha/Hora&nbsp;</li>
+  <li>Resumen del análisis</li>
+</ul>
+<h2>Matriz de escalado</h2>
+<p style="text-align:justify;">En esta alerta, el escalado se realizaría si después de terminar la investigación ya sea por falta de conocimientos o por sucesos sospechosos que se hayan visto no se pueda descartar un posible incidente de seguridad. Dependiendo del horario en que nos encontremos el escalado será distinto:</p>
+<p style="text-align:justify;">En horario laboral: Atiende en primera instancia N1 y si es necesario escalar, pasaría a N2.</p>
+<p style="text-align:justify;">Fuera del horario Atiende el técnico de 24/7 que se encuentre y en caso necesario escalaría a Guardia ya que al ser una alerta ALTA se podría dar un incidente de seguridad.</p>
+<h2>Reglas de caso de uso</h2>
+<p style="text-align:justify;">A continuación se muestran las reglas que tienen que darse para que salte la alerta:</p>
+<figure class="image image_resized" style="width:665px;"><img src="https://lh7-eu.googleusercontent.com/-huRg6QvQFpLCmFwKxFTyqfVRP74dNsq0C9FqOM95okFNEXla3n_EShM3LZj5iinRIm-0qjvjU8W1GdF-kkuHHsG3QvbkXAi35wMbpduU1IyEosQhSDOfbI4QVrExdyn5atVkh4D3SzsxSo4dWMKXw"></figure>
