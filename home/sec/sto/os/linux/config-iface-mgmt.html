@@ -2,7 +2,7 @@
 title: Configuracion interfaz management
 description: 
 published: true
-date: 2024-01-17T22:10:07.226Z
+date: 2024-01-24T09:10:23.050Z
 tags: linux, network, interface, mgmt
 editor: ckeditor
 dateCreated: 2024-01-16T11:03:56.302Z
@@ -20,11 +20,20 @@ svcs  33624002-7840-3820-80b4-51fac19609ca  ethernet  ens3
 mgmt  88144039-5dab-3955-95da-163a4d0b32dc  ethernet  ens4</code></pre>
 <p>&nbsp;</p>
 <p>Posteriormente , con root, &nbsp;ejecutaremos los siguientes comandos en el orden que aparecen.</p>
+<p>En el caso de Rocky 9</p>
 <pre><code class="language-plaintext">nmcli con mod [IFACE_NAME] ipv4.route-table 10
 nmcli con mod [IFACE_NAME] ipv4.routing-rules "priority 10 iif [IFACE_NAME] table 10"
 nmcli con mod [IFACE_NAME] +ipv4.routing-rules "priority 10 from [IP_MGMT_ADDRESS]/[NETMASK] table 10"
 nmcli con mod [IFACE_NAME] +ipv4.routing-rules "priority 10 to [IP_MGMT_ADDRESS]/[NETMASK] table 10"
 nmcli con mod [IFACE_NAME] ipv4.routes "0.0.0.0/0 [NETWORK_MGMT_GATEWAY] table=10"
+nmcli device reapply [DEVICE_NAME]</code></pre>
+<p>&nbsp;</p>
+<p>En el caso de Centos 6 o 7</p>
+<pre><code class="language-plaintext">nmcli con mod [IFACE_NAME] ipv4.route-table 10
+nmcli con mod [IFACE_NAME] ipv4.routing-rules "priority 10 iif [IFACE_NAME] table 10"
+nmcli con mod [IFACE_NAME] +ipv4.routing-rules "priority 10 from [IP_MGMT_ADDRESS_CIDR]/[NETMASK] table 10"
+nmcli con mod [IFACE_NAME] +ipv4.routing-rules "priority 10 to [IP_MGMT_ADDRESS_CIDR]/[NETMASK] table 10"
+nmcli con mod [IFACE_NAME] ipv4.routes "0.0.0.0 [NETWORK_MGMT_GATEWAY] table=10"
 nmcli device reapply [DEVICE_NAME]</code></pre>
 <p>&nbsp;</p>
 <p>En caso de necesitar añadir más de una ruta añadir otra línea de ipv4.routes con el simbolo + delante, por ejemplo:</p>
