@@ -2,13 +2,13 @@
 title: RE-POS-002 [BAJA] [FW] Denegaciones excesivas del Firewall desde un servidor local
 description: 
 published: true
-date: 2024-01-22T10:30:31.418Z
+date: 2024-01-24T09:07:20.841Z
 tags: 
 editor: ckeditor
 dateCreated: 2024-01-22T09:55:30.616Z
 -->
 
-<h1>RE-POS-002 [BAJA] [FW] Denegaciones excesivas del Firewall desde un servidor local</h1>
+<h1 style="text-align:center;">RE-POS-002 [BAJA] [FW] Denegaciones excesivas del Firewall desde un servidor local</h1>
 <h2 style="text-align:justify;">Descripción</h2>
 <p style="text-align:justify;">Este caso de uso identifica un elevado número de denegaciones del firewall detectadas en el desde un sistema local, siendo local a local o local a remoto, también cuando la categoría de evento es una de las siguientes “Access.ACL Deny”, “Access.Firewall Deny”, “Access.Access Denied”, “Access.Database Action Denied”, “Access.FTP Action Denied”, “Access.IPS Deny” o “Access.Session Denied”, coincida con la misma IP de origen más de 40&nbsp; veces en 40 IP de destino en 5 minutos, y no&nbsp; cuando un evento coincida con los eventos detectados por el proxy local y el puerto de destino sea 3128, 1080, 3127 siendo la IP de destino 127.0.0.2 o 195.77.90.109.&nbsp;</p>
 <ul>
@@ -18,8 +18,10 @@ dateCreated: 2024-01-22T09:55:30.616Z
   <li style="text-align:justify;"><strong>Tecnologías utilizadas</strong>: Logs locales</li>
 </ul>
 <h2 style="text-align:justify;">MITRE</h2>
-<p style="text-align:justify;">T1595.002 - Vulnerability Scanning</p>
-<p style="text-align:justify;">T1596.005 – Scan Databases</p>
+<ul>
+  <li style="text-align:justify;">T1595.002 - Vulnerability Scanning</li>
+  <li style="text-align:justify;">T1596.005 - Scan Databases</li>
+</ul>
 <h2 style="text-align:justify;">What to Do</h2>
 <p style="text-align:justify;">Una vez entremos en la alerta buscaremos en los eventos tendremos que tener muy en cuenta los siguientes datos:</p>
 <ul>
@@ -47,4 +49,27 @@ dateCreated: 2024-01-22T09:55:30.616Z
   <li style="text-align:justify;">Fuera del horario Atiende el técnico de 24/7 que se encuentre y escalara después del análisis inicia a Guardia ya que hay que ponerse en contacto con terceros para una correcta resolución.</li>
 </ul>
 <h2 style="text-align:justify;">Reglas de caso de uso</h2>
-<figure class="image image_resized" style="width:831px;"><img src="https://lh7-eu.googleusercontent.com/pY1i-t0Iv9zDCg2bYDd7PpTla8u6PkuzRVIFIteSnz_lXK7gOHIwbeqSoLZcHGiqTyQbcgGuo6X_yEMThti4UdcQrn2yKDjV_6IBsjnQDJ84NmmeI4ANLCBzacDWO5DAnAh4AAfMUTs"></figure>
+<figure class="image image_resized" style="width:65.5%;"><img src="https://lh7-eu.googleusercontent.com/pY1i-t0Iv9zDCg2bYDd7PpTla8u6PkuzRVIFIteSnz_lXK7gOHIwbeqSoLZcHGiqTyQbcgGuo6X_yEMThti4UdcQrn2yKDjV_6IBsjnQDJ84NmmeI4ANLCBzacDWO5DAnAh4AAfMUTs"></figure>
+<h2>Campos Necesarios</h2>
+<p style="text-align:justify;">Los campos mínimos que deben seleccionarse para llevar a cabo la investigación:</p>
+<ul>
+  <li>Start Time</li>
+  <li>Event name</li>
+  <li>Source IP</li>
+  <li>Destination IP</li>
+  <li>Destination Port</li>
+  <li>Action (custom) ó Status (custom)</li>
+  <li>Policy name</li>
+</ul>
+<h2>Cierre por defecto</h2>
+<p>Nota de cierre que se debería de rellenar a la hora de cerrar una alerta:</p>
+<p><strong>Falso positivo:</strong></p>
+<ul>
+  <li>Se han detectado un elevado número de conexiones denegadas por el firewall desde la IP de origen [<strong>Source IP</strong>] hacia el rango de IP’s [<strong>Rango de IP’s</strong>]. Al realizar un análisis de las IP’s destino [<strong>Analizar dominios y si son maliciosas</strong>]. Al analizar los eventos se observa que [<strong>Acciones del firewall</strong>] y que las conexiones se han rechazado debido a que [<strong>Análisis</strong>]</li>
+</ul>
+<p><strong>Falso positivo con ajuste:</strong></p>
+<ul>
+  <li>Se han detectado un elevado número de conexiones denegadas por el firewall desde la IP de origen [<strong>Source IP</strong>] hacia el rango de IP’s [<strong>Rango de IP’s</strong>]. Al realizar un análisis de las IP’s destino [<strong>Analizar dominios y si son maliciosas</strong>]. Al analizar los eventos se observa que [<strong>Acciones del firewall</strong>] y que las conexiones se han rechazado debido a que [<strong>Análisis</strong>], sin embargo se localiza un&nbsp; fallo en la regla en la que [<strong>Descripción del ajuste necesario</strong>], por lo cual se abre ticket en “<a href="https://soporte.iubaris.com/"><u>https://soporte.iubaris.com/</u></a>” (RT) con número [<strong>Nº de ticket abierto</strong>].</li>
+</ul>
+<p><strong>Positivo:</strong></p>
+<p>Se ha detectado que la IP de origen [<strong>Source IP</strong>] ha realizado un escaneo de puertos a las IPs [<strong>Introducir rangos de las IPs escaneadas</strong>] todos los intentos de conexión han sido rechazados por el Firewall [<strong>Status (Custom)</strong>], se realiza un análisis de la IP [<strong>Source IP</strong>] [<strong>Resumen del análisis de la IP</strong>], una vez analizada la alerta se comprueba que [<strong>Resolución del análisis completo</strong>].</p>
