@@ -1,0 +1,43 @@
+<!--
+title: AO-ACC-011 [MEDIA] [SSH] Intento de acceso con usuario no válido en servidores de esFirma.
+description: 
+published: true
+date: 2024-01-24T09:16:30.130Z
+tags: 
+editor: ckeditor
+dateCreated: 2024-01-24T09:16:30.130Z
+-->
+
+<h1 style="text-align:center;">AO-ACC-011 [MEDIA] [SSH] Intento de acceso con usuario no válido en servidores de esFirma.</h1>
+<h2>Descripción</h2>
+<p>Este caso de uso identifica un intento de acceso de un usuario que no existe en el sistema a los servidores de esFirma, menos cuando la red de destino es “esPublico-iubaris-zgz-public” ó “esPublico-mad-public”</p>
+<p><strong>Nombre</strong>: Intento de acceso con usuario no válido en servidores de esFirma.</p>
+<ul>
+  <li><strong>Criticidad</strong>: Media</li>
+  <li><strong>Tiempo de Atención</strong>: 90 minutos</li>
+  <li><strong>Tecnologías utilizadas</strong>: Logs locales</li>
+</ul>
+<h2>MITRE</h2>
+<ul>
+  <li>TA0006 - Credential Access</li>
+  <li>TA0001 - Initial Access.</li>
+</ul>
+<h2>What to do</h2>
+<p>Una vez detectado el usuario no valido que se ha intentado conectar, lo primero que tenemos que hacer es verificar que no haya sido un fallo humano a la hora de escribir el usuario, lo que tendríamos que hacer es verificar que no se haya conectado un usuario similar en una corta franja de tiempo a la de la alerta. Lo que tendremos que hacer es filtrar por "Event name" y buscar la QID "44252038" para ver los usuarios que se han conectado satisfactoriamente. Si vemos que se ha conectado un usuario con credenciales similares al del suceso anterior, en la misma franja de tiempo, sería un fallo humano y se cerrará como FP.</p>
+<p>En caso de que no haya ningún usuario con credenciales parecidos que se haya podido conectar correctamente, lo que tendríamos que hacer es verificar a ver si ha habido algún usuario que se haya conectado sin ser válido. Tendríamos que mirar a ver si ha saltado alguna alerta "AO-ACC-007 [ALTA] [EJBCA] Acceso válido no contemplado", en caso de ser así, tendríamos que cerrar esta alerta como FP, ya que en esta alerta no ha surgido ningún inconveniente e ir a atender la alerta "AO-ACC-007 [ALTA] [EJBCA] Acceso válido no contemplado", siguiendo el procedimiento de esta.</p>
+<p>Si observamos que hay un intento de peticiones masivas, de intentar conectarse con un mismo usuario no válido al servidor, tendrías que escalar (<a href="https://docs.google.com/document/d/1zlWAv2X3z0ugf8m7aGc2ob7bQNPlK1er/edit#heading=h.cj5gzq7oewwg"><u>Véase punto 5</u></a>), para que el encargado de turno esté al tanto del ataque de fuerza bruta, y tras verificar que no ha conseguido loguearse, cerrarlo como Positivo Contenido, ya que no ha conseguido su objetivo.</p>
+<h2>Notas de cierre</h2>
+<p>Puntos mínimos que debe de tener un cierre</p>
+<ul>
+  <li>explicacion del codigo error</li>
+  <li>verificación de que haya o no haya sido un error humano</li>
+  <li>verificación de si a podido iniciar sesión posteriormente</li>
+  <li>verificación de que no haya sido un ataque de fuerza bruta</li>
+  <li>Equipo de origen de los errores</li>
+  <li>resumen del análisis</li>
+</ul>
+<h2>Matriz de escalado</h2>
+<p>En horario laboral: Atiende N1 y escala a N2</p>
+<p>Fuera del horario Atiende N0 y escala a Guardia</p>
+<h2>Reglas de caso de uso</h2>
+<figure class="image image_resized" style="width:85.4%;"><img src="https://lh7-eu.googleusercontent.com/PYt2iaxL9hC6OivGKyCjFWow_B0Mz4cD24dz6G7BfVujwxyH2LcnEXg-gx5bLHBoPk3EEGejFxksya58woLxrKG0tb6sd5OWWFiF7xM16pWZDAiQ6Y2gCy7sSTyu6hSPHsC1MSG0cn0"></figure>
