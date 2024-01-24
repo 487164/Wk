@@ -2,7 +2,7 @@
 title: RE-POS-001 [BAJA] [FW] Elevado número de conexiones rechazadas desde un origen.
 description: 
 published: true
-date: 2024-01-24T09:05:24.653Z
+date: 2024-01-24T09:05:38.067Z
 tags: 
 editor: ckeditor
 dateCreated: 2024-01-22T12:28:32.889Z
@@ -18,8 +18,10 @@ dateCreated: 2024-01-22T12:28:32.889Z
   <li><strong>Tecnologías utilizadas</strong>: FireWall ,Logs locales</li>
 </ul>
 <h2>MITRE</h2>
-<p>T1595.002 - Vulnerability Scanning</p>
-<p>T1596.005 – Scan Databases</p>
+<ul>
+  <li>T1595.002 - Vulnerability Scanning</li>
+  <li>T1596.005 - Scan Databases</li>
+</ul>
 <h2>What to do</h2>
 <p>Una vez entremos en la alerta buscaremos en los eventos tendremos que tener muy en cuenta los siguientes datos:<br>IP de origen: Habría que revisar si es maliciosa con varias herramientas, también si ya ha realizado alguna actividad anteriormente (escaneo de puertos, intentos de acceso, etc…)<br>IP de destino: habría que dejar constancia de la IP así como donde corresponde dicha IP en el reporte.<br>Puerto de&nbsp; origen: El puerto nos puede dar pistas de lo ocurrido por los programas que los utilizan, por lo que puede ser interesante para la investigación.<br>Puerto de destino:&nbsp; Mismo procedimiento que con el puerto de origen, también nos puede indicar si es un ataque o un escaneo de puertos, entre otras cosas.<br>Service Name (custom): Veremos el servicio que se ha intentado realizar.<br>Payload: Hay podremos encontrar todos los datos anteriores y tendremos que hacer especial hincapié en verificar en buscar que tipo de respuesta ha habido mirando si el “action” es “deny”, indicándonos que realmente se ha denegado.</p>
 <h2>Notas de cierre</h2>
