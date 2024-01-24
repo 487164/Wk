@@ -2,13 +2,13 @@
 title: AO-ACC-016 [MEDIA] [ESPUBLICO] [AD-DS] Peticiones sospechosas al DC
 description: 
 published: true
-date: 2024-01-22T12:02:09.728Z
+date: 2024-01-24T09:19:11.957Z
 tags: 
 editor: ckeditor
 dateCreated: 2024-01-22T12:02:09.728Z
 -->
 
-<h1>AO-ACC-016 [MEDIA] [ESPUBLICO] [AD-DS] Peticiones sospechosas al DC</h1>
+<h1 style="text-align:center;">AO-ACC-016 [MEDIA] [ESPUBLICO] [AD-DS] Peticiones sospechosas al DC</h1>
 <h2>Descripción</h2>
 <p style="text-align:justify;">Este caso de uso identifican distintas peticiones sobre varios objetos, entorno a 50 en menos de 5 min, al DC. Estas peticiones son generadas por ejemplo cuando lanzas el comando de Get-Object en powershell, un número anormal de estas peticiones entre otras cosas podría indicar del uso de herramientas como Bloodhound.</p>
 <ul>
@@ -18,9 +18,11 @@ dateCreated: 2024-01-22T12:02:09.728Z
   <li><strong>Tecnologías utilizadas</strong>: Active Directory</li>
 </ul>
 <h2>MITRE</h2>
-<p>TA0007 – Discovery.</p>
-<p>T1069 - Permission Groups Discovery.</p>
-<p>T1033 - System Owner/User Discovery.</p>
+<ul>
+  <li>TA0007 - Discovery.</li>
+  <li>T1069 - Permission Groups Discovery.</li>
+  <li>T1033 - System Owner/User Discovery.</li>
+</ul>
 <h2>What to do</h2>
 <p style="text-align:justify;">Una vez identificado el usuario que realiza las peticiones (este se puede ver en el campo username de las peticiones) habria que identificar desde que maquina esta haciendo estas peticiones, aparece en el campo source workstation.&nbsp;</p>
 <p style="text-align:justify;">Con esto identificado debemos ir al EDR para comprobar la ejecucion de alguna herramienta entorno al momento del inicio de las peticiones. Si comprobamos alguna herramienta potencialmente maliciosa como bloodhound y no ha sido notificado como pruebas se deberá bloquear el equipo y al usuario realizando las peticiones asi como pedir justificacion de la actividad.</p>
@@ -39,7 +41,7 @@ dateCreated: 2024-01-22T12:02:09.728Z
 <p>En horario laboral: Atiende N1 y escala a N2</p>
 <p>Fuera del horario Atiende N0 y escala a Guardia</p>
 <h2>Reglas de caso de uso</h2>
-<figure class="image image_resized" style="width:567px;"><img src="https://lh7-eu.googleusercontent.com/fqwLh60pVIbzm0vbcy_2tzVmcfWOvd_wYNO6PucDkJ5XxLA1JyHS1ySpU_EYNNgM8yVZDqDYidvbE4OXV4tSa6Kv2_sgvl9bm-283zHOzrckCJmB6JFs72MEDt7W1JkRSlHYGesTFUTf"></figure>
+<figure class="image image_resized" style="width:94.47%;"><img src="https://lh7-eu.googleusercontent.com/fqwLh60pVIbzm0vbcy_2tzVmcfWOvd_wYNO6PucDkJ5XxLA1JyHS1ySpU_EYNNgM8yVZDqDYidvbE4OXV4tSa6Kv2_sgvl9bm-283zHOzrckCJmB6JFs72MEDt7W1JkRSlHYGesTFUTf"></figure>
 <h2>Campos Necesarios</h2>
 <p>Los campos mínimos que deben seleccionarse para llevar a cabo la investigación:</p>
 <ul>
@@ -51,19 +53,19 @@ dateCreated: 2024-01-22T12:02:09.728Z
 </ul>
 <h2>Cierre por defecto</h2>
 <p>Nota de cierre que se debería de rellenar a la hora de cerrar una alerta:</p>
-<p>Falso positivo 1:</p>
+<p><strong>Falso positivo 1:</strong></p>
 <ul>
   <li>Se ha detectado que el usuario [<strong>Username</strong>]&nbsp; se ha logueado desde una ubicación fuera de España, tras una investigación de la IP [<strong>Source IP</strong>] y del usuario se determina que ha sido un fallo en la geolocalización de Qradar.</li>
 </ul>
-<p>Falso positivo 2:</p>
+<p><strong>Falso positivo 2:</strong></p>
 <ul>
   <li>Se ha detectado que el usuario [<strong>Username</strong>]&nbsp; se ha logueado desde una ubicación fuera de España, tras una investigación de la IP [<strong>Source IP</strong>] y del usuario se determina que es una conexión verídica y que el usuario está autorizado para ello.</li>
 </ul>
-<p>Falso positivo con ajuste:</p>
+<p><strong>Falso positivo con ajuste:</strong></p>
 <ul>
   <li>Se ha detectado que el usuario [<strong>Username</strong>]&nbsp; se ha logueado desde una ubicación fuera de España, tras una investigación de la IP [<strong>Source IP</strong>] y del usuario se determina que ha sido un fallo en la geolocalización, sin embargo se localiza un&nbsp; fallo en la regla en la que [<strong>Descripción del ajuste necesario</strong>], por lo cual se abre ticket en “<a href="https://soporte.iubaris.com/"><u>https://soporte.iubaris.com/</u></a>” (RT) con número [<strong>Nº de ticket abierto</strong>].</li>
 </ul>
-<p>Positivo:</p>
+<p><strong>Positivo:</strong></p>
 <ul>
   <li>Se ha detectado que el usuario [<strong>Username</strong>]&nbsp; se ha logueado desde una ubicación fuera de España, tras una investigación de la IP [<strong>Source IP</strong>] y del usuario se determina que ha sido un fallo en la geolocalización, determinando que la cuenta del usuario ha sido comprometida&nbsp; [<strong>Análisis del robo de credenciales</strong>].</li>
 </ul>
