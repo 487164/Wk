@@ -1,0 +1,69 @@
+<!--
+title: PV-RES-004 [MEDIA] [MULTI] Excesivos eventos de acceso a ficheros desde un mismo usuario
+description: 
+published: true
+date: 2024-01-24T10:20:00.627Z
+tags: 
+editor: ckeditor
+dateCreated: 2024-01-24T10:20:00.627Z
+-->
+
+<h1 style="text-align:center;">PV-RES-004 [MEDIA] [MULTI] Excesivos eventos de acceso a ficheros desde un mismo usuario</h1>
+<h2>Descripción</h2>
+<p style="text-align:justify;">Este caso de uso identifica el excesivo número de accesos a un fichero desde un mismo usuario, los eventos serán detectados por el sistema local cuando se acceda o se falle el acceso a un archivo u objeto, también el usuario y en archivo tienen que tener nombre y se produzcan 30 eventos por minuto.&nbsp;</p>
+<ul>
+  <li><strong>Nombre</strong>: Excesivos eventos de acceso a ficheros desde un mismo usuario</li>
+  <li><strong>Criticidad</strong>: Media</li>
+  <li><strong>Tiempo de Atención</strong>: 90 minutos</li>
+  <li><strong>Tecnologías utilizadas</strong>: Microsoft Office 365</li>
+</ul>
+<h2>MITRE</h2>
+<ul>
+  <li>TA0010 - Exfiltration<br>T1567.002 - Exfiltración al almacenamiento en la nube<br>T1537 - Transferir datos a la cuenta en la nube</li>
+</ul>
+<h2>What to do</h2>
+<p style="text-align:justify;">Una vez identificado el usuario que ha hecho saltar la alerta, hay que identificar el "EventSource", el "SiteUrl" y el "SourceFileName".</p>
+<p style="text-align:justify;">(Si se quiere agilizar es recomendable editar la búsqueda agregando las columnas “Affected Workload (custom)” (event source), “File Directory (custom)” (SiteUrl), “Filename (custom)” (SourceFileName), una vez tengamos las tres columnas nos puede dar una visión más amplia de a qué archivos ha accedido y sabiendo quien es el usuario podremos verificar si podria estar autorizado.)</p>
+<p style="text-align:justify;">Tendríamos que revisar la IP de origen para comprobar si es nuestra, o se corresponde con la del usuario (en el centro de administración de azure podemos comprobar si esa IP es utilizada por el usuario con regularidad o si nunca antes la ha usado.</p>
+<p style="text-align:justify;">Si la IP es suya, su departamento corresponde con los archivos y&nbsp; ubicaciones de los mismos estén acorde, se podría considerar un Falso positivo, si por el contrario la IP de origen no es suya, las ubicaciones o los archivos no se corresponden con su departamento, habría que consultar al propio usuario para verificar que ha sido él quien ha accedido a esos archivos, si la IP es correcta pero los archivos no se corresponden a su departamento, había que escalar indicando todos los datos recabados y especificando que no se considera que el usuario tuviera que haber accedido a dichos archivos.</p>
+<h2>Notas de cierre</h2>
+<p>Puntos mínimos que debe de tener un cierre:</p>
+<ul>
+  <li>Usuario indicando su departamento</li>
+  <li>Hora/Fecha inicial</li>
+  <li>Acciones realizadas</li>
+  <li>Número de archivos a los que se ha accedido</li>
+  <li>La IP si no fuera corporativa o la suya personal</li>
+  <li>Resumen del análisis</li>
+</ul>
+<h2>Matriz de escalado</h2>
+<p>Aunque la matriz de escalado debería ser la misma para todos los casos de uso, puede haber casos que por falta de capacidades, por dependencias de otros servicio o incluso por que así se acuerde para un caso concreto, se debe definir la matriz de escalado.</p>
+<p>En horario laboral: Atiende N1 y escala a N2</p>
+<p>Fuera del horario Atiende N0 y escala a Guardia</p>
+<h2>Reglas de caso de uso</h2>
+<p>Información de la regla:</p>
+<figure class="image image_resized" style="width:81.15%;"><img src="https://lh7-eu.googleusercontent.com/Zp-TrFJBo0-JO6IKjpDpZKrP_5QiTJhzfhOXfuZPlbhhC2ctx04HX15-KxO2ig-FtpXRETQrRxLQLjCchiv_syJz6Q1LETcNXKLbM8HDhA9XyBMy7WXP4iHuB-kxJp8Rgo7w3Bwk0-Hw"></figure>
+<h2>Campos Necesarios</h2>
+<p>Los campos mínimos que deben seleccionarse para llevar a cabo la investigación:</p>
+<ul>
+  <li>Start Time</li>
+  <li>Affected Workload (custom)</li>
+  <li>Username</li>
+  <li>Event Name</li>
+  <li>File Directory (custom)</li>
+  <li>Filename (custom)</li>
+</ul>
+<h2>Cierre por defecto</h2>
+<p>Nota de cierre que se debería de rellenar a la hora de cerrar una alerta:</p>
+<p><strong>Falso positivo:</strong></p>
+<ul>
+  <li>Se ha detectado que el usuario [<strong>Username</strong>] ha tenido acceso a diferentes archivos ubicados en [<strong>File Directory (custom)</strong>] a las [<strong>Start Time</strong>] a los cuales se ha accedido desde [<strong>Affected Workload (custom)</strong>], se han analizado las IP de origen&nbsp; [<strong>Source IP</strong>] y de destino [<strong>Destination IP</strong>], también al usuario verificando que está autorizado.</li>
+</ul>
+<p><strong>Falso positivo con ajuste:</strong></p>
+<ul>
+  <li>Se ha detectado que el usuario [<strong>Username</strong>] ha tenido acceso a diferentes archivos ubicados en [<strong>File Directory (custom)</strong>] a las [<strong>Start Time</strong>] a los cuales se ha accedido desde [<strong>Affected Workload (custom)</strong>], se han analizado las IP de origen&nbsp; [<strong>Source IP</strong>] y de destino [<strong>Destination IP</strong>], también al usuario verificando que está autorizado, sin embargo se localiza un&nbsp; fallo en la regla en la que [<strong>Descripción del ajuste necesario</strong>], por lo cual se abre ticket en “<a href="https://soporte.iubaris.com/"><u>https://soporte.iubaris.com/</u></a>” (RT) con número [<strong>Nº de ticket abierto</strong>].</li>
+</ul>
+<p><strong>Positivo:</strong></p>
+<ul>
+  <li>Se ha detectado que el usuario [<strong>Username</strong>] ha tenido acceso a diferentes archivos ubicados en [<strong>File Directory (custom)</strong>] a las [<strong>Start Time</strong>] a los cuales se ha accedido desde [<strong>Affected Workload (custom)</strong>], se han analizado las IP de origen&nbsp; [<strong>Source IP</strong>] y de destino [<strong>Destination IP</strong>] y al usuario , despues del analisis de la alerta se averigua que [<strong>Indicar tipo de positivo, usuario comprometido o usuario no autorizado</strong>] desde la IP [<strong>Source IP</strong>]&nbsp; [<strong>Análisis de la IP de origen</strong>].</li>
+</ul>
