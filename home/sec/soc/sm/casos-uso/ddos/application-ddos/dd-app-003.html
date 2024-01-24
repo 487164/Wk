@@ -1,0 +1,62 @@
+<!--
+title: DD-APP-003 [MEDIA] [ESPUBLICO] [WEB] Posible ataque DOS en un servidor web a un único destino
+description: 
+published: true
+date: 2024-01-24T08:51:22.890Z
+tags: 
+editor: ckeditor
+dateCreated: 2024-01-24T08:51:22.890Z
+-->
+
+<h1 style="text-align:center;">DD-APP-003 [MEDIA] [ESPUBLICO] [WEB] Posible ataque DOS en un servidor web a un único destino</h1>
+<h2>Descripción</h2>
+<p style="text-align:justify;">Este caso de uso identifica un posible ataque DDoS, basándose en la información recibida por Telefónica.</p>
+<ul>
+  <li><strong>Nombre</strong>: Posible ataque DOS en un servidor web a un único destino&nbsp;</li>
+  <li><strong>Criticidad</strong>: Media</li>
+  <li><strong>Tiempo de Atención</strong>: 90 minutos</li>
+  <li><strong>Tecnologías utilizadas</strong>:&nbsp; Apache, Nginx, Amazon AWS y Microsoft IIS</li>
+</ul>
+<h2>MITRE</h2>
+<p>TA0040 - Impact</p>
+<p>T1499 - Endpoint Denial of Service</p>
+<h2>What to do</h2>
+<p style="text-align:justify;">Este Caso de Uso identifica un posible ataque DDoS basándonos en los análisis realizados por Telefónica, los cuales nos informarán por correo (Office365) con el Asunto de “[AntiDDoS]Inicio*alerta*”.&nbsp;&nbsp;</p>
+<p style="text-align:justify;">En este correo se informará sobre el volumen de tráfico analizado como anómalo y las direcciones IP afectadas. Habrá que confirmar con Operaciones si se ha realizado alguna actividad que esté provocando un incremento en el volumen del tráfico generado, como importaciones o despliegues.</p>
+<p style="text-align:justify;">En caso de ser una actividad esperada, lo definiríamos como FP descartando un incidente de seguridad, y proporcionando la nota de cierre correspondiente con la investigación realizada.</p>
+<h2>Notas de cierre</h2>
+<p>Puntos mínimos que debe de tener un cierre:</p>
+<ul>
+  <li>Direcciones IP afectadas</li>
+  <li>Fecha | Hora</li>
+  <li>Volumen de tráfico</li>
+  <li>Resumen del análisis</li>
+</ul>
+<h2>Matriz de escalado</h2>
+<p style="text-align:justify;">Aunque la matriz de escalado debería ser la misma para todos los casos de uso, puede haber casos que por falta de capacidades, por dependencias de otros servicio o incluso por que así se acuerde para un caso concreto, se debe definir la matriz de escalado.</p>
+<p>En horario laboral: Atiende N1 y escala a N2</p>
+<p>Fuera del horario Atiende N0 y escala a Guardia</p>
+<h2>Reglas de caso de uso</h2>
+<figure class="image image_resized" style="width:83.58%;"><img src="https://lh7-eu.googleusercontent.com/FPOJ6ShYPNrR-vwZu12fVCKFUsAVhJ0tk7S2ul3lfZP4NPH5ympmgsmqmLMToBsk0ip7lK2W2g_e7NfEDfBODOEUcRX09AIB-YQXdDECi2lBrW94i5BkW49p6S9caLhAtXQ7aiPLLycO"></figure>
+<h2>Campos necesarios</h2>
+<p>Los campos mínimos que deben seleccionarse para llevar a cabo la investigación:</p>
+<p style="text-align:center;"><i>(No ha saltado todavía ninguna alerta para comprobar los campos disponibles.)</i></p>
+<h2>Cierre por defecto</h2>
+<p>Nota de cierre que se debería de rellenar a la hora de cerrar una alerta:</p>
+<p><strong>Falso positivo:</strong></p>
+<ul>
+  <li>Se ha detectado un posible ataque DOS en un servidor web, se analizan los eventos “HTTP 503 - Service Unavailable” por lo que se revisa el&nbsp; [<strong>URL Path (custom)</strong>] en RT (solo el “pool” que corresponda) para comprobar si el servicio se ha detenido y si lo está, si ha sido de forma controlada, provocando el corte de servicio y haciendo que salte la alerta.</li>
+</ul>
+<p><strong>Falso positivo con ajuste:</strong></p>
+<ul>
+  <li>Se ha detectado un posible ataque DOS en un servidor web, se analizan los eventos “HTTP 503 - Service Unavailable” por lo que se revisa el&nbsp; [<strong>URL Path (custom)</strong>] en RT (solo el “pool” que corresponda) para comprobar si el servicio se ha detenido y si lo está, si ha sido de forma controlada, provocando el corte de servicio y haciendo que salte la alerta, sin embargo se localiza un&nbsp; fallo en la regla en la que [<strong>Descripción del ajuste necesario</strong>], por lo cual se abre ticket en “<a href="https://soporte.iubaris.com/"><u>https://soporte.iubaris.com/</u></a>” (RT) con numero [<strong>Nº de ticket abierto</strong>].</li>
+</ul>
+<p><strong>Positivo contenido:</strong></p>
+<ul>
+  <li>Se ha detectado un ataque DOS en un servidor web, se recogen un ingente numero de eventos indicando error “HTTP 503 - Service Unavailable” por lo que se revisa el&nbsp; [<strong>URL Path (custom)</strong>] en RT (solo el “pool” que corresponda) para comprobar si el servicio se ha detenido de forma controlada, al no encontrar ningún ticket de trabajo de dicha máquina, se revisa esta en Zabbix si la máquina está funcionando. (<strong>REVISAR EVENTOS QRADAR CUANDO SE BLOQUEA IP POR ATAQUE DOS</strong>)</li>
+</ul>
+<p><strong>Positivo:</strong></p>
+<ul>
+  <li>Se ha detectado un ataque DOS en un servidor web, se analizan los eventos “HTTP 503 - Service Unavailable” por lo que se revisa el&nbsp; [<strong>URL Path (custom)</strong>] en RT (solo el “pool” que corresponda) para comprobar si el servicio se ha detenido de forma controlada, al no encontrar ningún ticket de trabajo de dicha máquina, se revisa esta en Zabbix si la máquina está funcionando, comprobando que esta caída.</li>
+</ul>
+<p>&nbsp;</p>
