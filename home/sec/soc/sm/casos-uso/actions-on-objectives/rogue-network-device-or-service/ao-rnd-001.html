@@ -1,0 +1,72 @@
+<!--
+title: AO-RND-001 [BAJA] [ESPUBLICO] [DHCP] DHCP Spoofing
+description: 
+published: true
+date: 2024-01-24T11:19:09.982Z
+tags: 
+editor: ckeditor
+dateCreated: 2024-01-24T11:19:09.982Z
+-->
+
+<h1 style="text-align:center;">AO-RND-001 [BAJA] [ESPUBLICO] [DHCP] DHCP Spoofing</h1>
+<h2>Descripción</h2>
+<p style="text-align:justify;">Este caso de uso identifica un posible caso de DHCP Spoofing en la red 2. En esta red el único dhcp server que hay es el proxy 195.77.90.109</p>
+<ul>
+  <li><strong>Nombre</strong>: DHCP Spoofing</li>
+  <li><strong>Criticidad</strong>: Baja</li>
+  <li><strong>Tiempo de Atención</strong>: 180 minutos</li>
+  <li><strong>Tecnologías utilizadas</strong>: Linux DHCP Server @ proxy.auloce.local</li>
+</ul>
+<p>&nbsp;</p>
+<h2>MITRE</h2>
+<ul>
+  <li>TA0006 - Credential Access</li>
+  <li>T1557 - Adversary in the middle<ul>
+      <li>T1557.003 - DHCP Spoofing</li>
+    </ul>
+  </li>
+</ul>
+<h2>What to do</h2>
+<p style="text-align:justify;">Una vez detectado un evento de DHCP ACK, donde un servidor esté contestando a una request IP de un equipo en la red 192.168.2.0/24, deberá verificarse si no ha sido un fallo en la lógica de la regla. Solo deberían generarse DHCP ACK desde:</p>
+<ul>
+  <li>Linux DHCP Server @ proxy.auloce.local (195.77.90.109)&nbsp;</li>
+</ul>
+<p style="text-align:justify;">En caso de verse desde otra dirección IP en la red 192.168.2.0/24, deberá consultarse a sistemas si se ha cambiado la dirección IP del proxy o si se ha levantado otro servidor dhcp por alguna razón en especial.&nbsp;</p>
+<p style="text-align:justify;">Si nadie sabe nada sobre este DHCP Server levantado, deberá investigarse donde se ha levantado, investigando la IP de origen. También revisar el equipo al que se le ha asignado la dirección IP de este servidor, pudiendo investigar en los logs del QRadar la dirección MAC y el nombre de equipo para identificarlo.&nbsp;</p>
+<p style="text-align:justify;">En caso de que Sistemas sea consciente, lo definiremos como Falso_Positivo, descartando un incidente de seguridad y proporcionando la nota de cierre correspondiente con la investigación realizada.</p>
+<h2>Notas de cierre</h2>
+<p>Puntos mínimos que debe de tener un cierre</p>
+<ul>
+  <li>IP de origen&nbsp;</li>
+  <li>IP de destino / MAC</li>
+  <li>Resumen del análisis</li>
+</ul>
+<h2>Matriz de escalado</h2>
+<p style="text-align:justify;">Aunque la matriz de escalado debería ser la misma para todos los casos de uso, puede haber casos que por falta de capacidades, por dependencias de otros servicio o incluso por que así se acuerde para un caso concreto, se debe definir la matriz de escalado.</p>
+<p>En horario laboral: Atiende N1 y escala a N2</p>
+<p>Fuera del horario Atiende N0 y escala a Guardia</p>
+<h2>Reglas de Casos de Uso</h2>
+<figure class="image image_resized" style="width:665px;"><img src="https://lh7-eu.googleusercontent.com/sk0LAbzCcFaSwH4pT1eVMdOBRHErQkEQF-1ipQivyp-fK4Brc5yJzcmMUoqnms6cjsJyHlh8N_uIkP3PAvzo5lNwNiKw72p0nPEEtyIFgC7GrEebgn9wES4fLWdohos2_8eh6EBZS7TA"></figure>
+<h2>Campos Necesarios</h2>
+<p>Los campos mínimos que deben seleccionarse para llevar a cabo la investigación:</p>
+<ul>
+  <li>Event Name</li>
+  <li>Start Time</li>
+  <li>IP de origen&nbsp;</li>
+  <li>IP de destino</li>
+  <li>MAC de destino</li>
+</ul>
+<h2>Cierre por defecto</h2>
+<p>Nota de cierre que se debería de rellenar a la hora de cerrar una alerta:</p>
+<p><strong>Falso positivo:</strong></p>
+<ul>
+  <li>Se ha detectado un servidor dhcp anómalo [<strong>SourceIP</strong>], contestando a una request IP de [<strong>DestinationIP</strong>]. El nuevo servidor dhcp era un servidor esperado.&nbsp;</li>
+</ul>
+<p><strong>Falso positivo con ajuste:</strong></p>
+<ul>
+  <li>Se ha detectado un servidor dhcp anómalo [<strong>SourceIP</strong>], contestando a una request IP de [<strong>DestinationIP</strong>], sin embargo se trata de un error y hay que realizar ajuste en la lógica de la regla en la que [<strong>Descripción del ajuste necesario</strong>], por lo cual se abre ticket en “<a href="https://soporte.iubaris.com/"><u>https://soporte.iubaris.com/</u></a>” (RT) con número [<strong>Nº de ticket abierto</strong>].</li>
+</ul>
+<p><strong>Positivo:</strong></p>
+<ul>
+  <li>Se ha detectado un servidor dhcp anómalo [<strong>SourceIP</strong>], contestando a una request IP de [<strong>DestinationIP</strong>]. Nadie conoce el origen de este servicio dhcp, por lo que hay que investigar como se ha originado y a quien ha repartido direcciones IP, pudiendo haber afectado a la navegación de los equipos cliente.</li>
+</ul>
