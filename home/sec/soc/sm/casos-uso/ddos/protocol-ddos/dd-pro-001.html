@@ -1,0 +1,68 @@
+<!--
+title: DD-PRO-001 [BAJA] [ESPUBLICO] [DHCP] DHCP Starvation
+description: 
+published: true
+date: 2024-01-24T09:42:33.036Z
+tags: 
+editor: ckeditor
+dateCreated: 2024-01-24T09:42:33.036Z
+-->
+
+<h1 style="text-align:center;">DD-PRO-001 [BAJA] [ESPUBLICO] [DHCP] DHCP Starvation</h1>
+<h2>Descripción</h2>
+<p style="text-align:justify;">Este caso de uso identifica un posible caso de DHCP Starvation, donde se intenta agotar todas las direcciones IP que puede conceder el servidor, desde diferentes MAC generadas.</p>
+<ul>
+  <li><strong>Nombre</strong>: DHCP Starvation</li>
+  <li><strong>Criticidad</strong>: Baja</li>
+  <li><strong>Tiempo de Atención</strong>: 180 minutos</li>
+  <li><strong>Tecnologías utilizadas</strong>: Linux DHCP Server @ proxy.auloce.local</li>
+</ul>
+<p>&nbsp;</p>
+<h2>MITRE</h2>
+<ul>
+  <li>TA 0040 - Impact</li>
+  <li>T1499 - Endpoint Denial of Service<ul>
+      <li>T1499.002 - Service Exhaustion Flood</li>
+    </ul>
+  </li>
+</ul>
+<h2>What to do</h2>
+<p style="text-align:justify;">Cuando se generan una gran cantidad de DHCPDiscover en un lapso corto de tiempo, desde diferentes direcciones MAC. Esto se puede deber a la ejecución de herramientas como Yersinia, la cual genera peticiones de DHCPDiscover (solicitud de una IP libre al servidor DHCP) desde una misma máquina, generando una gran cantidad de direcciones MAC diferentes para provocar un agotamiento de las direcciones IP libres por asignar en el servidor.</p>
+<p style="text-align:justify;">Esto provocaría que la red se quedará sin direcciones IP libres, haciendo que nuevos equipos conectados a la red que busquen obtener una dirección IP no la tengan, ya que no quedarán direcciones libres.</p>
+<p style="text-align:justify;">Habrá que observar si se trata de un ataque de DHCP Starvation, o si puede ser que la regla no esté bien configurada y haya dado la casualidad de que múltiples equipos se hayan conectado a la vez y hayan solicitado una dirección IP.</p>
+<h2>Notas de cierre</h2>
+<p>Puntos mínimos que debe de tener un cierre</p>
+<ul>
+  <li>MAC de origen</li>
+  <li>IP de destino</li>
+  <li>Lapso de tiempo</li>
+  <li>Resumen del análisis</li>
+</ul>
+<h2>Matriz de escalado</h2>
+<p style="text-align:justify;">Aunque la matriz de escalado debería ser la misma para todos los casos de uso, puede haber casos que por falta de capacidades, por dependencias de otros servicio o incluso por que así se acuerde para un caso concreto, se debe definir la matriz de escalado.</p>
+<p>En horario laboral: Atiende N1 y escala a N2</p>
+<p>Fuera del horario Atiende N0 y escala a Guardia</p>
+<h2>Reglas de Casos de Uso</h2>
+<figure class="image image_resized" style="width:60.63%;"><img src="https://lh7-eu.googleusercontent.com/QuD6yTBWivvE51ILQQhy5ifMz9Z2lryoTzcizjoFF6pq5Onql5_eJsVu_Rgmj8lX2OGN9fzrr5dYgssVQ_oOdwbYJVceWFOTFQgO-NOT3Q6NNmNeIz4S6bSgeirLYM2jhvn5x_wTEinW"></figure>
+<h2>Campos Necesarios</h2>
+<p>Los campos mínimos que deben seleccionarse para llevar a cabo la investigación:</p>
+<ul>
+  <li>Event Name</li>
+  <li>Start Time</li>
+  <li>MAC de origen</li>
+  <li>IP de destino</li>
+</ul>
+<h2>Cierre por defecto</h2>
+<p>Nota de cierre que se debería de rellenar a la hora de cerrar una alerta:</p>
+<p><strong>Falso positivo:</strong></p>
+<ul>
+  <li>Se han detectado solicitudes desde diferentes [<strong>SourceMAC</strong>], enviando DHCPDiscover a [<strong>DestinationIP</strong>]. Se deben a múltiples equipos realizando peticiones DHCP Discover.&nbsp;</li>
+</ul>
+<p><strong>Falso positivo con ajuste:</strong></p>
+<ul>
+  <li>Se han detectado solicitudes desde diferentes [<strong>SourceMAC</strong>], enviando DHCPDiscover a [<strong>DestinationIP</strong>]. Sin embargo, se trata de un error y hay que realizar ajuste en la lógica de la regla en la que [<strong>Descripción del ajuste necesario</strong>], por lo cual se abre ticket en “<a href="https://soporte.iubaris.com/"><u>https://soporte.iubaris.com/</u></a>” (RT) con número [<strong>Nº de ticket abierto</strong>].</li>
+</ul>
+<p><strong>Positivo:</strong></p>
+<ul>
+  <li>Se han detectado solicitudes desde diferentes [<strong>SourceMAC</strong>], enviando DHCPDiscover a [<strong>DestinationIP</strong>]. Se deben a que alguien ha estado usando herramientas para agotamiento de direcciones IP del DHCP Server.&nbsp;</li>
+</ul>
