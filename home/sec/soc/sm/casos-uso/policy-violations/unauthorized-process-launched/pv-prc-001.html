@@ -1,0 +1,63 @@
+<!--
+title: PV-PRC-001 [ALTA] [ESFIRMA] [EJBCA] Creación de certificado de empleado público
+description: 
+published: true
+date: 2024-01-24T08:40:38.313Z
+tags: 
+editor: ckeditor
+dateCreated: 2024-01-24T08:40:38.313Z
+-->
+
+<h1 style="text-align:center;">PV-PRC-001 [ALTA] [ESFIRMA] [EJBCA] Creación de certificado de empleado público</h1>
+<h2>Descripción</h2>
+<p style="text-align:justify;">Este caso de uso identifica la creación de un certificado electrónico de empleado público.</p>
+<ul>
+  <li><strong>Nombre</strong>: Creación de certificado de empleado público</li>
+  <li><strong>Criticidad</strong>: Alta</li>
+  <li><strong>Tiempo de Atención</strong>: 30 minutos</li>
+  <li><strong>Tecnologías utilizadas</strong>: PKI EJBCA</li>
+</ul>
+<h2>MITRE</h2>
+<p>No aplica</p>
+<h2>What to do</h2>
+<p style="text-align:justify;">Por defecto, la generación de certificados electrónicos está deshabilitada, por lo que cada vez que se intente generar uno, se generará una alerta.</p>
+<p style="text-align:justify;">Mediante el QID 1008750038, veremos los eventos en los que se ha intentado generar un certificado, y habrá que investigar desde qué ayuntamiento se ha intentado generar, el cuál podremos obtener de la columna del evento source (custom). También, será necesario averiguar a quién ha sido generado dicho certificado, campo que podemos obtener de la columna target username (custom) y verificar si se ha logrado generar el certificado o no, status (custom).</p>
+<p style="text-align:justify;">Posteriormente se realizará el análisis correspondiente.</p>
+<h2>Notas de cierre</h2>
+<p>Puntos mínimos que debe de tener un cierre:</p>
+<ul>
+  <li>Desde dónde se ha generado el certificado</li>
+  <li>A quién se ha generado el certificado</li>
+  <li>Fecha-Hora</li>
+  <li>Resumen del análisis</li>
+</ul>
+<h2>Matriz de escalado</h2>
+<p style="text-align:justify;">Aunque la matriz de escalado debería ser la misma para todos los casos de uso, puede haber casos que por falta de capacidades, por dependencias de otros servicio o incluso por que así se acuerde para un caso concreto, se debe definir la matriz de escalado.</p>
+<p style="text-align:justify;">En horario laboral: Atiende N1 y escala a N2</p>
+<p style="text-align:justify;">Fuera del horario Atiende N0 y escala a Guardia</p>
+<h2>Reglas de caso de uso</h2>
+<figure class="image image_resized" style="width:80.68%;"><img src="https://lh7-eu.googleusercontent.com/QCSY1cpC4ah--0WegZdXzbQzBk7Q6JOuL8Mri1MTRzybDZpTvuOn-EU1C5I_lgtMMWRzUCfF2aqJzAtsYZvxWBZoCiPPXMcYGm5LlnEGzg1Z_a4WIC-pXegSIrddaln63QbBFN_TQ8jI"></figure>
+<h2>Campos Necesarios</h2>
+<p>Los campos mínimos que deben seleccionarse para llevar a cabo la investigación:</p>
+<ul>
+  <li>Event name</li>
+  <li>Certificate type (custom)</li>
+  <li>Source (custom)</li>
+  <li>Target Username (custom)</li>
+  <li>Status (custom)</li>
+</ul>
+<h2>Cierre por defecto</h2>
+<p>Nota de cierre que se debería de rellenar a la hora de cerrar una alerta:</p>
+<p><strong>Falso positivo:</strong></p>
+<ul>
+  <li>Se ha detectado el intento de emisión de certificado electrónico de empleado público desde [Source (custom)] al usuario [Target Username (custom)]. Tras analizar los eventos se observa que el certificado no se ha generado correctamente, por lo que se cierra como falso positivo</li>
+</ul>
+<p><strong>Falso positivo con ajuste:</strong></p>
+<ul>
+  <li>Se ha detectado el intento de emisión de certificado electrónico de empleado público desde [Source (custom)] al usuario [Target Username (custom)]. Tras analizar los eventos se observa que el certificado no se ha generado correctamente, por lo que se cierra como falso positivo, sin embargo, después de analizar la alerta se comprueba&nbsp; un fallo en la lógica de la regla en la que [<strong>Descripción del ajuste necesario</strong>], por lo cual se abre ticket en “<a href="https://soporte.iubaris.com/"><u>https://soporte.iubaris.com/</u></a>” (RT) con número [<strong>Nº de ticket abierto</strong>].</li>
+</ul>
+<p><strong>Positivo:</strong></p>
+<ul>
+  <li>Se ha detectado el intento de emisión de certificado electrónico de empleado público desde [Source (custom)] al usuario [Target Username (custom)]. Tras analizar los eventos se observa que el certificado ha sido generado correctamente [<strong>Posterior análisis</strong>]</li>
+</ul>
+<p>&nbsp;</p>
