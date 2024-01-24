@@ -1,0 +1,68 @@
+<!--
+title: AO-PER-001 [ALTA] [ESPUBLICO] [MULTI] Modificación de ficheros o directorios críticos
+description: 
+published: true
+date: 2024-01-24T11:04:45.372Z
+tags: 
+editor: ckeditor
+dateCreated: 2024-01-24T11:04:45.371Z
+-->
+
+<h1 style="text-align:center;">AO-PER-001 [ALTA] [ESPUBLICO] [MULTI] Modificación de ficheros o directorios críticos</h1>
+<h2>Descripción</h2>
+<p style="text-align:justify;">Detecta la modificación de permisos de ficheros o directorios críticos</p>
+<ul>
+  <li><strong>Nombre</strong>: Modificación de ficheros o directorios críticos</li>
+  <li><strong>Criticidad</strong>: Alta</li>
+  <li><strong>Tiempo de Atención</strong>: 30 minutos</li>
+  <li><strong>Tecnologías utilizadas</strong>: Logs Locales</li>
+</ul>
+<h2>MITRE</h2>
+<ul>
+  <li>TA0040 - Impact</li>
+</ul>
+<p>&nbsp;</p>
+<h2>What to do</h2>
+<p style="text-align:justify;">Se deberá identificar el path completo del archivo/directorio al cual se le han modificado los permisos y la máquina en la que se encuentra dicho archivo/directorio. Una vez identificado, deberemos obtener la información del usuario que ha realizado dichas modificaciones, username, source IP y las correspondientes modificaciones realizadas. Posteriormente, el usuario deberá justificar dichas modificaciones para descartar el incidente de seguridad</p>
+<h2>Notas de cierre</h2>
+<p>Puntos mínimos que debe de tener un cierre:</p>
+<ul>
+  <li>Usuario que ha realizado las modificaciones</li>
+  <li>IP de origen de las acciones realizadas</li>
+  <li>Archivo/Directorio modificado</li>
+  <li>IP de la máquina en la que se encuentra el archivo/directorio</li>
+  <li>Acciones realizadas</li>
+  <li>Resumen del análisis</li>
+</ul>
+<h2>Matriz de escalado</h2>
+<p style="text-align:justify;">Aunque la matriz de escalado debería ser la misma para todos los casos de uso, puede haber casos que por falta de capacidades, por dependencias de otros servicio o incluso por que así se acuerde para un caso concreto, se debe definir la matriz de escalado.</p>
+<p style="text-align:justify;">En horario laboral: Atiende N1 y escala a N2</p>
+<p style="text-align:justify;">Fuera del horario Atiende N0 y escala a Guardia</p>
+<h2>Reglas de caso de uso</h2>
+<figure class="image image_resized" style="width:79.82%;"><img src="https://lh7-eu.googleusercontent.com/WU2usdkThxxvN8BNh3R9y7Jrwqw-F-_7A0-Sk_Aq5PqG5gjEnN6oj3s6lCU40msP_kIaqPmsqn3HfmG0bLzrr-q-yBz0VDyVwycUC04DyNqoAu_BMkUB71oh9qi1LC6_Rc8IuxBCzChr"></figure>
+<h2>Campos Necesarios&nbsp;</h2>
+<p>Los campos mínimos que deben seleccionarse para llevar a cabo la investigación:</p>
+<ul>
+  <li>Start Time</li>
+  <li>Event name</li>
+  <li>Username</li>
+  <li>File directory (custom)</li>
+  <li>Filename (custom)</li>
+  <li>Source IP</li>
+  <li>Destination IP</li>
+</ul>
+<h2>Cierre por defecto</h2>
+<p>Nota de cierre que se debería de rellenar a la hora de cerrar una alerta:</p>
+<p><strong>Falso positivo:</strong></p>
+<ul>
+  <li>Se ha detectado la modificación de los permisos de [<strong>Filename (custom)</strong>] en la máquina [<strong>Destination IP</strong>]. Dichas modificaciones han sido realizadas por el usuario [<strong>Username</strong>] desde la dirección [<strong>Source IP</strong>]. Tras consultarlo con el usuario, se trata de modificaciones controladas y tenía permiso para realizarlas.</li>
+</ul>
+<p><strong>Falso positivo con ajuste:</strong></p>
+<ul>
+  <li>Se ha detectado la modificación de los permisos de [<strong>Filename (custom)</strong>] en la máquina [<strong>Destination IP</strong>]. Dichas modificaciones han sido realizadas por el usuario [<strong>Username</strong>] desde la dirección [<strong>Source IP</strong>]. Tras consultarlo con el usuario, se trata de modificaciones controladas y tenía permiso para realizarlas, sin embargo se localizara un fallo en la regla, en la que [<strong>Descripción del fallo o ajuste necesario</strong>], y se abriría ticket en “<a href="https://soporte.iubaris.com/"><u>https://soporte.iubaris.com/</u></a>” (RT) con numero [<strong>Nº de ticket abierto</strong>].</li>
+</ul>
+<p><strong>Positivo:</strong></p>
+<ul>
+  <li>Se ha detectado la modificación de los permisos de [<strong>Filename (custom)</strong>] en la máquina [<strong>Destination IP</strong>]. Dichas modificaciones han sido realizadas por el usuario [<strong>Username</strong>] desde la dirección [<strong>Source IP</strong>]. Tras consultarlo con el usuario, este no era consciente de dichas modificaciones ó no tenía permiso [<strong>Análisis</strong>]</li>
+</ul>
+<p>&nbsp;</p>
