@@ -1,0 +1,68 @@
+<!--
+title: AO-PER-009 [MEDIA] [ESPUBLICO] [WINDOWS] Modificación de tarea programada para ejecutarse con máximos privilegios
+description: 
+published: true
+date: 2024-01-24T11:15:33.973Z
+tags: 
+editor: ckeditor
+dateCreated: 2024-01-24T11:15:33.973Z
+-->
+
+<h1 style="text-align:center;">AO-PER-009 [MEDIA] [ESPUBLICO] [WINDOWS] Modificación de tarea programada para ejecutarse con máximos privilegios</h1>
+<h2>Descripción</h2>
+<p style="text-align:justify;">Detecta cuando se modifica una tarea programada con permisos elevados para ejecutarse.</p>
+<ul>
+  <li><strong>Nombre</strong>: Modificación de tarea programada para ejecutarse con máximos privilegios</li>
+  <li><strong>Criticidad</strong>: Media</li>
+  <li><strong>Tiempo de Atención</strong>: 90 minutos</li>
+  <li><strong>Tecnologías utilizadas</strong>: Microsoft Windows Security Event Log</li>
+</ul>
+<h2>MITRE</h2>
+<ul>
+  <li>TA0003 - Persistence</li>
+  <li>T1053 - Scheduled Task</li>
+</ul>
+<p>&nbsp;</p>
+<h2>What to do</h2>
+<p style="text-align:justify;">Se deberá identificar qué tarea programada con privilegios elevados ha sido modificada y que modificación se ha realizado en ella, comparando la versión antigua con la nueva. Tras obtener esta información se tendrá que averiguar el motivo y el usuario que la ha modificado, para identificar que no se trata de ningún proceso con fines de persistencia que ha realizado la acción.</p>
+<h2>Notas de cierre</h2>
+<p>Puntos mínimos que debe de tener un cierre:</p>
+<ul>
+  <li>Start Time</li>
+  <li>Event name</li>
+  <li>Scheduled Task</li>
+  <li>Run Level</li>
+  <li>Machine Identifier</li>
+  <li>Command</li>
+  <li>Resumen del análisis</li>
+</ul>
+<h2>Matriz de escalado</h2>
+<p style="text-align:justify;">Aunque la matriz de escalado debería ser la misma para todos los casos de uso, puede haber casos que por falta de capacidades, por dependencias de otros servicio o incluso por que así se acuerde para un caso concreto, se debe definir la matriz de escalado.</p>
+<p style="text-align:justify;">En horario laboral: Atiende N1 y escala a N2</p>
+<p style="text-align:justify;">Fuera del horario Atiende N0 y escala a Guardia</p>
+<h2>Reglas de caso de uso</h2>
+<figure class="image image_resized" style="width:79.45%;"><img src="https://lh7-eu.googleusercontent.com/Zjnuvl2fueGcLZII7o80lmZs9yPWwnJdVYbfrCz5rSgmtTaEPnkq2XIZwWCZwA4DK8fiEZvWHrMo3jhdt8dBZ0BE503LyafUVy4QWJ9BfM4Ho1rF75IMLg27jwzvonnTrqBKRYk14K73"></figure>
+<h2>Campos Necesarios&nbsp;</h2>
+<p>Los campos mínimos que deben seleccionarse para llevar a cabo la investigación:</p>
+<ul>
+  <li>Start Time</li>
+  <li>Event name</li>
+  <li>Scheduled Task</li>
+  <li>Run Level</li>
+  <li>Machine Identifier</li>
+  <li>Command</li>
+</ul>
+<h2>Cierre por defecto</h2>
+<p>Nota de cierre que se debería de rellenar a la hora de cerrar una alerta:</p>
+<p><strong>Falso positivo:</strong></p>
+<ul>
+  <li>Se ha detectado la modificación de la tarea [<strong>Scheduled Task</strong>] en la máquina [<strong>Source IP</strong>]. Tras analizar los eventos se llega a la conclusión de que ha sido una parada controlada [<strong>Razonamiento de la parada</strong>], descartando el incidente de seguridad.</li>
+</ul>
+<p><strong>Falso positivo con ajuste:</strong></p>
+<ul>
+  <li>Se ha detectado la modificación de la tarea [<strong>Scheduled Task</strong>] en la máquina [<strong>Source IP</strong>]. Tras analizar los eventos se llega a la conclusión de que ha sido una parada controlada [<strong>Razonamiento de la parada</strong>], descartando el incidente de seguridad, sin embargo se localiza un fallo en la regla, en la que [<strong>Descripción del fallo o ajuste necesario</strong>], y se abriría ticket en “<a href="https://soporte.iubaris.com/"><u>https://soporte.iubaris.com/</u></a>” (RT) con numero [<strong>Nº de ticket abierto</strong>].</li>
+</ul>
+<p><strong>Positivo:</strong></p>
+<ul>
+  <li>Se ha detectado la modificación de la tarea [<strong>Scheduled Task</strong>] en la máquina [<strong>Source IP</strong>]. Tras analizar los eventos y consultarlo con el equipo se detecta que es un indicio de infección, utilizando una técnica de persistencia, [<strong>Análisis</strong>]</li>
+</ul>
