@@ -1,0 +1,66 @@
+<!--
+title: AO-PER-008 [MEDIA] [ESPUBLICO] [WINDOWS] Creación de tarea programada para ejecutarse con máximos privilegios
+description: 
+published: true
+date: 2024-01-24T11:14:21.484Z
+tags: 
+editor: ckeditor
+dateCreated: 2024-01-24T11:14:21.484Z
+-->
+
+<h1 style="text-align:center;">AO-PER-008 [MEDIA] [ESPUBLICO] [WINDOWS] Creación de tarea programada para ejecutarse con máximos privilegios</h1>
+<h2>Descripción</h2>
+<p style="text-align:justify;">Detecta cuando se crea una tarea programada con permisos elevados para ejecutarse.</p>
+<ul>
+  <li><strong>Nombre</strong>: Creación de tarea programada para ejecutarse con máximos privilegios</li>
+  <li><strong>Criticidad</strong>: Media</li>
+  <li><strong>Tiempo de Atención</strong>: 90 minutos</li>
+  <li><strong>Tecnologías utilizadas</strong>: Microsoft Windows Security Event Log</li>
+</ul>
+<h2>MITRE</h2>
+<ul>
+  <li>TA0003 - Persistence</li>
+  <li>T1053 - Scheduled Task</li>
+</ul>
+<p>&nbsp;</p>
+<h2>What to do</h2>
+<p style="text-align:justify;">Se deberá identificar qué tarea programada ha sido creada con privilegios elevados y donde ha sido programada. Tras obtener esta información se tendrá que averiguar el motivo y el usuario que la ha creado, para identificar que no se trata de ningún proceso con fines de persistencia que ha realizado la acción.</p>
+<ol>
+  <li>Notas de cierre</li>
+</ol>
+<p>Puntos mínimos que debe de tener un cierre:</p>
+<ul>
+  <li>[Pendiente de estabecer]</li>
+  <li>&nbsp;</li>
+  <li>Resumen del análisis</li>
+</ul>
+<h2>Matriz de escalado</h2>
+<p style="text-align:justify;">Aunque la matriz de escalado debería ser la misma para todos los casos de uso, puede haber casos que por falta de capacidades, por dependencias de otros servicio o incluso por que así se acuerde para un caso concreto, se debe definir la matriz de escalado.</p>
+<p style="text-align:justify;">En horario laboral: Atiende N1 y escala a N2</p>
+<p style="text-align:justify;">Fuera del horario Atiende N0 y escala a Guardia</p>
+<h2>Reglas de caso de uso</h2>
+<figure class="image image_resized" style="width:75.57%;"><img src="https://lh7-eu.googleusercontent.com/NitgS_lUXzAiaZq0cYdZ68zpnQ05Y7KVGt-RwCA8ARPrXHU6p4WcaYr_dlMqX8ykLSGYqLlx_KlhktDA8UHI5r3r9mXJw6yzRAphn8rneB0YeeWEpghVxCuNfwK7ExfC59pjMi3BQMsv"></figure>
+<h2>Campos Necesarios&nbsp;</h2>
+<p>Los campos mínimos que deben seleccionarse para llevar a cabo la investigación:</p>
+<ul>
+  <li>Start Time</li>
+  <li>Event name</li>
+  <li>Scheduled Task</li>
+  <li>Run Level</li>
+  <li>Machine Identifier</li>
+  <li>Command</li>
+</ul>
+<h2>Cierre por defecto</h2>
+<p>Nota de cierre que se debería de rellenar a la hora de cerrar una alerta:</p>
+<p><strong>Falso positivo:</strong></p>
+<ul>
+  <li>Se ha detectado la creación de la tarea [<strong>Scheduled Task</strong>] en la máquina [<strong>Source IP</strong>]. Tras analizar los eventos se llega a la conclusión de que ha sido una parada controlada [<strong>Razonamiento de la parada</strong>], descartando el incidente de seguridad.</li>
+</ul>
+<p><strong>Falso positivo con ajuste:</strong></p>
+<ul>
+  <li>Se ha detectado la creación de la tarea [<strong>Scheduled Task</strong>] en la máquina [<strong>Source IP</strong>]. Tras analizar los eventos se llega a la conclusión de que ha sido una parada controlada [<strong>Razonamiento de la parada</strong>], descartando el incidente de seguridad, sin embargo se localiza un fallo en la regla, en la que [<strong>Descripción del fallo o ajuste necesario</strong>], y se abriría ticket en “<a href="https://soporte.iubaris.com/"><u>https://soporte.iubaris.com/</u></a>” (RT) con numero [<strong>Nº de ticket abierto</strong>].</li>
+</ul>
+<p><strong>Positivo:</strong></p>
+<ul>
+  <li>Se ha detectado la creación de la tarea [<strong>Scheduled Task</strong>] en la máquina [<strong>Source IP</strong>]. Tras analizar los eventos y consultarlo con el equipo se detecta que es un indicio de infección, utilizando una técnica de persistencia, [<strong>Análisis</strong>]</li>
+</ul>
