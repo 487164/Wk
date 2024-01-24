@@ -1,0 +1,66 @@
+<!--
+title: PV-ACC-001 [Critica] [Gestiona] Login de admin Pool desde fuera de la central
+description: 
+published: true
+date: 2024-01-24T11:26:28.858Z
+tags: 
+editor: ckeditor
+dateCreated: 2024-01-24T11:26:28.858Z
+-->
+
+<h1 style="text-align:center;">PV-ACC-001 [Critica] [Gestiona] Login de admin Pool desde fuera de la central</h1>
+<h2>Descripción</h2>
+<p style="text-align:justify;">Este caso de uso identifica un login de un usuario con rol de “<i>pool-admin</i>” en Gestiona desde fuera de la central, pudiendo identificar así un posible acceso comprometido.</p>
+<ul>
+  <li><strong>Nombre</strong>: Login de admin Pool desde fuera de la central</li>
+  <li><strong>Criticidad</strong>: Crítica</li>
+  <li><strong>Tiempo de Atención</strong>: 15 minutos</li>
+  <li><strong>Tecnologías utilizadas</strong>: Logs de Gestiona</li>
+</ul>
+<h2>MITRE</h2>
+<ul>
+  <li>TA0001 - Initial Access</li>
+  <li>T1078 - Valid Accounts</li>
+</ul>
+<h2>What to do</h2>
+<p style="text-align:justify;">Cualquier Login de un usuario con rol “<i>pool-admin</i>” desde fuera de la red de la Central hará saltar las alertas, siendo las únicas direcciones IP permitidas las siguientes:</p>
+<ul>
+  <li>195.77.90.101 - iubaris/espublicoit</li>
+  <li>195.77.90.105 - tech</li>
+  <li>195.77.90.109 - espublico</li>
+</ul>
+<p style="text-align:justify;">Mediante el <i>QID: 1005750006 (LOGIN_ACCESS_SUCCESS) </i>veremos los Login satisfactorios, y habrá que investigar la dirección IP desde la que se ha hecho el Login con ‘<i>Pool Admin</i>’. Se puede sacar la columna de “<i>user_dni(custom)”</i> para poder ver el DNI que va vinculado al Login, pudiendo investigar luego a quien corresponde en la hoja excel de DNI.&nbsp;</p>
+<p style="text-align:justify;">Habrá que ponerse en contacto con la persona a la que corresponda el DNI para verificar que ha sido ella y no un acceso comprometido.&nbsp;</p>
+<p style="text-align:justify;">En caso de ser una actividad esperada por el usuario, lo definiríamos como FP descartando un incidente de seguridad, y proporcionando la nota de cierre correspondiente con la investigación realizada.</p>
+<h2>Notas de cierre</h2>
+<p>Puntos mínimos que debe de tener un cierre:</p>
+<ul>
+  <li>IP externa (Geolocalización)</li>
+  <li>DNI vinculado al Login (Usuario)</li>
+  <li>Fecha/Hora</li>
+  <li>Resumen del análisis</li>
+</ul>
+<h2>Matriz de escalado</h2>
+<p style="text-align:justify;">Aunque la matriz de escalado debería ser la misma para todos los casos de uso, puede haber casos que por falta de capacidades, por dependencias de otros servicio o incluso por que así se acuerde para un caso concreto, se debe definir la matriz de escalado.</p>
+<p style="text-align:justify;">En horario laboral: Atiende N1 y escala a N2</p>
+<p style="text-align:justify;">Fuera del horario Atiende N0 y escala a Guardia</p>
+<h2>Reglas de caso de uso</h2>
+<p>Información de la regla:</p>
+<figure class="image image_resized" style="width:69.21%;"><img src="https://lh7-eu.googleusercontent.com/R9az76jJSUYvLkzTbkdsFmUUCIFU_2AqYRBoFYKD0v8U_FIDkY6IppWCwJNJlYTYvHBhN-QtsxgfIGr_pHKaObIVjQVnLM7J4q0l82G-oNDujzDRXR_gm2FS2NezCi-8TzasxUJdPDOp"></figure>
+<h2>Campos Necesarios</h2>
+<p>Los campos mínimos que deben seleccionarse para llevar a cabo la investigación:</p>
+<p style="text-align:center;"><i>(No ha saltado todavía ninguna alerta para comprobar los campos)</i></p>
+<h2>Cierre por defecto</h2>
+<p>Nota de cierre que se debería de rellenar a la hora de cerrar una alerta:</p>
+<p><strong>Falso positivo:</strong></p>
+<ul>
+  <li>Se han detectado el liguero correcto de un “pool-admin” fuera de la red central, una vez analizada la alerta se verifica que el “pool-admin” [<strong>Username</strong>] se ha logueado correctamente en [<strong>Log Source</strong>] y después de ponernos en contacto con él, verifica que la conexión la es verídica.</li>
+</ul>
+<p><strong>Falso positivo con ajuste:</strong></p>
+<ul>
+  <li>Después de analizar la alerta se comprueba&nbsp; un fallo en la lógica de la regla en la que [<strong>Descripción del ajuste necesario</strong>], por lo cual se abre ticket en “<a href="https://soporte.iubaris.com/"><u>https://soporte.iubaris.com/</u></a>” (RT) con número [<strong>Nº de ticket abierto</strong>].</li>
+</ul>
+<p><strong>Positivo:</strong></p>
+<ul>
+  <li>Una vez analizada la alerta se verifica que el “pool-admin” [<strong>Username</strong>] se ha logueado correctamente en [<strong>Log Source</strong>] y después de ponernos en contacto con [<strong>Username</strong>] niega que fuera el, verificando un positivo real, se adjunta el análisis de la alerta en la que se averigua qué [<strong>Análisis de la IP de origen, dispositivo usado, horario ubicación, etc...</strong>].</li>
+</ul>
