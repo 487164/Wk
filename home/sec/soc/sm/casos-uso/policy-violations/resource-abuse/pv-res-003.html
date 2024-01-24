@@ -1,0 +1,68 @@
+<!--
+title: PV-RES-003 [MEDIA] [MULTI] Excesivos eventos de acceso a ficheros desde un mismo origen
+description: 
+published: true
+date: 2024-01-24T09:47:37.940Z
+tags: 
+editor: ckeditor
+dateCreated: 2024-01-24T09:47:37.940Z
+-->
+
+<h1 style="text-align:center;">PV-RES-003 [MEDIA] [MULTI] Excesivos eventos de acceso a ficheros desde un mismo origen</h1>
+<h2>Descripción</h2>
+<p style="text-align:justify;">Este caso de uso identifica el excesivo número de accesos a un archivo donde detectará los accesos, los intentos de acceso y los fallos de acceso tanto de los archivos como de los objetos, donde estos ficheros no sean archivos sin nombre y donde los eventos detectados en la misma dirección de origen o registro sean al menos de 15 en 5 minutos&nbsp;</p>
+<ul>
+  <li><strong>Nombre</strong>: Excesivos eventos de acceso a ficheros desde un mismo origen</li>
+  <li><strong>Criticidad</strong>: Media</li>
+  <li><strong>Tiempo de Atención</strong>: 90 minutos</li>
+  <li><strong>Tecnologías utilizadas</strong>: Microsoft Office 365</li>
+</ul>
+<h2>MITRE</h2>
+<ul>
+  <li>TA0010 - Exfiltration</li>
+  <li>T1567.002 - Exfiltración al almacenamiento en la nube</li>
+  <li>T1537 - Transferir datos a la cuenta en la nube</li>
+</ul>
+<h2>What to do</h2>
+<p style="text-align:justify;">Una vez identificado al usuario que realiza la actividad sospechosa habría que averiguar a qué directorios ha accedido y revisar los archivos que estos contengan, verificar que el usuario está autorizado o no para tener acceso a ellos (revisando los grupos a los que pertenece y conociendo su departamento), así mismo revisar la actividad del usuario, si está en su equipo personal o está en remoto, si ha necesitado MFA para acceder a su cuenta, para descartar un posible robo de credenciales, en caso de ser una actividad esperada por el usuario, lo definiríamos como FP descartando un incidente de seguridad, y proporcionando la nota de cierre correspondiente con la investigación realizada.</p>
+<h2>Notas de cierre</h2>
+<p>Puntos mínimos que debe de tener un cierre:</p>
+<ul>
+  <li>Usuario</li>
+  <li>Directorio explorado</li>
+  <li>Hora/Fecha de inicio</li>
+  <li>Plataforma utilizada</li>
+  <li>Resumen del análisis</li>
+</ul>
+<h2>Matriz de escalado</h2>
+<p>Aunque la matriz de escalado debería ser la misma para todos los casos de uso, puede haber casos que por falta de capacidades, por dependencias de otros servicio o incluso por que así se acuerde para un caso concreto, se debe definir la matriz de escalado.</p>
+<p>En horario laboral: Atiende N1 y escala a N2</p>
+<p>Fuera del horario Atiende N0 y escala a Guardia</p>
+<h2>Reglas de caso de uso</h2>
+<p>Información de la regla:</p>
+<figure class="image image_resized" style="width:76.89%;"><img src="https://lh7-eu.googleusercontent.com/kxCor8fq-8zF73lfIuGZ_veXyIYSLBkklP76pIztW0q3OBQaGVYewo_hIfikV09TVyvmn2MwXEOrQk09w_gElaZ1TGUljjzKozWzU7I7lVgbX9PTBctaTkzwE4VfAK619IBZELcaNrcU"></figure>
+<h2>Campos Necesarios</h2>
+<p>Los campos mínimos que deben seleccionarse para llevar a cabo la investigación:</p>
+<ul>
+  <li>Start Time</li>
+  <li>Affected Workload (custom)</li>
+  <li>Source IP</li>
+  <li>Username</li>
+  <li>Event Name</li>
+  <li>File Directory (custom)</li>
+  <li>Filename (custom)</li>
+</ul>
+<h2>Cierre por defecto</h2>
+<p>Nota de cierre que se debería de rellenar a la hora de cerrar una alerta:</p>
+<p><strong>Falso positivo:</strong></p>
+<ul>
+  <li>Se ha detectado que el usuario [<strong>Username</strong>] ha tenido acceso a diferentes archivos ubicados en [<strong>File Directory (custom)</strong>] a las [<strong>Start Time</strong>] a los cuales se ha accedido desde [<strong>Affected Workload (custom)</strong>], despues del analisis del usuario se verifica que está autorizado.</li>
+</ul>
+<p><strong>Falso positivo con ajuste:</strong></p>
+<ul>
+  <li>Se ha detectado que el usuario [<strong>Username</strong>] ha tenido acceso a diferentes archivos ubicados en [<strong>File Directory (custom)</strong>] a las [<strong>Start Time</strong>] a los cuales se ha accedido desde [<strong>Affected Workload (custom)</strong>], despues del analisis del usuario se verifica que está autorizado, sin embargo se localiza un&nbsp; fallo en la regla en la que [<strong>Descripción del ajuste necesario</strong>], por lo cual se abre ticket en “<a href="https://soporte.iubaris.com/"><u>https://soporte.iubaris.com/</u></a>” (RT) con número [<strong>Nº de ticket abierto</strong>].</li>
+</ul>
+<p><strong>Positivo:</strong></p>
+<ul>
+  <li>Se ha detectado que el usuario [<strong>Username</strong>] ha tenido acceso a diferentes archivos ubicados en [<strong>File Directory (custom)</strong>] a las [<strong>Start Time</strong>] a los cuales se ha accedido desde [<strong>Affected Workload (custom)</strong>], despues del analisis de la alerta se averigua que [<strong>Indicar tipo de positivo, usuario comprometido o usuario no autorizado</strong>] desde la IP [<strong>Source IP</strong>] [<strong>Análisis de la IP de origen</strong>].</li>
+</ul>
