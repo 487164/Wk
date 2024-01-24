@@ -1,0 +1,65 @@
+<!--
+title: SD-INF-001 [MEDIA] [ESPUBLICO] [GOOGLE] Borrado de información
+description: 
+published: true
+date: 2024-01-24T11:24:18.691Z
+tags: 
+editor: ckeditor
+dateCreated: 2024-01-24T11:24:18.691Z
+-->
+
+<h1 style="text-align:center;">SD-INF-001 [MEDIA] [ESPUBLICO] [GOOGLE] Borrado de información</h1>
+<h2>Descripción</h2>
+<p style="text-align:justify;">Este caso de uso identifica un borrado de información en Drive, lo cual puede haberse generado por una acción consciente y legítima, o por un acto de sabotaje de negocio.</p>
+<ul>
+  <li><strong>Nombre</strong>: Borrado de información&nbsp;</li>
+  <li><strong>Criticidad</strong>: Media</li>
+  <li><strong>Tiempo de Atención</strong>: 90 minutos</li>
+  <li><strong>Tecnologías utilizadas</strong>: Logs de Google Workspace</li>
+</ul>
+<h2>MITRE</h2>
+<ul>
+  <li>TA0040 - Impact</li>
+  <li>T1485 - Data Destruction</li>
+</ul>
+<p>&nbsp;</p>
+<h2>What to do</h2>
+<p style="text-align:justify;">En caso de un borrado masivo de información en Google Drive, deberá verificarse que usuario es el responsable y qué información se ha podido perder.</p>
+<p style="text-align:justify;">Dependiendo de la situación del usuario, se pueden dar casos de empleados descontentos o en proceso de salida de la organización, donde intentan sabotear información dadas las circunstancias.&nbsp;</p>
+<p style="text-align:justify;">Por normal general, lo definiríamos como FP descartando un incidente de seguridad, y proporcionando la nota de cierre correspondiente con la investigación realizada.&nbsp;</p>
+<h2>Notas de cierre</h2>
+<p>Puntos mínimos que debe de tener un cierre</p>
+<ul>
+  <li>Usuario</li>
+  <li>Número de documentos eliminados</li>
+  <li>Documentos de relevancia</li>
+  <li>Resumen del análisis</li>
+</ul>
+<h2>Matriz de escalado</h2>
+<p>Aunque la matriz de escalado debería ser la misma para todos los casos de uso, puede haber casos que por falta de capacidades, por dependencias de otros servicio o incluso por que así se acuerde para un caso concreto, se debe definir la matriz de escalado.</p>
+<p>En horario laboral: Atiende en primera instancia N1 y si es necesario escalar, pasaría a N2.</p>
+<p>Fuera del horario Atiende el técnico de 24/7 que se encuentre y escalara después del análisis inicia a Guardia ya que hay que ponerse en contacto con terceros para una correcta resolución.</p>
+<h2>Reglas de caso de uso</h2>
+<figure class="image image_resized" style="width:76.5%;"><img src="https://lh7-eu.googleusercontent.com/Z0wzQmXxH_h60Czx2kprne_vnUf1Sov5WqIwg9UXXK3v4-VWZgEz9GQgtYDIvgliV9RrCjGBdU9J2Vf_ACsAKmdXxvxoQFBqnIorIzthTpow7pmCX_N88ju7kEA1haDisqbTF-pUmiMF"></figure>
+<h2>Campos Necesarios</h2>
+<p style="text-align:justify;">Los campos mínimos que deben seleccionarse para llevar a cabo la investigación:</p>
+<ul>
+  <li>Start Time</li>
+  <li>Event Name</li>
+  <li>Username</li>
+  <li>Item</li>
+</ul>
+<h2>Cierre por defecto</h2>
+<p>Nota de cierre que se debería de rellenar a la hora de cerrar una alerta:</p>
+<p><strong>Falso positivo:</strong></p>
+<ul>
+  <li>Se ha detectado al usuario [<strong>Username</strong>] eliminando una cantidad de [<strong>Count</strong>] ficheros en Drive. Se trata como un proceso legítimo.</li>
+</ul>
+<p><strong>Falso positivo con ajuste:</strong></p>
+<ul>
+  <li>Se ha detectado al usuario [<strong>Username</strong>] eliminando una cantidad de [<strong>Count</strong>] ficheros en Drive. Se trata como un proceso legítimo, y dado que saltan muchos FP se estima aumentar el umbral de eventos en la regla, por lo cual se abre ticket en “<a href="https://soporte.iubaris.com/"><u>https://soporte.iubaris.com/</u></a>” (RT) en la cola de <strong>Log_Management</strong> con el TAG <strong>[RLC]</strong>.</li>
+</ul>
+<p><strong>Positivo:</strong></p>
+<ul>
+  <li>Se ha detectado al usuario [<strong>Username</strong>] eliminando una cantidad de [<strong>Count</strong>] ficheros en Drive. Se trata de un proceso ilegítimo, siendo un intento de sabotaje por parte del usuario, por lo que habría que intentar recuperar la información destruida en caso de ser de relevancia y tomar las medidas legales oportunas.</li>
+</ul>
