@@ -1,0 +1,56 @@
+<!--
+title: PV-VUL-001 [MEDIA] [ESPUBLICO] [WEB] Posible explotacion de Log4shell
+description: 
+published: true
+date: 2024-01-24T08:38:51.555Z
+tags: 
+editor: ckeditor
+dateCreated: 2024-01-24T08:38:51.555Z
+-->
+
+<h1 style="text-align:center;">PV-VUL-001 [MEDIA] [ESPUBLICO] [WEB] Posible explotacion de Log4shell</h1>
+<h2>Descripción</h2>
+<p style="text-align:justify;">Caso de uso que detecta el intento de explotacion de log4shell. Se trata de una regla duplicada de la original <i>Potential Log4Shell Evasion detected</i>.</p>
+<ul>
+  <li><strong>Nombre</strong>: Posible explotacion de Log4shell.</li>
+  <li><strong>Criticidad</strong>: Alta</li>
+  <li><strong>Tiempo de Atención</strong>: 30 minutos</li>
+  <li><strong>Tecnologías utilizadas</strong>: SOAR</li>
+</ul>
+<h2>MITRE</h2>
+<ul>
+  <li>T1588 - Obtain Capabilities</li>
+  <li>T1588.006 - Vulnerabilities<br><br>&nbsp;</li>
+</ul>
+<h2>What to do</h2>
+<p style="text-align:justify;">Cuando salte la alerta, verificar el usuario que está realizando el cambio y sobre que usuario lo esta realizando. Esta actividad al ser tan critica <strong>siempre</strong> debe estar ligada a un ticket. Si no es actividad autorizada o no hay un ticket para esta, escalar la actividad detectada. Adicionalmente, en este ultimo caso, verificar la actividad del usuario origen para identificar posibles comportamientos anómalos o sospechosos que nos indicaran una posible vulneración en nuestros sistemas.</p>
+<h2>Notas de cierre</h2>
+<p>Puntos mínimos que debe de tener un cierre:</p>
+<ul>
+  <li>Usuario realizando la accion</li>
+  <li>Hora/Fecha inicial</li>
+  <li>Usuario sobre el que realiza la accion</li>
+  <li>Analisis de la actividad realizada del usuario adicionalmente a la alerta en caso de no ser autorizada</li>
+  <li>Resumen del análisis</li>
+</ul>
+<h2>Matriz de escalado</h2>
+<p>Aunque la matriz de escalado debería ser la misma para todos los casos de uso, puede haber casos que por falta de capacidades, por dependencias de otros servicio o incluso por que así se acuerde para un caso concreto, se debe definir la matriz de escalado.</p>
+<p>En horario laboral: Atiende N1 y escala a N2</p>
+<p>Fuera del horario Atiende N0 y escala a Guardia</p>
+<h2>Reglas de caso de uso</h2>
+<p>Información de la regla:</p>
+<figure class="image image_resized" style="width:71.67%;"><img src="https://lh7-eu.googleusercontent.com/Ope3Qev-U84wYyUj0tYUKXXc4-9akZTnsHqwYkekp-qT09Z0Nk0W3LEtJr6hLCsSHfy21ZOmS4SllwEEkqCQq4WyayZmPtaV4-yExlGVKh0DM3q_NkO3sY_O5N8vetWZ_QXentJXU-kTx9EY4ypCMA"></figure>
+<h2>Campos Necesarios</h2>
+<p>Los campos mínimos que deben seleccionarse para llevar a cabo la investigación:</p>
+<ul>
+  <li>Start Time</li>
+  <li>Numero de ticket</li>
+  <li>Username origen</li>
+  <li>Username destino</li>
+</ul>
+<h2>Cierre por defecto</h2>
+<p>Nota de cierre que se debería de rellenar a la hora de cerrar una alerta:</p>
+<p><strong>Falso positivo:</strong></p>
+<ul>
+  <li>Se ha detectado que el usuario [<strong>Username origen</strong>] ha creado/borrado/modificado el usuario [<strong>Username destino</strong>], esta actividad se encuentra ligada al ticket [<strong>número de ticket</strong>], después del análisis del usuario se verifica que está realizando actividad autorizada.</li>
+</ul>
