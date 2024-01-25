@@ -2,45 +2,57 @@
 title: CC-SNC-004 [MEDIA] [MULTI] Comunicacion desde direccion ip maliciosa
 description: 
 published: true
-date: 2024-01-23T12:04:57.392Z
+date: 2024-01-25T11:03:53.499Z
 tags: 
 editor: ckeditor
 dateCreated: 2024-01-23T09:30:38.556Z
 -->
 
-<h1 style="text-align:center;">CC-SNC-004 [MEDIA] [MULTI] Comunicacion desde direccion ip maliciosa</h1>
+<h1 style="text-align:center;">CC-SNC-004 [BAJA] [ESFIRMA] [NTP] Error de sincronizacion de ntp en servidores m0x de esFirma</h1>
 <h2>Descripción</h2>
-<p style="text-align:justify;">Esta alerta se activa cuando se detecta una comunicación desde una IP potencialmente maliciosa, la cual es categorizada como tal por X-Force o de contenedores de referencia.&nbsp; De manera que nos alerta de las comunicaciones de remoto a local, también cuando el evento no fuera detectado por el sistema local, en “Action (custom)” y “rule_staus (custom)” es “DENY”, la IP de destino no es “195.77.90.84” y el puerto de destino no es el “80” ni el “443”.&nbsp;</p>
+<p style="text-align:justify;">Esta alerta se activa cuando se generan eventos con el QID 2000131 (mensaje ntpstat) que no son detectados por el Sistema Local, y cuando dicho mensaje contiene alguna sincronización, y un día después, fueron detectados por:<br>Linux OS @mad-esfirma-m01-svcs.pki.esfirma.com<br>Linux OS @mad-esfirma-m02-svcs.pki.esfirma.com</p>
 <ul>
-  <li><strong>Nombre</strong>: Comunicación desde una dirección IP maliciosa.</li>
-  <li><strong>Criticidad</strong>: Media</li>
-  <li><strong>Tiempo de Atención</strong>: 30 minutos</li>
+  <li><strong>Nombre</strong>: Error de sincronización de ntp en servidores m0x de esFirma</li>
+  <li><strong>Criticidad</strong>: Baja</li>
+  <li><strong>Tiempo de Atención</strong>: 180 minutos</li>
   <li><strong>Tecnologías utilizadas</strong>: Logs locales</li>
 </ul>
 <h2>MITRE</h2>
-<ul>
-  <li>TA0011 – Command and Control</li>
-</ul>
+<p>Esta regla no aplica a Mitre ATT&amp;CK, ya que es una regla para monitorizar un fallo en la configuración o funcionamiento del servicio NTP de los servidores.&nbsp;</p>
 <h2>What to do</h2>
-<p style="text-align:justify;">Una vez detectada la alerta hay que revisar la IP de origen para ver si es maliciosa, para ello se deberán usar varias herramientas incluyendo la de X-Force, ya que X-Force conserva los delitos de una IP durante años, por lo que tendremos que sumar los resultados de las otras herramientas para verificar el tipo de actividad maliciosa que podría tener dicha IP, analizando los datos y las fechas de los últimos incidentes asignados a dicha IP se puede determinar si es un Falso_Positivo, o un Positivo_Contenido.</p>
+<p style="text-align:justify;">Una vez detectada la alerta hay que crear un Ticket en RT&nbsp; indicando la incidencia para que los administradores tomen medidas correctivas.</p>
+<p style="text-align:justify;">El Ticket tiene que ser creado en la cola de SO Problemas indicando la ID de la alerta, la&nbsp; [<strong>URL Referrer (custom)</strong>] y [<strong>URL Query String (custom))</strong>]&nbsp;</p>
 <h2>Notas de cierre</h2>
 <p>Puntos mínimos que debe de tener un cierre</p>
 <ul>
-  <li>Análisis de la IP que ha provocado el salto de la alerta</li>
-  <li>Control de la actividad de dicha IP en las últimas semanas.</li>
-  <li>Resumen del análisis</li>
+  <li>Nº de Ticket en RT</li>
+  <li>Breve descripción de la alerta</li>
+  <li>Máquina afectada.</li>
 </ul>
 <h2>Matriz de escalado</h2>
 <p>En horario laboral: Atiende en primera instancia N1 y si es necesario escalar, pasaría a N2.</p>
 <p>Fuera del horario Atiende el técnico de 24/7 que se encuentre y escalara después del análisis inicia a Guardia si fuera necesario.</p>
-<h2>Reglas de caso de uso</h2>
-<figure class="image image_resized" style="width:649px;"><img src="https://lh7-eu.googleusercontent.com/YaCtnNZ8uK29kuzB34XFBE6eYE_7MqP81D50r_hEbA86Kd-uvJXQEd07ONdoMiKHEd52DDoHUaTk7rQwot_ZliCSm4pQGi_iYtC9YIUfSfJyEj4h5XHQ-uGJsoSHPs7xifUp60ToZ8LP"></figure>
+<h2>Reglas de Caso de Uso</h2>
+<figure class="image image_resized" style="width:677px;"><img src="https://lh7-eu.googleusercontent.com/lvHB_TFTurEbMa2k274nXlu-4eZb30omsyE4oCb21ng--Owj5GsojeJVIOEWsTaN2DZu3DwsXBVO8bdbySMdcX3Iw7P8YG0buT8gz2sfUzDlvB2bSX7ojuvJYC5UPLEruQk9zqZxCMcq"></figure>
+<figure class="image image_resized" style="width:667px;"><img src="https://lh7-eu.googleusercontent.com/Ho1ehcBYsZYRZPok-5bPz375UU0yWQaLtboQ-JhXBNoyI5Gb09CkXuY0OZtGXanQq_3KC2VwIbdsHGxehAUJy03qoOeQt2U3GrPc-pGSu2ZAK7xGzCnKFR-siEHR4F_rH195VyQ037rp"></figure>
+<figure class="image image_resized" style="width:283px;"><img src="https://lh7-eu.googleusercontent.com/uDpgU-3DWflK4ZY617_5nu7vmO8rGvCJPT_NuBKL4jR2rYsfrKaoyRuAzQtXEmCun8D-gqVD4HkA86h7EWx-2Tv4hRgdlfxKyRSHULs8k5umeor_-GE9_cS79-F2S1rgQQdf7iXiucZd"></figure>
+<figure class="image image_resized" style="width:664px;"><img src="https://lh7-eu.googleusercontent.com/iZLvQb9CmzdRM8mFlRBqqdF5uzzURkZsa4SQoaRwr59-Th0xwxDs95k-63PbxwT_3TwbnVmREMlzSps9k2UNmw6Ur0oS-2WqbDAU7nsZ4gh5XGxaSwVzToB_vbnGm2W4bUk_98yGWkdK"></figure>
+<figure class="image image_resized" style="width:335px;"><img src="https://lh7-eu.googleusercontent.com/BD74kgOt5YejBaeW6kh2DM76rxolJkss5XK5XBvmb9-JYpPib6h_Q4Z_8q7oT1vnCKxz91zPT7r81OQeZA8ZrBjUgeMBmf7VSzwf32fh6vaRjHHMz7Qzclz-rXMgkb-GkmavWeCjKa7x"></figure>
+<figure class="image image_resized" style="width:666px;"><img src="https://lh7-eu.googleusercontent.com/Kc_Nimog2iMZSaj4AIEonliVbmojjYS9lIwWG6bCc9G7WrDbAkQ5sOfdoi_8vKdPg8zyKmIcKw3R6Oswp0eGiYMDusOYwqEDawt301cosR37m3II8Vy0oel4A_rkC5wR6fPk1uLAkVhN"></figure>
 <h2>Campos Necesarios</h2>
 <p>Los campos mínimos que deben seleccionarse para llevar a cabo la investigación:</p>
 <ul>
   <li>Start Time</li>
   <li>Event Name</li>
   <li>Source IP</li>
-  <li>Destination IP</li>
-  <li>Destination Port</li>
+</ul>
+<h2>Cierre por defecto</h2>
+<p>Nota de cierre que se debería de rellenar a la hora de cerrar una alerta:</p>
+<p><strong>Falso positivo:</strong></p>
+<ul>
+  <li>Se ha detectado que hay una asincronía en los servidores de EsFirma [<strong>Indicar cual</strong>], se ha procedido a realizar el Ticket [<strong>Nº de Ticket</strong>], para su pronta resolución.</li>
+</ul>
+<p><strong>Falso positivo con ajuste:</strong></p>
+<ul>
+  <li>Se ha detectado que hay una asincronía en los servidores de EsFirma [<strong>Indicar cual</strong>], se ha procedido a realizar el Ticket [<strong>Nº de Ticket</strong>], para su pronta resolución., sin embargo se localiza un&nbsp; fallo en la regla en la que [<strong>Descripción del ajuste necesario</strong>], por lo cual se abre ticket en “<a href="https://soporte.iubaris.com/"><u>https://soporte.iubaris.com/</u></a>” (RT) con numero [<strong>Nº de ticket abierto</strong>].</li>
 </ul>
