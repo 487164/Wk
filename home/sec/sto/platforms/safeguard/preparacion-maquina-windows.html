@@ -1,0 +1,24 @@
+<!--
+title: Preparación de máquina windows
+description: 
+published: true
+date: 2024-01-25T12:41:15.438Z
+tags: 
+editor: ckeditor
+dateCreated: 2024-01-25T12:41:15.438Z
+-->
+
+<h1 style="text-align:center;">Preparación de máquina windows</h1>
+<p style="text-align:center;">&nbsp;</p>
+<p><a href="https://support.oneidentity.com/es-es/technical-documents/one-identity-safeguard-for-privileged-passwords/7.0.4%20lts/administration-guide/125#TOPIC-2061917">https://support.oneidentity.com/es-es/technical-documents/one-identity-safeguard-for-privileged-passwords/7.0.4%20lts/administration-guide/125#TOPIC-2061917</a></p>
+<p>Crear la cuenta de administrador local "aCdCmN570", sin caducidad de contraseña.</p>
+<p>Permitir en el Firewall de Windows</p>
+<ul>
+  <li>Windows Management Instrumentation (DCOM-In)</li>
+  <li>Windows Management Instrumentation (WMI-In)</li>
+  <li>NetLogon Service (NP-In)</li>
+  <li>Remote Scheduled Tasks Management (RPC)</li>
+</ul>
+<p>En Local Security Policy&gt;Local Policies &gt; Security Options.</p>
+<p>Cambiar a Disable: "User Account Control: Run all administrators in Admin Approval Mode"</p>
+<p>Reiniciar windows.</p>
