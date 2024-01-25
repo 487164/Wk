@@ -2,7 +2,7 @@
 title: Preparación de máquina windows
 description: 
 published: true
-date: 2024-01-25T14:34:36.245Z
+date: 2024-01-25T14:58:03.184Z
 tags: 
 editor: ckeditor
 dateCreated: 2024-01-25T12:41:15.438Z
@@ -24,9 +24,10 @@ dateCreated: 2024-01-25T12:41:15.438Z
 <p>Reiniciar windows.</p>
 <p>&nbsp;</p>
 <pre><code class="language-plaintext">#Crear la cuenta de administrador local "aCdCmN570", sin caducidad de contraseña.
-# Solicitar al usuario que introduzca una contraseña
 $Password = Read-Host -AsSecureString "Introduce una contraseña segura para la cuenta de usuario 'aCdCmN570'"
 New-LocalUser -Name "aCdCmN570" -Password $Password -AccountNeverExpires
+
+#¿Y si el equipo está en dominio?
 Add-LocalGroupMember -SID "S-1-5-32-544" -Member "aCdCmN570"
 
 #Permitir en el firewall DCOM-In, WMI-In, NP-In y RPC
