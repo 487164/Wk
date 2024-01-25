@@ -2,12 +2,91 @@
 title: Directivas de Auditoría
 description: 
 published: true
-date: 2024-01-25T08:39:45.060Z
+date: 2024-01-25T08:55:09.765Z
 tags: 
 editor: ckeditor
 dateCreated: 2024-01-25T08:39:45.060Z
 -->
 
 <h1 style="text-align:center;">Directivas de Auditoría</h1>
-<p style="text-align:center;">&nbsp;</p>
-<p style="text-align:center;">&nbsp;</p>
+<p>&nbsp;</p>
+<p><strong>ENS Nivel ALTO</strong></p>
+<p>Siguiendo las últimas guías de la categoría<i> 800 Guías Esquema Nacional de Seguridad </i>se debe auditar<i>:</i></p>
+<p><a href="https://www.ccn-cert.cni.es/es/800-guia-esquema-nacional-de-seguridad/994-ccn-stic-870b-implementacion-del-ens-en-windows-server-2012-r2-servidor-independiente/file.html">CCN-STIC-870B Implementación del ENS en Windows Server 2012 R2 (servidor independiente)</a> Ago 2015</p>
+<p><a href="https://www.ccn-cert.cni.es/es/800-guia-esquema-nacional-de-seguridad/982-870a-implementacion-ens-windows-server-2012-r2-jul15/file.html">CCN-STIC-870A Implementación del ENS en Windows Server 2012 R2</a> Jul 2015</p>
+<p>&nbsp;</p>
+<p>Policy Config: Configuración de seguridad</p>
+<p>Policy Path: Directivas locales\Directiva de auditoría</p>
+<figure class="table" style="float:left;">
+  <table style="border-bottom:none;border-left:none;border-right:none;border-top:none;">
+    <tbody>
+      <tr>
+        <td style="border-bottom:0.5pt solid #000000;border-left:0.5pt solid #000000;border-right:0.5pt solid #000000;border-top:0.5pt solid #000000;vertical-align:top;">Policy Setting Name</td>
+        <td style="border-bottom:0.5pt solid #000000;border-left:0.5pt solid #000000;border-right:0.5pt solid #000000;border-top:0.5pt solid #000000;vertical-align:top;">Policy Setting</td>
+        <td style="border-bottom:0.5pt solid #000000;border-left:0.5pt solid #000000;border-right:0.5pt solid #000000;border-top:0.5pt solid #000000;vertical-align:top;">Value</td>
+      </tr>
+      <tr>
+        <td style="border-bottom:0.5pt solid #000000;border-left:0.5pt solid #000000;border-right:0.5pt solid #000000;border-top:0.5pt solid #000000;vertical-align:top;">Auditar el acceso a objetos</td>
+        <td style="border-bottom:0.5pt solid #000000;border-left:0.5pt solid #000000;border-right:0.5pt solid #000000;border-top:0.5pt solid #000000;vertical-align:top;">AuditObjectAccess</td>
+        <td style="border-bottom:0.5pt solid #000000;border-left:0.5pt solid #000000;border-right:0.5pt solid #000000;border-top:0.5pt solid #000000;vertical-align:top;">3</td>
+      </tr>
+      <tr>
+        <td style="border-bottom:0.5pt solid #000000;border-left:0.5pt solid #000000;border-right:0.5pt solid #000000;border-top:0.5pt solid #000000;vertical-align:top;">Auditar el acceso al servicio de directorio</td>
+        <td style="border-bottom:0.5pt solid #000000;border-left:0.5pt solid #000000;border-right:0.5pt solid #000000;border-top:0.5pt solid #000000;vertical-align:top;">AuditDSAccess</td>
+        <td style="border-bottom:0.5pt solid #000000;border-left:0.5pt solid #000000;border-right:0.5pt solid #000000;border-top:0.5pt solid #000000;vertical-align:top;">3</td>
+      </tr>
+      <tr>
+        <td style="border-bottom:0.5pt solid #000000;border-left:0.5pt solid #000000;border-right:0.5pt solid #000000;border-top:0.5pt solid #000000;vertical-align:top;">Auditar el cambio de directivas</td>
+        <td style="border-bottom:0.5pt solid #000000;border-left:0.5pt solid #000000;border-right:0.5pt solid #000000;border-top:0.5pt solid #000000;vertical-align:top;">AuditPolicyChange</td>
+        <td style="border-bottom:0.5pt solid #000000;border-left:0.5pt solid #000000;border-right:0.5pt solid #000000;border-top:0.5pt solid #000000;vertical-align:top;">3</td>
+      </tr>
+      <tr>
+        <td style="border-bottom:0.5pt solid #000000;border-left:0.5pt solid #000000;border-right:0.5pt solid #000000;border-top:0.5pt solid #000000;vertical-align:top;">Auditar el seguimiento de procesos</td>
+        <td style="border-bottom:0.5pt solid #000000;border-left:0.5pt solid #000000;border-right:0.5pt solid #000000;border-top:0.5pt solid #000000;vertical-align:top;">AuditProcessTracking</td>
+        <td style="border-bottom:0.5pt solid #000000;border-left:0.5pt solid #000000;border-right:0.5pt solid #000000;border-top:0.5pt solid #000000;vertical-align:top;">0</td>
+      </tr>
+      <tr>
+        <td style="border-bottom:0.5pt solid #000000;border-left:0.5pt solid #000000;border-right:0.5pt solid #000000;border-top:0.5pt solid #000000;vertical-align:top;">Auditar el uso de privilegios</td>
+        <td style="border-bottom:0.5pt solid #000000;border-left:0.5pt solid #000000;border-right:0.5pt solid #000000;border-top:0.5pt solid #000000;vertical-align:top;">AuditPrivilegeUse</td>
+        <td style="border-bottom:0.5pt solid #000000;border-left:0.5pt solid #000000;border-right:0.5pt solid #000000;border-top:0.5pt solid #000000;vertical-align:top;">3</td>
+      </tr>
+      <tr>
+        <td style="border-bottom:0.5pt solid #000000;border-left:0.5pt solid #000000;border-right:0.5pt solid #000000;border-top:0.5pt solid #000000;vertical-align:top;">Auditar eventos de inicio de sesión</td>
+        <td style="border-bottom:0.5pt solid #000000;border-left:0.5pt solid #000000;border-right:0.5pt solid #000000;border-top:0.5pt solid #000000;vertical-align:top;">AuditLogonEvents</td>
+        <td style="border-bottom:0.5pt solid #000000;border-left:0.5pt solid #000000;border-right:0.5pt solid #000000;border-top:0.5pt solid #000000;vertical-align:top;">3</td>
+      </tr>
+      <tr>
+        <td style="border-bottom:0.5pt solid #000000;border-left:0.5pt solid #000000;border-right:0.5pt solid #000000;border-top:0.5pt solid #000000;vertical-align:top;">Auditar eventos de inicio de sesión de cuenta</td>
+        <td style="border-bottom:0.5pt solid #000000;border-left:0.5pt solid #000000;border-right:0.5pt solid #000000;border-top:0.5pt solid #000000;vertical-align:top;">AuditAccountLogon</td>
+        <td style="border-bottom:0.5pt solid #000000;border-left:0.5pt solid #000000;border-right:0.5pt solid #000000;border-top:0.5pt solid #000000;vertical-align:top;">3</td>
+      </tr>
+      <tr>
+        <td style="border-bottom:0.5pt solid #000000;border-left:0.5pt solid #000000;border-right:0.5pt solid #000000;border-top:0.5pt solid #000000;vertical-align:top;">Auditar eventos del sistema</td>
+        <td style="border-bottom:0.5pt solid #000000;border-left:0.5pt solid #000000;border-right:0.5pt solid #000000;border-top:0.5pt solid #000000;vertical-align:top;">AuditSystemEvents</td>
+        <td style="border-bottom:0.5pt solid #000000;border-left:0.5pt solid #000000;border-right:0.5pt solid #000000;border-top:0.5pt solid #000000;vertical-align:top;">1</td>
+      </tr>
+      <tr>
+        <td style="border-bottom:0.5pt solid #000000;border-left:0.5pt solid #000000;border-right:0.5pt solid #000000;border-top:0.5pt solid #000000;vertical-align:top;">Auditar la administración de cuentas</td>
+        <td style="border-bottom:0.5pt solid #000000;border-left:0.5pt solid #000000;border-right:0.5pt solid #000000;border-top:0.5pt solid #000000;vertical-align:top;">AuditAccountManage</td>
+        <td style="border-bottom:0.5pt solid #000000;border-left:0.5pt solid #000000;border-right:0.5pt solid #000000;border-top:0.5pt solid #000000;vertical-align:top;">3</td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><br>&nbsp;</p>
+<p><strong>Registro de entradas de script de PowerShell en el registro de eventos</strong></p>
+<p><a href="https://www.stigviewer.com/stig/windows_10/2017-02-21/finding/V-68819">PowerShell script block logging must be enabled. (stigviewer.com)</a></p>
+<p><a href="https://admx.help/?Category=Windows_10_2016&amp;Policy=Microsoft.Policies.PowerShell::EnableScriptBlockLogging">Turn on PowerShell Script Block Logging (admx.help)</a><br>&nbsp;</p>
+<pre><code class="language-plaintext">New-Item -Path ""HKLM:\SOFTWARE\Wow6432Node\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging"" -Force
+Set-ItemProperty -Path ""HKLM:\SOFTWARE\Wow6432Node\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging"" -Name ""EnableScriptBlockLogging"" -Value 1 -Force</code></pre>
+<p><br>&nbsp;</p>
