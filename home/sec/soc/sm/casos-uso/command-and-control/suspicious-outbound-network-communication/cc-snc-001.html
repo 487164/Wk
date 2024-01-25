@@ -2,73 +2,57 @@
 title: CC-SNC-001 [MEDIA] [MAIL] Envio de mail a servidor malicioso
 description: 
 published: true
-date: 2024-01-23T12:04:37.320Z
+date: 2024-01-25T11:07:24.499Z
 tags: 
 editor: ckeditor
 dateCreated: 2024-01-23T09:23:56.259Z
 -->
 
-<h1 style="text-align:center;">CC-SNC-001 [MEDIA] [MAIL] Envio de mail a servidor malicioso.</h1>
+<h1 style="text-align:center;">CC-SNC-004 [BAJA] [ESFIRMA] [NTP] Error de sincronizacion de ntp en servidores m0x de esFirma</h1>
 <h2>Descripción</h2>
-<p>Este caso de uso identifica un usuario a enviado un correo a un servidor malicioso .</p>
+<p style="text-align:justify;">Esta alerta se activa cuando se generan eventos con el QID 2000131 (mensaje ntpstat) que no son detectados por el Sistema Local, y cuando dicho mensaje contiene alguna sincronización, y un día después, fueron detectados por:<br>Linux OS @mad-esfirma-m01-svcs.pki.esfirma.com<br>Linux OS @mad-esfirma-m02-svcs.pki.esfirma.com</p>
 <ul>
-  <li><strong>Nombre</strong>: Envio de mail a servidor malicioso.</li>
-  <li><strong>Criticidad</strong>: Alta</li>
-  <li><strong>Tiempo de Atención</strong>: 30 minutos</li>
+  <li><strong>Nombre</strong>: Error de sincronización de ntp en servidores m0x de esFirma</li>
+  <li><strong>Criticidad</strong>: Baja</li>
+  <li><strong>Tiempo de Atención</strong>: 180 minutos</li>
   <li><strong>Tecnologías utilizadas</strong>: Logs locales</li>
 </ul>
 <h2>MITRE</h2>
-<ul>
-  <li>TA0011 – Command and Control</li>
-</ul>
+<p>Esta regla no aplica a Mitre ATT&amp;CK, ya que es una regla para monitorizar un fallo en la configuración o funcionamiento del servicio NTP de los servidores.&nbsp;</p>
 <h2>What to do</h2>
-<p style="text-align:justify;">Una vez identificado el dominio alojado en el servidor malicioso y la ip, lo primero que debemos de realizar es, escanearlos con las diferentes herramientas (x-Force, VirusTotal, Cisco Talos, e.t.c) tanto del dominio como la IP, si es cierto que el dominio o la IP al cuál se ha enviado el correo es malicioso, deberíamos de identificar el porque, si es por SPAM, por escaneo de puertos e.t.c. A continuación vemos de donde proviene ese dominio (si es un dominio por ejemplo de un ayuntamiento, universidad, e.t.c). Si tras este análisis detectamos que el dominio es legítimo, o por ejemplo fue detectado como SPAM, pero hace tiempo, lo descartaríamos y cerraremos la alerta como FP.</p>
-<p style="text-align:justify;">En caso de que detectemos que el dominio o la IP son maliciosas, tendríamos que verificar la legitimidad del dominio o la IP, miraremos desde el exchange, quién ha enviado el correo, que tipo de documentación ha enviado, qué tipo de malware ha detectado. En caso que no encontrar nada de información en el exchange porque por el servidor que pasa la información es “relay=nginx*” tendríamos que escalar (<a href="https://docs.google.com/document/d/1mdglXrIDQzWvmIOHJbOtVfmi1TilpwQd/edit#heading=h.cj5gzq7oewwg"><u>Véase punto 5</u></a>) ofreciendo los siguientes datos:</p>
-<ul>
-  <li>La ID del evento. (EJ: 33C1A8A6A85)</li>
-  <li>La fecha.</li>
-  <li>El servidor. (EJ: relay=nginx-01.madrid.espublico.com[213.4.82.201])</li>
-</ul>
-<p style="text-align:justify;">Si consideramos que la documentación enviada y el dominio no son maliciosos lo cerramos como FP. Si consideramos que la documentación enviada era sensible, o el dominio era malicioso, pero se ha detenido lo cerramos como PC y en caso de que detectemos que se ha enviado documentación sensible o el dominio era malicioso y no se ha detenido, escalaremos (<a href="https://docs.google.com/document/d/1mdglXrIDQzWvmIOHJbOtVfmi1TilpwQd/edit#heading=h.cj5gzq7oewwg"><u>Véase punto 5</u></a>).</p>
-<h3>Notas de cierre</h3>
+<p style="text-align:justify;">Una vez detectada la alerta hay que crear un Ticket en RT&nbsp; indicando la incidencia para que los administradores tomen medidas correctivas.</p>
+<p style="text-align:justify;">El Ticket tiene que ser creado en la cola de SO Problemas indicando la ID de la alerta, la&nbsp; [<strong>URL Referrer (custom)</strong>] y [<strong>URL Query String (custom))</strong>]&nbsp;</p>
+<h2>Notas de cierre</h2>
 <p>Puntos mínimos que debe de tener un cierre</p>
 <ul>
-  <li>nombre del dominio o IP por el cuál ha saltado la alerta.</li>
-  <li>información del escaneo del dominio o IP</li>
-  <li>en caso de ser posible, obtener el usuario de quien envió el correo.</li>
-  <li>documentación, de la fecha, la ID y el servidor de donde se manda el correo</li>
-  <li>resumen del análisis</li>
+  <li>Nº de Ticket en RT</li>
+  <li>Breve descripción de la alerta</li>
+  <li>Máquina afectada.</li>
 </ul>
-<h3>Matriz de escalado</h3>
-<p>En horario laboral: Atiende N1 y escala a N2</p>
-<p>Fuera del horario Atiende N0 y escala a Guardia</p>
-<h3>Reglas de Caso de Uso</h3>
-<figure class="image image_resized" style="width:644px;"><img src="https://lh7-eu.googleusercontent.com/XwS7skfTreTycp3YiDWd-vTsVxVOzfvFMPHnwIvAjZeD9duMSV67zRbTC0uznQSuPuH5vjQGXxK3znG6XodkldwftfsSL_WvkbE3acIg9aH2mz3HUvQvIZf9IYULzIkXJVAeDEihV1cr"></figure>
-<p>&nbsp;</p>
-<figure class="image image_resized" style="width:590px;"><img src="https://lh7-eu.googleusercontent.com/_PVHiIv_xeMeTNwLg9axj8WDOUGUq__h5zMynZFZmUN7zFryXiMnRDfCDu4f6gDZ0FedgPx3pAcdTd0qR6q7dCHorSWbH_qRBSXVXhmfP5b-u9d_aE4w7fax46x20Kopzd7TXYGAo9xX"></figure>
-<figure class="image image_resized" style="width:660px;"><img src="https://lh7-eu.googleusercontent.com/6nAa5vkt3E-dsflvRSYEoWL41G88BdfS7xw7aYfzT14Cn_jg-UVy-pCg5Sj6Dx99MNwz-FYq7wPZLAyaKJquf6-6bn_wEy9yYunmzPo6aPL_zxeQDcp0Ei-DV5wDxnSctXrbC30HdLxj"></figure>
-<h3>Campos Necesarios</h3>
+<h2>Matriz de escalado</h2>
+<p>En horario laboral: Atiende en primera instancia N1 y si es necesario escalar, pasaría a N2.</p>
+<p>Fuera del horario Atiende el técnico de 24/7 que se encuentre y escalara después del análisis inicia a Guardia si fuera necesario.</p>
+<h2>Reglas de Caso de Uso</h2>
+<figure class="image image_resized" style="width:677px;"><img src="https://lh7-eu.googleusercontent.com/lvHB_TFTurEbMa2k274nXlu-4eZb30omsyE4oCb21ng--Owj5GsojeJVIOEWsTaN2DZu3DwsXBVO8bdbySMdcX3Iw7P8YG0buT8gz2sfUzDlvB2bSX7ojuvJYC5UPLEruQk9zqZxCMcq"></figure>
+<figure class="image image_resized" style="width:667px;"><img src="https://lh7-eu.googleusercontent.com/Ho1ehcBYsZYRZPok-5bPz375UU0yWQaLtboQ-JhXBNoyI5Gb09CkXuY0OZtGXanQq_3KC2VwIbdsHGxehAUJy03qoOeQt2U3GrPc-pGSu2ZAK7xGzCnKFR-siEHR4F_rH195VyQ037rp"></figure>
+<figure class="image image_resized" style="width:283px;"><img src="https://lh7-eu.googleusercontent.com/uDpgU-3DWflK4ZY617_5nu7vmO8rGvCJPT_NuBKL4jR2rYsfrKaoyRuAzQtXEmCun8D-gqVD4HkA86h7EWx-2Tv4hRgdlfxKyRSHULs8k5umeor_-GE9_cS79-F2S1rgQQdf7iXiucZd"></figure>
+<figure class="image image_resized" style="width:664px;"><img src="https://lh7-eu.googleusercontent.com/iZLvQb9CmzdRM8mFlRBqqdF5uzzURkZsa4SQoaRwr59-Th0xwxDs95k-63PbxwT_3TwbnVmREMlzSps9k2UNmw6Ur0oS-2WqbDAU7nsZ4gh5XGxaSwVzToB_vbnGm2W4bUk_98yGWkdK"></figure>
+<figure class="image image_resized" style="width:335px;"><img src="https://lh7-eu.googleusercontent.com/BD74kgOt5YejBaeW6kh2DM76rxolJkss5XK5XBvmb9-JYpPib6h_Q4Z_8q7oT1vnCKxz91zPT7r81OQeZA8ZrBjUgeMBmf7VSzwf32fh6vaRjHHMz7Qzclz-rXMgkb-GkmavWeCjKa7x"></figure>
+<figure class="image image_resized" style="width:666px;"><img src="https://lh7-eu.googleusercontent.com/Kc_Nimog2iMZSaj4AIEonliVbmojjYS9lIwWG6bCc9G7WrDbAkQ5sOfdoi_8vKdPg8zyKmIcKw3R6Oswp0eGiYMDusOYwqEDawt301cosR37m3II8Vy0oel4A_rkC5wR6fPk1uLAkVhN"></figure>
+<h2>Campos Necesarios</h2>
 <p>Los campos mínimos que deben seleccionarse para llevar a cabo la investigación:</p>
 <ul>
   <li>Start Time</li>
   <li>Event Name</li>
-  <li>Sender (custom)</li>
-  <li>Recipients (custom)</li>
-  <li>Destination IP</li>
+  <li>Source IP</li>
 </ul>
-<h3>Cierre por defecto</h3>
+<h2>Cierre por defecto</h2>
 <p>Nota de cierre que se debería de rellenar a la hora de cerrar una alerta:</p>
 <p><strong>Falso positivo:</strong></p>
 <ul>
-  <li>Se ha detectado el envio de correos desde [<strong>Sender Address (custom)</strong>] al destinatario [<strong>RecipientAddress (custom)</strong>] el cual ha sido detectado como SPAM o malicioso, una vez analizado el correo a traves de “Microsoft Exchange Message Trace”&nbsp; y “security.microsoft”revisarlo en la&nbsp; “quarantine” del “security.microsoft” se verifica es un mensaje veridico y no entraña ningún riesgo.</li>
+  <li>Se ha detectado que hay una asincronía en los servidores de EsFirma [<strong>Indicar cual</strong>], se ha procedido a realizar el Ticket [<strong>Nº de Ticket</strong>], para su pronta resolución.</li>
 </ul>
 <p><strong>Falso positivo con ajuste:</strong></p>
 <ul>
-  <li>Se ha detectado el envio de correos desde [<strong>Sender Address (custom)</strong>] al destinatario [<strong>RecipientAddress (custom)</strong>] el cual ha sido detectado como SPAM o malicioso, una vez analizado el correo a traves de “Microsoft Exchange Message Trace”&nbsp; y “security.microsoft”revisarlo en la&nbsp; “quarantine” del “security.microsoft” se verifica es un mensaje veridico y no entraña ningún riesgo, sin embargo se localiza un&nbsp; fallo en la regla en la que [<strong>Descripción del ajuste necesario</strong>], por lo cual se abre ticket en “<a href="https://soporte.iubaris.com/"><u>https://soporte.iubaris.com/</u></a>” (RT) con numero [<strong>Nº de ticket abierto</strong>].</li>
+  <li>Se ha detectado que hay una asincronía en los servidores de EsFirma [<strong>Indicar cual</strong>], se ha procedido a realizar el Ticket [<strong>Nº de Ticket</strong>], para su pronta resolución., sin embargo se localiza un&nbsp; fallo en la regla en la que [<strong>Descripción del ajuste necesario</strong>], por lo cual se abre ticket en “<a href="https://soporte.iubaris.com/"><u>https://soporte.iubaris.com/</u></a>” (RT) con numero [<strong>Nº de ticket abierto</strong>].</li>
 </ul>
-<p><strong>Positivo contenido:</strong></p>
-<ul>
-  <li>Se ha detectado el envio de correos desde [<strong>Sender Address (custom)</strong>] al destinatario [<strong>RecipientAddress (custom)</strong>] el cual ha sido detectado como SPAM o malicioso, una vez analizado el correo a traves de “Microsoft Exchange Message Trace”&nbsp; y “security.microsoft”revisarlo en la&nbsp; “quarantine” del “security.microsoft” se ha comprobando que albergaba [<strong>tipo de amenaza detectada</strong>] siendo contenido en&nbsp; “<a href="https://security.microsoft.com/quarantine">https://security.microsoft.com/quarantine</a>”.</li>
-</ul>
-<p><strong>Positivo:</strong></p>
-<p>Se ha detectado el envio de correos desde [<strong>Sender Address (custom)</strong>] al destinatario [<strong>RecipientAddress (custom)</strong>] el cual ha sido detectado como SPAM o malicioso, una vez analizado el correo a traves de “Microsoft Exchange Message Trace”&nbsp; y “security.microsoft”revisarlo en la&nbsp; “quarantine” del “security.microsoft” se ha comprobando que albergaba [<strong>tipo de amenaza detectada</strong>] no ha podido ser contenida en&nbsp; “<a href="https://security.microsoft.com/quarantine">https://security.microsoft.com/quarantine</a>”.</p>
