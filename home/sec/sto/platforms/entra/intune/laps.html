@@ -1,0 +1,88 @@
+<!--
+title: Implementación de Windows LAPS para Azure AD
+description: 
+published: true
+date: 2024-01-25T11:13:25.055Z
+tags: 
+editor: ckeditor
+dateCreated: 2024-01-25T11:13:25.055Z
+-->
+
+<h1 style="text-align:center;">Implementación de Windows LAPS para Azure AD</h1>
+<h2>&nbsp;</h2>
+<h2>Crear usuario local con contraseña aleatoria</h2>
+<p>En <a href="https://endpoint.microsoft.com/?ref=AdminCenter#view/Microsoft_Intune_DeviceSettings/DevicesMenu/~/scripts"><u>Intune&gt;Devices&gt;Scripts</u></a> se crea el Remediation Script:</p>
+<p>LAPS Create Local User</p>
+<p>Detection script: Yes</p>
+<p>Remediation script: Yes</p>
+<p>Run this script using the logged-on credentials: No</p>
+<p>Enforce script signature check: No</p>
+<p>Run script in 64-bit PowerShell: Yes</p>
+<p>Detection Script</p>
+<pre><code class="language-plaintext">$userName = "LocalUser"
+$Userexist = (Get-LocalUser).Name -Contains $userName
+if ($userexist) { 
+ &nbsp;Write-Host "$userName exist" 
+ &nbsp;Exit 0
+} 
+Else {
+ &nbsp;Write-Host "$userName does not Exists"
+ &nbsp;Exit 1
+}</code></pre>
+<p>Remediation Script</p>
+<pre><code class="language-plaintext">$userName = "LocalUser"
+$userexist = (Get-LocalUser).Name -Contains $userName
+if($userexist -eq $false) {
+ &nbsp;try {
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Function to generate a random 36-character password
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;function Generate-RandomPassword {
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$length = 36
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&amp;*()_-+=[]{}|\&lt;&gt;,.?/"
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$password = -join ((Get-Random -InputObject $chars -Count $length) | Sort-Object)
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return $password
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$password = Generate-RandomPassword
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Convert the password to a SecureString object
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$securePassword = ConvertTo-SecureString -String $password -AsPlainText -Force
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Create the local user with the secure password
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;New-LocalUser -Name $userName -Description "Local user account" -Password $securePassword
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Exit 0
+ &nbsp;&nbsp;&nbsp;} 
+ &nbsp;Catch {
+ &nbsp;&nbsp;&nbsp;&nbsp;Write-error $_
+ &nbsp;&nbsp;&nbsp;&nbsp;Exit 1
+ &nbsp;&nbsp;}
+}</code></pre>
+<h2>Modificar el grupo de administradores</h2>
+<p>En <a href="https://endpoint.microsoft.com/?ref=AdminCenter#view/Microsoft_Intune_Workflows/SecurityManagementMenu/~/accountprotection"><u>Intune&gt;Endpoint security&gt;Account protection</u></a> se crea la política:</p>
+<p>LAPS Set Administrators Group</p>
+<p>Profile: Local user group membership</p>
+<p>User selection type: Manual (escribiendo solo LocalUser sin nada antes ni después)</p>
+<p>Group and user action: Add (Set)</p>
+<p>Local group: Administrators</p>
+<h2>Añadir al usuario la política de LAPS</h2>
+<p>En <a href="https://endpoint.microsoft.com/?ref=AdminCenter#view/Microsoft_Intune_Workflows/SecurityManagementMenu/~/accountprotection"><u>Intune&gt;Endpoint security&gt;Account protection</u></a> se crea la política:</p>
+<p>LAPS Configuration</p>
+<p>Profile: Local admin password solution (Windows LAPS) (preview)</p>
+<p>Backup Directory: Backup the password to Azure AD only</p>
+<p>Password Age Days: 7</p>
+<p>Administrator Account Name: LocalUser</p>
+<p>Password Complexity: Large letters + small letters + numbers + special characters</p>
+<p>Password Length: 8</p>
+<p>Post Authentication Actions: Reset the password and logoff the managed account: upon expiry of the grace period, the managed account password will be reset and any interactive logon sessions using the managed account will terminated.</p>
+<p>Post Authentication Reset Delay: 4</p>
+<h2>Gestión</h2>
+<h3>Asignar roles</h3>
+<p>Los siguientes roles integrados de Azure AD tienen permiso para recuperar contraseñas de LAPS (microsoft.directory/deviceLocalCredentials/password/read permission):</p>
+<p>Administrador global</p>
+<p>Administrador de dispositivos en la nube</p>
+<p>Administrador de Intune&nbsp;</p>
+<h3>Ver equipos con LAPS</h3>
+<p><a href="https://portal.azure.com/#view/Microsoft_AAD_Devices/DevicesMenuBlade/~/LocalAdminPassword/menuId~/null"><u>Azure Active Directory &gt; Devices &gt; Local administrator password recovery (Preview)</u></a></p>
+<h3>Recuperar contraseña</h3>
+<p>Desde los dispositivos en Azure o Intune</p>
+<p><a href="https://portal.azure.com/#view/Microsoft_AAD_Devices/DevicesMenuBlade/~/Audit/menuId~/null"><u>Azure Active Directory &gt; Devices &gt; Audit logs</u></a>. Activity filter: Recover device local administrator password.</p>
+<h3>Rotar contraseña</h3>
+<p>Desde los dispositivos en Intune</p>
+<p><a href="https://portal.azure.com/#view/Microsoft_AAD_Devices/DevicesMenuBlade/~/Audit/menuId~/null"><u>Azure Active Directory &gt; Devices &gt; Audit logs</u></a></p>
+<p>. Activity filter: Update device local administrator password.</p>
