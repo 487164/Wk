@@ -2,7 +2,7 @@
 title: Preparación de máquina windows
 description: 
 published: true
-date: 2024-01-25T14:58:03.184Z
+date: 2024-01-25T15:04:45.474Z
 tags: 
 editor: ckeditor
 dateCreated: 2024-01-25T12:41:15.438Z
@@ -25,11 +25,13 @@ dateCreated: 2024-01-25T12:41:15.438Z
 <p>&nbsp;</p>
 <pre><code class="language-plaintext">#Crear la cuenta de administrador local "aCdCmN570", sin caducidad de contraseña.
 $Password = Read-Host -AsSecureString "Introduce una contraseña segura para la cuenta de usuario 'aCdCmN570'"
-New-LocalUser -Name "aCdCmN570" -Password $Password -AccountNeverExpires
 
-#¿Y si el equipo está en dominio?
-Add-LocalGroupMember -SID "S-1-5-32-544" -Member "aCdCmN570"
-
+if ((Get-WmiObject -Class Win32_ComputerSystem).PartOfDomain) {
+	Write-Host "El equipo está en un dominio. MODIFICAR SCRIPT PARA CREAR EL USUARIO"
+} else {
+	New-LocalUser -Name "aCdCmN570" -Password $Password -AccountNeverExpires
+	Add-LocalGroupMember -SID "S-1-5-32-544" -Member "aCdCmN570"
+}
 #Permitir en el firewall DCOM-In, WMI-In, NP-In y RPC
 Enable-NetFirewallRule -Name "WMI-RPCSS-In-TCP", "WMI-WINMGMT-In-TCP", "Netlogon-NamedPipe-In", "RemoteTask-In-TCP"
 
