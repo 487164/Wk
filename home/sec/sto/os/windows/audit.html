@@ -2,7 +2,7 @@
 title: Directivas de Auditoría
 description: 
 published: true
-date: 2024-01-26T08:01:07.322Z
+date: 2024-01-26T08:35:22.605Z
 tags: 
 editor: ckeditor
 dateCreated: 2024-01-25T08:39:45.060Z
@@ -10,12 +10,12 @@ dateCreated: 2024-01-25T08:39:45.060Z
 
 <h1 style="text-align:center;">Directivas de Auditoría</h1>
 <p>&nbsp;</p>
-<p><strong>ENS Nivel ALTO</strong></p>
+<h2>ENS Nivel ALTO</h2>
 <p>Siguiendo las últimas guías de la categoría<i> 800 Guías Esquema Nacional de Seguridad </i>se debe auditar<i>:</i></p>
 <p><a href="https://www.ccn-cert.cni.es/es/800-guia-esquema-nacional-de-seguridad/994-ccn-stic-870b-implementacion-del-ens-en-windows-server-2012-r2-servidor-independiente/file.html">CCN-STIC-870B Implementación del ENS en Windows Server 2012 R2 (servidor independiente)</a> Ago 2015</p>
 <p><a href="https://www.ccn-cert.cni.es/es/800-guia-esquema-nacional-de-seguridad/982-870a-implementacion-ens-windows-server-2012-r2-jul15/file.html">CCN-STIC-870A Implementación del ENS en Windows Server 2012 R2</a> Jul 2015<br>&nbsp;</p>
 <p>Policy Config: Configuración de seguridad</p>
-<p>Policy Path: Directivas locales\Directiva de auditoría</p>
+<p>Policy Path: Directivas locales\Directiva de auditoría (0 No auditing/1 Success/3 Success, Failure)</p>
 <figure class="table" style="float:left;">
   <table style="border-bottom:none;border-left:none;border-right:none;border-top:none;">
     <tbody>
@@ -83,13 +83,14 @@ dateCreated: 2024-01-25T08:39:45.060Z
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 <p><br>Se revisan también los scripts última guía de la categoría <i>500 Guías de entornos Windows</i> donde se ve la misma configuración</p>
-<p><a href="https://www.ccn-cert.cni.es/es/guias-de-acceso-publico-ccn-stic/7104-ccn-stic-570a23-perfilado-de-seguridad-para-windows-server-controlador-de-dominio-o-servidor-miembro/file.html">CCN-STIC-570A23 Perfilado de seguridad para Windows Server (controlador de dominio o servidor miembro)</a> Jul 2023<br>&nbsp;</p>
-<p><strong>Registro de entradas de script de PowerShell en el registro de eventos</strong></p>
+<p><a href="https://www.ccn-cert.cni.es/es/guias-de-acceso-publico-ccn-stic/7104-ccn-stic-570a23-perfilado-de-seguridad-para-windows-server-controlador-de-dominio-o-servidor-miembro/file.html">CCN-STIC-570A23 Perfilado de seguridad para Windows Server (controlador de dominio o servidor miembro)</a> Jul 2023</p>
+<p>Adicionalmente se recomienda registrar información detallada del procesamiento de comandos y scripts de PowerShell.</p>
 <p><a href="https://www.stigviewer.com/stig/windows_10/2017-02-21/finding/V-68819">PowerShell script block logging must be enabled. (stigviewer.com)</a></p>
 <p><a href="https://admx.help/?Category=Windows_10_2016&amp;Policy=Microsoft.Policies.PowerShell::EnableScriptBlockLogging">Turn on PowerShell Script Block Logging (admx.help)</a><br>&nbsp;</p>
 <pre><code class="language-plaintext">New-Item -Path ""HKLM:\SOFTWARE\Wow6432Node\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging"" -Force
 Set-ItemProperty -Path ""HKLM:\SOFTWARE\Wow6432Node\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging"" -Name ""EnableScriptBlockLogging"" -Value 1 -Force</code></pre>
-<p>Configuración como GPO</p>
+<p>&nbsp;</p>
+<h2>Configuración como GPO</h2>
 <p>Crear la política ENS Alto Auditoria, editarla y hacer click con el botón derecho en Computer Configuration &gt; Policies &gt; Windows Settings &gt; Security Settings e importar ens_alto_auditoria.inf</p>
 <figure class="image"><img src="/sec/sto/os-files/windows/audit/import.jpg"></figure>
 <p>ens_alto_auditoria.inf</p>
@@ -108,11 +109,13 @@ AuditAccountManage=3
 AuditProcessTracking=0
 AuditDSAccess=3
 AuditAccountLogon=3</code></pre>
-<p>Comprobar que la configuración de Audit Policy se ha importado correctamente y aplicar la GPO a todos los equipos del dominio.</p>
+<p>Comprobar que la configuración de Audit Policy se ha importado correctamente.</p>
 <figure class="image"><img src="/sec/sto/os-files/windows/audit/check.jpg"></figure>
+<p>Ir a Computer Configuration &gt; Administrative Templates &gt; Windows Components &gt; Windows PowerShell &gt; Turn on PowerShell Script Block Logging y cambiarlo a Enabled</p>
+<figure class="image"><img src="/sec/sto/os-files/windows/audit/scriptblock.jpg"></figure>
 <p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>PS para configurarlo en un servidor independiente</p>
+<h2>Configuración en servidor independiente</h2>
+<p>Ejecutar</p>
 <pre><code class="language-plaintext"># Configurar la política de auditoría 'Auditar el acceso a objetos'
 auditpol /set /subcategory:"Object Access" /success:enable /failure:enable
 
@@ -138,5 +141,4 @@ auditpol /set /subcategory:"Account Logon" /success:enable /failure:enable
 auditpol /set /subcategory:"System" /success:enable /failure:disable
 
 # Configurar la política de auditoría 'Auditar la administración de cuentas'
-auditpol /set /subcategory:"Account Management" /success:enable /failure:enable
- </code></pre>
+auditpol /set /subcategory:"Account Management" /success:enable /failure:enable</code></pre>
