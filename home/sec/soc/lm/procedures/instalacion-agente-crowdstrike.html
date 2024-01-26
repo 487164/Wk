@@ -2,7 +2,7 @@
 title: Instalación agente crowdstrike
 description: 
 published: true
-date: 2024-01-26T09:15:51.442Z
+date: 2024-01-26T09:20:11.164Z
 tags: linux, windows, agente, crowdstrike
 editor: ckeditor
 dateCreated: 2024-01-17T09:51:39.357Z
@@ -15,7 +15,7 @@ dateCreated: 2024-01-17T09:51:39.357Z
 <p>&nbsp;</p>
 <h2>Instalación agente en endpoints linux</h2>
 <p>Una vez descargado, lo copiamos al servidor en el que se va a instalar y ejecutaremos lo siguiente:</p>
-<pre><code class="language-plaintext">sudo yum localinstall falcon-sensor-xxxxxxxxxxx.rpm -y
+<pre><code class="language-plaintext">sudo yum localinstall falcon-sensor-xxxxxxxxxxx.rpm
 sudo /opt/CrowdStrike/falconctl -s --cid=BA2D3475137C4117BD1369DD3C28450D-BD
 sudo /opt/CrowdStrike/falconctl -s --tags="xxxxxxxxxxxxxxx"
 sudo systemctl enable --now falcon-sensor</code></pre>
