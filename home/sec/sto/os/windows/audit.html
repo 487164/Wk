@@ -2,7 +2,7 @@
 title: Directivas de Auditoría
 description: 
 published: true
-date: 2024-01-25T09:31:17.696Z
+date: 2024-01-26T07:14:16.825Z
 tags: 
 editor: ckeditor
 dateCreated: 2024-01-25T08:39:45.060Z
@@ -89,4 +89,32 @@ dateCreated: 2024-01-25T08:39:45.060Z
 <p><a href="https://admx.help/?Category=Windows_10_2016&amp;Policy=Microsoft.Policies.PowerShell::EnableScriptBlockLogging">Turn on PowerShell Script Block Logging (admx.help)</a><br>&nbsp;</p>
 <pre><code class="language-plaintext">New-Item -Path ""HKLM:\SOFTWARE\Wow6432Node\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging"" -Force
 Set-ItemProperty -Path ""HKLM:\SOFTWARE\Wow6432Node\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging"" -Name ""EnableScriptBlockLogging"" -Value 1 -Force</code></pre>
-<p><br>&nbsp;</p>
+<p>&nbsp;</p>
+<p>PS para configurarlo en un servidor independiente</p>
+<pre><code class="language-plaintext"># Configurar la política de auditoría 'Auditar el acceso a objetos'
+auditpol /set /subcategory:"Object Access" /success:enable /failure:enable
+
+# Configurar la política de auditoría 'Auditar el acceso al servicio de directorio'
+auditpol /set /subcategory:"Directory Service Access" /success:enable /failure:enable
+
+# Configurar la política de auditoría 'Auditar el cambio de directivas'
+auditpol /set /subcategory:"Policy Change" /success:enable /failure:enable
+
+# Configurar la política de auditoría 'Auditar el seguimiento de procesos'
+auditpol /set /subcategory:"Process Tracking" /success:disable /failure:disable
+
+# Configurar la política de auditoría 'Auditar el uso de privilegios'
+auditpol /set /subcategory:"Privilege Use" /success:enable /failure:enable
+
+# Configurar la política de auditoría 'Auditar eventos de inicio de sesión'
+auditpol /set /subcategory:"Logon" /success:enable /failure:enable
+
+# Configurar la política de auditoría 'Auditar eventos de inicio de sesión de cuenta'
+auditpol /set /subcategory:"Account Logon" /success:enable /failure:enable
+
+# Configurar la política de auditoría 'Auditar eventos del sistema'
+auditpol /set /subcategory:"System" /success:enable /failure:disable
+
+# Configurar la política de auditoría 'Auditar la administración de cuentas'
+auditpol /set /subcategory:"Account Management" /success:enable /failure:enable
+ </code></pre>
