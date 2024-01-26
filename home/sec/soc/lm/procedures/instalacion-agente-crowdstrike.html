@@ -2,7 +2,7 @@
 title: Instalación agente crowdstrike
 description: 
 published: true
-date: 2024-01-26T09:15:04.892Z
+date: 2024-01-26T09:15:51.442Z
 tags: linux, windows, agente, crowdstrike
 editor: ckeditor
 dateCreated: 2024-01-17T09:51:39.357Z
@@ -18,4 +18,4 @@ dateCreated: 2024-01-17T09:51:39.357Z
 <pre><code class="language-plaintext">sudo yum localinstall falcon-sensor-xxxxxxxxxxx.rpm -y
 sudo /opt/CrowdStrike/falconctl -s --cid=BA2D3475137C4117BD1369DD3C28450D-BD
 sudo /opt/CrowdStrike/falconctl -s --tags="xxxxxxxxxxxxxxx"
-sudo systemctl --enable now falcon-sensor</code></pre>
+sudo systemctl enable --now falcon-sensor</code></pre>
