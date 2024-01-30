@@ -1,0 +1,27 @@
+<!--
+title: Artifact Acquisition Process
+description: 
+published: true
+date: 2024-01-30T13:04:23.200Z
+tags: 
+editor: ckeditor
+dateCreated: 2024-01-30T13:04:23.200Z
+-->
+
+<h1 style="text-align:center;">Artifact &amp; Memory Acquisition Process</h1>
+<p>Este proceso recoge los pasos a seguir para la adquisición de artefactos de los distintos sistemas operativos, tanto para servidores como puestos de usuario.</p>
+<h2>Servidores Linux</h2>
+<p>Para entornos de servidores linux, se dispone de las siguientes herramientas :</p>
+<ul>
+  <li>Memoria: AVML <a href="https://github.com/microsoft/avml">https://github.com/microsoft/avml</a></li>
+  <li>Artefactos: CyLR <a href="https://github.com/orlikoski/CyLR">https://github.com/orlikoski/CyLR</a></li>
+</ul>
+<h3>Adquisición de volcado de memoria</h3>
+<p>Antes de ejecutar la herramienta es necesario verificar el tamaño de la memoria instalada en el servidor&nbsp;</p>
+<pre><code class="language-plaintext">free -h</code></pre>
+<p>A continuación, verificar que se dispone de almacenamiento suficiente para el volcado de memoria.</p>
+<pre><code class="language-plaintext">df -h</code></pre>
+<p>Para hacer la adquisición, el binario se encuentra en el path /opt/script/ir<br>Como PATH le pasaremos la ruta donde tengamos suficiente espacio para el volcado.</p>
+<pre><code class="language-plaintext">./opt/script/ir/avml --compress {PATH}/$HOSTNAME.dmp</code></pre>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
