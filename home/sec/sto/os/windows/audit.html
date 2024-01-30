@@ -2,7 +2,7 @@
 title: Directivas de Auditoría
 description: 
 published: true
-date: 2024-01-30T12:58:55.642Z
+date: 2024-01-30T13:05:57.764Z
 tags: 
 editor: ckeditor
 dateCreated: 2024-01-25T08:39:45.060Z
@@ -113,32 +113,16 @@ AuditAccountLogon=3</code></pre>
 <p>&nbsp;</p>
 <h2>Configuración en servidor independiente</h2>
 <p>Ejecutar en PowerShell con permisos de administrador:</p>
-<pre><code class="language-plaintext"># Configurar la política de auditoría 'Auditar el acceso a objetos'
-auditpol /set /category:"Object Access" /success:enable /failure:enable
-
-# Configurar la política de auditoría 'Auditar el acceso al servicio de directorio'
-auditpol /set /category:"Directory Service Access" /success:enable /failure:enable
-
-# Configurar la política de auditoría 'Auditar el cambio de directivas'
-auditpol /set /category:"Policy Change" /success:enable /failure:enable
-
-# Configurar la política de auditoría 'Auditar el seguimiento de procesos'
-auditpol /set /category:"Process Tracking" /success:disable /failure:disable
-
-# Configurar la política de auditoría 'Auditar el uso de privilegios'
-auditpol /set /category:"Privilege Use" /success:enable /failure:enable
-
-# Configurar la política de auditoría 'Auditar eventos de inicio de sesión'
-auditpol /set /category:"Logon" /success:enable /failure:enable
-
-# Configurar la política de auditoría 'Auditar eventos de inicio de sesión de cuenta'
+<pre><code class="language-plaintext">#Establecer Audit Policy
 auditpol /set /category:"Account Logon" /success:enable /failure:enable
-
-# Configurar la política de auditoría 'Auditar eventos del sistema'
-auditpol /set /category:"System" /success:enable /failure:disable
-
-# Configurar la política de auditoría 'Auditar la administración de cuentas'
 auditpol /set /category:"Account Management" /success:enable /failure:enable
+auditpol /set /category:"DS Access" /success:enable /failure:enable
+auditpol /set /category:"Logon/Logoff" /success:enable /failure:enable
+auditpol /set /category:"Object Access" /success:enable /failure:enable
+auditpol /set /category:"Policy Change" /success:enable /failure:enable
+auditpol /set /category:"Privilege Use" /success:enable /failure:enable
+auditpol /set /category:"Detailed Tracking" /success:disable /failure:disable
+auditpol /set /category:"System" /success:enable /failure:disable
 
 # Auditar PowerShell
 New-Item -Path ""HKLM:\SOFTWARE\Wow6432Node\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging"" -Force
