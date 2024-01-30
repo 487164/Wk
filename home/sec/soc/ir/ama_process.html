@@ -2,7 +2,7 @@
 title: Artifact & Memory Acquisition Process
 description: 
 published: true
-date: 2024-01-30T13:06:39.044Z
+date: 2024-01-30T13:13:30.599Z
 tags: 
 editor: ckeditor
 dateCreated: 2024-01-30T13:04:23.200Z
@@ -16,6 +16,7 @@ dateCreated: 2024-01-30T13:04:23.200Z
   <li>Memoria: AVML <a href="https://github.com/microsoft/avml">https://github.com/microsoft/avml</a></li>
   <li>Artefactos: CyLR <a href="https://github.com/orlikoski/CyLR">https://github.com/orlikoski/CyLR</a></li>
 </ul>
+<p>&nbsp;</p>
 <h3>Adquisición de volcado de memoria</h3>
 <p>Antes de ejecutar la herramienta es necesario verificar el tamaño de la memoria instalada en el servidor&nbsp;</p>
 <pre><code class="language-plaintext">free -h</code></pre>
@@ -24,4 +25,9 @@ dateCreated: 2024-01-30T13:04:23.200Z
 <p>Para hacer la adquisición, el binario se encuentra en el path /opt/script/ir<br>Como PATH le pasaremos la ruta donde tengamos suficiente espacio para el volcado.</p>
 <pre><code class="language-plaintext">sudo ./opt/script/ir/avml --compress {PATH}/$HOSTNAME.dmp</code></pre>
 <p>&nbsp;</p>
+<h3>Adquisición de artefactos del Sistema Operativo</h3>
+<p>Para hacer la adquisición, el binario se encuentra en el path /opt/scripts/ir</p>
+<pre><code class="language-plaintext">sudo ./opt/script/ir/CyLR -od {PATH}</code></pre>
 <p>&nbsp;</p>
+<h3>Extracción de evidencias</h3>
+<p>Dependiendo del tamaño y el contexto, estas pueden extraerse mediante scp o mediante subida al SFTP o S3.</p>
