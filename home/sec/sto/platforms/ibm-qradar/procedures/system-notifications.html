@@ -2,7 +2,7 @@
 title: System Notifications
 description: 
 published: true
-date: 2024-01-31T16:25:58.204Z
+date: 2024-01-31T16:45:47.278Z
 tags: soc, qradar, lm, ibm, system, notifications
 editor: ckeditor
 dateCreated: 2024-01-31T12:28:13.691Z
@@ -32,11 +32,11 @@ dateCreated: 2024-01-31T12:28:13.691Z
 <p><strong>Disk Sentry: Disk Usage exceeded max threshold.</strong></p>
 <ul>
   <li>Gravedad: Error</li>
-  <li>Descripción:&nbsp;</li>
+  <li>Descripción:</li>
 </ul>
 <p>Se ha alcanzado el 95% de espacio ocupado de la partición que ha provocado la alerta.</p>
 <ul>
-  <li>Resolución:&nbsp;</li>
+  <li>Resolución:</li>
 </ul>
 <p>En caso de que el sistema no sea capaz de liberar espacio por si mismo, crear ticket en la cola de SOC_LM con el tag INC indicando la alerta indicada. Se deberá revisar el disco y liberar el espacio posible en el mismo.&nbsp;</p>
 <p>Se deberá revisar el disco y liberar el espacio posible en el mismo. Una vez solucionados los errores desplegar cambios para que recoja los datos de nuevo.</p>
@@ -47,11 +47,11 @@ dateCreated: 2024-01-31T12:28:13.691Z
 <p><strong>Disk sentry: System disk usage back to normal levels.</strong></p>
 <ul>
   <li>Gravedad: Error</li>
-  <li>Descripción:&nbsp;</li>
+  <li>Descripción:</li>
 </ul>
 <p>El sistema ha sido capaz de liberar espacio reduciendo el espacio ocupado en la partición.</p>
 <ul>
-  <li>Resolución:&nbsp;</li>
+  <li>Resolución:</li>
 </ul>
 <p>Esta notificación es simplemente informativa, no se debe realizar nada al respecto.</p>
 <ul>
@@ -137,7 +137,7 @@ dateCreated: 2024-01-31T12:28:13.691Z
 <ul>
   <li>Gravedad: Error</li>
   <li>Descripción: El sistema detecta que una partición del sistema tiene un nivel de ocupación del 95% o superior.</li>
-  <li>Resolución:&nbsp;</li>
+  <li>Resolución:</li>
 </ul>
 <p>En caso de que el sistema no sea capaz de liberar espacio por si mismo, crear ticket en la cola de SOC_LM con el tag INC indicando la alerta indicada. Se deberá revisar el disco y liberar el espacio posible en el mismo.&nbsp;</p>
 <p>Se deberá revisar el disco y liberar el espacio posible en el mismo. Una vez solucionados los errores desplegar cambios para que recoja los datos de nuevo.</p>
@@ -184,7 +184,7 @@ dateCreated: 2024-01-31T12:28:13.691Z
 <ul>
   <li>Gravedad: Error</li>
   <li>Descripción: Ha habido un error durante el proceso de instalación de actualizaciones.</li>
-  <li>Resolución:&nbsp;</li>
+  <li>Resolución:</li>
 </ul>
 <p>Se deberá abrir un ticket en la cola de SOC_LM con el tag de INC y seguir el procedimiento indicado en el documento de las referencias para la solución del error.</p>
 <ul>
@@ -398,69 +398,77 @@ dateCreated: 2024-01-31T12:28:13.691Z
 </ul>
 <p>&nbsp;</p>
 <h2>Fallos en aplicaciones</h2>
-<p>App issue detected in &lt;QRadar Log Source Management, Pulse, QRadar Use Case Manager, QRadar Assistant&gt;</p>
+<p><strong>App issue detected in &lt;QRadar Log Source Management, Pulse, QRadar Use Case Manager, QRadar Assistant&gt;</strong></p>
 <ul>
-  <li>Gravedad:</li>
-  <li>Descripción:</li>
-  <li>Resolución:</li>
-  <li>Referencias:</li>
+  <li>Gravedad: Error</li>
+  <li>Descripción: Se ha detectado un error en una de las aplicaciones.</li>
+  <li>Resolución: Se deberá abrir un ticket en la cola de SOC_LM con el tag de INC y seguir los pasos indicados en el documento indicado en las referencias.</li>
+  <li>Referencias: <a href="https://wiki.security.espublico.com/es/home/sec/sto/platforms/ibm-qradar/procedures/gestion-apps">Gestión de aplicaciones</a></li>
+</ul>
+<p>&nbsp;</p>
+<p><strong>An application framework certificate is expiring soon and needs to be replaced. See the payload for specific details.</strong></p>
+<ul>
+  <li>Gravedad: Info</li>
+  <li>Descripción: El certificado de una aplicación expira pronto y es necesario renovarlo.</li>
+  <li>Resolución: En principio debería de actualizarse por si mismo, en caso de que no lo haga se deberá abrir un ticket en la cola de SOC_LM describiendo el problema y revisar la documentación indicada en la referencia.</li>
+  <li>Referencias: <a href="https://wiki.security.espublico.com/es/home/sec/sto/platforms/ibm-qradar/procedures/actualizar-app-framework-certificate">Actualizar app framework certificate</a></li>
 </ul>
 <p>&nbsp;</p>
 <h2>HA (High Availability)</h2>
-<p>Active HA System Failure.</p>
+<p><strong>Active HA System Failure.</strong></p>
 <ul>
-  <li>Gravedad:</li>
-  <li>Descripción:</li>
-  <li>Resolución:</li>
+  <li>Gravedad: Error</li>
+  <li>Descripción: El nodo activo del HA indicado ha entrado en fallo.</li>
+  <li>Resolución: Se deberá revisar que la comunicación entre la consola y los nodos del HA es correcta. En la mayoría de los casos debería de ser capaz de restaurar la conexión por si mismo, en caso contrario, abrir ticket en la cola de SOC_LM con el tag INC para su seguimiento.</li>
   <li>Referencias:</li>
 </ul>
 <p>&nbsp;</p>
-<p>There was a problem while removing High Availability on the cluster.</p>
+<p><strong>There was a problem while removing High Availability on the cluster.</strong></p>
 <ul>
-  <li>Gravedad:</li>
-  <li>Descripción:</li>
-  <li>Resolución:</li>
+  <li>Gravedad: Error</li>
+  <li>Descripción: La alerta salta cuando el siem intenta eliminar una máquina de un HA pero no es capaz de completar el proceso.</li>
+  <li>Resolución: Revisar que la comunicación entre la consola y el servidor funciona correctamente y repetir el proceso. En caso de que el problema persista se deberá abrir un ticket en la cola de SOC_LM con el tag INC para su seguimiento.</li>
   <li>Referencias:</li>
 </ul>
 <p>&nbsp;</p>
-<p>There was a problem installing High Availability on the cluster.</p>
+<p><strong>There was a problem installing High Availability on the cluster.</strong></p>
 <ul>
-  <li>Gravedad:</li>
-  <li>Descripción:</li>
-  <li>Resolución:</li>
+  <li>Gravedad: Error</li>
+  <li>Descripción: Ocurrió un error al intentar añadir un servidor a un HA, o en el momento de la creación de un HA.</li>
+  <li>Resolución: Revisar que la comunicación entre la consola y el servidor funciona correctamente y repetir el proceso. En caso de que el problema persista se deberá abrir un ticket en la cola de SOC_LM con el tag INC para su seguimiento.</li>
   <li>Referencias:</li>
 </ul>
 <p>&nbsp;</p>
-<p>Standby HA System Failure.</p>
+<p><strong>Standby HA System Failure.</strong></p>
 <ul>
-  <li>Gravedad:</li>
-  <li>Descripción:</li>
-  <li>Resolución:</li>
+  <li>Gravedad: Error</li>
+  <li>Descripción: El nodo secundario del HA indicado ha entrado en fallo.</li>
+  <li>Resolución: Se deberá revisar que la comunicación entre la consola y los nodos del HA es correcta. En la mayoría de los casos debería de ser capaz de restaurar la conexión por si mismo, en caso contrario, abrir ticket en la cola de SOC_LM con el tag INC para su seguimiento.</li>
   <li>Referencias:</li>
 </ul>
 <p>&nbsp;</p>
 <h2>Licencia</h2>
-<p>An allocated license has expired and is no longer valid.</p>
+<p><strong>An allocated license has expired and is no longer valid.</strong></p>
 <ul>
-  <li>Gravedad:</li>
-  <li>Descripción:</li>
-  <li>Resolución:</li>
+  <li>Gravedad: Info</li>
+  <li>Descripción: La licencia indicada ha expirado y ya no es válida.</li>
+  <li>Resolución: Es un mensaje informativo del estado de la licencia, en caso de ocurrir en una consola se deberá contactar con el comercial asignado para su renovación. En caso de ocurrir sobre otro nodo (colector, procesador, app…) y siempre y cuando sea correcta en la consola, se puede ignorar esta notificación.</li>
   <li>Referencias:</li>
 </ul>
 <p>&nbsp;</p>
-<p>A license is nearing expiration. It will need to be replaced soon.</p>
+<p><strong>A license is nearing expiration. It will need to be replaced soon.</strong></p>
 <ul>
-  <li>Gravedad:</li>
-  <li>Descripción:</li>
-  <li>Resolución:</li>
+  <li>Gravedad: Warning</li>
+  <li>Descripción: La licencia aplicada está próxima a caducarse.</li>
+  <li>Resolución: Revisar la fecha de expiración de la licencia y contactar con el comercial asignado para la renovación de la misma.</li>
   <li>Referencias:</li>
 </ul>
 <p>&nbsp;</p>
-<p>Process Monitor: Unable to start process: license expired or invalid.</p>
+<p><strong>Process Monitor: Unable to start process: license expired or invalid.</strong></p>
 <ul>
-  <li>Gravedad:</li>
-  <li>Descripción:</li>
-  <li>Resolución:</li>
+  <li>Gravedad: Error</li>
+  <li>Descripción: La licencia aplicada ha expirado.</li>
+  <li>Resolución: Revisar la fecha de expiración de la licencia y contactar con el comercial asignado para la renovación de la misma.</li>
   <li>Referencias:</li>
 </ul>
 <p>&nbsp;</p>
