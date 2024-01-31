@@ -2,7 +2,7 @@
 title: Playbook LM Scheduled Tasks
 description: 
 published: true
-date: 2024-01-31T08:51:13.234Z
+date: 2024-01-31T16:47:37.161Z
 tags: soc, lm, task, playbook, scheduled
 editor: ckeditor
 dateCreated: 2024-01-16T10:24:11.049Z
@@ -62,7 +62,7 @@ dateCreated: 2024-01-16T10:24:11.049Z
 <p style="text-align:justify;">Se deberán revisar los correos con el asunto “XXX-data-lake - S3 sync daily” donde XXX corresponderá a la localización. Se deberá revisar que en el correo no aparecen errores de sincronización de ficheros y que se han subido los mismos (debería ser un número más o menos similar cada día en función del servidor).</p>
 <p style="text-align:justify;">En caso de disponer de acceso ssh a la consola se deberán revisar además los siguientes puntos:</p>
 <ul>
-  <li style="text-align:justify;">Revisión del estado de la compresión y cifrado de logs.&nbsp;</li>
+  <li style="text-align:justify;">Revisión del estado de la compresión y cifrado de logs.</li>
   <li style="text-align:justify;">Revisión de la sincronización de ficheros con el bucket S3. (se puede ver el resultado en los correos anteriores)</li>
   <li style="text-align:justify;">Revisión de directorios erróneos creados en el reenvío de logs desde QRadar.</li>
 </ul>
@@ -121,7 +121,10 @@ dateCreated: 2024-01-16T10:24:11.049Z
 <p>Se deberá revisar el SIEM de producción y el SIEM de desarrollo.</p>
 <p>&nbsp;</p>
 <h3><strong>Acciones</strong></h3>
-<p>En caso de observar alguna notificación que indique que ha ocurrido un error en la infraestructura o en alguno de los servicios se deberá abrir un ticket con el tag INC para documentar en el mismo los pasos realizados hasta la solución del incidente.</p>
+<p>Revisar el documento de explicación de las distintas notificaciones y actuar en función de la misma.</p>
+<p>&nbsp;</p>
+<h3>Referencias</h3>
+<p><a href="https://wiki.security.espublico.com/es/home/sec/sto/platforms/ibm-qradar/procedures/system-notifications">System notifications</a></p>
 <p>&nbsp;</p>
 <h2>SOAR Health</h2>
 <p>&nbsp;</p>
