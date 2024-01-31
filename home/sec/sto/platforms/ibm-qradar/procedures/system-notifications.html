@@ -2,7 +2,7 @@
 title: System Notifications
 description: 
 published: true
-date: 2024-01-31T16:45:47.278Z
+date: 2024-01-31T16:54:18.389Z
 tags: soc, qradar, lm, ibm, system, notifications
 editor: ckeditor
 dateCreated: 2024-01-31T12:28:13.691Z
@@ -154,7 +154,7 @@ dateCreated: 2024-01-31T12:28:13.691Z
   <li>Referencias:</li>
 </ul>
 <p>&nbsp;</p>
-<p><strong>The system detected asset profiles that exceed the normal size threshold.</strong></p>
+<p><strong>The system has detected asset profiles that exceed the normal size thresholds.</strong></p>
 <ul>
   <li>Gravedad:</li>
   <li>Descripción:</li>
@@ -546,6 +546,18 @@ dateCreated: 2024-01-31T12:28:13.691Z
 </ul>
 <p>&nbsp;</p>
 <h2>Log y Log sources</h2>
+<p><strong>Unable to determine associated log source for IP address. Unable to automatically detect the associated log source for IP address.</strong></p>
+<ul>
+  <li>Gravedad: Warning</li>
+  <li>Descripción: No se ha encontrado un log source que corresponda con los logs enviados desde la IP indicada.</li>
+  <li>Resolución:&nbsp;</li>
+</ul>
+<p>Se deberá acceder a la gestión de log sources y buscar por las fuentes de “SIM Generic Log DSM”. Se deberán revisar las fuentes de cada una de las colectoras para verificar los eventos que no disponen de fuente asignada.</p>
+<p>En caso de haber eventos, revisar el log source identifier del mismo abriendo el evento y bajando el scroll hasta el final de la página, una vez detectado, revisar si existe alguna fuente con ese identificador y en caso contrario crearla.</p>
+<ul>
+  <li>Referencias:</li>
+</ul>
+<p>&nbsp;</p>
 <p>Collecting the required support logs failed with errors. See System and License Manager.</p>
 <ul>
   <li>Gravedad:</li>
@@ -587,7 +599,7 @@ dateCreated: 2024-01-31T12:28:13.691Z
 </ul>
 <p>&nbsp;</p>
 <h2>Backups</h2>
-<p>Backup: Not enough free disk space to perform the backup.</p>
+<p>Not enough free disk space to perform the backup.</p>
 <ul>
   <li>Gravedad:</li>
   <li>Descripción:</li>
@@ -595,7 +607,7 @@ dateCreated: 2024-01-31T12:28:13.691Z
   <li>Referencias:</li>
 </ul>
 <p>&nbsp;</p>
-<p>Backup: Unable to Execute Backup Request.</p>
+<p>Unable to Execute Backup Request.</p>
 <ul>
   <li>Gravedad:</li>
   <li>Descripción:</li>
@@ -611,7 +623,7 @@ dateCreated: 2024-01-31T12:28:13.691Z
   <li>Referencias:</li>
 </ul>
 <p>&nbsp;</p>
-<p>Backup: The last scheduled backup exceeded execution threshold.</p>
+<p>The last scheduled backup exceeded execution threshold.</p>
 <ul>
   <li>Gravedad:</li>
   <li>Descripción:</li>
@@ -629,7 +641,7 @@ dateCreated: 2024-01-31T12:28:13.691Z
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 <h2>Memoria</h2>
-<p>Application ran out of memory</p>
+<p>Application ran out of memory.</p>
 <ul>
   <li>Gravedad:</li>
   <li>Descripción:</li>
@@ -654,15 +666,7 @@ dateCreated: 2024-01-31T12:28:13.691Z
   <li>Referencias:</li>
 </ul>
 <p>&nbsp;</p>
-<p>MPC: Unable to create new offense. The maximum number of active offenses has been reached.</p>
-<ul>
-  <li>Gravedad:</li>
-  <li>Descripción:</li>
-  <li>Resolución:</li>
-  <li>Referencias:</li>
-</ul>
-<p>&nbsp;</p>
-<p>MPC: Unable to process offense. The maximum number of offenses has been reached.</p>
+<p>Unable to determine offense and event count based on custom regex property.</p>
 <ul>
   <li>Gravedad:</li>
   <li>Descripción:</li>
@@ -711,14 +715,6 @@ dateCreated: 2024-01-31T12:28:13.691Z
   <li>Referencias:</li>
 </ul>
 <p>&nbsp;</p>
-<p>MPC: Server was not shutdown cleanly. Offenses are being closed in order to re-synchronize and ensure system stability.</p>
-<ul>
-  <li>Gravedad:</li>
-  <li>Descripción:</li>
-  <li>Resolución:</li>
-  <li>Referencias:</li>
-</ul>
-<p>&nbsp;</p>
 <p>A protocol source configuration may be stopping events from being collected.</p>
 <ul>
   <li>Gravedad:</li>
@@ -736,39 +732,6 @@ dateCreated: 2024-01-31T12:28:13.691Z
 </ul>
 <p>&nbsp;</p>
 <p>Transaction Sentry: Restored system health by canceling hung transactions or deadlocks.</p>
-<ul>
-  <li>Gravedad:</li>
-  <li>Descripción:</li>
-  <li>Resolución:</li>
-  <li>Referencias:</li>
-</ul>
-<p>&nbsp;</p>
-<h2>Escáner de vulnerabilidades</h2>
-<p>An invalid/unknown gateway IP address has been supplied to the external hosted scanner, the scan has been stopped.</p>
-<ul>
-  <li>Gravedad:</li>
-  <li>Descripción:</li>
-  <li>Resolución:</li>
-  <li>Referencias:</li>
-</ul>
-<p>&nbsp;</p>
-<p>A scanner has failed.</p>
-<ul>
-  <li>Gravedad:</li>
-  <li>Descripción:</li>
-  <li>Resolución:</li>
-  <li>Referencias:</li>
-</ul>
-<p>&nbsp;</p>
-<p>A scan has been stopped unexpectedly, in some cases this may cause the scan to be stopped.</p>
-<ul>
-  <li>Gravedad:</li>
-  <li>Descripción:</li>
-  <li>Resolución:</li>
-  <li>Referencias:</li>
-</ul>
-<p>&nbsp;</p>
-<p>A scanner failed to initialize.</p>
 <ul>
   <li>Gravedad:</li>
   <li>Descripción:</li>
