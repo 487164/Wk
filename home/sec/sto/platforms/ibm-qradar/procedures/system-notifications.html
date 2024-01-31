@@ -2,7 +2,7 @@
 title: System Notifications
 description: 
 published: true
-date: 2024-01-31T14:21:07.371Z
+date: 2024-01-31T16:25:58.204Z
 tags: soc, qradar, lm, ibm, system, notifications
 editor: ckeditor
 dateCreated: 2024-01-31T12:28:13.691Z
@@ -13,35 +13,54 @@ dateCreated: 2024-01-31T12:28:13.691Z
 <p>En el panel de QRadar aparecerán diferentes notificaciones de los eventos (ya sean errores o informativos) que ocurren en el sistema.</p>
 <p>A continuación se muestran las diferentes notificaciones que pueden aparecer en el sistema en función de la parte del sistema a la cual pertenecen junto con una explicación de la misma y un enlace a la documentación para su resolución (en caso de haberla).</p>
 <p>&nbsp;</p>
-<h2>Uso de disco</h2>
+<h2>Discos y particiones</h2>
 <p><strong>Disk Sentry: Disk Usage exceeded warning threshold.</strong></p>
 <ul>
   <li>Gravedad: Error</li>
-  <li>Descripción:</li>
-  <li>Resolución:</li>
-  <li>Referencias:&nbsp;</li>
+  <li>Descripción</li>
+</ul>
+<p>Se ha alcanzado el 90% de espacio ocupado de la partición que ha provocado la alerta.</p>
+<ul>
+  <li>Resolución</li>
+</ul>
+<p>En caso de que el sistema no sea capaz de liberar espacio por si mismo, crear ticket en la cola de SOC_LM con el tag INC indicando la alerta indicada.&nbsp;</p>
+<p>Se deberá revisar el disco y liberar el espacio posible en el mismo. Una vez solucionados los errores desplegar cambios para que recoja los datos de nuevo.</p>
+<ul>
+  <li>Referencias</li>
 </ul>
 <p>&nbsp;</p>
 <p><strong>Disk Sentry: Disk Usage exceeded max threshold.</strong></p>
 <ul>
-  <li>Gravedad:</li>
-  <li>Descripción:</li>
-  <li>Resolución:</li>
+  <li>Gravedad: Error</li>
+  <li>Descripción:&nbsp;</li>
+</ul>
+<p>Se ha alcanzado el 95% de espacio ocupado de la partición que ha provocado la alerta.</p>
+<ul>
+  <li>Resolución:&nbsp;</li>
+</ul>
+<p>En caso de que el sistema no sea capaz de liberar espacio por si mismo, crear ticket en la cola de SOC_LM con el tag INC indicando la alerta indicada. Se deberá revisar el disco y liberar el espacio posible en el mismo.&nbsp;</p>
+<p>Se deberá revisar el disco y liberar el espacio posible en el mismo. Una vez solucionados los errores desplegar cambios para que recoja los datos de nuevo.</p>
+<ul>
   <li>Referencias:</li>
 </ul>
 <p>&nbsp;</p>
 <p><strong>Disk sentry: System disk usage back to normal levels.</strong></p>
 <ul>
-  <li>Gravedad:</li>
-  <li>Descripción:</li>
-  <li>Resolución:</li>
+  <li>Gravedad: Error</li>
+  <li>Descripción:&nbsp;</li>
+</ul>
+<p>El sistema ha sido capaz de liberar espacio reduciendo el espacio ocupado en la partición.</p>
+<ul>
+  <li>Resolución:&nbsp;</li>
+</ul>
+<p>Esta notificación es simplemente informativa, no se debe realizar nada al respecto.</p>
+<ul>
   <li>Referencias:</li>
 </ul>
 <p>&nbsp;</p>
-<h2>Discos de Appliances</h2>
 <p><strong>Asset Persistence Queue Disk Full.</strong></p>
 <ul>
-  <li>Gravedad:</li>
+  <li>Gravedad: Warning</li>
   <li>Descripción:</li>
   <li>Resolución:</li>
   <li>Referencias:</li>
@@ -49,7 +68,7 @@ dateCreated: 2024-01-31T12:28:13.691Z
 <p>&nbsp;</p>
 <p><strong>Asset Update Resolver Queue Disk Full.</strong></p>
 <ul>
-  <li>Gravedad:</li>
+  <li>Gravedad: Warning</li>
   <li>Descripción:</li>
   <li>Resolución:</li>
   <li>Referencias:</li>
@@ -57,9 +76,12 @@ dateCreated: 2024-01-31T12:28:13.691Z
 <p>&nbsp;</p>
 <p><strong>Disk Failure: Hardware Monitoring has determined that a disk is in failed state.</strong></p>
 <ul>
-  <li>Gravedad:</li>
-  <li>Descripción:</li>
+  <li>Gravedad: Error</li>
+  <li>Descripción: El sistema detecta que uno de los discos se encuentra en fallo.</li>
   <li>Resolución:</li>
+</ul>
+<p>En caso de que el fallo persista se deberá de abrir un ticket en la cola de SOC_LM con el tag INC y contactar con el soporte del fabricante para el reemplazo de la pieza afectada.</p>
+<ul>
   <li>Referencias:</li>
 </ul>
 <p>&nbsp;</p>
@@ -81,65 +103,45 @@ dateCreated: 2024-01-31T12:28:13.691Z
 <p>&nbsp;</p>
 <p><strong>One or more storage partitions that were previously inaccessible are now accessible.</strong></p>
 <ul>
-  <li>Gravedad:</li>
-  <li>Descripción:</li>
-  <li>Resolución:</li>
+  <li>Gravedad: Info</li>
+  <li>Descripción: La partición que había dado errores de acceso ya está disponible de nuevo.</li>
+  <li>Resolución: Es una notificación meramente informativa por lo que no es necesaria ninguna acción.</li>
   <li>Referencias:</li>
 </ul>
 <p>&nbsp;</p>
 <p><strong>Disk Sentry has detected that one or more storage partitions are not accessible.</strong></p>
 <ul>
-  <li>Gravedad:</li>
-  <li>Descripción:</li>
-  <li>Resolución:</li>
-  <li>Referencias:</li>
-</ul>
-<p>&nbsp;</p>
-<p><strong>Disk Sentry: Disk Usage Exceeded Max Threshold.</strong></p>
-<ul>
-  <li>Gravedad:</li>
-  <li>Descripción:</li>
-  <li>Resolución:</li>
-  <li>Referencias:</li>
-</ul>
-<p>&nbsp;</p>
-<p><strong>Disk Sentry: Disk Usage Exceeded warning Threshold.</strong></p>
-<ul>
-  <li>Gravedad:</li>
-  <li>Descripción:</li>
-  <li>Resolución:</li>
-  <li>Referencias:</li>
-</ul>
-<p>&nbsp;</p>
-<p><strong>Disk Sentry: System Disk Usage Back To Normal Levels.</strong></p>
-<ul>
-  <li>Gravedad:</li>
-  <li>Descripción:</li>
-  <li>Resolución:</li>
+  <li>Gravedad: Error</li>
+  <li>Descripción: Debido a una alta carga o a un problema de espacio una de las particiones no es accesible.</li>
+  <li>Resolución: Revisar que el disco es accesible accediendo por consola y tratando de leer algún fichero existente en el mismo, revisar también que es posible escribir en el mismo, por ejemplo, creando un fichero vacío con touch. En caso de que el error persista y que no haya una notificación de que el disco ya está disponible abrir un ticket en la cola de SOC_LM con el tag INC.</li>
   <li>Referencias:</li>
 </ul>
 <p>&nbsp;</p>
 <p><strong>Insufficient disk space to complete data export request.</strong></p>
 <ul>
-  <li>Gravedad:</li>
-  <li>Descripción:</li>
-  <li>Resolución:</li>
+  <li>Gravedad: Error</li>
+  <li>Descripción: Si el directorio de exportación no dispone de espacio suficiente saltará una alerta avisando de ello.</li>
+  <li>Resolución: Revisar que hay suficiente espacio en el directorio /store/exports, en caso de no haberlo se deberá abrir un ticket en la cola de SOC_LM con el tag INC y revisar y liberar el espacio posible en el disco.</li>
   <li>Referencias:</li>
 </ul>
 <p>&nbsp;</p>
 <p><strong>Predictive Disk Failure: Hardware Monitoring has determined that a disk is in predictive failed state.</strong></p>
 <ul>
-  <li>Gravedad:</li>
-  <li>Descripción:</li>
-  <li>Resolución:</li>
+  <li>Gravedad: Error</li>
+  <li>Descripción: El sistema detecta que un disco se encuentra en estado de fallo o que está cerca de finalizar su vida útil.</li>
+  <li>Resolución: En caso de que el fallo persista se deberá de abrir un ticket en la cola de SOC_LM con el tag INC y contactar con el soporte del fabricante para el reemplazo de la pieza afectada.</li>
   <li>Referencias:</li>
 </ul>
 <p>&nbsp;</p>
 <p><strong>Process Monitor: Disk usage must be lowered.</strong></p>
 <ul>
-  <li>Gravedad:</li>
-  <li>Descripción:</li>
-  <li>Resolución:</li>
+  <li>Gravedad: Error</li>
+  <li>Descripción: El sistema detecta que una partición del sistema tiene un nivel de ocupación del 95% o superior.</li>
+  <li>Resolución:&nbsp;</li>
+</ul>
+<p>En caso de que el sistema no sea capaz de liberar espacio por si mismo, crear ticket en la cola de SOC_LM con el tag INC indicando la alerta indicada. Se deberá revisar el disco y liberar el espacio posible en el mismo.&nbsp;</p>
+<p>Se deberá revisar el disco y liberar el espacio posible en el mismo. Una vez solucionados los errores desplegar cambios para que recoja los datos de nuevo.</p>
+<ul>
   <li>Referencias:</li>
 </ul>
 <p>&nbsp;</p>
@@ -178,102 +180,592 @@ dateCreated: 2024-01-31T12:28:13.691Z
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 <h2>Auto Updates</h2>
-<p>Automatic updates installed with errors. See the Auto Update Log for details.</p>
-<p>Automatic updates could not complete installation. See the Auto Update Log for details.</p>
-<p>Automatic updates completed successfully.</p>
-<p>Automatic updates successfully downloaded. See the Auto Updates log for details.</p>
-<p>Automatic updates installed successfully. In the Admin tab, click Deploy Changes.</p>
+<p><strong>Automatic updates installed with errors. See the Auto Update Log for details.</strong></p>
+<ul>
+  <li>Gravedad: Error</li>
+  <li>Descripción: Ha habido un error durante el proceso de instalación de actualizaciones.</li>
+  <li>Resolución:&nbsp;</li>
+</ul>
+<p>Se deberá abrir un ticket en la cola de SOC_LM con el tag de INC y seguir el procedimiento indicado en el documento de las referencias para la solución del error.</p>
+<ul>
+  <li>Referencias: <a href="https://wiki.security.espublico.com/es/home/sec/sto/platforms/ibm-qradar/procedures/revision-errores-auto-updates">Revisión errores auto-updates</a></li>
+</ul>
+<p>&nbsp;</p>
+<p><strong>Automatic updates could not complete installation. See the Auto Update Log for details.</strong></p>
+<ul>
+  <li>Gravedad: Error</li>
+  <li>Descripción: Ha habido un error durante el proceso de instalación de actualizaciones.</li>
+  <li>Resolución:</li>
+</ul>
+<p>Se deberá abrir un ticket en la cola de SOC_LM con el tag de INC y seguir el procedimiento indicado en el documento de las referencias para la solución del error.</p>
+<ul>
+  <li>Referencias: <a href="https://wiki.security.espublico.com/es/home/sec/sto/platforms/ibm-qradar/procedures/revision-errores-auto-updates">Revisión errores auto-updates</a></li>
+</ul>
+<p>&nbsp;</p>
+<p><strong>Automatic updates completed successfully.</strong></p>
+<ul>
+  <li>Gravedad: Info</li>
+  <li>Descripción: Las actualizaciones se han completado correctamente.</li>
+  <li>Resolución: No es necesaria ninguna acción.</li>
+  <li>Referencias:</li>
+</ul>
+<p>&nbsp;</p>
+<p><strong>Automatic updates successfully downloaded. See the Auto Updates log for details.</strong></p>
+<ul>
+  <li>Gravedad: Info</li>
+  <li>Descripción: Las actualizaciones se han descargado correctamente.</li>
+  <li>Resolución: No es necesaria ninguna acción.</li>
+  <li>Referencias:</li>
+</ul>
+<p>&nbsp;</p>
+<p><strong>Automatic updates installed successfully. In the Admin tab, click Deploy Changes.</strong></p>
+<ul>
+  <li>Gravedad: Info</li>
+  <li>Descripción: Las actualizaciones se han aplicado correctamente.</li>
+  <li>Resolución: No es necesaria ninguna acción.</li>
+  <li>Referencias:</li>
+</ul>
 <p>&nbsp;</p>
 <h2>Custom Rules</h2>
-<p>The last attempt to read in rules (usually due to a rule change) has failed. Please see the message details and error log for information on how to resolve this.</p>
-<p>Found custom rules cyclic dependency chain.</p>
-<p>Expensive Custom Rules Found in CRE. Performance degradation was detected in the event pipeline. Found expensive custom rules in CRE.</p>
-<p>App issue detected in &lt;QRadar Log Source Management, Pulse, QRadar Use Case Manager, QRadar Assistant&gt;</p>
+<p><strong>The last attempt to read in rules (usually due to a rule change) has failed. Please see the message details and error log for information on how to resolve this.</strong></p>
+<ul>
+  <li>Gravedad:</li>
+  <li>Descripción:</li>
+  <li>Resolución:</li>
+  <li>Referencias:</li>
+</ul>
+<p>&nbsp;</p>
+<p><strong>Found custom rules cyclic dependency chain.</strong></p>
+<ul>
+  <li>Gravedad:</li>
+  <li>Descripción:</li>
+  <li>Resolución:</li>
+  <li>Referencias:</li>
+</ul>
+<p>&nbsp;</p>
+<p><strong>Expensive Custom Rules Found in CRE. Performance degradation was detected in the event pipeline. Found expensive custom rules in CRE.</strong></p>
+<ul>
+  <li>Gravedad:</li>
+  <li>Descripción:</li>
+  <li>Resolución:</li>
+  <li>Referencias:</li>
+</ul>
 <p>&nbsp;</p>
 <h2>Events and flows</h2>
-<p>Event/Flow data not indexed for interval.</p>
-<p>Connections were dropped by the event pipeline.</p>
-<p>Events/Flows were dropped by the event pipeline.</p>
-<p>Performance degradation has been detected in the event pipeline. Event(s) were routed directly to storage.</p>
-<p>&nbsp;Performance degradation was detected in the event pipeline. Expensive custom properties were found.</p>
-<p>Flow collector could not establish initial time synchronization.</p>
-<p>The appliance exceeded the EPS or FPM allocation within the last hour.</p>
+<p><strong>Event/Flow data not indexed for interval.</strong></p>
+<ul>
+  <li>Gravedad:</li>
+  <li>Descripción:</li>
+  <li>Resolución:</li>
+  <li>Referencias:</li>
+</ul>
+<p>&nbsp;</p>
+<p><strong>Connections were dropped by the event pipeline.</strong></p>
+<ul>
+  <li>Gravedad:</li>
+  <li>Descripción:</li>
+  <li>Resolución:</li>
+  <li>Referencias:</li>
+</ul>
+<p>&nbsp;</p>
+<p><strong>Events/Flows were dropped by the event pipeline.</strong></p>
+<ul>
+  <li>Gravedad:</li>
+  <li>Descripción:</li>
+  <li>Resolución:</li>
+  <li>Referencias:</li>
+</ul>
+<p>&nbsp;</p>
+<p><strong>Performance degradation has been detected in the event pipeline. Event(s) were routed directly to storage.</strong></p>
+<ul>
+  <li>Gravedad:</li>
+  <li>Descripción:</li>
+  <li>Resolución:</li>
+  <li>Referencias:</li>
+</ul>
+<p>&nbsp;</p>
+<p><strong>&nbsp;Performance degradation was detected in the event pipeline. Expensive custom properties were found.</strong></p>
+<ul>
+  <li>Gravedad:</li>
+  <li>Descripción:</li>
+  <li>Resolución:</li>
+  <li>Referencias:</li>
+</ul>
+<p>&nbsp;</p>
+<p><strong>Flow collector could not establish initial time synchronization.</strong></p>
+<ul>
+  <li>Gravedad:</li>
+  <li>Descripción:</li>
+  <li>Resolución:</li>
+  <li>Referencias:</li>
+</ul>
+<p>&nbsp;</p>
+<p><strong>The appliance exceeded the EPS or FPM allocation within the last hour.</strong></p>
+<ul>
+  <li>Gravedad:</li>
+  <li>Descripción:</li>
+  <li>Resolución:</li>
+  <li>Referencias:</li>
+</ul>
 <p>&nbsp;</p>
 <h2>Notificaciones de fallo</h2>
 <p>Accumulator: Cannot read the aggregated data view definition in order to prevent an out of sync problem. Aggregated data views can no longer be created or loaded. Time series graphs will no longer work as well as reporting.</p>
+<ul>
+  <li>Gravedad:</li>
+  <li>Descripción:</li>
+  <li>Resolución:</li>
+  <li>Referencias:</li>
+</ul>
+<p>&nbsp;</p>
 <p>The accumulator was unable to aggregate all events/flows for this interval.</p>
+<ul>
+  <li>Gravedad:</li>
+  <li>Descripción:</li>
+  <li>Resolución:</li>
+  <li>Referencias:</li>
+</ul>
+<p>&nbsp;</p>
 <p>Traffic analysis filter failed to initialize.</p>
+<ul>
+  <li>Gravedad:</li>
+  <li>Descripción:</li>
+  <li>Resolución:</li>
+  <li>Referencias:</li>
+</ul>
+<p>&nbsp;</p>
 <p>Infrastructure component corrupted.</p>
+<ul>
+  <li>Gravedad:</li>
+  <li>Descripción:</li>
+  <li>Resolución:</li>
+  <li>Referencias:</li>
+</ul>
+<p>&nbsp;</p>
 <p>Process Monitor: Application has failed to start up multiple times.</p>
+<ul>
+  <li>Gravedad:</li>
+  <li>Descripción:</li>
+  <li>Resolución:</li>
+  <li>Referencias:</li>
+</ul>
+<p>&nbsp;</p>
 <p>A store and forward schedule finished while events were left on disk. These events will be stored on the local event collector until the next forwarding sessions begins.</p>
+<ul>
+  <li>Gravedad:</li>
+  <li>Descripción:</li>
+  <li>Resolución:</li>
+  <li>Referencias:</li>
+</ul>
+<p>&nbsp;</p>
 <p>Time synchronization to primary or Console has failed.</p>
+<ul>
+  <li>Gravedad:</li>
+  <li>Descripción:</li>
+  <li>Resolución:</li>
+  <li>Referencias:</li>
+</ul>
+<p>&nbsp;</p>
 <p>Automatic updates user authentication failed. A valid individual IBM ID is required.</p>
+<ul>
+  <li>Gravedad:</li>
+  <li>Descripción:</li>
+  <li>Resolución:</li>
+  <li>Referencias:</li>
+</ul>
+<p>&nbsp;</p>
 <p>User either does not exist or has an undefined role.</p>
+<ul>
+  <li>Gravedad:</li>
+  <li>Descripción:</li>
+  <li>Resolución:</li>
+  <li>Referencias:</li>
+</ul>
+<p>&nbsp;</p>
 <p>The certificate named &lt;certificate_name&gt; will expire on &lt;date&gt;. Please update the certificate soon.</p>
-<p>&nbsp;The certificate named &lt;certificate_name&gt; has expired. Please update the certificate as soon as possible.</p>
+<ul>
+  <li>Gravedad:</li>
+  <li>Descripción:</li>
+  <li>Resolución:</li>
+  <li>Referencias:</li>
+</ul>
+<p>&nbsp;</p>
+<p>The certificate named &lt;certificate_name&gt; has expired. Please update the certificate as soon as possible.</p>
+<ul>
+  <li>Gravedad:</li>
+  <li>Descripción:</li>
+  <li>Resolución:</li>
+  <li>Referencias:</li>
+</ul>
 <p>&nbsp;</p>
 <h2>Fallos en aplicaciones</h2>
 <p>App issue detected in &lt;QRadar Log Source Management, Pulse, QRadar Use Case Manager, QRadar Assistant&gt;</p>
+<ul>
+  <li>Gravedad:</li>
+  <li>Descripción:</li>
+  <li>Resolución:</li>
+  <li>Referencias:</li>
+</ul>
 <p>&nbsp;</p>
 <h2>HA (High Availability)</h2>
 <p>Active HA System Failure.</p>
+<ul>
+  <li>Gravedad:</li>
+  <li>Descripción:</li>
+  <li>Resolución:</li>
+  <li>Referencias:</li>
+</ul>
+<p>&nbsp;</p>
 <p>There was a problem while removing High Availability on the cluster.</p>
+<ul>
+  <li>Gravedad:</li>
+  <li>Descripción:</li>
+  <li>Resolución:</li>
+  <li>Referencias:</li>
+</ul>
+<p>&nbsp;</p>
 <p>There was a problem installing High Availability on the cluster.</p>
+<ul>
+  <li>Gravedad:</li>
+  <li>Descripción:</li>
+  <li>Resolución:</li>
+  <li>Referencias:</li>
+</ul>
+<p>&nbsp;</p>
 <p>Standby HA System Failure.</p>
+<ul>
+  <li>Gravedad:</li>
+  <li>Descripción:</li>
+  <li>Resolución:</li>
+  <li>Referencias:</li>
+</ul>
 <p>&nbsp;</p>
 <h2>Licencia</h2>
 <p>An allocated license has expired and is no longer valid.</p>
+<ul>
+  <li>Gravedad:</li>
+  <li>Descripción:</li>
+  <li>Resolución:</li>
+  <li>Referencias:</li>
+</ul>
+<p>&nbsp;</p>
 <p>A license is nearing expiration. It will need to be replaced soon.</p>
+<ul>
+  <li>Gravedad:</li>
+  <li>Descripción:</li>
+  <li>Resolución:</li>
+  <li>Referencias:</li>
+</ul>
+<p>&nbsp;</p>
 <p>Process Monitor: Unable to start process: license expired or invalid.</p>
+<ul>
+  <li>Gravedad:</li>
+  <li>Descripción:</li>
+  <li>Resolución:</li>
+  <li>Referencias:</li>
+</ul>
 <p>&nbsp;</p>
 <h2>Límites</h2>
 <p>The aggregated data view could not be created due to an aggregated limit.</p>
+<ul>
+  <li>Gravedad:</li>
+  <li>Descripción:</li>
+  <li>Resolución:</li>
+  <li>Referencias:</li>
+</ul>
+<p>&nbsp;</p>
 <p>Transaction Sentry: Found an unmanaged process causing unusually long transaction that negatively effects system stability.</p>
+<ul>
+  <li>Gravedad:</li>
+  <li>Descripción:</li>
+  <li>Resolución:</li>
+  <li>Referencias:</li>
+</ul>
+<p>&nbsp;</p>
 <p>Terminating a report which was found executing for longer than the configured maximum threshold.</p>
+<ul>
+  <li>Gravedad:</li>
+  <li>Descripción:</li>
+  <li>Resolución:</li>
+  <li>Referencias:</li>
+</ul>
+<p>&nbsp;</p>
 <p>Transaction Sentry: Found managed process causing unusually long transaction that negatively effects system stability.</p>
+<ul>
+  <li>Gravedad:</li>
+  <li>Descripción:</li>
+  <li>Resolución:</li>
+  <li>Referencias:</li>
+</ul>
+<p>&nbsp;</p>
 <p>Traffic analysis is already monitoring the maximum number of log sources.</p>
+<ul>
+  <li>Gravedad:</li>
+  <li>Descripción:</li>
+  <li>Resolución:</li>
+  <li>Referencias:</li>
+</ul>
+<p>&nbsp;</p>
 <p>Process takes too long to execute. The maximum default time is 3600 seconds.</p>
+<ul>
+  <li>Gravedad:</li>
+  <li>Descripción:</li>
+  <li>Resolución:</li>
+  <li>Referencias:</li>
+</ul>
+<p>&nbsp;</p>
 <p>SAR Sentinel: normal operation restored.</p>
+<ul>
+  <li>Gravedad:</li>
+  <li>Descripción:</li>
+  <li>Resolución:</li>
+  <li>Referencias:</li>
+</ul>
+<p>&nbsp;</p>
 <p>SAR Sentinel: threshold crossed.</p>
+<ul>
+  <li>Gravedad:</li>
+  <li>Descripción:</li>
+  <li>Resolución:</li>
+  <li>Referencias:</li>
+</ul>
+<p>&nbsp;</p>
 <p>Response Action: Threshold reached.</p>
+<ul>
+  <li>Gravedad:</li>
+  <li>Descripción:</li>
+  <li>Resolución:</li>
+  <li>Referencias:</li>
+</ul>
 <p>&nbsp;</p>
 <h2>Log y Log sources</h2>
 <p>Collecting the required support logs failed with errors. See System and License Manager.</p>
+<ul>
+  <li>Gravedad:</li>
+  <li>Descripción:</li>
+  <li>Resolución:</li>
+  <li>Referencias:</li>
+</ul>
+<p>&nbsp;</p>
 <p>Performance degradation was detected in the event pipeline. Expensive DSM extensions were found.</p>
+<ul>
+  <li>Gravedad:</li>
+  <li>Descripción:</li>
+  <li>Resolución:</li>
+  <li>Referencias:</li>
+</ul>
+<p>&nbsp;</p>
 <p>The required support logs have been successfully collected. See System and License Manager.</p>
+<ul>
+  <li>Gravedad:</li>
+  <li>Descripción:</li>
+  <li>Resolución:</li>
+  <li>Referencias:</li>
+</ul>
+<p>&nbsp;</p>
 <p>A Log Source has been created in the disabled state due to license limits.</p>
+<ul>
+  <li>Gravedad:</li>
+  <li>Descripción:</li>
+  <li>Resolución:</li>
+  <li>Referencias:</li>
+</ul>
+<p>&nbsp;</p>
 <p>Unable to automatically detect the associated log source for IP address &lt;IP address&gt;. Unable to automatically detect the associated log source for IP address.</p>
+<ul>
+  <li>Gravedad:</li>
+  <li>Descripción:</li>
+  <li>Resolución:</li>
+  <li>Referencias:</li>
+</ul>
 <p>&nbsp;</p>
 <h2>Backups</h2>
 <p>Backup: Not enough free disk space to perform the backup.</p>
+<ul>
+  <li>Gravedad:</li>
+  <li>Descripción:</li>
+  <li>Resolución:</li>
+  <li>Referencias:</li>
+</ul>
+<p>&nbsp;</p>
 <p>Backup: Unable to Execute Backup Request.</p>
+<ul>
+  <li>Gravedad:</li>
+  <li>Descripción:</li>
+  <li>Resolución:</li>
+  <li>Referencias:</li>
+</ul>
+<p>&nbsp;</p>
 <p>Either a failure occurred while attempting to backup a device, or the backup was cancelled.</p>
+<ul>
+  <li>Gravedad:</li>
+  <li>Descripción:</li>
+  <li>Resolución:</li>
+  <li>Referencias:</li>
+</ul>
+<p>&nbsp;</p>
 <p>Backup: The last scheduled backup exceeded execution threshold.</p>
+<ul>
+  <li>Gravedad:</li>
+  <li>Descripción:</li>
+  <li>Resolución:</li>
+  <li>Referencias:</li>
+</ul>
+<p>&nbsp;</p>
 <p>Backup: Unable to find storage directory error.</p>
+<ul>
+  <li>Gravedad:</li>
+  <li>Descripción:</li>
+  <li>Resolución:</li>
+  <li>Referencias:</li>
+</ul>
+<p>&nbsp;</p>
 <p>&nbsp;</p>
 <h2>Memoria</h2>
 <p>Application ran out of memory</p>
+<ul>
+  <li>Gravedad:</li>
+  <li>Descripción:</li>
+  <li>Resolución:</li>
+  <li>Referencias:</li>
+</ul>
+<p>&nbsp;</p>
 <p>Out of Memory: system restored, erroneous application has been restarted.</p>
+<ul>
+  <li>Gravedad:</li>
+  <li>Descripción:</li>
+  <li>Resolución:</li>
+  <li>Referencias:</li>
+</ul>
 <p>&nbsp;</p>
 <h2>Offenses</h2>
 <p>Magistrate encountered serious errors that may prevent offenses from being updated.</p>
+<ul>
+  <li>Gravedad:</li>
+  <li>Descripción:</li>
+  <li>Resolución:</li>
+  <li>Referencias:</li>
+</ul>
+<p>&nbsp;</p>
 <p>MPC: Unable to create new offense. The maximum number of active offenses has been reached.</p>
+<ul>
+  <li>Gravedad:</li>
+  <li>Descripción:</li>
+  <li>Resolución:</li>
+  <li>Referencias:</li>
+</ul>
+<p>&nbsp;</p>
 <p>MPC: Unable to process offense. The maximum number of offenses has been reached.</p>
+<ul>
+  <li>Gravedad:</li>
+  <li>Descripción:</li>
+  <li>Resolución:</li>
+  <li>Referencias:</li>
+</ul>
 <p>&nbsp;</p>
 <h2>Repair</h2>
 <p>Accumulation disabled for the Anomaly Detection Engine.</p>
+<ul>
+  <li>Gravedad:</li>
+  <li>Descripción:</li>
+  <li>Resolución:</li>
+  <li>Referencias:</li>
+</ul>
+<p>&nbsp;</p>
 <p>Corrupted infrastructure component repaired.</p>
+<ul>
+  <li>Gravedad:</li>
+  <li>Descripción:</li>
+  <li>Resolución:</li>
+  <li>Referencias:</li>
+</ul>
+<p>&nbsp;</p>
 <p>A custom property has been disabled.</p>
+<ul>
+  <li>Gravedad:</li>
+  <li>Descripción:</li>
+  <li>Resolución:</li>
+  <li>Referencias:</li>
+</ul>
+<p>&nbsp;</p>
 <p>Data replication experiencing difficulty.</p>
+<ul>
+  <li>Gravedad:</li>
+  <li>Descripción:</li>
+  <li>Resolución:</li>
+  <li>Referencias:</li>
+</ul>
+<p>&nbsp;</p>
 <p>Database replication cleanup skipped for host as it has been too long since it received an update.</p>
+<ul>
+  <li>Gravedad:</li>
+  <li>Descripción:</li>
+  <li>Resolución:</li>
+  <li>Referencias:</li>
+</ul>
+<p>&nbsp;</p>
 <p>MPC: Server was not shutdown cleanly. Offenses are being closed in order to re-synchronize and ensure system stability.</p>
+<ul>
+  <li>Gravedad:</li>
+  <li>Descripción:</li>
+  <li>Resolución:</li>
+  <li>Referencias:</li>
+</ul>
+<p>&nbsp;</p>
 <p>A protocol source configuration may be stopping events from being collected.</p>
+<ul>
+  <li>Gravedad:</li>
+  <li>Descripción:</li>
+  <li>Resolución:</li>
+  <li>Referencias:</li>
+</ul>
+<p>&nbsp;</p>
 <p>Raid Controller misconfiguration: Hardware Monitoring determined that a virtual drive is configured incorrectly.</p>
+<ul>
+  <li>Gravedad:</li>
+  <li>Descripción:</li>
+  <li>Resolución:</li>
+  <li>Referencias:</li>
+</ul>
+<p>&nbsp;</p>
 <p>Transaction Sentry: Restored system health by canceling hung transactions or deadlocks.</p>
+<ul>
+  <li>Gravedad:</li>
+  <li>Descripción:</li>
+  <li>Resolución:</li>
+  <li>Referencias:</li>
+</ul>
 <p>&nbsp;</p>
 <h2>Escáner de vulnerabilidades</h2>
 <p>An invalid/unknown gateway IP address has been supplied to the external hosted scanner, the scan has been stopped.</p>
+<ul>
+  <li>Gravedad:</li>
+  <li>Descripción:</li>
+  <li>Resolución:</li>
+  <li>Referencias:</li>
+</ul>
+<p>&nbsp;</p>
 <p>A scanner has failed.</p>
+<ul>
+  <li>Gravedad:</li>
+  <li>Descripción:</li>
+  <li>Resolución:</li>
+  <li>Referencias:</li>
+</ul>
+<p>&nbsp;</p>
 <p>A scan has been stopped unexpectedly, in some cases this may cause the scan to be stopped.</p>
+<ul>
+  <li>Gravedad:</li>
+  <li>Descripción:</li>
+  <li>Resolución:</li>
+  <li>Referencias:</li>
+</ul>
+<p>&nbsp;</p>
 <p>A scanner failed to initialize.</p>
+<ul>
+  <li>Gravedad:</li>
+  <li>Descripción:</li>
+  <li>Resolución:</li>
+  <li>Referencias:</li>
+</ul>
+<p>&nbsp;</p>
 <p>&nbsp;</p>
