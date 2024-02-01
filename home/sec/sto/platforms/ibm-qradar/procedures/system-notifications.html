@@ -2,7 +2,7 @@
 title: System Notifications
 description: 
 published: true
-date: 2024-02-01T11:44:29.406Z
+date: 2024-02-01T12:01:26.567Z
 tags: soc, qradar, lm, ibm, system, notifications
 editor: ckeditor
 dateCreated: 2024-01-31T12:28:13.691Z
@@ -148,16 +148,8 @@ dateCreated: 2024-01-31T12:28:13.691Z
 <p><strong>The last attempt to read in rules (usually due to a rule change) has failed. Please see the message details and error log for information on how to resolve this.</strong></p>
 <ul>
   <li>Gravedad: Error</li>
-  <li>Descripción: Ha ocurrido un error al tratar de leer las reglas.&nbsp;</li>
-  <li>Resolución:&nbsp;</li>
-  <li>Referencias:</li>
-</ul>
-<p>&nbsp;</p>
-<p><strong>Found custom rules cyclic dependency chain.</strong></p>
-<ul>
-  <li>Gravedad:</li>
-  <li>Descripción:</li>
-  <li>Resolución:</li>
+  <li>Descripción: Ha ocurrido un error al tratar de leer las reglas. Normalmente ocurre cuando se ha modificado una regla y depende de una regla que está desactivada.</li>
+  <li>Resolución: Revisar la lógica de la regla y de sus dependencias para tratar de detectar el error.</li>
   <li>Referencias:</li>
 </ul>
 <p>&nbsp;</p>
@@ -210,14 +202,6 @@ dateCreated: 2024-01-31T12:28:13.691Z
   <li>Referencias:</li>
 </ul>
 <p>&nbsp;</p>
-<p><strong>Flow collector could not establish initial time synchronization.</strong></p>
-<ul>
-  <li>Gravedad:</li>
-  <li>Descripción:</li>
-  <li>Resolución:</li>
-  <li>Referencias:</li>
-</ul>
-<p>&nbsp;</p>
 <p><strong>The appliance exceeded the EPS or FPM allocation within the last hour.</strong></p>
 <ul>
   <li>Gravedad:</li>
@@ -227,7 +211,7 @@ dateCreated: 2024-01-31T12:28:13.691Z
 </ul>
 <p>&nbsp;</p>
 <h2>Notificaciones de fallo</h2>
-<p>Accumulator: Cannot read the aggregated data view definition in order to prevent an out of sync problem. Aggregated data views can no longer be created or loaded. Time series graphs will no longer work as well as reporting.</p>
+<p><strong>Accumulator: Cannot read the aggregated data view definition in order to prevent an out of sync problem. Aggregated data views can no longer be created or loaded. Time series graphs will no longer work as well as reporting.</strong></p>
 <ul>
   <li>Gravedad:</li>
   <li>Descripción:</li>
@@ -235,7 +219,7 @@ dateCreated: 2024-01-31T12:28:13.691Z
   <li>Referencias:</li>
 </ul>
 <p>&nbsp;</p>
-<p>The accumulator was unable to aggregate all events/flows for this interval.</p>
+<p><strong>The accumulator was unable to aggregate all events/flows for this interval.</strong></p>
 <ul>
   <li>Gravedad:</li>
   <li>Descripción:</li>
@@ -243,7 +227,7 @@ dateCreated: 2024-01-31T12:28:13.691Z
   <li>Referencias:</li>
 </ul>
 <p>&nbsp;</p>
-<p>Traffic analysis filter failed to initialize.</p>
+<p><strong>Traffic analysis filter failed to initialize.</strong></p>
 <ul>
   <li>Gravedad:</li>
   <li>Descripción:</li>
@@ -251,7 +235,7 @@ dateCreated: 2024-01-31T12:28:13.691Z
   <li>Referencias:</li>
 </ul>
 <p>&nbsp;</p>
-<p>Infrastructure component corrupted.</p>
+<p><strong>Infrastructure component corrupted.</strong></p>
 <ul>
   <li>Gravedad:</li>
   <li>Descripción:</li>
@@ -259,7 +243,7 @@ dateCreated: 2024-01-31T12:28:13.691Z
   <li>Referencias:</li>
 </ul>
 <p>&nbsp;</p>
-<p>Process Monitor: Application has failed to start up multiple times.</p>
+<p><strong>Process Monitor: Application has failed to start up multiple times.</strong></p>
 <ul>
   <li>Gravedad:</li>
   <li>Descripción:</li>
@@ -267,7 +251,7 @@ dateCreated: 2024-01-31T12:28:13.691Z
   <li>Referencias:</li>
 </ul>
 <p>&nbsp;</p>
-<p>A store and forward schedule finished while events were left on disk. These events will be stored on the local event collector until the next forwarding sessions begins.</p>
+<p><strong>A store and forward schedule finished while events were left on disk. These events will be stored on the local event collector until the next forwarding sessions begins.</strong></p>
 <ul>
   <li>Gravedad:</li>
   <li>Descripción:</li>
@@ -275,7 +259,7 @@ dateCreated: 2024-01-31T12:28:13.691Z
   <li>Referencias:</li>
 </ul>
 <p>&nbsp;</p>
-<p>Time synchronization to primary or Console has failed.</p>
+<p><strong>Time synchronization to primary or Console has failed.</strong></p>
 <ul>
   <li>Gravedad:</li>
   <li>Descripción:</li>
@@ -283,7 +267,7 @@ dateCreated: 2024-01-31T12:28:13.691Z
   <li>Referencias:</li>
 </ul>
 <p>&nbsp;</p>
-<p>Automatic updates user authentication failed. A valid individual IBM ID is required.</p>
+<p><strong>Automatic updates user authentication failed. A valid individual IBM ID is required.</strong></p>
 <ul>
   <li>Gravedad:</li>
   <li>Descripción:</li>
@@ -291,7 +275,7 @@ dateCreated: 2024-01-31T12:28:13.691Z
   <li>Referencias:</li>
 </ul>
 <p>&nbsp;</p>
-<p>User either does not exist or has an undefined role.</p>
+<p><strong>User either does not exist or has an undefined role.</strong></p>
 <ul>
   <li>Gravedad:</li>
   <li>Descripción:</li>
@@ -299,7 +283,7 @@ dateCreated: 2024-01-31T12:28:13.691Z
   <li>Referencias:</li>
 </ul>
 <p>&nbsp;</p>
-<p>The certificate named &lt;certificate_name&gt; will expire on &lt;date&gt;. Please update the certificate soon.</p>
+<p><strong>The certificate named &lt;certificate_name&gt; will expire on &lt;date&gt;. Please update the certificate soon.</strong></p>
 <ul>
   <li>Gravedad:</li>
   <li>Descripción:</li>
@@ -307,7 +291,7 @@ dateCreated: 2024-01-31T12:28:13.691Z
   <li>Referencias:</li>
 </ul>
 <p>&nbsp;</p>
-<p>The certificate named &lt;certificate_name&gt; has expired. Please update the certificate as soon as possible.</p>
+<p><strong>The certificate named &lt;certificate_name&gt; has expired. Please update the certificate as soon as possible.</strong></p>
 <ul>
   <li>Gravedad:</li>
   <li>Descripción:</li>
@@ -476,7 +460,7 @@ dateCreated: 2024-01-31T12:28:13.691Z
   <li>Referencias:</li>
 </ul>
 <p>&nbsp;</p>
-<p>Collecting the required support logs failed with errors. See System and License Manager.</p>
+<p><strong>Collecting the required support logs failed with errors. See System and License Manager.</strong></p>
 <ul>
   <li>Gravedad:</li>
   <li>Descripción:</li>
@@ -484,7 +468,7 @@ dateCreated: 2024-01-31T12:28:13.691Z
   <li>Referencias:</li>
 </ul>
 <p>&nbsp;</p>
-<p>Performance degradation was detected in the event pipeline. Expensive DSM extensions were found.</p>
+<p><strong>Performance degradation was detected in the event pipeline. Expensive DSM extensions were found.</strong></p>
 <ul>
   <li>Gravedad:</li>
   <li>Descripción:</li>
@@ -492,7 +476,7 @@ dateCreated: 2024-01-31T12:28:13.691Z
   <li>Referencias:</li>
 </ul>
 <p>&nbsp;</p>
-<p>The required support logs have been successfully collected. See System and License Manager.</p>
+<p><strong>The required support logs have been successfully collected. See System and License Manager.</strong></p>
 <ul>
   <li>Gravedad:</li>
   <li>Descripción:</li>
@@ -500,7 +484,7 @@ dateCreated: 2024-01-31T12:28:13.691Z
   <li>Referencias:</li>
 </ul>
 <p>&nbsp;</p>
-<p>A Log Source has been created in the disabled state due to license limits.</p>
+<p><strong>A Log Source has been created in the disabled state due to license limits.</strong></p>
 <ul>
   <li>Gravedad:</li>
   <li>Descripción:</li>
@@ -508,7 +492,7 @@ dateCreated: 2024-01-31T12:28:13.691Z
   <li>Referencias:</li>
 </ul>
 <p>&nbsp;</p>
-<p>Unable to automatically detect the associated log source for IP address &lt;IP address&gt;. Unable to automatically detect the associated log source for IP address.</p>
+<p><strong>Unable to automatically detect the associated log source for IP address &lt;IP address&gt;. Unable to automatically detect the associated log source for IP address.</strong></p>
 <ul>
   <li>Gravedad:</li>
   <li>Descripción:</li>
@@ -541,7 +525,7 @@ dateCreated: 2024-01-31T12:28:13.691Z
   <li>Referencias:</li>
 </ul>
 <p>&nbsp;</p>
-<p>The last scheduled backup exceeded execution threshold.</p>
+<p><strong>The last scheduled backup exceeded execution threshold.</strong></p>
 <ul>
   <li>Gravedad:</li>
   <li>Descripción:</li>
@@ -549,17 +533,16 @@ dateCreated: 2024-01-31T12:28:13.691Z
   <li>Referencias:</li>
 </ul>
 <p>&nbsp;</p>
-<p>Backup: Unable to find storage directory error.</p>
+<p><strong>Unable to find storage directory error.</strong></p>
 <ul>
   <li>Gravedad:</li>
   <li>Descripción:</li>
   <li>Resolución:</li>
   <li>Referencias:</li>
 </ul>
-<p>&nbsp;</p>
 <p>&nbsp;</p>
 <h2>Memoria</h2>
-<p>Application ran out of memory.</p>
+<p><strong>Application ran out of memory.</strong></p>
 <ul>
   <li>Gravedad:</li>
   <li>Descripción:</li>
@@ -567,7 +550,7 @@ dateCreated: 2024-01-31T12:28:13.691Z
   <li>Referencias:</li>
 </ul>
 <p>&nbsp;</p>
-<p>Out of Memory: system restored, erroneous application has been restarted.</p>
+<p><strong>Out of Memory: system restored, erroneous application has been restarted.</strong></p>
 <ul>
   <li>Gravedad:</li>
   <li>Descripción:</li>
