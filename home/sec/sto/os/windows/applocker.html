@@ -2,7 +2,7 @@
 title: AppLocker - Windows Security
 description: 
 published: true
-date: 2024-02-01T10:35:56.548Z
+date: 2024-02-01T10:55:42.151Z
 tags: windows, server, applocker, bastionado, ens, politicas, gpo
 editor: ckeditor
 dateCreated: 2024-01-24T08:59:43.929Z
@@ -80,5 +80,12 @@ dateCreated: 2024-01-24T08:59:43.929Z
 &lt;/AppLockerPolicy&gt;</code></pre>
 <p>Crear c:\apps, la carpeta desde la que los administradores pueden ejecutar sin generar alerta</p>
 <p>Asegurarse de que el servicio AppIDSvc (Application Identity) está en ejecutándose y en inicio automático.</p>
-<pre><code class="language-plaintext">sc.exe config appidsvc start=auto
-sc.exe start appidsvc</code></pre>
+<pre><code class="language-plaintext">$serviceName = 'appidsvc'
+sc.exe config $serviceName start=auto
+if ($service.Status -ne 'Running') {
+    Start-Service -Name $serviceName
+}
+
+if (!(Test-Path -Path C:\apps )) {
+    New-Item -ItemType directory -Path C:\apps
+}</code></pre>
