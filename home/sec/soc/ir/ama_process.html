@@ -2,7 +2,7 @@
 title: Artifact & Memory Acquisition Process
 description: 
 published: true
-date: 2024-02-01T10:58:21.901Z
+date: 2024-02-01T11:03:54.793Z
 tags: 
 editor: ckeditor
 dateCreated: 2024-01-30T13:04:23.200Z
@@ -42,7 +42,6 @@ dateCreated: 2024-01-30T13:04:23.200Z
 <pre><code class="language-plaintext">(Get-CimInstance Win32_PhysicalMemory | Measure-Object -Property capacity -Sum).sum /1gb</code></pre>
 <p>A continuación, verificar que se dispone de almacenamiento suficiente para el volcado de memoria.</p>
 <pre><code class="language-plaintext">Get-CimInstance -ClassName Win32_LogicalDisk `
-
 | Select-Object -Property DeviceID,@{'Name' = 'FreeSpace (GB)'; Expression= { [int]($_.FreeSpace / 1GB) }}</code></pre>
 <p>Verificar que la ruta C:\app existe.</p>
 <h2>Adquisición completa</h2>
