@@ -2,7 +2,7 @@
 title: AppLocker - Windows Security
 description: 
 published: true
-date: 2024-02-01T11:02:10.580Z
+date: 2024-02-01T11:03:04.511Z
 tags: windows, server, applocker, bastionado, ens, politicas, gpo
 editor: ckeditor
 dateCreated: 2024-01-24T08:59:43.929Z
@@ -11,12 +11,7 @@ dateCreated: 2024-01-24T08:59:43.929Z
 <h1 style="text-align:center;">AppLocker - Windows Security</h1>
 <p style="text-align:center;">&nbsp;</p>
 <h2>Configuración como GPO</h2>
-<p>Crear la política ENS Alto AppLocker, editarla y hacer click con el botón derecho en Computer Configuration &gt; Policies &gt; Windows Settings &gt; Security Settings &gt; Application Control Policies &gt; AppLocker e importar <a href="https://drive.google.com/file/d/1YeJpNck3FIsxheaxgK7Mm3U1HKJDqgP-/view?usp=drive_link">ens_alto_applocker.xml</a></p>
-<figure class="image"><img src="/sec/sto/os-files/windows/applocker/importargpo.jpg"></figure>
-<h2><strong>Configuración en servidor independiente</strong></h2>
-<p>En Local Security Policy (secpol.mmc)&gt;AppLocker importar <a href="ens_alto_applocker.xml">ens_alto_applocker.xml</a></p>
-<figure class="image"><img src="/sec/sto/os-files/windows/applocker/importar.jpg"></figure>
-<p>&nbsp;</p>
+<p>Crear la política ENS Alto AppLocker, editarla y hacer click con el botón derecho en Computer Configuration &gt; Policies &gt; Windows Settings &gt; Security Settings &gt; Application Control Policies &gt; AppLocker e importar <a href="https://drive.google.com/file/d/1YeJpNck3FIsxheaxgK7Mm3U1HKJDqgP-/view?usp=drive_link">ens_alto_applocker.xml</a><br>&nbsp;</p>
 <pre><code class="language-plaintext">&lt;AppLockerPolicy Version="1"&gt;
   &lt;RuleCollection Type="Exe" EnforcementMode="AuditOnly"&gt;
     &lt;FilePathRule Id="c157e390-4fc0-496c-89f8-74ea1c448ba8" Name="%OSDRIVE%\apps\*" Description="" UserOrGroupSid="S-1-5-32-544" Action="Allow"&gt;
@@ -78,6 +73,10 @@ dateCreated: 2024-01-24T08:59:43.929Z
   &lt;RuleCollection Type="Dll" EnforcementMode="NotConfigured" /&gt;
   &lt;RuleCollection Type="Appx" EnforcementMode="AuditOnly" /&gt;
 &lt;/AppLockerPolicy&gt;</code></pre>
+<figure class="image"><img src="/sec/sto/os-files/windows/applocker/importargpo.jpg"></figure>
+<h2><strong>Configuración en servidor independiente</strong></h2>
+<p>En Local Security Policy (secpol.mmc)&gt;AppLocker importar <a href="ens_alto_applocker.xml">ens_alto_applocker.xml</a></p>
+<figure class="image"><img src="/sec/sto/os-files/windows/applocker/importar.jpg"></figure>
 <p>Para Asegurarse de que el servicio AppIDSvc (Application Identity) está en ejecutándose y en inicio automático y crear c:\apps, la carpeta desde la que los administradores pueden ejecutar sin generar alerta, ejecutar <a href="https://drive.google.com/file/d/16y06OR-252Mpdc1tGQTreRsnONu8jIwT/view?usp=drive_link">ens_alto_applocker.ps1</a></p>
 <pre><code class="language-plaintext">$serviceName = 'appidsvc'
 sc.exe config $serviceName start=auto
