@@ -2,7 +2,7 @@
 title: Playbook LM Scheduled Tasks
 description: 
 published: true
-date: 2024-01-31T16:47:37.161Z
+date: 2024-02-01T08:42:02.656Z
 tags: soc, lm, task, playbook, scheduled
 editor: ckeditor
 dateCreated: 2024-01-16T10:24:11.049Z
@@ -42,6 +42,7 @@ dateCreated: 2024-01-16T10:24:11.049Z
 <p>&nbsp;</p>
 <h3><strong>Descripción</strong></h3>
 <p style="text-align:justify;">Revisión del estado de los servidores de data lake para garantizar que no hay errores durante el proceso de almacenamiento y cifrado de los logs.</p>
+<p style="text-align:justify;">Revisión en la recepción de correos de sincronización por cada localización en el correo del SOC.</p>
 <p style="text-align:justify;">&nbsp;</p>
 <h3><strong>Recurrencia</strong></h3>
 <p>Diaria</p>
@@ -59,7 +60,7 @@ dateCreated: 2024-01-16T10:24:11.049Z
 </ul>
 <p>&nbsp;</p>
 <h3><strong>Acciones</strong></h3>
-<p style="text-align:justify;">Se deberán revisar los correos con el asunto “XXX-data-lake - S3 sync daily” donde XXX corresponderá a la localización. Se deberá revisar que en el correo no aparecen errores de sincronización de ficheros y que se han subido los mismos (debería ser un número más o menos similar cada día en función del servidor).</p>
+<p style="text-align:justify;">Identificar en correo que los correos con el asunto “XXX-data-lake - S3 sync daily” donde XXX corresponderá a la localización han llegado. Se deberá revisar que en el correo no aparecen errores de sincronización de ficheros y que se han subido los mismos (debería ser un número más o menos similar cada día en función del servidor).</p>
 <p style="text-align:justify;">En caso de disponer de acceso ssh a la consola se deberán revisar además los siguientes puntos:</p>
 <ul>
   <li style="text-align:justify;">Revisión del estado de la compresión y cifrado de logs.</li>
@@ -67,6 +68,8 @@ dateCreated: 2024-01-16T10:24:11.049Z
   <li style="text-align:justify;">Revisión de directorios erróneos creados en el reenvío de logs desde QRadar.</li>
 </ul>
 <p style="text-align:justify;">Se explican las acciones a realizar en el documento <a href="https://wiki.security.espublico.com/es/home/sec/soc/lm/procedures/revision-servidores-data-lake"><u>Revisión servidores data lake</u></a></p>
+<p style="text-align:justify;">&nbsp;</p>
+<p style="text-align:justify;">En caso de detectar cualquier tipo de incidencia, se ha de abrir ticket en la cola de <strong>SD-SOC-Log_Management </strong>con el tag<strong> [SOC_LM] [INC] </strong>y avisar a jbergua o imartinez para la resolución de la misma.</p>
 <p>&nbsp;</p>
 <h2>SIEM Log Sources</h2>
 <p>&nbsp;</p>
