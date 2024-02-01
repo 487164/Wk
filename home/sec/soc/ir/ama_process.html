@@ -2,7 +2,7 @@
 title: Artifact & Memory Acquisition Process
 description: 
 published: true
-date: 2024-02-01T10:29:30.840Z
+date: 2024-02-01T10:56:01.224Z
 tags: 
 editor: ckeditor
 dateCreated: 2024-01-30T13:04:23.200Z
@@ -34,10 +34,28 @@ dateCreated: 2024-01-30T13:04:23.200Z
 <p>Dependiendo del tamaño y el contexto, estas pueden extraerse mediante scp, SFTP o S3.</p>
 <p>&nbsp;</p>
 <h1>Servidores Windows</h1>
+<p>Para entornos de servidores Windows, se dispone de la herramienta KAPE</p>
+<p><a href="https://www.kroll.com/en/services/cyber-risk/incident-response-litigation-support/kroll-artifact-parser-extractor-kape">https://www.kroll.com/</a></p>
+<h2>Antes de la adquisición</h2>
+<p>Antes de ejecutar la herramienta es necesario verificar el tamaño de la memoria instalada en el servidor&nbsp;</p>
+<pre><code class="language-plaintext">(Get-CimInstance Win32_PhysicalMemory | Measure-Object -Property capacity -Sum).sum /1gb</code></pre>
+<p>A continuación, verificar que se dispone de almacenamiento suficiente para el volcado de memoria.</p>
+<pre><code class="language-plaintext">Get-CimInstance -ClassName Win32_LogicalDisk `
+
+| Select-Object -Property DeviceID,@{'Name' = 'FreeSpace (GB)'; Expression= { [int]($_.FreeSpace / 1GB) }}</code></pre>
+<p>Verificar que la ruta C:\app existe.</p>
+<h2>Adquisición completa</h2>
+<p>Para hacer la adquisición, el binario se encuentra en el path C:\app\kape<br>Abrir un CMD como administrador y ejecutar el fichero bat</p>
+<pre><code class="language-plaintext">C:\app\kape\adquisicion-espublico.bat</code></pre>
 <p>&nbsp;</p>
+<h2>Adquisición de artefactos</h2>
+<p>Para hacer la adquisición, el binario se encuentra en el path C:\app\kape<br>Abrir un CMD como administrador y ejecutar el fichero bat</p>
+<pre><code class="language-plaintext">C:\app\kape\adquisicion-artefactos.bat</code></pre>
 <p>&nbsp;</p>
-<h1>Endpoints Linux. y MacOS</h1>
+<h2>Adquisición de memoria</h2>
+<p>Para hacer la adquisición, el binario se encuentra en el path C:\app\kape<br>Abrir un CMD como administrador y ejecutar el fichero bat</p>
+<pre><code class="language-plaintext">C:\app\kape\adquisicion-memoria.bat</code></pre>
 <p>&nbsp;</p>
-<h1>Endpoint Windows</h1>
-<p>&nbsp;</p>
-<h1>Endpoints iOS</h1>
+<h2>Exportar evidencias</h2>
+<p>Dependiendo del tamaño y el contexto, estas pueden extraerse mediante RDP, scp, SFTP o S3.</p>
+<h1>&nbsp;</h1>
