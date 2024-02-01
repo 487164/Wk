@@ -2,7 +2,7 @@
 title: Directivas de Auditoría
 description: 
 published: true
-date: 2024-01-30T13:50:08.808Z
+date: 2024-02-01T09:56:39.666Z
 tags: windows, server, bastionado, ens, politicas, gpo, auditoria
 editor: ckeditor
 dateCreated: 2024-01-25T08:39:45.060Z
@@ -53,7 +53,8 @@ auditpol /set /category:"Detailed Tracking" /success:disable /failure:disable
 auditpol /set /category:"System" /success:enable /failure:disable
 
 # Auditar PowerShell
-New-Item -Path "HKLM:\SOFTWARE\Wow6432Node\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging" -Force
-Set-ItemProperty -Path "HKLM:\SOFTWARE\Wow6432Node\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging" -Name "EnableScriptBlockLogging" -Value 1 -Force
+$path = "HKLM:\SOFTWARE\Wow6432Node\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging"
+New-Item -Path $path -Force
+Set-ItemProperty -Path $path -Name "EnableScriptBlockLogging" -Value 1 -Force
 </code></pre>
 <p>&nbsp;</p>
