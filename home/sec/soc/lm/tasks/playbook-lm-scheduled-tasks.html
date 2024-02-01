@@ -2,7 +2,7 @@
 title: Playbook LM Scheduled Tasks
 description: 
 published: true
-date: 2024-02-01T08:42:02.656Z
+date: 2024-02-01T08:50:17.347Z
 tags: soc, lm, task, playbook, scheduled
 editor: ckeditor
 dateCreated: 2024-01-16T10:24:11.049Z
@@ -86,7 +86,10 @@ dateCreated: 2024-01-16T10:24:11.049Z
 <p>Servidor SIEM de Producción</p>
 <p>&nbsp;</p>
 <h3><strong>Acciones</strong></h3>
-<p>Revisar los logs sources de la categoría SIM Generic Log de cada uno de los event collectors y revisar si hay algún servidor enviando logs que no disponga de un log source configurado.</p>
+<p>Revisar los logs sources filtrando por el <strong>Log Source Type “SIM Generic Log DSM”</strong> de cada uno de los event collectors y revisar si hay algún servidor enviando logs que no disponga de un log source configurado.</p>
+<p>En caso de que algún servidor haya mandado al colector correspondiente, revisar si este mismo necesita de la creación de fuentes adicionales.</p>
+<p>&nbsp;</p>
+<p>En caso de detectar cualquier tipo de incidencia, se ha de abrir ticket en la cola de <strong>SD-SOC-Log_Management </strong>con el tag<strong> [SOC_LM] [INC].</strong></p>
 <p>&nbsp;</p>
 <h2>SIEM Auto Updates</h2>
 <p>&nbsp;</p>
