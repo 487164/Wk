@@ -2,7 +2,7 @@
 title: System Notifications
 description: 
 published: true
-date: 2024-02-01T12:01:26.567Z
+date: 2024-02-01T14:29:20.863Z
 tags: soc, qradar, lm, ibm, system, notifications
 editor: ckeditor
 dateCreated: 2024-01-31T12:28:13.691Z
@@ -180,7 +180,7 @@ dateCreated: 2024-01-31T12:28:13.691Z
 <p>&nbsp;</p>
 <p><strong>Events/Flows were dropped by the event pipeline.</strong></p>
 <ul>
-  <li>Gravedad:</li>
+  <li>Gravedad: Error</li>
   <li>Descripción:</li>
   <li>Resolución:</li>
   <li>Referencias:</li>
@@ -188,7 +188,15 @@ dateCreated: 2024-01-31T12:28:13.691Z
 <p>&nbsp;</p>
 <p><strong>Performance degradation has been detected in the event pipeline. Event(s) were routed directly to storage.</strong></p>
 <ul>
-  <li>Gravedad:</li>
+  <li>Gravedad: Warning</li>
+  <li>Descripción:</li>
+  <li>Resolución:</li>
+  <li>Referencias:</li>
+</ul>
+<p>&nbsp;</p>
+<p><strong>Performance degradation has been detected in the event pipeline. Expensive DSM or DSM Extensions were found.</strong></p>
+<ul>
+  <li>Gravedad: Warning</li>
   <li>Descripción:</li>
   <li>Resolución:</li>
   <li>Referencias:</li>
@@ -196,7 +204,7 @@ dateCreated: 2024-01-31T12:28:13.691Z
 <p>&nbsp;</p>
 <p><strong>&nbsp;Performance degradation was detected in the event pipeline. Expensive custom properties were found.</strong></p>
 <ul>
-  <li>Gravedad:</li>
+  <li>Gravedad: Warning</li>
   <li>Descripción:</li>
   <li>Resolución:</li>
   <li>Referencias:</li>
@@ -261,9 +269,9 @@ dateCreated: 2024-01-31T12:28:13.691Z
 <p>&nbsp;</p>
 <p><strong>Time synchronization to primary or Console has failed.</strong></p>
 <ul>
-  <li>Gravedad:</li>
-  <li>Descripción:</li>
-  <li>Resolución:</li>
+  <li>Gravedad: Error</li>
+  <li>Descripción: La sincronización de tiempo entre la consola y un host o entre los nodos de un HA ha fallado.</li>
+  <li>Resolución: Revisar que la sincronización se ha corregido, en el 99.9% de los casos QRadar es capaz de solucionar el fallo por si mismo por lo que si no es una notificación recurrente se puede ignorar.</li>
   <li>Referencias:</li>
 </ul>
 <p>&nbsp;</p>
