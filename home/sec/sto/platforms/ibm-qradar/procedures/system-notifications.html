@@ -2,7 +2,7 @@
 title: System Notifications
 description: 
 published: true
-date: 2024-02-01T11:14:00.083Z
+date: 2024-02-01T11:44:29.406Z
 tags: soc, qradar, lm, ibm, system, notifications
 editor: ckeditor
 dateCreated: 2024-01-31T12:28:13.691Z
@@ -71,9 +71,9 @@ dateCreated: 2024-01-31T12:28:13.691Z
 <p>&nbsp;</p>
 <p><strong>DRBD Sentinel: Disk replication is falling behind. See log for details.</strong></p>
 <ul>
-  <li>Gravedad:</li>
-  <li>Descripción:</li>
-  <li>Resolución:</li>
+  <li>Gravedad: Error</li>
+  <li>Descripción: Ha fallado la sincronización de datos entre los nodos de un HA.</li>
+  <li>Resolución: Revisar que ambos sistemas no tienen alertas de discos o problemas de almacenamiento, revisar la comunicación entre las máquinas tanto por las interfaces comunes como por la conexión de cable cruzado entre ambas (en caso de haberlo). Si el problema persiste abrir un ticket en la cola de SOC_LM con el tag INC explicando el problema.</li>
   <li>Referencias:</li>
 </ul>
 <p>&nbsp;</p>
@@ -121,63 +121,6 @@ dateCreated: 2024-01-31T12:28:13.691Z
   <li>Referencias:</li>
 </ul>
 <p>&nbsp;</p>
-<h2>Assets</h2>
-<p><strong>Asset Changes Aborted.</strong></p>
-<ul>
-  <li>Gravedad:</li>
-  <li>Descripción:</li>
-  <li>Resolución:</li>
-  <li>Referencias:</li>
-</ul>
-<p>&nbsp;</p>
-<p><strong>The system has detected asset profiles that exceed normal size thresholds.</strong></p>
-<ul>
-  <li>Gravedad:</li>
-  <li>Descripción:</li>
-  <li>Resolución:</li>
-  <li>Referencias:</li>
-</ul>
-<p>&nbsp;</p>
-<p><strong>The Asset Reconciliation Exclusion rules added new asset data to the asset blacklists.</strong></p>
-<ul>
-  <li>Gravedad:</li>
-  <li>Descripción:</li>
-  <li>Resolución:</li>
-  <li>Referencias:</li>
-</ul>
-<p>&nbsp;</p>
-<p><strong>An external scan execution tried to scan an unauthorized IP address or address range.</strong></p>
-<ul>
-  <li>Gravedad:</li>
-  <li>Descripción:</li>
-  <li>Resolución:</li>
-  <li>Referencias:</li>
-</ul>
-<p>&nbsp;</p>
-<p><strong>Asset Persistence Queue Disk Full.</strong></p>
-<ul>
-  <li>Gravedad: Warning</li>
-  <li>Descripción:</li>
-  <li>Resolución:</li>
-  <li>Referencias:</li>
-</ul>
-<p>&nbsp;</p>
-<p><strong>Asset Update Resolver Queue Disk Full.</strong></p>
-<ul>
-  <li>Gravedad: Warning</li>
-  <li>Descripción:</li>
-  <li>Resolución:</li>
-  <li>Referencias:</li>
-</ul>
-<p>&nbsp;</p>
-<p><strong>Asset Change Listener Queue Disk Full.</strong></p>
-<ul>
-  <li>Gravedad:</li>
-  <li>Descripción:</li>
-  <li>Resolución:</li>
-  <li>Referencias:</li>
-</ul>
-<p>&nbsp;</p>
 <h2>Auto Updates</h2>
 <p><strong>Automatic updates installed with errors. See the Auto Update Log for details.</strong></p>
 <ul>
@@ -201,36 +144,12 @@ dateCreated: 2024-01-31T12:28:13.691Z
   <li>Referencias: <a href="https://wiki.security.espublico.com/es/home/sec/sto/platforms/ibm-qradar/procedures/revision-errores-auto-updates">Revisión errores auto-updates</a></li>
 </ul>
 <p>&nbsp;</p>
-<p><strong>Automatic updates completed successfully.</strong></p>
-<ul>
-  <li>Gravedad: Info</li>
-  <li>Descripción: Las actualizaciones se han completado correctamente.</li>
-  <li>Resolución: No es necesaria ninguna acción.</li>
-  <li>Referencias:</li>
-</ul>
-<p>&nbsp;</p>
-<p><strong>Automatic updates successfully downloaded. See the Auto Updates log for details.</strong></p>
-<ul>
-  <li>Gravedad: Info</li>
-  <li>Descripción: Las actualizaciones se han descargado correctamente.</li>
-  <li>Resolución: No es necesaria ninguna acción.</li>
-  <li>Referencias:</li>
-</ul>
-<p>&nbsp;</p>
-<p><strong>Automatic updates installed successfully. In the Admin tab, click Deploy Changes.</strong></p>
-<ul>
-  <li>Gravedad: Info</li>
-  <li>Descripción: Las actualizaciones se han aplicado correctamente.</li>
-  <li>Resolución: No es necesaria ninguna acción.</li>
-  <li>Referencias:</li>
-</ul>
-<p>&nbsp;</p>
 <h2>Custom Rules</h2>
 <p><strong>The last attempt to read in rules (usually due to a rule change) has failed. Please see the message details and error log for information on how to resolve this.</strong></p>
 <ul>
-  <li>Gravedad:</li>
-  <li>Descripción:</li>
-  <li>Resolución:</li>
+  <li>Gravedad: Error</li>
+  <li>Descripción: Ha ocurrido un error al tratar de leer las reglas.&nbsp;</li>
+  <li>Resolución:&nbsp;</li>
   <li>Referencias:</li>
 </ul>
 <p>&nbsp;</p>
@@ -244,9 +163,9 @@ dateCreated: 2024-01-31T12:28:13.691Z
 <p>&nbsp;</p>
 <p><strong>Expensive Custom Rules Found in CRE. Performance degradation was detected in the event pipeline. Found expensive custom rules in CRE.</strong></p>
 <ul>
-  <li>Gravedad:</li>
-  <li>Descripción:</li>
-  <li>Resolución:</li>
+  <li>Gravedad: Error</li>
+  <li>Descripción: Posible degradación del servicio debido a una regla mal optimizada.</li>
+  <li>Resolución: Se deberá revisar la regla indicada en la alerta y corregir la lógica de la misma para solucionar los problemas de degradación de la misma. Se deberá abrir un ticket en la cola de SOC_LM con el tag RC indicando en el mismo los cambios realizados.</li>
   <li>Referencias:</li>
 </ul>
 <p>&nbsp;</p>
