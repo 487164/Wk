@@ -2,7 +2,7 @@
 title: Preparación de máquina windows
 description: 
 published: true
-date: 2024-02-02T11:18:19.121Z
+date: 2024-02-02T11:19:14.114Z
 tags: 
 editor: ckeditor
 dateCreated: 2024-01-25T12:41:15.438Z
@@ -47,10 +47,4 @@ $Password = Read-Host -AsSecureString "Introduce una contraseña segura para la 
 New-ADUser -SamAccountName "aCdCmN570" -Name "aCdCmN570" -AccountPassword $Password `
 -Path (Get-ADDomain).UsersContainer -PasswordNeverExpires $true -Enabled $true
 
-# Agrega la cuenta de servicio al grupo de usuarios del dominio
-Add-ADGroupMember -Identity "Domain Users" -Members $ServiceAccountName
-
-# Otorga los permisos necesarios para la tarea de cambio de contraseña
-$ADUser = Get-ADUser -Identity $ServiceAccountName
-$ADUser | Set-ADUser -Replace @{msDS-User-Account-Control-Computed=66048}
 </code></pre>
