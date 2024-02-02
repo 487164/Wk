@@ -2,7 +2,7 @@
 title: Preparación de máquina windows
 description: 
 published: true
-date: 2024-02-02T08:54:35.527Z
+date: 2024-02-02T08:56:12.137Z
 tags: 
 editor: ckeditor
 dateCreated: 2024-01-25T12:41:15.438Z
@@ -24,7 +24,7 @@ dateCreated: 2024-01-25T12:41:15.438Z
 <p>En Local Security Policy&gt;Local Policies &gt; Security Options.</p>
 <p>Cambiar a Disable: "User Account Control: Run all administrators in Admin Approval Mode"</p>
 <p>Reiniciar windows.</p>
-<p>local.ps1</p>
+<p><a href="https://drive.google.com/file/d/1iVd7ltzzvxMhPWuRH7ZGXWnknUmorL7X/view?usp=drive_link">local.ps1</a></p>
 <pre><code class="language-plaintext">#Crear la cuenta de administrador local "aCdCmN570", sin caducidad de contraseña.
 $Password = Read-Host -AsSecureString "Introduce una contraseña segura para la cuenta de usuario 'aCdCmN570'"
 New-LocalUser -Name "aCdCmN570" -Password $Password -AccountNeverExpires
