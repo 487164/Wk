@@ -2,7 +2,7 @@
 title: Preparación de máquina windows
 description: 
 published: true
-date: 2024-02-02T11:19:14.114Z
+date: 2024-02-02T14:13:34.714Z
 tags: 
 editor: ckeditor
 dateCreated: 2024-01-25T12:41:15.438Z
@@ -11,6 +11,7 @@ dateCreated: 2024-01-25T12:41:15.438Z
 <h1 style="text-align:center;">Preparación de máquina windows</h1>
 <p style="text-align:center;"><mark class="marker-yellow">Ojo: Documento en desarrollo → ask ralfaro</mark></p>
 <p style="text-align:center;">&nbsp;</p>
+<p><a href="https://support.oneidentity.com/kb/4314156/how-to-configure-windows-assets-in-safeguard">https://support.oneidentity.com/kb/4314156/how-to-configure-windows-assets-in-safeguard</a></p>
 <h2><strong>Configuración en servidor independiente</strong></h2>
 <p><a href="https://support.oneidentity.com/es-es/technical-documents/one-identity-safeguard-for-privileged-passwords/7.0.4%20lts/administration-guide/125#TOPIC-2061917">https://support.oneidentity.com/es-es/technical-documents/one-identity-safeguard-for-privileged-passwords/7.0.4%20lts/administration-guide/125#TOPIC-2061917</a></p>
 <p>Crear la cuenta de administrador local "aCdCmN570", sin caducidad de contraseña.</p>
@@ -37,14 +38,32 @@ Enable-NetFirewallRule -Name "WMI-RPCSS-In-TCP", "WMI-WINMGMT-In-TCP", "Netlogon
 Set-ItemProperty -Path REGISTRY::HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System -Name EnableLUA -Value 0</code></pre>
 <p>&nbsp;</p>
 <h2><strong>Configuración en servidor miembro de dominio</strong></h2>
-<p><a href="https://support.oneidentity.com/kb/4314156/how-to-configure-windows-assets-in-safeguard">https://support.oneidentity.com/kb/4314156/how-to-configure-windows-assets-in-safeguard</a></p>
-<p>Crear la <a href="https://learn.microsoft.com/en-us/virtualization/windowscontainers/manage-containers/manage-serviceaccounts#create-a-group-managed-service-account">gMSA</a> aCdCmN570</p>
+<p><a href="https://support.oneidentity.com/es-es/one-identity-safeguard-for-privileged-passwords/kb/4263587/how-to-delegate-permissions-in-active-directory-for-a-safeguard-service-account">https://support.oneidentity.com/es-es/one-identity-safeguard-for-privileged-passwords/kb/4263587/how-to-delegate-permissions-in-active-directory-for-a-safeguard-service-account</a></p>
+<p>Crear la aCdCmN570</p>
+<p>OJO No le he dado permiso para acceso remoto!</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
 <pre><code class="language-plaintext"># Importa el módulo ActiveDirectory
 Import-Module ActiveDirectory
 
-#Crear la cuenta de administrador local "aCdCmN570", sin caducidad de contraseña.
-$Password = Read-Host -AsSecureString "Introduce una contraseña segura para la cuenta de usuario 'aCdCmN570'"
-New-ADUser -SamAccountName "aCdCmN570" -Name "aCdCmN570" -AccountPassword $Password `
--Path (Get-ADDomain).UsersContainer -PasswordNeverExpires $true -Enabled $true
+$name = "aCdCmN570"
+$path = (Get-ADDomain).UsersContainer
+
+# Crear la cuenta "aCdCmN570", sin caducidad de contraseña.
+$pass = Read-Host -AsSecureString "Introduce una contraseña segura para la cuenta de usuario 'aCdCmN570'"
+New-ADUser -SamAccountName $name -Name $name -AccountPassword $pass -Path $path -PasswordNeverExpires $true -Enabled $true
+
+# Asignar los permisos para cambiar contraseñas, bloquear y desbloqeuar cuentas.
+$obj = "CN=AdminSDHolder,CN=System,"+(Get-ADDomain).DistinguishedName
+$user = (Get-ADDomain).Name+"\"+$name
+dsacls $obj /G $user":CA";"Reset Password" 
+dsacls $obj /G $user":WP";"Account Restrictions" 
+dsacls $obj /G $user":WP";"LockoutTime"
+
+#Permitir en el firewall DCOM-In, WMI-In, NP-In y RPC
+Enable-NetFirewallRule -Name "WMI-RPCSS-In-TCP", "WMI-WINMGMT-In-TCP", "Netlogon-NamedPipe-In", "RemoteTask-In-TCP"
+
+# Cambiar a Disable: "User Account Control: Run all administrators in Admin Approval Mode"
+Set-ItemProperty -Path REGISTRY::HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System -Name EnableLUA -Value 0
 
 </code></pre>
