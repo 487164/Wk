@@ -1,0 +1,52 @@
+<!--
+title: Monitorización de MySQL en Zabbix
+description: 
+published: true
+date: 2024-02-02T12:29:36.615Z
+tags: linux, zabbix, monitorizacion, mysql, mariadb
+editor: ckeditor
+dateCreated: 2024-02-02T12:29:36.615Z
+-->
+
+<h1 style="text-align:center;">Monitorización de MySQL en Zabbix</h1>
+<p>&nbsp;</p>
+<p>Para la monitorización de un servidor de MySQL, ya sea mysql nativo o mariadb se deberán realizar los siguientes pasos.</p>
+<p>&nbsp;</p>
+<h2>Creación del usuario de monitorización</h2>
+<p>Crear el usuario en el servidor de base de datos con acceso sólo desde la ip del proxy de zabbix (generalmente la máquina de tools de la localización)</p>
+<pre><code class="language-plaintext">CREATE USER 'zbx_monitor'@'&lt;IP&gt;' IDENTIFIED BY '&lt;password&gt;';</code></pre>
+<p>&nbsp;</p>
+<p>Y dar permisos para leer los esquemas.</p>
+<p>En caso de ser un servidor con versión inferior a la 10.5.9</p>
+<pre><code class="language-plaintext">GRANT REPLICATION CLIENT,PROCESS,SHOW DATABASES,SHOW VIEW ON *.* TO 'zbx_monitor'@'&lt;IP&gt;';</code></pre>
+<p>En caso de ser la versión 10.5.9 o superior</p>
+<pre><code class="language-plaintext">GRANT BINLOG MONITOR,REPLICA MONITOR,PROCESS,SHOW DATABASES,SHOW VIEW ON *.* TO 'zbx_monitor'@'&lt;IP&gt;';</code></pre>
+<p>&nbsp;</p>
+<h2>Creación del host en la configuración del proxy</h2>
+<p>Acceder al servidor donde esté configurado el proxy de la localización y editar el fichero&nbsp;</p>
+<pre><code class="language-plaintext">/etc/odbc.ini</code></pre>
+<p>&nbsp;</p>
+<p>En el mismo añadir un bloque similar al siguiente ejemplo sustituyendo donde corresponda</p>
+<pre><code class="language-plaintext">[DSN]
+Description = DSN
+Driver      = MariaDB
+Server      = HOSTNAME
+User        = zbx_monitor
+Password    =
+Port        = 3306
+Database    = mysql</code></pre>
+<p>&nbsp;</p>
+<h2>Configuración en zabbix</h2>
+<p>Añadir la plantilla de “MySQL by ODBC” al host y configurar las siguientes variables en las host macros</p>
+<ul>
+  <li>{$MYSQL.DSN} → Nombre que se incluye en la configuración, el valor donde se muestra la palabra DSN en el ejemplo anterior</li>
+  <li>{$MYSQL.USER} → zbx_monitor</li>
+  <li>{$MYSQL.PASSWORD} → la password establecida al crear el usuario</li>
+</ul>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
