@@ -2,7 +2,7 @@
 title: System Notifications
 description: 
 published: true
-date: 2024-02-02T07:31:00.654Z
+date: 2024-02-02T07:40:18.154Z
 tags: soc, qradar, lm, ibm, system, notifications
 editor: ckeditor
 dateCreated: 2024-01-31T12:28:13.691Z
@@ -238,32 +238,48 @@ dateCreated: 2024-01-31T12:28:13.691Z
 <p><strong>Events/Flows were dropped by the event pipeline.</strong></p>
 <ul>
   <li>Gravedad: Error</li>
-  <li>Descripción:</li>
-  <li>Resolución:</li>
+  <li>Descripción: Parte de los eventos y/o flujos se han dropeado.&nbsp;</li>
+  <li>Resolución:&nbsp;</li>
+</ul>
+<p>Si la alerta ha saltado después de un pico muy elevado de eventos debido a algún error en la infraestructura (como por ejemplo una caída de red en una de las localizaciones) o el proceso de actualización de QRadar, no es necesario realizar ninguna acción.</p>
+<p>En caso de que no haya una causa justificada para la alerta se debe de abrir un ticket en la cola de SOC_LM con el tag INC para su revisión.</p>
+<ul>
   <li>Referencias:</li>
 </ul>
 <p>&nbsp;</p>
 <p><strong>Performance degradation has been detected in the event pipeline. Event(s) were routed directly to storage.</strong></p>
 <ul>
   <li>Gravedad: Warning</li>
-  <li>Descripción:</li>
+  <li>Descripción: Debido a un alto volumen de eventos, la procesadora no ha sido capaz de procesar todos los eventos y manda parte de los mismos al almacenamiento para su posterior procesado cuando se libere de la carga de trabajo actual.</li>
   <li>Resolución:</li>
+</ul>
+<p>Si la alerta ha saltado después de un pico muy elevado de eventos debido a algún error en la infraestructura (como por ejemplo una caída de red en una de las localizaciones) o el proceso de actualización de QRadar, no es necesario realizar ninguna acción.</p>
+<p>En caso de que no haya una causa justificada para la alerta se debe de abrir un ticket en la cola de SOC_LM con el tag INC para su revisión.</p>
+<ul>
   <li>Referencias:</li>
 </ul>
 <p>&nbsp;</p>
 <p><strong>Performance degradation has been detected in the event pipeline. Expensive DSM or DSM Extensions were found.</strong></p>
 <ul>
   <li>Gravedad: Warning</li>
-  <li>Descripción:</li>
+  <li>Descripción: Algunas de las properties definidas en un DSM o en la extensión de un DSM son complejas y difíciles de detectar, provocando con ello un consumo elevado de recursos al tratar de parsear los eventos.</li>
   <li>Resolución:</li>
+</ul>
+<p>Si la alerta ha saltado después de un pico muy elevado de eventos debido a algún error en la infraestructura (como por ejemplo una caída de red en una de las localizaciones) o el proceso de actualización de QRadar, no es necesario realizar ninguna acción.</p>
+<p>En caso de que no haya una causa justificada para la alerta se debe de abrir un ticket en la cola de SOC_LM con el tag INC para su revisión.</p>
+<ul>
   <li>Referencias:</li>
 </ul>
 <p>&nbsp;</p>
 <p><strong>&nbsp;Performance degradation was detected in the event pipeline. Expensive custom properties were found.</strong></p>
 <ul>
   <li>Gravedad: Warning</li>
-  <li>Descripción:</li>
+  <li>Descripción: Se han encontrado algunas properties cuya expresión es compleja y difícil de detectar, provocando con ello un consumo elevado de recursos al tratar de parsear los eventos.</li>
   <li>Resolución:</li>
+</ul>
+<p>Si la alerta ha saltado después de un pico muy elevado de eventos debido a algún error en la infraestructura (como por ejemplo una caída de red en una de las localizaciones) o el proceso de actualización de QRadar, no es necesario realizar ninguna acción.</p>
+<p>En caso de que no haya una causa justificada para la alerta se debe de abrir un ticket en la cola de SOC_LM con el tag INC para su revisión.</p>
+<ul>
   <li>Referencias:</li>
 </ul>
 <p>&nbsp;</p>
@@ -286,9 +302,13 @@ dateCreated: 2024-01-31T12:28:13.691Z
 <p>&nbsp;</p>
 <p><strong>The accumulator was unable to aggregate all events/flows for this interval.</strong></p>
 <ul>
-  <li>Gravedad:</li>
-  <li>Descripción:</li>
-  <li>Resolución:</li>
+  <li>Gravedad: Error</li>
+  <li>Descripción: El proceso de accumulator no ha sido capaz de añadir todos los eventos y/o flujos en un corto intervalo de tiempo.</li>
+  <li>Resolución:&nbsp;</li>
+</ul>
+<p>Si la alerta ha saltado después de un pico muy elevado de eventos debido a algún error en la infraestructura (como por ejemplo una caída de red en una de las localizaciones) o el proceso de actualización de QRadar, no es necesario realizar ninguna acción.</p>
+<p>En caso de que no haya una causa justificada para la alerta se debe de abrir un ticket en la cola de SOC_LM con el tag INC para su revisión.</p>
+<ul>
   <li>Referencias:</li>
 </ul>
 <p>&nbsp;</p>
