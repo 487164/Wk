@@ -1,0 +1,126 @@
+<!--
+title: Instalación en nuevo servidor físico
+description: 
+published: true
+date: 2024-02-05T11:39:02.393Z
+tags: linux, install, server, os, centos, rocky
+editor: ckeditor
+dateCreated: 2024-02-05T11:39:02.393Z
+-->
+
+<h1 style="text-align:center;">Instalación en nuevo servidor físico</h1>
+<p>&nbsp;</p>
+<p>Para la instalación de Centos/Rocky en un nuevo servidor físico se deberán seguir una serie de pasos.</p>
+<p>&nbsp;</p>
+<h2>Setup ILO/IMM</h2>
+<p>Se deberán realizar las siguientes configuraciones:</p>
+<ul>
+  <li>Configurar la red de la ILO/IMM</li>
+  <li>Configurar la licencia</li>
+  <li>Modificar la password del usuario administrator/USERID</li>
+</ul>
+<p>En caso de ser necesario montar el array de discos, para sistema será necesario montar un RAID 1 para evitar posible pérdida de datos en caso de fallo.</p>
+<p>&nbsp;</p>
+<h2>Instalación de Rocky/CentOS</h2>
+<p>Se espcifican a continuación los pasos a realizar en el wizard de instalación:</p>
+<ul>
+  <li>Language -&gt; "English English &gt; English (United States)"</li>
+  <li>Date &amp; Time -&gt; Europe - Madrid</li>
+  <li>Keyboard -&gt; Quitar English (Us), Añadir Spanish; Castillian (Spanish)</li>
+  <li>Installation Source -&gt; Local Media</li>
+  <li>Software Selection&nbsp; -&gt; Minimal Install</li>
+  <li>Installation Destination -&gt; Select system disks and check I will configure partitioning<ul>
+      <li>/boot/efi -&gt; 200MiB (Device Type RAID if software raid)</li>
+      <li>/boot -&gt; 1024MiB (Device Type RAID if software raid)</li>
+      <li>swap&nbsp; -&gt; 8GiB &nbsp; Device Type LVM&nbsp; - Volume group -&gt; (raid 1 if software raid)&nbsp;</li>
+      <li>/ &nbsp;-&gt; Remaining space Device Type LVM&nbsp; - Volume group -&gt; (raid 1 if software raid)</li>
+    </ul>
+  </li>
+  <li>Network &amp; Hostname&nbsp; -&gt; set fqdn for hostname</li>
+  <li>security profile -&gt; No profile selected&nbsp;&nbsp;&nbsp;</li>
+</ul>
+<p>&nbsp;</p>
+<p>Completada esta primera parte lanzar el proceso de instalación y modificar el password de root (el setup lo modificará posteriormente)</p>
+<p>Después del reinicio configurar la red utilizando nmtui.</p>
+<p>Se deberán crear dos interfaces (en caso de disponer de las mismas)</p>
+<ul>
+  <li>svcs&nbsp;</li>
+  <li>mgmt</li>
+</ul>
+<p>&nbsp;</p>
+<h2>Scripts Setup</h2>
+<p>Lanzar los siguientes comandos para crear la ruta e instalar los paquetes necesarios</p>
+<pre><code class="language-plaintext">yum -y install rsync git dmidecode
+mkdir -p /opt/iubaris/setup/bin
+mkdir -p /opt/iubaris/setup/logs</code></pre>
+<p>Completada esta parte copiar desde otra máquina con rsync</p>
+<pre><code class="language-plaintext">rsync --contimeout=10 --timeout=10 -avz --delete \
+	--exclude "options.local" --exclude "hp/hpsc/" --exclude "hp/hprpm/" \
+	ns1.espublico.com::setup /opt/iubaris/setup/bin</code></pre>
+<p>O descargar con git</p>
+<pre><code class="language-plaintext">git clone ssh://git@cm.it.iubaris.com/setup /opt/iubaris/setup/bin</code></pre>
+<p>&nbsp;</p>
+<p>Una vez descargado aplicar las reglas de acls</p>
+<pre><code class="language-plaintext">chown -R root:wheel /opt/iubaris/setup
+setfacl -Rm u:root:rwX,g:wheel:rwX,m::rwX,o::-     	/opt/iubaris/setup/bin
+setfacl -Rm d:u:root:rwX,d:g:wheel:rwX,d:m::rwX,d:o::- /opt/iubaris/setup/bin</code></pre>
+<p>&nbsp;</p>
+<p>Creación del fichero options.local en la ruta del repositorio, a continuación se ve un ejemplo</p>
+<pre><code class="language-plaintext">dns_servers="213.4.82.201 213.4.82.202 195.77.90.84 195.77.90.93"
+password_enforce=true
+security_group="CHANGEME"
+syslog_client=false
+syslog_server="CHANGEME"
+management_server="CHANGEME"
+management_server_infra="CHANGEME"
+zabbix_server="CHANGEME"
+repo_server="CHANGEME"
+location=0</code></pre>
+<p>&nbsp;</p>
+<p>Modificar las variables correspondientes para que apunten a los servidores existentes en la localización en la que se encuentre la máquina. Con respecto a la configuración de syslog, configurarlo una vez se haya completado la instalación de la máquina.</p>
+<p>&nbsp;</p>
+<p>Modificar el hostname de la máquina, si no se hizo durante el proceso de instalación</p>
+<pre><code class="language-plaintext">hostnamectl set-hostname YOUR_HOSTNAME</code></pre>
+<p>Ejecutar el script siguiente para verificar que la configuración es correcta</p>
+<pre><code class="language-plaintext">/opt/iubaris/setup/bin/info.sh</code></pre>
+<p>Si todo es correcta lanzar el setup</p>
+<pre><code class="language-plaintext">/opt/iubaris/setup/bin/setup.sh</code></pre>
+<p>Una vez completado, revisar los logs</p>
+<pre><code class="language-plaintext">egrep -i "error|warn|fail" setup-20231009-135449.log</code></pre>
+<p>&nbsp;</p>
+<p>Si todo lo anterior es correcto reiniciar el sistema para aplicar los cambios</p>
+<pre><code class="language-plaintext">systemctl reboot</code></pre>
+<p>&nbsp;</p>
+<p>Y, en caso de ser un servidor HP, lanzar el siguiente script para actualizar el firmware</p>
+<pre><code class="language-plaintext">/opt/iubaris/setup/bin/hp/firmware.sh</code></pre>
+<p>Si el anterior script devuelve un error, comentar la línea 45, siendo la siguiente</p>
+<pre><code class="language-plaintext">/usr/bin/yum -y install $($sum requires)</code></pre>
+<p>y añadir la siguiente en su lugar</p>
+<pre><code class="language-plaintext">yum install $(sudo /sbin/smartupdate requires)  --exclude="sut-2.3.0-26.linux.x86_64" --exclude="sut-2.[0-7]*.linux.x86_64"</code></pre>
+<p>Y ejecutar de nuevo. Una vez ejecutado reiniciar el sistema.</p>
+<p>&nbsp;</p>
+<h2>Scripts Identity</h2>
+<p>TODO</p>
+<p>&nbsp;</p>
+<h2>Management services</h2>
+<p>Añadir el nuevo servidor en los siguientes servicios</p>
+<ul>
+  <li>Zabbix</li>
+  <li>Bacula (si procede)</li>
+  <li>Configurar rsyslog</li>
+</ul>
+<p>Completada esta parte verificar en los siguientes servicios que los datos llegan correctamente</p>
+<ul>
+  <li>CMDB</li>
+  <li>SIEM</li>
+</ul>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
