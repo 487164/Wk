@@ -2,7 +2,7 @@
 title: Nueva VM en Nutanix seguridad
 description: 
 published: true
-date: 2024-02-05T11:55:23.283Z
+date: 2024-02-05T12:01:56.447Z
 tags: soc, vm, linux, security, nutanix, ntnx
 editor: ckeditor
 dateCreated: 2024-02-05T11:55:23.283Z
@@ -18,7 +18,7 @@ dateCreated: 2024-02-05T11:55:23.283Z
   <li>Name &nbsp;-&gt; nombre deseado</li>
   <li>CPU &nbsp;-&gt; especificar el número de vCPUs</li>
   <li>Memory &nbsp;-&gt; especificar la memoria necesaria en GB</li>
-  <li>Disk &nbsp;-&gt; añadir un disco en base a la imagen de rocky existente<ul>
+  <li>Disk &nbsp;-&gt; añadir un disco en base a la imagen de rocky existente (NO AÑADIR MÁS DISCOS HASTA COMPLETAR ESTA PARTE)<ul>
       <li>Operation -&gt; "Clone From Image Service"</li>
       <li>Bus Type -&gt; "SCSI"</li>
       <li>Image -&gt; "Centos7x-template"</li>
@@ -32,6 +32,7 @@ dateCreated: 2024-02-05T11:55:23.283Z
 </ul>
 <p>&nbsp;</p>
 <p>Guardar los cambios y arrancar el servidor.</p>
+<p>Una vez arrancado el servidor, se puede añadir los discos necesarios para datos o la funcionalidad requerida por la aplicación, pero no antes para evitar errores de asignación de los mismos en el primer arranque.</p>
 <p>Configurar la red de la máquina con nmtui.</p>
 <p>Configurar el hostname del servidor</p>
 <pre><code class="language-plaintext">hostnamectl set-hostname [fqdn]</code></pre>
@@ -50,6 +51,7 @@ dateCreated: 2024-02-05T11:55:23.283Z
 <p>&nbsp;</p>
 <p>Completada esta parte (si ya está disponible) ejecutar los scripts de identity</p>
 <pre><code class="language-plaintext">/opt/espublico/identity/bin/identity.sh</code></pre>
+<p>&nbsp;</p>
 <p>&nbsp;</p>
 <h2>Management services</h2>
 <p>Añadir el nuevo servidor en los siguientes servicios</p>
