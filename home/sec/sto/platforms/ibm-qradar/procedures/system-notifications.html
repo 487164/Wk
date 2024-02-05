@@ -2,7 +2,7 @@
 title: System Notifications
 description: 
 published: true
-date: 2024-02-02T07:40:18.154Z
+date: 2024-02-05T08:43:59.716Z
 tags: soc, qradar, lm, ibm, system, notifications
 editor: ckeditor
 dateCreated: 2024-01-31T12:28:13.691Z
@@ -207,6 +207,9 @@ dateCreated: 2024-01-31T12:28:13.691Z
   <li>Gravedad: Error</li>
   <li>Descripción: Ha ocurrido un error al tratar de leer las reglas. Normalmente ocurre cuando se ha modificado una regla y depende de una regla que está desactivada.</li>
   <li>Resolución: Revisar la lógica de la regla y de sus dependencias para tratar de detectar el error.</li>
+</ul>
+<p>Es posible que, si ha habido una actualización del sistema o de alguna aplicación, haya cambiado el ID de la regla, provocando con ello la alerta a pesar de que todas las reglas se encuentran en un estado correcto, es decir, que no hay errores de dependencias ya que el padre de la regla se encuentra activo, en ese caso no es necesaria ninguna acción.</p>
+<ul>
   <li>Referencias:</li>
 </ul>
 <p>&nbsp;</p>
@@ -238,8 +241,8 @@ dateCreated: 2024-01-31T12:28:13.691Z
 <p><strong>Events/Flows were dropped by the event pipeline.</strong></p>
 <ul>
   <li>Gravedad: Error</li>
-  <li>Descripción: Parte de los eventos y/o flujos se han dropeado.&nbsp;</li>
-  <li>Resolución:&nbsp;</li>
+  <li>Descripción: Parte de los eventos y/o flujos se han dropeado.</li>
+  <li>Resolución:</li>
 </ul>
 <p>Si la alerta ha saltado después de un pico muy elevado de eventos debido a algún error en la infraestructura (como por ejemplo una caída de red en una de las localizaciones) o el proceso de actualización de QRadar, no es necesario realizar ninguna acción.</p>
 <p>En caso de que no haya una causa justificada para la alerta se debe de abrir un ticket en la cola de SOC_LM con el tag INC para su revisión.</p>
@@ -304,7 +307,7 @@ dateCreated: 2024-01-31T12:28:13.691Z
 <ul>
   <li>Gravedad: Error</li>
   <li>Descripción: El proceso de accumulator no ha sido capaz de añadir todos los eventos y/o flujos en un corto intervalo de tiempo.</li>
-  <li>Resolución:&nbsp;</li>
+  <li>Resolución:</li>
 </ul>
 <p>Si la alerta ha saltado después de un pico muy elevado de eventos debido a algún error en la infraestructura (como por ejemplo una caída de red en una de las localizaciones) o el proceso de actualización de QRadar, no es necesario realizar ninguna acción.</p>
 <p>En caso de que no haya una causa justificada para la alerta se debe de abrir un ticket en la cola de SOC_LM con el tag INC para su revisión.</p>
