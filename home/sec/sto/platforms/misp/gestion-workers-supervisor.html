@@ -2,7 +2,7 @@
 title: Gestión de workers con supervisor
 description: 
 published: true
-date: 2024-01-15T15:32:37.756Z
+date: 2024-02-05T08:50:23.005Z
 tags: soc, ti, misp, gestion, supervisor, worker
 editor: ckeditor
 dateCreated: 2024-01-15T15:32:37.756Z
@@ -164,5 +164,18 @@ systemctl disable misp-workers</code></pre>
 <p>Una vez editado reiniciar el servicio</p>
 <pre><code class="language-plaintext">systemctl restart supervisord</code></pre>
 <p>Y revisar el estado de los worker</p>
+<pre><code class="language-plaintext">supervisorctl status</code></pre>
+<p>&nbsp;</p>
+<h2>Troubleshooting</h2>
+<p>Pueden darse ocasiones en que los worker no funcionen correctamente y se encolen jobs.&nbsp;</p>
+<p>En este caso se deben de revisar los jobs desde&nbsp;</p>
+<p>Administration → Jobs</p>
+<p>se deben de limpiar los jobs completados y revisar las tareas pendientes.</p>
+<p>Se debe de revisar también los workers desde&nbsp;</p>
+<p>Administration → Server Settings &amp; Maintenance → Workers</p>
+<p>y revisar si hay tareas encoladas en alguno de los worker.</p>
+<p>En caso de haberlas se deberán limpiar tanto los jobs encolados como las tareas encoladas desde los workers, una vez limpiada esa parte, acceder por ssh al servidor y reiniciar el servicio de supervisor.</p>
+<pre><code class="language-plaintext">systemctl restart supervisord</code></pre>
+<p>Y revisar que los workers se han levantado correctamente con el comando</p>
 <pre><code class="language-plaintext">supervisorctl status</code></pre>
 <p>&nbsp;</p>
