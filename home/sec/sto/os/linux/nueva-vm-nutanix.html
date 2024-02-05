@@ -1,0 +1,75 @@
+<!--
+title: Nueva VM en Nutanix seguridad
+description: 
+published: true
+date: 2024-02-05T11:55:23.283Z
+tags: soc, vm, linux, security, nutanix, ntnx
+editor: ckeditor
+dateCreated: 2024-02-05T11:55:23.283Z
+-->
+
+<h1 style="text-align:center;">Nueva VM en Nutanix seguridad</h1>
+<p>&nbsp;</p>
+<p>Para la creación de una vm acceder a la sección de VM en nutanix y pinchar en <strong>Create VM</strong></p>
+<p>&nbsp;</p>
+<h2>Creación de nueva VM</h2>
+<p>Crear la máquina con los siguientes valores:</p>
+<ul>
+  <li>Name &nbsp;-&gt; nombre deseado</li>
+  <li>CPU &nbsp;-&gt; especificar el número de vCPUs</li>
+  <li>Memory &nbsp;-&gt; especificar la memoria necesaria en GB</li>
+  <li>Disk &nbsp;-&gt; añadir un disco en base a la imagen de rocky existente<ul>
+      <li>Operation -&gt; "Clone From Image Service"</li>
+      <li>Bus Type -&gt; "SCSI"</li>
+      <li>Image -&gt; "Centos7x-template"</li>
+    </ul>
+  </li>
+  <li>Network Adapters -&gt; añadir dos interfaces<ul>
+      <li>ITX-Security-SVCS</li>
+      <li>ITX-Security-MGMT</li>
+    </ul>
+  </li>
+</ul>
+<p>&nbsp;</p>
+<p>Guardar los cambios y arrancar el servidor.</p>
+<p>Configurar la red de la máquina con nmtui.</p>
+<p>Configurar el hostname del servidor</p>
+<pre><code class="language-plaintext">hostnamectl set-hostname [fqdn]</code></pre>
+<p>Actualizar el setup con el siguiente script</p>
+<pre><code class="language-plaintext">/opt/iubaris/setup/bin/git-get-master.sh</code></pre>
+<p>Actualizar el fichero options.local&nbsp;</p>
+<pre><code class="language-plaintext">vi /opt/iubaris/setup/bin/options.local</code></pre>
+<p>Y realizar las siguientes modificaciones</p>
+<ul>
+  <li>Modificar el setup, activando el mismo y configurando el servidor apropiado</li>
+  <li>Establecer el grupo de seguridad a “security” si no lo está</li>
+  <li>Revisar que las ips/dns de los servicios de mgmt son correctos (zabbix, mgmt, cmdb….)</li>
+</ul>
+<p>Completada la revisión ejecutar el setup</p>
+<pre><code class="language-plaintext">/opt/iubaris/setup/bin/setup.sh</code></pre>
+<p>&nbsp;</p>
+<p>Completada esta parte (si ya está disponible) ejecutar los scripts de identity</p>
+<pre><code class="language-plaintext">/opt/espublico/identity/bin/identity.sh</code></pre>
+<p>&nbsp;</p>
+<h2>Management services</h2>
+<p>Añadir el nuevo servidor en los siguientes servicios</p>
+<ul>
+  <li>Zabbix</li>
+  <li>Bacula (si procede)</li>
+  <li>Configurar rsyslog</li>
+</ul>
+<p>Completada esta parte verificar en los siguientes servicios que los datos llegan correctamente</p>
+<ul>
+  <li>CMDB</li>
+  <li>SIEM</li>
+</ul>
+<p>&nbsp;</p>
+<h2>Creación registros DNS</h2>
+<p>Creación de los registros DNS para las direcciones de SVCS y MGMT y las direcciones PTR</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
