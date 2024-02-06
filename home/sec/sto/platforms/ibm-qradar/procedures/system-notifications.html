@@ -2,7 +2,7 @@
 title: System Notifications
 description: 
 published: true
-date: 2024-02-05T08:43:59.716Z
+date: 2024-02-06T07:29:39.616Z
 tags: soc, qradar, lm, ibm, system, notifications
 editor: ckeditor
 dateCreated: 2024-01-31T12:28:13.691Z
@@ -511,27 +511,19 @@ dateCreated: 2024-01-31T12:28:13.691Z
   <li>Referencias:</li>
 </ul>
 <p>&nbsp;</p>
-<p>SAR Sentinel: normal operation restored.</p>
+<p><strong>SAR Sentinel: threshold crossed.</strong></p>
 <ul>
-  <li>Gravedad:</li>
-  <li>Descripción:</li>
-  <li>Resolución:</li>
+  <li>Gravedad: Warning</li>
+  <li>Descripción: Aparece cuando se ha superado alguno de los límites establecidos en el sistema.</li>
+  <li>Resolución: Esperar unos minutos a que se recupere el sólo (debería de aparecer una notificación de “Normal operation restored”), en tal caso no es necesaria ninguna acción. En caso de que sea un comportamiento recurrente abrir un ticket en la cola de SOC_LM con el tag INC para su revisión.</li>
   <li>Referencias:</li>
 </ul>
 <p>&nbsp;</p>
-<p>SAR Sentinel: threshold crossed.</p>
+<p><strong>Response Action: Threshold reached.</strong></p>
 <ul>
-  <li>Gravedad:</li>
-  <li>Descripción:</li>
-  <li>Resolución:</li>
-  <li>Referencias:</li>
-</ul>
-<p>&nbsp;</p>
-<p>Response Action: Threshold reached.</p>
-<ul>
-  <li>Gravedad:</li>
-  <li>Descripción:</li>
-  <li>Resolución:</li>
+  <li>Gravedad: Error</li>
+  <li>Descripción: Se han superado los límites máximos establecidos.</li>
+  <li>Resolución: Esperar unos minutos a que se recupere el sólo (debería de aparecer una notificación de “Normal operation restored”), en tal caso no es necesaria ninguna acción. En caso de que sea un comportamiento recurrente abrir un ticket en la cola de SOC_LM con el tag INC para su revisión.</li>
   <li>Referencias:</li>
 </ul>
 <p>&nbsp;</p>
