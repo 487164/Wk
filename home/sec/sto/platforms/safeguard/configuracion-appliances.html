@@ -1,0 +1,87 @@
+<!--
+title: Configuración de los Appliances
+description: 
+published: true
+date: 2024-02-07T14:41:14.368Z
+tags: 
+editor: ckeditor
+dateCreated: 2024-02-07T14:41:14.368Z
+-->
+
+<h1 style="text-align:center;">Configuración de los Appliances</h1>
+<p style="text-align:center;">&nbsp;</p>
+<h2>Configuración incial</h2>
+<p>Se realiza conectando directamente al puerto de MGMT 192.168.1.105</p>
+<ul>
+  <li>El LCD del PASS no muestra información</li>
+  <li><mark class="marker-yellow">La ILO del PASS no permite conectar por consola (pend. soporte)</mark></li>
+</ul>
+<p>&nbsp;</p>
+<p>Contraseñas inciales (se han cambiado y apuntado en TeamPass)</p>
+<ul>
+  <li>Las contraseñas del usuario ADMIN para el acceso por ILO que están en pegatinas en los appliances</li>
+  <li>Pass inicial para la interfaz web y la api admin/Admin123</li>
+  <li>Pass inicial para el acceso por consola root/Admin123</li>
+</ul>
+<p>&nbsp;</p>
+<p>Se configuran las interfaces de red <i>config/basic/network</i> en SESS y <i>/appliance-management/appliance?section=networking</i> en PASS y se actualizan en</p>
+<p><a href="https://docs.google.com/spreadsheets/d/1sfXXKECd3blN6z9jFFGEL5KYYBEyBCfTCTZpqkXDcxI">https://docs.google.com/spreadsheets/d/1sfXXKECd3blN6z9jFFGEL5KYYBEyBCfTCTZpqkXDcxI</a></p>
+<ul>
+  <li>Las interfaces X0 se utilizan para SVCS (cluster entre máquinas, acceso web de usuarios y administradores)</li>
+  <li>Las interfaces X1, la Physical interface 3 en SESS, para MGMT (conectar hacia servidores, GW por defecto.)</li>
+  <li>Las interfaces IPMI, para INFRA</li>
+</ul>
+<p>En SESS es necesario cambiar también la Routing table en <i>/config/basic/network</i> para que utilice el GW de MGMT</p>
+<p>&nbsp;</p>
+<p>Se configuran los nombres de máquina en SESS config/basic/network y en PASS appliance-management/appliance?section=applianceInformation</p>
+<p>&nbsp;</p>
+<h2>Actualización</h2>
+<p>Los ficheros se pueden descargar de https://support.oneidentity.com/download-product-select (usuario en TeamPass), excepto <a href="https://drive.google.com/file/d/1hEjq0dHihNjEI6Izx5HdPB4KFuPOgFMT/view?usp=drive_link">desktop_player_installer.1.11.23.release.msi</a></p>
+<p>&nbsp;</p>
+<h3>PASS</h3>
+<p>Viene con firmware 6.0.0.12276</p>
+<p>Se instala la licencia <a href="https://drive.google.com/file/d/12lo3oW9bO9sXV1-0rvDBR7vR3cJObx1w/view?usp=drive_link">D1I_SafeguardforPP-154-245-915.dlv</a></p>
+<p>Hasta la versión 7 es necesario conectar con desktop_player_installer.1.11.23.release.msi</p>
+<p>Updates (llevan 20-30 minutos cada uno)</p>
+<ul>
+  <li>spp-6.0.11.16292-hw.sgp</li>
+  <li>spp-oslevel2-hw.sgp</li>
+</ul>
+<p>Se instala la licencia <a href="https://drive.google.com/file/d/1xsmhDbdYQhGhSkpMrhe5zfVbNupkKUuN/view?usp=drive_link">D1I_SafeguardforPP-154-040-794.dlv</a></p>
+<ul>
+  <li>spp-7.0.0.18433-hw.sgp</li>
+</ul>
+<p>Ya no es necesario el desktop player.</p>
+<ul>
+  <li>spp-7.0.3.19710-hw .sgp</li>
+</ul>
+<p>&nbsp;</p>
+<h3>SESS</h3>
+<p>Viene con firmware 6.0.1</p>
+<p>Se instala la licencia: <a href="https://drive.google.com/file/d/1Ez_IlpO5zC3Kn89Fc5LC7QWiRpCy9cax/view?usp=drive_link">PSM-154-333-176.txt</a></p>
+<p>Updates</p>
+<ul>
+  <li>scb-6.0_6.0.14.iso scb-6.14_6.14.0.iso</li>
+  <li>scb-7.0_7.0.3.iso</li>
+</ul>
+<p>Se instala la licencia: SafegrdforPrvSession-154-245-831.dlv</p>
+<p>&nbsp;</p>
+<h2>Configurar el cluster PASS</h2>
+<p><mark class="marker-yellow">Pendiente</mark></p>
+<p>&nbsp;</p>
+<h2>Configurar el cluster entre PASS y SESS</h2>
+<p>En SESS &nbsp;<i>/config/basic/services </i>se activa el Cluster Interface y se elige la interfaz de SVCS</p>
+<p><i>config/basic/cluster</i> se crea un Cluster (donde va a estar solo el SPS) y hacemos <i>Link to SPP</i> añadiendo la ip de SVCS del PASS</p>
+<p>&nbsp;</p>
+<p>Configurar PASS antes de añadir Assets</p>
+<p>En PASS &nbsp;</p>
+<p>/user-management/users se crea un usuario con todos los Permissions, ya que a admin no se le puede asignar Asset y logandose con el</p>
+<p>/asset-management/partitions se crean las particiones Windows y Linux (a las que se pueden asignar políticas de de contraseñas, de discovery…) y se elimina Macrocosm</p>
+<p>/asset-management/assets &nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
