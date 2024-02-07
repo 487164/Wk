@@ -2,7 +2,7 @@
 title: Configuración de los Appliances
 description: 
 published: true
-date: 2024-02-07T14:49:03.606Z
+date: 2024-02-07T14:52:08.269Z
 tags: 
 editor: ckeditor
 dateCreated: 2024-02-07T14:41:14.368Z
@@ -93,12 +93,200 @@ dateCreated: 2024-02-07T14:41:14.368Z
 <p>En SESS &nbsp;<i>/config/basic/services </i>se activa el Cluster Interface y se elige la interfaz de SVCS</p>
 <p><i>config/basic/cluster</i> se crea un Cluster (donde va a estar solo el SPS) y hacemos <i>Link to SPP</i> añadiendo la ip de SVCS del PASS</p>
 <p>&nbsp;</p>
-<p>Configuración SESS</p>
+<h2>Configuración SESS <mark class="marker-yellow">(En curso)</mark></h2>
+<p>Documentación:</p>
+<p><a href="https://support.oneidentity.com/one-identity-safeguard-for-privileged-sessions/7.3/technical-documents"><u>https://support.oneidentity.com/one-identity-safeguard-for-privileged-sessions/7.3/technical-documents</u></a></p>
+<p>Revisar</p>
+<p><a href="https://support.oneidentity.com/technical-documents/one-identity-safeguard-for-privileged-sessions/7.3/security-checklist"><u>https://support.oneidentity.com/technical-documents/one-identity-safeguard-for-privileged-sessions/7.3/security-checklist</u></a></p>
+<p><strong>Basic Settings</strong></p>
+<p><a href="https://192.168.39.130/portal/#/config/basic/services"><u>https://192.168.39.130/portal/#/config/basic/services</u></a></p>
+<ul>
+  <li>Por defecto está activado solo Web login (admin) - aquí podríamos habilitar ssh para administrar el servidor.</li>
+  <li>El indexer service es el servicio que tiene el SPS para indexar las sesiones para hacer búsquedas, se puede habilitar, no o utilizar una máquina linux remota para no sobrecargar la máquina de sesiones.</li>
+  <li>Safeguard for Privileged Analytics está habilitado para crear patrones de comportamiento por usuario.</li>
+  <li>El clustering del SPS es solo a nivel de configuración y es necesario para unirlo al SPP (que tendrá su propio clustering con otros SPP).</li>
+</ul>
+<p><strong>Se activa el Cluster Interface Listening </strong>dejando la interfaz por defecto 192.168.39.130</p>
+<p><a href="https://192.168.39.130/portal/#/config/basic/cluster"><u>https://192.168.39.130/portal/#/config/basic/cluster</u></a></p>
+<ul>
+  <li>Inicialmente ofrece Join cluster o Create Cluster</li>
+</ul>
+<p><strong>Creamos un cluster</strong>, se pueden crear más nodos con distintos roles, este primero hay que <strong>promoverlo a Central Management.</strong></p>
+<ul>
+  <li>También hacemos <strong>Link to SPP</strong> añadiendo su ip (192.168.39.129) pidiendo autentificación y crea objetos en ambos (políticas de <a href="https://192.168.39.130/portal/#/config/rdp/setup"><u>rdp </u></a>y <a href="https://192.168.39.130/portal/#/config/ssh/setup"><u>ssh</u></a> y plugins en SPS y políticas y el concepto de sesiones en SPP) y crea el usuario SessionConnectionUser_1 en SPP.</li>
+</ul>
+<p><a href="https://192.168.39.130/portal/#/config/basic/network"><u>https://192.168.39.130/portal/#/config/basic/network</u></a></p>
+<ul>
+  <li>Hay diferentes interfaces físicas, se pueden asociar distintas ips a una misma interfaces, routing tables, con IP forwarding se puede hacer el routing entre distintas interfaces y con HTTPS proxy (@rdopazo comentó que puede ser útil para un MFA en la nube, pero no lo pregunté en su momento y ahora no entiendo el comentario)</li>
+  <li>Aquí se <strong>configuró IP, DNS</strong>…</li>
+</ul>
+<p><a href="https://192.168.39.130/portal/#/config/basic/management"><u>https://192.168.39.130/portal/#/config/basic/management</u></a></p>
+<ul>
+  <li>Se puede configurar servidor de syslogs, envío de traps, notificaciones por mail, System <strong>Backup </strong>(primero hay que crear una política y asignarla), activar verbose system logs</li>
+  <li>Configuración de certificados, CA en la que confía… lo dejamos con los autofirmados.</li>
+  <li>Core Files: Al hacer los upgrades mantiene ciertos ficheros antiguos por defecto se borran cada 14 días.</li>
+  <li>Prevención de llenado de disco. Desconecta a los clientes cuando se ha llenado el 80% de disco. Hay que configurar una política de <strong>archivado </strong>y asignarla.</li>
+  <li>Web gateway authentication. Para casos de uso en los que hay que autenticar al usuario antes de iniciar sesión</li>
+  <li><strong>Universal SIEM Forwarder</strong>, donde hay que configurar nombre, ip, puerto y formato (cve, json…) es más o menos la misma información que manda el syslog pero para facilitar enviar a un SIEM.</li>
+</ul>
+<p><a href="https://192.168.39.130/portal/#/config/basic/monitoring"><u>https://192.168.39.130/portal/#/config/basic/monitoring</u></a></p>
+<ul>
+  <li>Configurar eventos sobre los que mandar email o notificación SNMP</li>
+</ul>
+<p><a href="https://192.168.39.130/portal/#/config/basic/datetime"><u>https://192.168.39.130/portal/#/config/basic/datetime</u></a></p>
+<ul>
+  <li>Está por defecto, falta configurar nuestro servidor favorito de <strong>NTP</strong></li>
+</ul>
+<p><a href="https://192.168.39.130/portal/#/config/basic/plugins"><u>https://192.168.39.130/portal/#/config/basic/plugins</u></a></p>
+<ul>
+  <li>Plugins para integrarse con otros sistemas, para autenticación con otras plataformas, chequear que haya un ticket antes de permitir crear la sesión, meterle lógica…</li>
+  <li>Se añaden automáticamente SGAA y SGCredStore al añadir el SPP (más adelante)</li>
+</ul>
+<p><a href="https://192.168.39.130/portal/#/config/basic/ha"><u>https://192.168.39.130/portal/#/config/basic/ha</u></a></p>
+<ul>
+  <li>Solo está disponible en appliances físicos, en Activo/Pasivo y un ethernet de Quorum y si hay un problema se hace un failover al pasivo.</li>
+</ul>
+<p><a href="https://192.168.39.130/portal/#/config/basic/starling"><u>https://192.168.39.130/portal/#/config/basic/starling</u></a></p>
+<ul>
+  <li>Servicios en la nube que se pueden integrar dentro de SafeGuard, no tiene acceso a internet para probarlo, por ejemplo una funcionalidad gratuita <a href="https://support.oneidentity.com/es-es/technical-documents/starling-cloud-assistant/hosted/user-guide"><u>Cloud Assistant</u></a> (flujos de aprobación por Slack o Teams)</li>
+</ul>
+<p><a href="https://192.168.39.130/portal/#/config/basic/truststores"><u>https://192.168.39.130/portal/#/config/basic/truststores</u></a></p>
+<ul>
+  <li>Si solo se compra el módulo de sesiones se podrían almacenar secretos aquí.</li>
+</ul>
+<p><strong>User &amp; Access Control</strong></p>
+<p><a href="https://192.168.39.130/portal/#/config/aaa/settings"><u>https://192.168.39.130/portal/#/config/aaa/settings</u></a></p>
+<ul>
+  <li>Podemos integrarnos con un AD, un LDAP o local users. Lo haremos en SPP, el SPS solo va a encauzar permisos.</li>
+  <li>Puede ser interesante un local user para por ejemplo solo con el Rol de Auditor para que pueda entrar a ver sesiones pero no lanzarlas desde SPP.</li>
+</ul>
+<p><a href="https://192.168.39.130/portal/#/config/aaa/localusers"><u>https://192.168.39.130/portal/#/config/aaa/localusers</u></a></p>
+<ul>
+  <li>Creamos un usuario local ralfaro con basic-write, no incluye un permiso de admin, hay que asignar permisos granulares.</li>
+</ul>
+<p><a href="https://192.168.39.130/portal/#/config/aaa/groups"><u>https://192.168.39.130/portal/#/config/aaa/groups</u></a></p>
+<ul>
+  <li>Aquí se ve qué usuarios tiene cada permiso.</li>
+</ul>
+<p><a href="https://192.168.39.130/portal/#/config/aaa/acl"><u>https://192.168.39.130/portal/#/config/aaa/acl</u></a></p>
+<ul>
+  <li>Aquí explica qué roles de cada permiso. Se podría crear uno con los roles que necesiten los usuarios.</li>
+</ul>
+<p><a href="https://192.168.39.130/portal/#/config/aaa/adar"><u>https://192.168.39.130/portal/#/config/aaa/adar</u></a></p>
+<ul>
+  <li>Para permitir que diferentes usuarios vean distintas partes de los registros de auditoría modificando el filtro “*” por la REGEX que queramos (por ejemplo user.name: ralfaro)&nbsp; y asignar el perfil a un usuario.</li>
+</ul>
+<p><a href="https://192.168.39.130/portal/#/config/aaa/permissionquery"><u>https://192.168.39.130/portal/#/config/aaa/permissionquery</u></a></p>
+<ul>
+  <li>El producto puede generar una serie de reports, puede ser útil para que un auditor solo entre aquí a ver reports y sesiones.</li>
+</ul>
+<p><a href="https://192.168.39.130/portal/#/config/aaa/accounting"><u>https://192.168.39.130/portal/#/config/aaa/accounting</u></a></p>
+<ul>
+  <li>Para auditar los cambios de configuración</li>
+</ul>
+<p><strong>Policies</strong></p>
+<p><a href="https://192.168.39.130/portal/#/config/policies/aaplugin"><u>https://192.168.39.130/portal/#/config/policies/aaplugin</u></a></p>
+<ul>
+  <li>Si subes un Authentication Plugin en la sección de plugins, aquí se configura. Al integrar con SPP aparece la configuración de SGAA</li>
+</ul>
+<p><a href="https://192.168.39.130/portal/#/config/policies/analytics"><u>https://192.168.39.130/portal/#/config/policies/analytics</u></a></p>
+<ul>
+  <li>Políticas donde se configura que se quiere analizar y que no (comand, keystroke, time…) - Windows title analytics consume bastantes recursos, pero tenemos pocos windows.</li>
+  <li>Si se configura en Use el valor más alto y más bajo se ignorar para calcular la media, en trust si los utiliza y disable&nbsp; no se usa.</li>
+  <li>El perfilado tarda 1-3 semanas si el usuario usa bastante safeguard</li>
+</ul>
+<p><a href="https://192.168.39.130/portal/#/config/policies/audit"><u>https://192.168.39.130/portal/#/config/policies/audit</u></a></p>
+<ul>
+  <li>Configurar políticas que se pueden aplicar para habilitar encriptación y sellado de los logs</li>
+</ul>
+<p><a href="https://192.168.39.130/portal/#/config/policies/backup"><u>https://192.168.39.130/portal/#/config/policies/backup</u></a></p>
+<ul>
+  <li>Configuración de políticas que se pueden aplicar para backup y archivado</li>
+</ul>
+<p><a href="https://192.168.39.130/portal/#/config/policies/content"><u>https://192.168.39.130/portal/#/config/policies/content</u></a></p>
+<ul>
+  <li>Políticas cuando se detecta un comando, o un full screen content (para lo que devuelve el comando, p.ej) y las acciones a lanzar (Log/Terminate connection/Notify/Store in DB) que se aplican luego a las conexiones.</li>
+  <li>Se creó uno de POC que se puede eliminar.</li>
+  <li>La content policy se aplica a través de la channel policy en cada protocolo</li>
+</ul>
+<p><a href="https://192.168.39.130/portal/#/config/policies/stores"><u>https://192.168.39.130/portal/#/config/policies/stores</u></a></p>
+<ul>
+  <li>Se puede tener un password vault en el SPS, no lo usamos por tener el SPP</li>
+</ul>
+<p><a href="https://192.168.39.130/portal/#/config/policies/indexer"><u>https://192.168.39.130/portal/#/config/policies/indexer</u></a></p>
+<ul>
+  <li>Políticas para indicar porque se va a buscar en el portal de auditoría</li>
+  <li>El OCR lo dejamos con inglés y español y Accurate (el más costoso en proceso) porque vamos a tener pocas sesiones windows, si ralentiza se puede cambiar.</li>
+</ul>
+<p><a href="https://192.168.39.130/portal/#/config/policies/signingCA"><u>https://192.168.39.130/portal/#/config/policies/signingCA</u></a></p>
+<ul>
+  <li>Cuando establezco una sesion RDP SPS es un Man in the Middle con lo que saltarán los avisos. Se podría poner un certificado en que las máquinas confiaran para que no saltara el aviso</li>
+</ul>
+<p><a href="https://192.168.39.130/portal/#/config/policies/time"><u>https://192.168.39.130/portal/#/config/policies/time</u></a></p>
+<ul>
+  <li>Las políticas de tiempo las vamos a configurar en SPP</li>
+</ul>
+<p><a href="https://192.168.39.130/portal/#/config/policies/users"><u>https://192.168.39.130/portal/#/config/policies/users</u></a></p>
+<p><a href="https://192.168.39.130/portal/#/config/policies/usermappings"><u>https://192.168.39.130/portal/#/config/policies/usermappings</u></a></p>
+<ul>
+  <li>Mapear que cuando un usuario xx se conecte se le asigne por ejemplo el usuario root. Lo haremos desde SPP</li>
+</ul>
+<p><strong>XXX Control (políticas por protocolo)</strong></p>
+<p>Se crean al conectar con SPP</p>
+<p><a href="https://192.168.39.130/portal/#/config/rdp/setup"><u>https://192.168.39.130/portal/#/config/rdp/setup</u></a></p>
+<p><a href="https://192.168.39.130/portal/#/config/ssh/setup"><u>https://192.168.39.130/portal/#/config/ssh/setup</u></a></p>
+<ul>
+  <li>De cualquier origen a cualquier destino permitimos que pase por SPP el tráfico</li>
+  <li>Permite hacer nateos, una fix address para presentar al destino, redirección de puertos, usar la ip del SPS o del cliente,&nbsp;</li>
+  <li>Como y cuando se indexa</li>
+  <li>Se podrían grabar sesiones ssh haciendo un Man in the Middle<ul>
+      <li>Crear una política de ssh no compartida con SPP</li>
+      <li>En network ponemos la máquina de tools como origen y destino las redes de servidores</li>
+      <li>Ponemos un adaptador físico del SPS en la VLAN de destino y que sea el GW para enrutar hacia destino en modo transparente</li>
+    </ul>
+  </li>
+</ul>
+<h2>Configuración PASS<mark class="marker-yellow"> (en curso)</mark></h2>
+<p><strong>Appliance Management</strong></p>
+<p>Backup, archivado, cluster… similar a SPS</p>
+<p><a href="https://192.168.39.129/appliance-management/appliance"><u>https://192.168.39.129/appliance-management/appliance</u></a></p>
+<p><strong>Asset Management</strong></p>
+<p><a href="https://192.168.39.129/asset-management/partitions"><u>https://192.168.39.129/asset-management/partitions</u></a></p>
+<ul>
+  <li>Cualquier asset debe pertenecer a una partition a la que se asignan políticas de de contraseñas, de discovery…</li>
+</ul>
+<p><a href="https://192.168.39.129/asset-management/assets"><u>https://192.168.39.129/asset-management/assets</u></a></p>
+<ul>
+  <li>La partition en el primer tab le une a las políticas de la Partition</li>
+  <li>La plataforma en el segundo tab es lo que decide cómo se conecta</li>
+  <li>Una vez creado el asset en Account se crean cuentas (en el desplegable account security en esa misma pestaña tenemos Set Password, Change Password…) y en Properties&gt;Connection se añade la cuenta de servicio que pueda rotar las contraseñas (el set password, rotación, check… solo van a funcionar si ya está asignada la cuenta de servicio)</li>
+  <li>Al no usar Active Directory necesitamos una cuenta de servicio por asset</li>
+</ul>
+<p><a href="https://192.168.39.129/security-policy-management/entitlements"><u>https://192.168.39.129/security-policy-management/entitlements</u></a></p>
+<ul>
+  <li>“Como te doy permisos a ti para acceder a qué máquinas”</li>
+  <li>Un entitlement puede tener distintas Access Request Policies (tipo de sesión RDP, RDP App, ssh, Telnet, horario, caducidad, accesos simultáneos, rotación de contraseñas, duración de la sesión, si requiere aprobación o revisión…) que se asignan a usuarios.</li>
+  <li>En la Access Request dejamos el Asset-Based Session Access en None porque asignamos el usuario en scope (hay que crearlas antes), pero hay más opciones.</li>
+  <li>No es necesario asignar assets a las Access Request Policies ya que se añaden solos al añadir accounts (pendiente de comprobar)</li>
+</ul>
+<p><strong>Minimum required permissions for Windows assets</strong></p>
+<p><a href="https://support.oneidentity.com/technical-documents/one-identity-safeguard-for-privileged-passwords/7.3/administration-guide/129#TOPIC-2016153"><u>https://support.oneidentity.com/technical-documents/one-identity-safeguard-for-privileged-passwords/7.3/administration-guide/129#TOPIC-2016153</u></a></p>
+<p><strong>Preparing HP iLO servers</strong></p>
+<p><a href="https://support.oneidentity.com/technical-documents/one-identity-safeguard-for-privileged-passwords/7.3/administration-guide/124#TOPIC-2016128"><u>https://support.oneidentity.com/technical-documents/one-identity-safeguard-for-privileged-passwords/7.3/administration-guide/124#TOPIC-2016128</u></a></p>
+<p><strong>Login en SPP con Yubico</strong></p>
+<p><a href="https://support.oneidentity.com/es-es/technical-documents/one-identity-safeguard-for-privileged-passwords/7.0.3%20lts/administration-guide/9#TOPIC-2014349"><u>https://support.oneidentity.com/es-es/technical-documents/one-identity-safeguard-for-privileged-passwords/7.0.3%20lts/administration-guide/9#TOPIC-2014349</u></a></p>
+<p>Se añade en Appliance Management&gt;Safeguard Access&gt;Identity and Authentication</p>
+<p>Name: Yubikey</p>
+<p>Domain Suffix: espublico.it</p>
+<p>Se añade en Appliance Management&gt;Certificates&gt;Trusted CA Certificates un certificado autofirmado que he generado para ssp.espublico.it<br>Se añade en Appliance Management&gt;Certificates&gt;SSL/TLS Certificates el mismo certificado autofirmado y se asigna a la appliance.</p>
+<p>Modifico User Management&gt;Users&gt;ralfaro&gt;Authentication marcando Require Secondary Authentication y elijo Yubikey como Authentication Provider (el que he configurado antes)</p>
+<p>Añado el certificado en Entidades de certificación raíz de confianza en mi equipo</p>
+<p>Accedo con la URL del certificado https:spp.espublico.it y me pide registrar la yubikey.</p>
 <p>&nbsp;</p>
-<p>Configuración PASS &nbsp;</p>
-<p>/user-management/users se crea un usuario con todos los Permissions, ya que a admin no se le puede asignar Asset y logandose con el</p>
-<p>/asset-management/partitions se crean las particiones Windows y Linux (a las que se pueden asignar políticas de de contraseñas, de discovery…) y se elimina Macrocosm</p>
-<p>/asset-management/assets &nbsp;</p>
+<p>He creado 26 usuarios nominales en <a href="https://zgz-pam-pass.zaragoza.espublico.it/"><u>https://zgz-pam-pass.zaragoza.espublico.it/</u></a></p>
+<p>Cada uno tiene un <i>50xx Linux Entitlement</i> al que solo el tiene acceso, que contiene una política <i>50xx Access Request </i>para con 3 accounts <i>z50xx</i>, <i>i50xx</i>, <i>n50xx </i>con RSA SSH Keys 80192<i> </i>en el asset zgz-pam-jump para propagar las públicas a zgz, itx y nbx</p>
+<p>Aunque solo 18 están en el grupo de GF_PAM_Identity_Linux y tienen que pasarse a las máquinas he añadido&nbsp; a las 78 al accoutn group&nbsp; <i>Jump Account Group</i> para que no haya que añadirlas a mano si se cambia el grupo en Ms365</p>
+<p>Si tuvieran las contraseñas de usuario ahora podrían solicitar 3 access request (que no funcionarán porque no hemos propagado aún nada)</p>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
