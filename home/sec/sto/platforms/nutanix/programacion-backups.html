@@ -1,0 +1,26 @@
+<!--
+title: Programacion de backups
+description: 
+published: true
+date: 2024-02-07T07:17:41.026Z
+tags: soc, linux, windows, nutanix, backup
+editor: ckeditor
+dateCreated: 2024-02-07T07:17:41.026Z
+-->
+
+<h1 style="text-align:center;">Programacion de backups</h1>
+<p>&nbsp;</p>
+<p>Acceder a la sección de <strong>data protection</strong> en nutanix.</p>
+<p>Desde la sección de <strong>Async DR</strong> añadir un nuevo <strong>Protection Domain</strong> con los siguientes datos:</p>
+<ul>
+  <li>Name → itx-sec-01_<i>{INSTANCE</i>_NAME}</li>
+  <li>Entities → seleccionar la o las máquinas correspondientes para el backup</li>
+  <li>Schedule → Crear un nuevo schedule con los siguientes datos por defecto:<ul>
+      <li>Repeat Weekly → Sunday</li>
+      <li>Hour → especificar un horario de madrugada a partir de la 1h am</li>
+      <li>Create application consistent snapshots → False (si se activa la máquina se apagará para realizar el snapshot)</li>
+      <li>Retention policy → guardar 1 snapshot</li>
+    </ul>
+  </li>
+</ul>
+<p>&nbsp;</p>
