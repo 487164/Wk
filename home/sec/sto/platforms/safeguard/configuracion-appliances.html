@@ -2,7 +2,7 @@
 title: Configuración de los Appliances
 description: 
 published: true
-date: 2024-02-07T14:41:42.825Z
+date: 2024-02-07T14:49:03.606Z
 tags: 
 editor: ckeditor
 dateCreated: 2024-02-07T14:41:14.368Z
@@ -10,6 +10,26 @@ dateCreated: 2024-02-07T14:41:14.368Z
 
 <h1 style="text-align:center;">Configuración de los Appliances</h1>
 <p style="text-align:center;">&nbsp;</p>
+<h2>Introducción</h2>
+<p>Safeguard consta de dos appliances: One Identity Safeguard for Privileged Passwords (PASS o SPP) and One Identity Safeguard for Privileged Sessions (SESS o SPS).</p>
+<ul>
+  <li>PASS: Descubrimiento de activos y cuentas, rotación y gestión de contraseñas y gestión de las peticiones de acceso.</li>
+  <li>SESS: Interceptación transparente o no transparente de protocolos de administración remota, grabación de auditoría y reproducción de sesiones y análisis.</li>
+</ul>
+<p>Cuando se utilizan juntos pueden funcionar de dos maneras.</p>
+<ul>
+  <li>En el modo iniciado por PASS, los usuarios solicitan acceso en el portal de PASS y cuando se les otorga acceso, se conectan a la cuenta de destino a través de SESS. Consulta "Uso de SPS con SPP" en la Guía de Administración.</li>
+  <li>En el modo iniciado por SPS, los usuarios se conectan directamente a un servidor de destino, SPS intercepta el tráfico y obtiene las credenciales necesarias de SPP.</li>
+</ul>
+<p>Para alta disponibilidad PASS requiere 3 nodos, un primario y dos réplicas (ZGZ, ITX y NBX)</p>
+<ul>
+  <li>Los cambios de configuración solo se pueden realizar en el nodo primario, las peticiones de sesiones y el rotado de contraseñas en ambos.</li>
+  <li>En caso de caída el secundario promociona automáticamente.</li>
+  <li>Si el cluster pierde el quórum entra en modo solo lectura y deshabilita cambios de configuración, se puede configurar si se permiten o no solicitudes de acceso.</li>
+  <li>Si en un nodo PASS un esclavo pasa a maestro dirige automáticamente las conexiones</li>
+  <li>En PASS&gt;Appliance Management&gt;Cluster&gt;Managed Networks se configura a qué redes se llega por cada cluster SESS y se puede modificar en caso de caída.</li>
+</ul>
+<p>&nbsp;</p>
 <h2>Configuración incial</h2>
 <p>Se realiza conectando directamente al puerto de MGMT 192.168.1.105</p>
 <ul>
@@ -73,8 +93,9 @@ dateCreated: 2024-02-07T14:41:14.368Z
 <p>En SESS &nbsp;<i>/config/basic/services </i>se activa el Cluster Interface y se elige la interfaz de SVCS</p>
 <p><i>config/basic/cluster</i> se crea un Cluster (donde va a estar solo el SPS) y hacemos <i>Link to SPP</i> añadiendo la ip de SVCS del PASS</p>
 <p>&nbsp;</p>
-<p>Configurar PASS antes de añadir Assets</p>
-<p>En PASS &nbsp;</p>
+<p>Configuración SESS</p>
+<p>&nbsp;</p>
+<p>Configuración PASS &nbsp;</p>
 <p>/user-management/users se crea un usuario con todos los Permissions, ya que a admin no se le puede asignar Asset y logandose con el</p>
 <p>/asset-management/partitions se crean las particiones Windows y Linux (a las que se pueden asignar políticas de de contraseñas, de discovery…) y se elimina Macrocosm</p>
 <p>/asset-management/assets &nbsp;</p>
