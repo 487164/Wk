@@ -2,7 +2,7 @@
 title: Procedure for incidents in clients
 description: 
 published: true
-date: 2024-02-08T12:19:45.949Z
+date: 2024-02-08T12:30:24.743Z
 tags: 
 editor: ckeditor
 dateCreated: 2024-02-08T10:56:51.588Z
@@ -13,6 +13,9 @@ dateCreated: 2024-02-08T10:56:51.588Z
 <p>&nbsp;</p>
 <h2>Identificación y aviso del incidente</h2>
 <p>La identificación del incidente puede venir de distintas fuentes, desde propia información por canales privados cliente → esPublico como de fuentes abiertas (noticias, RRSS, etc). Posteriormente se debe avisar del incidente al equipo del SOC para informar a todo el equipo y proceder con los siguientes pasos.</p>
+<p>&nbsp;</p>
+<h2>Revisión conectividad contra la infraestructura de nuestra organización</h2>
+<p>Se debe revisar el alcance que pueda tener el incidente provocado en el cliente o proveedor, para determinar si puede tener alguna afección o provocar algún impacto sobre nuestra infraestructura. Lo primero es determinar si tienen alojado alguno de los sistemas o servicios afectados en nuestra infraestructura. Posteriormente deberá revisarse también si tienen algún tipo de acceso o conectividad contra la infraestructura de nuestra organización, ya sean túneles VPN, accesos RDP, usuarios en el AD, etc.<br>De ser así deberán tenerse controlados o llegar incluso a deshabilitarlos para evitar una propagación.</p>
 <p>&nbsp;</p>
 <h2>Revisión de correos recibidos</h2>
 <p>Se debe revisar si se reciben correos del cliente/proveedor afectado por el incidente, de ser así, se necesita investigar si estos correos pueden ser maliciosos enviados a partir del ataque sufrido o si siguen la tipología de correos habituales enviados por el cliente hacia nuestra infraestructura.</p>
