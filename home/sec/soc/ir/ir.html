@@ -2,7 +2,7 @@
 title: Procedure for incidents in clients
 description: 
 published: true
-date: 2024-02-08T10:56:51.588Z
+date: 2024-02-08T11:23:03.904Z
 tags: 
 editor: ckeditor
 dateCreated: 2024-02-08T10:56:51.588Z
@@ -11,5 +11,14 @@ dateCreated: 2024-02-08T10:56:51.588Z
 <h1>Definición</h1>
 <p>En este procedimiento encontraremos los pasos a seguir cuando se identifica un incidente en un cliente o en un proveedor.</p>
 <p>&nbsp;</p>
-<h2>Identificación del incidente</h2>
-<p>La identificación del incidente puede venir de distintas fuentes, desde propia información por canales privados cliente → esPublico como de fuentes abiertas (noticias, RRSS, etc)</p>
+<h2>Identificación y aviso del incidente</h2>
+<p>La identificación del incidente puede venir de distintas fuentes, desde propia información por canales privados cliente → esPublico como de fuentes abiertas (noticias, RRSS, etc). Posteriormente se debe avisar del incidente al equipo del SOC para informar a todo el equipo y proceder con los siguientes pasos.</p>
+<p>&nbsp;</p>
+<h2>Revisión de correos recibidos</h2>
+<p>Se debe revisar si se reciben correos del cliente/proveedor afectado por el incidente, de ser así, se necesita investigar si estos correos pueden ser maliciosos enviados a partir del ataque sufrido o si siguen la tipología de correos habituales enviados por el cliente hacia nuestra infraestructura.</p>
+<p>&nbsp;</p>
+<h2>Marcado en la pasarela de correo</h2>
+<p>Una vez identificado el dominio del cliente/proveedor afectado en la revisión de correos recibidos, este se deberá marcar con un tag especial en la pasarela de correos indicando que ha sufrido un ataque recientemente, lo que servirá para revisiones posteriores y mantener un seguimiento de cerca.</p>
+<p>&nbsp;</p>
+<h2>Revisión de exposiciones de credenciales</h2>
+<p>Revisar las posibles exposiciones de credenciales que puede haber sufrido el cliente/proveedor utilizando las herramientas disponibles por el equipo de Threat Intelligence.</p>
