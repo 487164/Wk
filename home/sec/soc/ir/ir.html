@@ -2,7 +2,7 @@
 title: Procedure for incidents in clients
 description: 
 published: true
-date: 2024-02-08T11:41:56.255Z
+date: 2024-02-08T12:17:03.629Z
 tags: 
 editor: ckeditor
 dateCreated: 2024-02-08T10:56:51.588Z
@@ -18,7 +18,9 @@ dateCreated: 2024-02-08T10:56:51.588Z
 <p>Se debe revisar si se reciben correos del cliente/proveedor afectado por el incidente, de ser así, se necesita investigar si estos correos pueden ser maliciosos enviados a partir del ataque sufrido o si siguen la tipología de correos habituales enviados por el cliente hacia nuestra infraestructura.</p>
 <p>&nbsp;</p>
 <h2>Marcado en la pasarela de correo</h2>
-<p>Una vez identificado el dominio del cliente/proveedor afectado en la revisión de correos recibidos, este se deberá marcar con un tag especial en la pasarela de correos indicando que ha sufrido un ataque recientemente, lo que servirá para revisiones posteriores y mantener un seguimiento de cerca.</p>
+<p>Como se indica en <a href="https://soporte.espublico.it/Ticket/Display.html?id=67887">#67887</a> Una vez identificado el dominio del cliente/proveedor afectado en la revisión de correos recibidos, este se deberá marcar con un tag especial en la pasarela de correos indicando que ha sufrido un ataque recientemente, lo que servirá para revisiones posteriores y mantener un seguimiento de cerca.</p>
+<p>En Exchange Admin center se edita la propiedad <i>The sender's domain is </i>de la Transport Rule <a href="https://admin.exchange.microsoft.com/#/transportrules/:/ruleDetails/494aa22b-7412-4a8d-8c3b-ff459b686d92/viewinflyoutpanel">Received from compromised Domain</a> para añadir el dominio.</p>
+<p>&nbsp;</p>
 <p>&nbsp;</p>
 <h2>Revisión de exposiciones de credenciales</h2>
 <p>Revisar las posibles exposiciones de credenciales que puede haber sufrido el cliente/proveedor utilizando las herramientas disponibles por el equipo de Threat Intelligence.</p>
