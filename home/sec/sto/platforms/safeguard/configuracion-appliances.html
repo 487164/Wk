@@ -2,7 +2,7 @@
 title: Configuración de los Appliances
 description: 
 published: true
-date: 2024-02-07T14:52:08.269Z
+date: 2024-02-09T10:41:16.311Z
 tags: 
 editor: ckeditor
 dateCreated: 2024-02-07T14:41:14.368Z
@@ -237,7 +237,7 @@ dateCreated: 2024-02-07T14:41:14.368Z
 <p><a href="https://192.168.39.130/portal/#/config/ssh/setup"><u>https://192.168.39.130/portal/#/config/ssh/setup</u></a></p>
 <ul>
   <li>De cualquier origen a cualquier destino permitimos que pase por SPP el tráfico</li>
-  <li>Permite hacer nateos, una fix address para presentar al destino, redirección de puertos, usar la ip del SPS o del cliente,&nbsp;</li>
+  <li>Permite hacer nateos, una fix address para presentar al destino, redirección de puertos, usar la ip del SPS o del cliente,</li>
   <li>Como y cuando se indexa</li>
   <li>Se podrían grabar sesiones ssh haciendo un Man in the Middle<ul>
       <li>Crear una política de ssh no compartida con SPP</li>
@@ -287,6 +287,9 @@ dateCreated: 2024-02-07T14:41:14.368Z
 <p>Cada uno tiene un <i>50xx Linux Entitlement</i> al que solo el tiene acceso, que contiene una política <i>50xx Access Request </i>para con 3 accounts <i>z50xx</i>, <i>i50xx</i>, <i>n50xx </i>con RSA SSH Keys 80192<i> </i>en el asset zgz-pam-jump para propagar las públicas a zgz, itx y nbx</p>
 <p>Aunque solo 18 están en el grupo de GF_PAM_Identity_Linux y tienen que pasarse a las máquinas he añadido&nbsp; a las 78 al accoutn group&nbsp; <i>Jump Account Group</i> para que no haya que añadirlas a mano si se cambia el grupo en Ms365</p>
 <p>Si tuvieran las contraseñas de usuario ahora podrían solicitar 3 access request (que no funcionarán porque no hemos propagado aún nada)</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>OJO, Al crear assets de azure<br>Crear el asset de active directory poniendo el DC por IP ( no puede resolver) y sin SSL o falla</p>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
