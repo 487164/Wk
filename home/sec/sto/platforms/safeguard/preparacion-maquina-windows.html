@@ -2,7 +2,7 @@
 title: Preparación de máquina windows
 description: 
 published: true
-date: 2024-02-09T10:39:13.469Z
+date: 2024-02-09T10:45:13.146Z
 tags: 
 editor: ckeditor
 dateCreated: 2024-01-25T12:41:15.438Z
@@ -39,10 +39,24 @@ Set-ItemProperty -Path REGISTRY::HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\C
 <p>&nbsp;</p>
 <h2><strong>Configuración en servidor miembro de dominio</strong></h2>
 <p><a href="https://support.oneidentity.com/es-es/one-identity-safeguard-for-privileged-passwords/kb/4263587/how-to-delegate-permissions-in-active-directory-for-a-safeguard-service-account">https://support.oneidentity.com/es-es/one-identity-safeguard-for-privileged-passwords/kb/4263587/how-to-delegate-permissions-in-active-directory-for-a-safeguard-service-account</a></p>
-<p>Crear la aCdCmN570</p>
-<p><mark class="marker-yellow">OJO No le he dado permiso para acceso remoto!</mark></p>
-<p><mark class="marker-yellow">Crear el asset de active directory poniendo el DC por IP ( no puede resolver) y sin SSL o falla</mark></p>
-<p>&nbsp;</p>
+<p>Crear la cuenta "aCdCmN570", sin caducidad de contraseña.</p>
+<p>Delegar los permisos</p>
+<ul>
+  <li>Reset Password</li>
+  <li>Read and write account restrictions</li>
+  <li>Read lockoutTime</li>
+  <li>Write lockOutTime</li>
+</ul>
+<p>Permitir en el Firewall de Windows</p>
+<ul>
+  <li>Windows Management Instrumentation (DCOM-In)</li>
+  <li>Windows Management Instrumentation (WMI-In)</li>
+  <li>NetLogon Service (NP-In)</li>
+  <li>Remote Scheduled Tasks Management (RPC)</li>
+</ul>
+<p>En Local Security Policy&gt;Local Policies &gt; Security Options.</p>
+<p>Cambiar a Disable: "User Account Control: Run all administrators in Admin Approval Mode"</p>
+<p>Si la cuenta que va a gestionar el Asset del Active Directory es la misma con la que los usuarios van a conectar desde el PAM asignarlo al grupo de usuarios remotos o los administradores.</p>
 <p>&nbsp;</p>
 <pre><code class="language-plaintext"># Importa el módulo ActiveDirectory
 Import-Module ActiveDirectory
@@ -67,7 +81,6 @@ Enable-NetFirewallRule -Name "WMI-RPCSS-In-TCP", "WMI-WINMGMT-In-TCP", "Netlogon
 
 # Cambiar a Disable: "User Account Control: Run all administrators in Admin Approval Mode"
 Set-ItemProperty -Path REGISTRY::HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System -Name EnableLUA -Value 0
-
 
 # Añadir al usuario al grupo de Desktop Users si va a tener que conectarse por RDP o a Administradores si necesita configurar
 $respuesta1 = Read-Host "¿Además de para que safeguard se concte al AD, esta cuenta se va a usar para conectarse a las máquinas por RDP? (S/N)"
