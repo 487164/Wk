@@ -2,7 +2,7 @@
 title: Preparación de máquina windows
 description: 
 published: true
-date: 2024-02-02T15:09:37.746Z
+date: 2024-02-09T10:39:13.469Z
 tags: 
 editor: ckeditor
 dateCreated: 2024-01-25T12:41:15.438Z
@@ -55,6 +55,7 @@ $pass = Read-Host -AsSecureString "Introduce una contraseña segura para la cuen
 New-ADUser -SamAccountName $name -Name $name -AccountPassword $pass -Path $path -PasswordNeverExpires $true -Enabled $true
 
 # Asignar los permisos para cambiar contraseñas, bloquear y desbloqeuar cuentas.
+# Dará error si el sistema no está en inglés. Configurar a mano
 $obj = "CN=AdminSDHolder,CN=System,"+(Get-ADDomain).DistinguishedName
 $user = (Get-ADDomain).Name+"\"+$name
 dsacls $obj /G $user":CA";"Reset Password" 
@@ -67,4 +68,18 @@ Enable-NetFirewallRule -Name "WMI-RPCSS-In-TCP", "WMI-WINMGMT-In-TCP", "Netlogon
 # Cambiar a Disable: "User Account Control: Run all administrators in Admin Approval Mode"
 Set-ItemProperty -Path REGISTRY::HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System -Name EnableLUA -Value 0
 
-</code></pre>
+
+# Añadir al usuario al grupo de Desktop Users si va a tener que conectarse por RDP o a Administradores si necesita configurar
+$respuesta1 = Read-Host "¿Además de para que safeguard se concte al AD, esta cuenta se va a usar para conectarse a las máquinas por RDP? (S/N)"
+if ($respuesta1 -eq "S") {
+    $respuesta2 = Read-Host "¿Necesita permisos de administrador?"
+    # Se añade a Domain Admins
+    if ($respuesta2 -eq "S"){
+        $groupSID = "S-1-5-32-544"
+    }
+    # Se añade a Remote Desktop Users
+    else {
+        $groupSID = "S-1-5-32-555"
+    }
+    Add-ADGroupMember $groupSID -Members $name
+}</code></pre>
