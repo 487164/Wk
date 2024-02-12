@@ -2,7 +2,7 @@
 title: Preparación de máquina windows
 description: 
 published: true
-date: 2024-02-12T11:32:09.368Z
+date: 2024-02-12T13:29:18.568Z
 tags: 
 editor: ckeditor
 dateCreated: 2024-01-25T12:41:15.438Z
@@ -23,8 +23,7 @@ dateCreated: 2024-01-25T12:41:15.438Z
 <p>Cambiar a Disable: "User Account Control: Run all administrators in Admin Approval Mode"</p>
 <p>Reiniciar windows.</p>
 <pre><code class="language-plaintext">$name = "aCdCmN570"
-$Password = ConvertTo-SecureString "Erz&amp;iDN$Pe%j^!96YLK6jtAo%7axALHH6G" -AsPlainText -Force
-#$Password = Read-Host -AsSecureString "Introduce una contraseña segura para la cuenta de usuario 'aCdCmN570'"
+$pass =  "???????" | ConvertTo-SecureString -AsPlainText -Force
 $IsDomainController = (Get-WmiObject Win32_ComputerSystem).DomainRole -eq 5
 
 #Si es un DC se crea la cuenta como miembro del grupo de Administradores de dominio, si no como administrador local.
@@ -34,7 +33,7 @@ if ($IsDomainController) {
     New-ADUser -SamAccountName $name -Name $name -AccountPassword $pass -Path $path -PasswordNeverExpires $true -Enabled $true
     Add-ADGroupMember -Identity "S-1-5-32-544" -Members $name
 } else {
-    New-LocalUser -Name $name -Password $Password -AccountNeverExpires
+    New-LocalUser -Name $name -Password $pass -PasswordNeverExpires
     Add-LocalGroupMember -SID "S-1-5-32-544" -Member $name
 }
 
@@ -43,8 +42,6 @@ Enable-NetFirewallRule -Name "WMI-RPCSS-In-TCP", "WMI-WINMGMT-In-TCP", "Netlogon
 
 # Cambiar a Disable: "User Account Control: Run all administrators in Admin Approval Mode"
 Set-ItemProperty -Path REGISTRY::HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System -Name EnableLUA -Value 0</code></pre>
-<p style="text-align:center;">&nbsp;</p>
-<p style="text-align:center;">&nbsp;</p>
 <p><a href="https://support.oneidentity.com/kb/4314156/how-to-configure-windows-assets-in-safeguard">https://support.oneidentity.com/kb/4314156/how-to-configure-windows-assets-in-safeguard</a></p>
 <h2><strong>Configuración en servidor independiente</strong></h2>
 <p><a href="https://support.oneidentity.com/es-es/technical-documents/one-identity-safeguard-for-privileged-passwords/7.0.4%20lts/administration-guide/125#TOPIC-2061917">https://support.oneidentity.com/es-es/technical-documents/one-identity-safeguard-for-privileged-passwords/7.0.4%20lts/administration-guide/125#TOPIC-2061917</a></p>
