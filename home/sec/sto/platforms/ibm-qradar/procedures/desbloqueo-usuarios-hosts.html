@@ -1,0 +1,29 @@
+<!--
+title: Desbloqueo de usuarios y hosts
+description: 
+published: true
+date: 2024-02-12T09:55:31.701Z
+tags: soc, qradar, lm, ibm, procedure, user, unlock, account, host
+editor: ckeditor
+dateCreated: 2024-02-12T09:55:31.701Z
+-->
+
+<h1 style="text-align:center;">Desbloqueo de usuarios y hosts</h1>
+<p>&nbsp;</p>
+<p>Para desbloquear cuentas de usuario o hosts se debe de hacer desde la terminal de la consola con un usuario con privilegios de root.</p>
+<p>&nbsp;</p>
+<h2>Desbloqueo de cuentas de usuario</h2>
+<p>En caso de que un usuario haya provocado demasiados fallos de login y su cuenta se haya bloqueado se puede desbloquear lanzando el siguiente comando desde la terminal de la consola</p>
+<pre><code class="language-plaintext">/opt/qradar/bin/runjava.sh com.ibm.si.security_model.authentication.AuthenticationLockoutCommandLineTool --remove-account &lt;user_account1&gt; &lt;user_account2&gt; &lt;user_account3&gt;</code></pre>
+<p>También es posible desbloquear todas las cuentas sin indicar el username de cada una de ellas con el siguiente comando</p>
+<pre><code class="language-plaintext">/opt/qradar/bin/runjava.sh com.ibm.si.security_model.authentication.AuthenticationLockoutCommandLineTool --remove-all-accounts</code></pre>
+<p>&nbsp;</p>
+<h2>Desbloqueo de hosts</h2>
+<p>En caso de que un usuario haya fallado el login en demasiadas ocasiones desde una misma IP es posible que esta se bloquee en el SIEM, también es posible que la IP se bloquee si este detecta un ataque por parte de la misma.</p>
+<p>Para desbloquear un host lanzar el siguiente comando desde la terminal de la consola especificando la o las IPs a desbloquear</p>
+<pre><code class="language-plaintext">/opt/qradar/bin/runjava.sh com.ibm.si.security_model.authentication.AuthenticationLockoutCommandLineTool --remove-ip &lt;host_IP_address1&gt; &lt;host_IP_address2&gt; &lt;host_IP_address3&gt;</code></pre>
+<p>En caso de querer desbloquear todas las IPs bloqueadas, lanzar el siguiente comando</p>
+<pre><code class="language-plaintext">/opt/qradar/bin/runjava.sh com.ibm.si.security_model.authentication.AuthenticationLockoutCommandLineTool --remove-all-ips</code></pre>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
