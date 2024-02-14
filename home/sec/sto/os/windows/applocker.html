@@ -2,7 +2,7 @@
 title: AppLocker - Windows Security
 description: 
 published: true
-date: 2024-02-08T11:39:33.431Z
+date: 2024-02-14T13:24:35.766Z
 tags: windows, server, applocker, bastionado, ens, politicas, gpo
 editor: ckeditor
 dateCreated: 2024-01-24T08:59:43.929Z
@@ -11,12 +11,14 @@ dateCreated: 2024-01-24T08:59:43.929Z
 <h1 style="text-align:center;">AppLocker - Windows Security</h1>
 <p style="text-align:center;">&nbsp;</p>
 <h2>Configuración como GPO</h2>
-<p>Crear la política ENS Alto AppLocker, editarla y hacer click con el botón derecho en Computer Configuration &gt; Policies &gt; Windows Settings &gt; Security Settings &gt; Application Control Policies &gt; AppLocker e importar <a href="https://drive.google.com/file/d/1qQq7sCU2FCMlsVKVJVvoEL21fnH49WIF/view?usp=drive_link">ens_alto_applocker.xml</a><br>&nbsp;</p>
+<p>Crear la política ENS Alto AppLocker, editarla y hacer click con el botón derecho en Computer Configuration &gt; Policies &gt; Windows Settings &gt; Security Settings &gt; Application Control Policies &gt; AppLocker e importar <a href="https://drive.google.com/file/d/1mDt-yr-JFOm2OD4M4gp0SCYDaBJkCNeM/view?usp=drive_link">ens_alto_applocker.xml</a><br>&nbsp;</p>
 <pre><code class="language-plaintext">&lt;AppLockerPolicy Version="1"&gt;
+  &lt;RuleCollection Type="Appx" EnforcementMode="AuditOnly" /&gt;
+  &lt;RuleCollection Type="Dll" EnforcementMode="NotConfigured" /&gt;
   &lt;RuleCollection Type="Exe" EnforcementMode="AuditOnly"&gt;
-    &lt;FilePathRule Id="c157e390-4fc0-496c-89f8-74ea1c448ba8" Name="%OSDRIVE%\apps\*" Description="" UserOrGroupSid="S-1-5-32-544" Action="Allow"&gt;
+    &lt;FilePathRule Id="03d02f54-ff94-4998-a528-0ccf9a8ee589" Name="Permitir ejecucion desde CD, DVD solo para Administradores" Description="" UserOrGroupSid="S-1-5-32-544" Action="Allow"&gt;
       &lt;Conditions&gt;
-        &lt;FilePathCondition Path="%OSDRIVE%\apps\*" /&gt;
+        &lt;FilePathCondition Path="%REMOVABLE%\*" /&gt;
       &lt;/Conditions&gt;
     &lt;/FilePathRule&gt;
     &lt;FilePathRule Id="0bd70ddf-f4cf-486f-aaa2-53a19522088e" Name="%WINDIR%\*" Description="" UserOrGroupSid="S-1-1-0" Action="Allow"&gt;
@@ -24,19 +26,19 @@ dateCreated: 2024-01-24T08:59:43.929Z
         &lt;FilePathCondition Path="%WINDIR%\*" /&gt;
       &lt;/Conditions&gt;
     &lt;/FilePathRule&gt;
-    &lt;FilePathRule Id="845e6fdb-cd88-44d4-9d9e-f2c078284058" Name="%PROGRAMFILES%\*" Description="" UserOrGroupSid="S-1-1-0" Action="Allow"&gt;
-      &lt;Conditions&gt;
-        &lt;FilePathCondition Path="%PROGRAMFILES%\*" /&gt;
-      &lt;/Conditions&gt;
-    &lt;/FilePathRule&gt;
     &lt;FilePathRule Id="3929f45d-a50c-4c93-b302-202846995130" Name="%WINDIR%\Temp\*" Description="" UserOrGroupSid="S-1-1-0" Action="Deny"&gt;
       &lt;Conditions&gt;
         &lt;FilePathCondition Path="%WINDIR%\Temp\*" /&gt;
       &lt;/Conditions&gt;
     &lt;/FilePathRule&gt;
-    &lt;FilePathRule Id="03d02f54-ff94-4998-a528-0ccf9a8ee589" Name="Permitir ejecucion desde CD, DVD solo para Administradores" Description="" UserOrGroupSid="S-1-5-32-544" Action="Allow"&gt;
+    &lt;FilePathRule Id="845e6fdb-cd88-44d4-9d9e-f2c078284058" Name="%PROGRAMFILES%\*" Description="" UserOrGroupSid="S-1-1-0" Action="Allow"&gt;
       &lt;Conditions&gt;
-        &lt;FilePathCondition Path="%REMOVABLE%\*" /&gt;
+        &lt;FilePathCondition Path="%PROGRAMFILES%\*" /&gt;
+      &lt;/Conditions&gt;
+    &lt;/FilePathRule&gt;
+    &lt;FilePathRule Id="c157e390-4fc0-496c-89f8-74ea1c448ba8" Name="%OSDRIVE%\apps\*" Description="" UserOrGroupSid="S-1-5-32-544" Action="Allow"&gt;
+      &lt;Conditions&gt;
+        &lt;FilePathCondition Path="%OSDRIVE%\apps\*" /&gt;
       &lt;/Conditions&gt;
     &lt;/FilePathRule&gt;
   &lt;/RuleCollection&gt;
@@ -48,9 +50,9 @@ dateCreated: 2024-01-24T08:59:43.929Z
         &lt;/FilePublisherCondition&gt;
       &lt;/Conditions&gt;
     &lt;/FilePublisherRule&gt;
-    &lt;FilePathRule Id="64ad46ff-0d71-4fa0-a30b-3f3d30c5433d" Name="(Default Rule) All Windows Installer files" Description="Allows members of the local Administrators group to run all Windows Installer files." UserOrGroupSid="S-1-5-32-544" Action="Allow"&gt;
+    &lt;FilePathRule Id="45576a7c-046a-4d9e-8df0-8c9d35e57a35" Name="%OSDRIVE%\apps\*" Description="" UserOrGroupSid="S-1-5-32-544" Action="Allow"&gt;
       &lt;Conditions&gt;
-        &lt;FilePathCondition Path="*.*" /&gt;
+        &lt;FilePathCondition Path="%OSDRIVE%\apps\*" /&gt;
       &lt;/Conditions&gt;
     &lt;/FilePathRule&gt;
     &lt;FilePathRule Id="5077ebfa-c8c9-470e-bf04-8df5c6c50887" Name="%WINDIR%\Temp\*" Description="" UserOrGroupSid="S-1-1-0" Action="Deny"&gt;
@@ -58,20 +60,34 @@ dateCreated: 2024-01-24T08:59:43.929Z
         &lt;FilePathCondition Path="%WINDIR%\Temp\*" /&gt;
       &lt;/Conditions&gt;
     &lt;/FilePathRule&gt;
+    &lt;FilePathRule Id="64ad46ff-0d71-4fa0-a30b-3f3d30c5433d" Name="(Default Rule) All Windows Installer files" Description="Allows members of the local Administrators group to run all Windows Installer files." UserOrGroupSid="S-1-5-32-544" Action="Allow"&gt;
+      &lt;Conditions&gt;
+        &lt;FilePathCondition Path="*.*" /&gt;
+      &lt;/Conditions&gt;
+    &lt;/FilePathRule&gt;
     &lt;FilePathRule Id="b18ec216-5606-499d-970c-bd6964bcdcee" Name="Permitir ejecucion desde CD, DVD solo para Administradores" Description="" UserOrGroupSid="S-1-5-32-544" Action="Allow"&gt;
       &lt;Conditions&gt;
         &lt;FilePathCondition Path="%REMOVABLE%\*" /&gt;
       &lt;/Conditions&gt;
     &lt;/FilePathRule&gt;
-    &lt;FilePathRule Id="45576a7c-046a-4d9e-8df0-8c9d35e57a35" Name="%OSDRIVE%\apps\*" Description="" UserOrGroupSid="S-1-5-32-544" Action="Allow"&gt;
+  &lt;/RuleCollection&gt;
+  &lt;RuleCollection Type="Script" EnforcementMode="AuditOnly"&gt;
+    &lt;FilePathRule Id="06dce67b-934c-454f-a263-2515c8796a5d" Name="(Default Rule) All scripts located in the Program Files folder" Description="Allows members of the Everyone group to run scripts that are located in the Program Files folder." UserOrGroupSid="S-1-1-0" Action="Allow"&gt;
       &lt;Conditions&gt;
-        &lt;FilePathCondition Path="%OSDRIVE%\apps\*" /&gt;
+        &lt;FilePathCondition Path="%PROGRAMFILES%\*" /&gt;
+      &lt;/Conditions&gt;
+    &lt;/FilePathRule&gt;
+    &lt;FilePathRule Id="9428c672-5fc3-47f4-808a-a0011f36dd2c" Name="(Default Rule) All scripts located in the Windows folder" Description="Allows members of the Everyone group to run scripts that are located in the Windows folder." UserOrGroupSid="S-1-1-0" Action="Allow"&gt;
+      &lt;Conditions&gt;
+        &lt;FilePathCondition Path="%WINDIR%\*" /&gt;
+      &lt;/Conditions&gt;
+    &lt;/FilePathRule&gt;
+    &lt;FilePathRule Id="ed97d0cb-15ff-430f-b82c-8d7832957725" Name="(Default Rule) All scripts" Description="Allows members of the local Administrators group to run all scripts." UserOrGroupSid="S-1-5-32-544" Action="Allow"&gt;
+      &lt;Conditions&gt;
+        &lt;FilePathCondition Path="*" /&gt;
       &lt;/Conditions&gt;
     &lt;/FilePathRule&gt;
   &lt;/RuleCollection&gt;
-  &lt;RuleCollection Type="Script" EnforcementMode="NotConfigured" /&gt;
-  &lt;RuleCollection Type="Dll" EnforcementMode="NotConfigured" /&gt;
-  &lt;RuleCollection Type="Appx" EnforcementMode="NotConfigured" /&gt;
 &lt;/AppLockerPolicy&gt;</code></pre>
 <p>&nbsp;</p>
 <figure class="image"><img src="/sec/sto/os-files/windows/applocker/importargpo.jpg"></figure>
@@ -84,7 +100,7 @@ dateCreated: 2024-01-24T08:59:43.929Z
 <p>Vincular la GPO a los servidores del dominio</p>
 <figure class="image"><img src="/sec/sto/os-files/windows/applocker/linkgpo.jpg"></figure>
 <h2><strong>Configuración en servidor independiente</strong></h2>
-<p>En Local Security Policy (secpol.mmc)&gt;AppLocker importar <a href="https://drive.google.com/file/d/1qQq7sCU2FCMlsVKVJVvoEL21fnH49WIF/view?usp=drive_link">ens_alto_applocker.xml</a></p>
+<p>En Local Security Policy (secpol.mmc)&gt;AppLocker importar <a href="https://drive.google.com/file/d/1mDt-yr-JFOm2OD4M4gp0SCYDaBJkCNeM/view?usp=drive_link">ens_alto_applocker.xml</a></p>
 <figure class="image"><img src="/sec/sto/os-files/windows/applocker/importar.jpg"></figure>
 <p>Para Asegurarse de que el servicio AppIDSvc (Application Identity) está en ejecutándose y en inicio automático y crear c:\apps, la carpeta desde la que los administradores pueden ejecutar sin generar alerta, ejecutar <a href="https://drive.google.com/file/d/16y06OR-252Mpdc1tGQTreRsnONu8jIwT/view?usp=drive_link">ens_alto_applocker.ps1</a></p>
 <pre><code class="language-plaintext">$serviceName = 'appidsvc'
