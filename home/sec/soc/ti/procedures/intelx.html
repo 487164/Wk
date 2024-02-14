@@ -2,7 +2,7 @@
 title: Intelligence X
 description: 
 published: true
-date: 2024-02-14T12:35:53.033Z
+date: 2024-02-14T12:43:31.503Z
 tags: soc, ti, procedure, report
 editor: ckeditor
 dateCreated: 2024-02-14T11:31:43.707Z
@@ -27,21 +27,24 @@ dateCreated: 2024-02-14T11:31:43.707Z
 <p style="text-align:center;"><i>(Próximamente se dejara de usar esta lista y comenzaran a analizarse los dominios de </i><a href="https://dashboard.security.espublico.com/d/e660e1c1-47bf-4cd5-ad9f-51ce2bc24a17/dominios?orgId=2"><i>Digital Surveillance</i></a><i> marcados con ‘YES’ en el apartado de data_leaks)</i></p>
 <p style="text-align:center;">&nbsp;</p>
 <h3>run-check</h3>
-<p>Esta script se encarga de hacer un checkeo cada 24 horas contra la API de IntelX para comprobar si se ha detectado la filtración de credenciales de alguno de los dominios expuestos en la lista.&nbsp;</p>
+<p style="text-align:justify;">Esta script se encarga de hacer un checkeo cada 24 horas contra la API de IntelX para comprobar si se ha detectado la filtración de credenciales de alguno de los dominios expuestos en la lista.&nbsp;</p>
 <p>La script se ejecuta a las 08:04 de la mañana todos los días.</p>
 <p>&nbsp;</p>
 <h3>run-process</h3>
 <p>Esta script se encarga de guardar los ficheros en bruto detectados en el directorio ‘<i>/data/Threat-intelligence/intelxio/tmp/${currentdate}</i>’ de la maquina del SOAR.</p>
-<p>Para hacer un filtrado de la información que nos interesa y facilitar el análisis, también guarda los datos específicos relacionados con los dominios expuestos en la lista, en el directorio ‘<i>/data/Threat-intelligence/intelxio/output/$</i>’ de la maquina del SOAR.</p>
+<p style="text-align:justify;">Para hacer un filtrado de la información que nos interesa y facilitar el análisis, también guarda los datos específicos relacionados con los dominios expuestos en la lista, en el directorio ‘<i>/data/Threat-intelligence/intelxio/output/</i>’ de la maquina del SOAR.</p>
 <p>La script se ejecuta a las 08:14 de la mañana todos los días.</p>
 <p>&nbsp;</p>
 <h3>intelxio-clean</h3>
 <p>Esta script se encarga de borrar los ficheros almacenados con una antigüedad de 7 días.</p>
 <p>&nbsp;</p>
 <h2>Alerta</h2>
-<p>En QRadar existe la regla&nbsp;</p>
+<p>En QRadar existe la regla ‘<i>FE-EXF-006 [ALTA] [ESPUBLICO] [SOAR] [INTELX] Posible exposicion de credenciales Intelx</i>’, la cual detecta si la script ha detectado una filtración de credenciales.</p>
+<p>El evento que genera es ‘<i>Search leaks</i>’ (QID 1008250026), en el cual nos pueden interesar los campos de ‘<i>Filename</i>’, ‘<i>search</i>’ y ‘<i>searchid</i>’ de la detección.</p>
+<p>El contenido del campo ‘<i>searchid</i>’ podemos anidarlo a ‘<i>intelx.io/?did=</i>’ para ir a la filtración detectada y poder examinarla con mas detalle si se requiere.</p>
 <p>&nbsp;</p>
-<p>&nbsp;</p>
+<h2>Análisis del contenido</h2>
+<p>Si se quiere ir directamente a los datos, podemos acceder al directorio ‘<i>/data/Threat-intelligence/intelxio/output/’ </i>donde se han guardado los datos ya filtrados, o acceder por web a<i> ‘https://intel.security.espublico.com/intelxio/output/</i>’.</p>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
