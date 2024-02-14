@@ -2,7 +2,7 @@
 title: Intelligence X
 description: 
 published: true
-date: 2024-02-14T12:24:28.446Z
+date: 2024-02-14T12:35:53.033Z
 tags: soc, ti, procedure, report
 editor: ckeditor
 dateCreated: 2024-02-14T11:31:43.707Z
@@ -27,7 +27,21 @@ dateCreated: 2024-02-14T11:31:43.707Z
 <p style="text-align:center;"><i>(Próximamente se dejara de usar esta lista y comenzaran a analizarse los dominios de </i><a href="https://dashboard.security.espublico.com/d/e660e1c1-47bf-4cd5-ad9f-51ce2bc24a17/dominios?orgId=2"><i>Digital Surveillance</i></a><i> marcados con ‘YES’ en el apartado de data_leaks)</i></p>
 <p style="text-align:center;">&nbsp;</p>
 <h3>run-check</h3>
-<p>Esta script se encarga de hacer un checkeo cada 24 horas contra la API de IntelX para comprobar si se ha detectado la filtración de credenciales de alguno de los dominios expuestos en la lista. La script se ejecuta a las 08:04 de la mañana todos los días.</p>
+<p>Esta script se encarga de hacer un checkeo cada 24 horas contra la API de IntelX para comprobar si se ha detectado la filtración de credenciales de alguno de los dominios expuestos en la lista.&nbsp;</p>
+<p>La script se ejecuta a las 08:04 de la mañana todos los días.</p>
 <p>&nbsp;</p>
 <h3>run-process</h3>
-<p>Esta script se encarga de guardar los ficheros en bruto en el directorio ‘<i>/data/Threat-intelligence/intelxio/tmp/${currentdate}</i>’ de la maquina del SOAR.</p>
+<p>Esta script se encarga de guardar los ficheros en bruto detectados en el directorio ‘<i>/data/Threat-intelligence/intelxio/tmp/${currentdate}</i>’ de la maquina del SOAR.</p>
+<p>Para hacer un filtrado de la información que nos interesa y facilitar el análisis, también guarda los datos específicos relacionados con los dominios expuestos en la lista, en el directorio ‘<i>/data/Threat-intelligence/intelxio/output/$</i>’ de la maquina del SOAR.</p>
+<p>La script se ejecuta a las 08:14 de la mañana todos los días.</p>
+<p>&nbsp;</p>
+<h3>intelxio-clean</h3>
+<p>Esta script se encarga de borrar los ficheros almacenados con una antigüedad de 7 días.</p>
+<p>&nbsp;</p>
+<h2>Alerta</h2>
+<p>En QRadar existe la regla&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
