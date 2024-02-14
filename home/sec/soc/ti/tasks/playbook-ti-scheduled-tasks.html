@@ -2,7 +2,7 @@
 title: Playbook TI Scheduled Tasks
 description: 
 published: true
-date: 2024-02-14T11:15:35.769Z
+date: 2024-02-14T11:22:40.923Z
 tags: soc, ti, task, playbook, scheduled
 editor: ckeditor
 dateCreated: 2024-02-14T09:42:58.130Z
@@ -165,8 +165,9 @@ dateCreated: 2024-02-14T09:42:58.130Z
 <h2>Compromised domains email banners</h2>
 <p>&nbsp;</p>
 <h3>Descripción&nbsp;</h3>
-<p style="text-align:justify;">TI</p>
-<p>&nbsp;</p>
+<p style="text-align:justify;">Cuando se detecte que una cuenta de correo de un cliente o proveedor ha sido comprometida, se llevará acabo el procedimiento definido en ‘<a href="https://wiki.security.espublico.com/es/home/sec/soc/ir/incidents_clients">Procedure for incidents in clients</a>’.&nbsp;</p>
+<p style="text-align:justify;">Como bien indica, una vez identificado el dominio de correo del cliente/proveedor comprometido, este se deberá marcar con un tag especial en la pasarela de correos, indicando que ha sufrido un ataque recientemente, lo cual servirá para revisiones posteriores y mantener un seguimiento de cerca.</p>
+<p style="text-align:justify;">&nbsp;</p>
 <h3 style="text-align:justify;">Recurrencia</h3>
 <p style="text-align:justify;">Trimestral</p>
 <p style="text-align:justify;">&nbsp;</p>
@@ -177,7 +178,5 @@ dateCreated: 2024-02-14T09:42:58.130Z
 <p style="text-align:justify;">Office365</p>
 <p>&nbsp;</p>
 <h3>Acciones</h3>
-<p>Una&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
+<p>Una vez aplicada la regla de Exchange “<i>Received from compromised Domain</i>” &nbsp;al dominio comprometido, trimestralmente se revisarán los dominios que han sido marcados con el tag especial. De esta forma, se detectara si siguen mandando correos anómalos desde ese dominio y no han restablecido todavía su actividad normal.</p>
 <p>&nbsp;</p>
