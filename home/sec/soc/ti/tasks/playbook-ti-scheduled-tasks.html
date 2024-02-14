@@ -2,7 +2,7 @@
 title: Playbook TI Scheduled Tasks
 description: 
 published: true
-date: 2024-02-14T10:08:46.120Z
+date: 2024-02-14T10:26:10.723Z
 tags: soc, ti, task, playbook, scheduled
 editor: ckeditor
 dateCreated: 2024-02-14T09:42:58.130Z
@@ -41,7 +41,8 @@ dateCreated: 2024-02-14T09:42:58.130Z
 <h2>VD Forums</h2>
 <p>&nbsp;</p>
 <h3>Descripción&nbsp;</h3>
-<p style="text-align:justify;">Se trata de una tarea basada en la revisión e investigación de varios foros underground que podemos encontrar en las distintas redes, como pueden ser, darknet, I2P, etc. Con el fin de identificar la actividad de multitud de cibercriminales que supongan un riesgo sobre nosotros ya sea desde posibles fugas de datos a ser objetivos de ataques potenciales.</p>
+<p style="text-align:justify;">Se trata de una tarea basada en la revisión e investigación de varios foros underground que podemos encontrar en las distintas redes, como pueden ser, darknet, I2P, etc.&nbsp;</p>
+<p style="text-align:justify;">Con el fin de identificar la actividad de multitud de cibercriminales que supongan un riesgo sobre nosotros, ya sea desde posibles fugas de datos a ser objetivos de ataques potenciales.</p>
 <p style="text-align:justify;">&nbsp;</p>
 <h3 style="text-align:justify;">Recurrencia</h3>
 <p style="text-align:justify;">Diaria</p>
@@ -55,11 +56,108 @@ dateCreated: 2024-02-14T09:42:58.130Z
 <h3>Acciones</h3>
 <p>En caso de encontrar información relacionada con el grupo esPublico, se creará un ticket en soporte.espublico.it en la cola de “SD-SOC-Security_Monitoring” con el tag de [INV] para su consiguiente investigación.</p>
 <p>&nbsp;</p>
+<h2>VD News</h2>
 <p>&nbsp;</p>
+<h3>Descripción&nbsp;</h3>
+<p>Esta tarea se encarga de revisar las noticias más actuales sobre el cibercrimen y las nuevas tendencias por las que se rigen estos grupos, además de poner foco en el sector público. Permite conocer las nuevas técnicas y poder tomar medidas proactivas ante posibles ataques. Además, se obtienen detalles de las nuevas campañas de phishing que se están llevando a cabo.</p>
+<p style="text-align:justify;">&nbsp;</p>
+<h3 style="text-align:justify;">Recurrencia</h3>
+<p style="text-align:justify;">Diaria</p>
+<p style="text-align:justify;">&nbsp;</p>
+<h3 style="text-align:justify;">Tiempo estimado</h3>
+<p style="text-align:justify;">1 hora</p>
+<p style="text-align:justify;">&nbsp;</p>
+<h3 style="text-align:justify;">Fuentes</h3>
+<p style="text-align:justify;">Las fuentes se encuentran en el documento <a href="https://docs.google.com/spreadsheets/d/1jVoF8HFu23ekv1ks1C1JXBZ7j57-iJMLowfj7J1jOZQ/edit#gid=0">Recursos</a>.</p>
 <p>&nbsp;</p>
+<h3>Acciones</h3>
+<p>En caso de encontrar información que nos pueda ser de util, se creará un ticket en soporte.espublico.it en la cola de “SD-SOC-Security_Monitoring” con el tag de [INV] para su consiguiente investigación.</p>
 <p>&nbsp;</p>
+<h2>VD Social Media</h2>
 <p>&nbsp;</p>
+<h3>Descripción&nbsp;</h3>
+<p>Para realizar la tarea nos basamos en distintas redes sociales, actualmente haciendo especial hincapié en Twitter puesto que en el mundo de la ciberseguridad es la más usada con diferencia. Gracias a la revisión de estas redes sociales, podemos identificar desde ataques orientados a España, más concretamente al sector público, a estar atentos de las noticias o comentarios que se dicen acerca de la empresa.</p>
+<p style="text-align:justify;">&nbsp;</p>
+<h3 style="text-align:justify;">Recurrencia</h3>
+<p style="text-align:justify;">Diaria</p>
+<p style="text-align:justify;">&nbsp;</p>
+<h3 style="text-align:justify;">Tiempo estimado</h3>
+<p style="text-align:justify;">1 hora</p>
+<p style="text-align:justify;">&nbsp;</p>
+<h3 style="text-align:justify;">Fuentes</h3>
+<p style="text-align:justify;">Las fuentes se encuentran en el documento <a href="https://docs.google.com/spreadsheets/d/1jVoF8HFu23ekv1ks1C1JXBZ7j57-iJMLowfj7J1jOZQ/edit#gid=0">Recursos</a>.</p>
 <p>&nbsp;</p>
+<h3>Acciones</h3>
+<p>En caso de encontrar información que nos pueda ser de util, se creará un ticket en soporte.espublico.it en la cola de “SD-SOC-Security_Monitoring” con el tag de [INV] para su consiguiente investigación.</p>
 <p>&nbsp;</p>
+<h2>Feed IOCs</h2>
 <p>&nbsp;</p>
+<h3>Descripción&nbsp;</h3>
+<p>Se revisarán aquellos IOC de nuevas amenazas que hayan surgido o de aquellas TTP de actores que tengan en el foco al sector público o España en general.</p>
+<p style="text-align:justify;">&nbsp;</p>
+<h3 style="text-align:justify;">Recurrencia</h3>
+<p style="text-align:justify;">Diaria</p>
+<p style="text-align:justify;">&nbsp;</p>
+<h3 style="text-align:justify;">Tiempo estimado</h3>
+<p style="text-align:justify;">1 hora</p>
+<p style="text-align:justify;">&nbsp;</p>
+<h3 style="text-align:justify;">Fuentes</h3>
+<p style="text-align:justify;">Las fuentes se encuentran en el documento <a href="https://docs.google.com/spreadsheets/d/1jVoF8HFu23ekv1ks1C1JXBZ7j57-iJMLowfj7J1jOZQ/edit#gid=0">Recursos</a>.</p>
+<p>&nbsp;</p>
+<h3>Acciones</h3>
+<p>Si se encuentran IOCs se importaran tanto en la MISP, como en las herramientas EDR y SIEM, rellenando previamente la siguiente excel: <a href="https://docs.google.com/spreadsheets/d/1m6hHeHxNLMTZZjgAHS7TOjkwwv_eFWK6vgkOCTCb7Vs/edit#gid=0">Tareas SOC-TI</a></p>
+<p>En la hoja de ‘FEEDs IOCs’ se pondrá la fecha en la que se obtienen, de la fuente de la que se ha sacado y el número de IOCs (hashes, IP, dominios, URL). En la hoja de ‘MISP Events’ se especificará lo mismo, pero añadiendo el ID del evento generado en la MISP. Cuando se suben los IOCs a las diferentes plataformas, hay que especificar con un tag o descripción de la fuente de la que provienen o a la amenaza a la que hacen referencia.</p>
+<p>&nbsp;</p>
+<h2>VD Phishing</h2>
+<p>&nbsp;</p>
+<h3>Descripción&nbsp;</h3>
+<p>Se revisará toda la cuarentena que nos proporciona Office sobre correos que han sido bloqueados e identificados por el propio office como “phishing, malware o spearphishing”.</p>
+<p>&nbsp;</p>
+<h3 style="text-align:justify;">Recurrencia</h3>
+<p style="text-align:justify;">Diaria</p>
+<p style="text-align:justify;">&nbsp;</p>
+<h3 style="text-align:justify;">Tiempo estimado</h3>
+<p style="text-align:justify;">2-3 horas</p>
+<p style="text-align:justify;">&nbsp;</p>
+<h3 style="text-align:justify;">Fuentes</h3>
+<p style="text-align:justify;">Las fuentes se encuentran en el documento <a href="https://docs.google.com/spreadsheets/d/1jVoF8HFu23ekv1ks1C1JXBZ7j57-iJMLowfj7J1jOZQ/edit#gid=0">Recursos</a>.</p>
+<p>&nbsp;</p>
+<h3>Acciones</h3>
+<p>Por cada campaña que nos encontremos en la cuarentena, si aplica, se subirán los IOCs correspondientes a la MISP además de investigar dicha campaña.&nbsp;</p>
+<p>Se mantiene un registro de dicha subida en el siguiente documento: <a href="https://docs.google.com/spreadsheets/d/1m6hHeHxNLMTZZjgAHS7TOjkwwv_eFWK6vgkOCTCb7Vs/edit#gid=0">Tareas SOC-TI</a></p>
+<p>&nbsp;</p>
+<h2>Feed Intel Reports</h2>
+<p>&nbsp;</p>
+<h3>Descripción&nbsp;</h3>
+<p>Se trata de revisar informes de inteligencia de otras organizaciones con el fin de enriquecer la inteligencia que se está generando y poder consultar nuevos casos que se están dando en otros sectores para de esta forma extraer información desde TTPs, IOCs o incluso nuevos casos de uso a llevar a cabo.</p>
+<p>&nbsp;</p>
+<h3 style="text-align:justify;">Recurrencia</h3>
+<p style="text-align:justify;">Diaria</p>
+<p style="text-align:justify;">&nbsp;</p>
+<h3 style="text-align:justify;">Tiempo estimado</h3>
+<p style="text-align:justify;">2 horas</p>
+<p style="text-align:justify;">&nbsp;</p>
+<h3 style="text-align:justify;">Fuentes</h3>
+<p style="text-align:justify;">Las fuentes se encuentran en el documento <a href="https://docs.google.com/spreadsheets/d/1jVoF8HFu23ekv1ks1C1JXBZ7j57-iJMLowfj7J1jOZQ/edit#gid=0">Recursos</a>.</p>
+<p>&nbsp;</p>
+<h3>Acciones</h3>
+<p>En caso de encontrar información valiosa que pueda ayudarnos a crear nuevas detecciones, se creará un ticket con el TAG de [NUC] en la cola de SD-SOC-Security_Monitoring.&nbsp;</p>
+<p>Si se trata de un caso de uso en el EDR se creará un ticket con el TAG de [NSS] en la cola de SD-SOC-Threat_Hunting.</p>
+<p>&nbsp;</p>
+<h2>Tiresias INCIBE</h2>
+<p>&nbsp;</p>
+<h3>Descripción&nbsp;</h3>
+<p>S</p>
+<p>&nbsp;</p>
+<h3 style="text-align:justify;">Recurrencia</h3>
+<p style="text-align:justify;">Mensual</p>
+<p style="text-align:justify;">&nbsp;</p>
+<h3 style="text-align:justify;">Tiempo estimado</h3>
+<p style="text-align:justify;">1-2 horas</p>
+<p style="text-align:justify;">&nbsp;</p>
+<h3 style="text-align:justify;">Fuentes</h3>
+<p style="text-align:justify;">INCIBE-CERT</p>
+<p>&nbsp;</p>
+<h3>Acciones</h3>
+<p>En&nbsp;</p>
 <p>&nbsp;</p>
