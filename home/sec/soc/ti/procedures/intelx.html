@@ -2,7 +2,7 @@
 title: Intelligence X
 description: 
 published: true
-date: 2024-02-14T12:53:59.981Z
+date: 2024-02-14T12:58:33.558Z
 tags: soc, ti, procedure, report
 editor: ckeditor
 dateCreated: 2024-02-14T11:31:43.707Z
@@ -20,6 +20,7 @@ dateCreated: 2024-02-14T11:31:43.707Z
 <p>&nbsp;</p>
 <h2>Scripts</h2>
 <p style="text-align:justify;">Se lleva a cabo en la maquina ‘<i>itx-sec-soar-01-svcs.madrid.espublico.com</i>’ la ejecución de scripts automatizados mediante cron.</p>
+<p style="text-align:center;"><i>(Se esta haciendo el traslado a una segunda maquina dedicada para actividades de Digital Surveillance)</i></p>
 <p style="text-align:justify;">Estos scripts se encargan de consultar a la API de IntelX si ha habido una posible filtración de los dominios especificados en una lista de dominios definida en el repo:</p>
 <ul>
   <li style="text-align:justify;">Threat-intelligence/lists/intelx-urls-txt</li>
@@ -45,8 +46,8 @@ dateCreated: 2024-02-14T11:31:43.707Z
 <p>El contenido del campo ‘<i>searchid</i>’ podemos anidarlo a ‘<i>intelx.io/?did=</i>’ para ir a la filtración detectada y poder examinarla con mas detalle si se requiere.</p>
 <p>&nbsp;</p>
 <h2>Análisis del contenido</h2>
-<p>Si se quiere ir directamente a los datos, podemos acceder al directorio ‘<i>/data/Threat-intelligence/intelxio/output/’ de la maquina del SOAR </i>donde se han guardado los datos ya filtrados, o acceder por web a<i> ‘https://intel.security.espublico.com/intelxio/output/</i>’.</p>
-<p style="text-align:center;"><i>(Se ha creado una segunda maquina dedicada para Digital Surveillance, por lo que en un futuro próximo el acceso web se hará a '<u>https://intel.security.espublico.com/reports/</u>')</i></p>
+<p>Si se quiere ir directamente a los datos, podemos acceder al directorio ‘<i>/data/Threat-intelligence/intelxio/output/’ de la maquina del SOAR </i>donde se han guardado los datos ya filtrados, o acceder por web a<i> ‘</i><a href="https://intel.security.espublico.com/intelxio/output/"><i>https://intel.security.espublico.com/intelxio/output/</i></a>’.</p>
+<p style="text-align:center;"><i>(Se ha creado una segunda maquina dedicada para Digital Surveillance, por lo que en un futuro próximo el acceso web se hará a '</i><a href="https://intel.security.espublico.com/reports/"><i><u>https://intel.security.espublico.com/reports/</u></i></a><i>')</i></p>
 <p style="text-align:center;">&nbsp;</p>
 <h2>Usuarios ya reportados</h2>
 <p>Al analizar las filtraciones, deben revisarse si ya han sido reportadas en alguna ocasión, para ello hay un listado anotado de anteriores filtraciones en <a href="https://docs.google.com/spreadsheets/d/1NkLmStHp7YMMx1GC103HKPu522-TZ6YV/edit#gid=1866393291">Usuarios_<i>reportados</i>_Intelx</a>.</p>
