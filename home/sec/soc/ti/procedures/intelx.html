@@ -2,25 +2,28 @@
 title: Intelligence X
 description: 
 published: true
-date: 2024-02-14T12:00:34.314Z
+date: 2024-02-14T12:19:51.384Z
 tags: soc, ti, procedure, report
 editor: ckeditor
 dateCreated: 2024-02-14T11:31:43.707Z
 -->
 
 <h1 style="text-align:center;">IntelX</h1>
-<p>Para la detección de exposición de credenciales, tanto de miembros de la organización, como de clientes, actualmente&nbsp;se utiliza la herramienta <a href="https://intelx.io/">IntelX</a>.</p>
-<p>Intelx o IntelligenceX es una herramienta de búsqueda en línea que se utiliza para realizar OSINT (<i>Open Source Intelligence</i>).</p>
-<p>Cuenta con las siguientes características:</p>
+<p style="text-align:justify;">Para la detección de exposición de credenciales, tanto de miembros de la organización, como de clientes, actualmente&nbsp;se utiliza la herramienta <a href="https://intelx.io/">IntelX</a>.</p>
+<p style="text-align:justify;">Intelx o IntelligenceX es una herramienta de búsqueda en línea que se utiliza para realizar OSINT (<i>Open Source Intelligence</i>).</p>
+<p style="text-align:justify;">Cuenta con las siguientes características:</p>
 <ul>
-  <li>Las búsquedas se realizan a través de selectores. Un selector es un término de búsqueda específico, como una dirección de correo electrónico, un dominio, una URL, una dirección IP, una dirección de Bitcoin, un hash, etc.</li>
-  <li>Puede llevar a cabo búsquedas tanto en la DarkNet como en fuentes públicas, así como en plataformas de compartición de documentos, Corea del Norte, etc.</li>
-  <li>Mantiene un archivo histórico de resultados, similar a como Wayback Machine, de archive.org, almacena copias históricas de sitios web, lo que permite retroceder en el tiempo y buscar datos históricos y documentos.</li>
+  <li style="text-align:justify;">Las búsquedas se realizan a través de selectores. Un selector es un término de búsqueda específico, como una dirección de correo electrónico, un dominio, una URL, una dirección IP, una dirección de Bitcoin, un hash, etc.</li>
+  <li style="text-align:justify;">Puede llevar a cabo búsquedas tanto en la DarkNet como en fuentes públicas, así como en plataformas de compartición de documentos, Corea del Norte, etc.</li>
+  <li style="text-align:justify;">Mantiene un archivo histórico de resultados, similar a como Wayback Machine, de archive.org, almacena copias históricas de sitios web, lo que permite retroceder en el tiempo y buscar datos históricos y documentos.</li>
 </ul>
 <p>&nbsp;</p>
 <h2>Scripts</h2>
-<p>Se lleva a cabo en la maquina ‘<i>itx-sec-soar-01-svcs.madrid.espublico.com</i>’ la ejecución de scripts automatizados mediante cron.</p>
-<p>Estos scripts se encargan de consultar a la API de IntelX si ha habido una posible filtración de los dominios especificados en&nbsp;</p>
-<p>&nbsp;</p>
+<p style="text-align:justify;">Se lleva a cabo en la maquina ‘<i>itx-sec-soar-01-svcs.madrid.espublico.com</i>’ la ejecución de scripts automatizados mediante cron.</p>
+<p style="text-align:justify;">Estos scripts se encargan de consultar a la API de IntelX si ha habido una posible filtración de los dominios especificados en una lista de dominios definida en el repo:</p>
+<ul>
+  <li style="text-align:justify;">Threat-intelligence/lists/intelx-urls-txt</li>
+</ul>
+<p style="text-align:center;"><i>(Próximamente se dejara de usar esta lista y comenzaran a analizarse los dominios de </i><a href="https://dashboard.security.espublico.com/d/e660e1c1-47bf-4cd5-ad9f-51ce2bc24a17/dominios?orgId=2"><i>Digital Surveillance</i></a><i> marcados con ‘YES’ en el apartado de data_leaks)</i></p>
 <h3>run-check</h3>
-<p>&nbsp;</p>
+<p>Este script se encarga de hacer un checkeo cada 24 horas contra la API de IntelX para comprobar si se ha detectado la filtración de credenciales de alguno de los dominios expuestos en la lista.</p>
