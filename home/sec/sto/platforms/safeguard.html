@@ -2,7 +2,7 @@
 title: SafeGuard
 description: 
 published: true
-date: 2024-02-15T12:32:10.297Z
+date: 2024-02-15T12:33:15.026Z
 tags: 
 editor: ckeditor
 dateCreated: 2024-01-12T14:28:33.921Z
@@ -10,13 +10,13 @@ dateCreated: 2024-01-12T14:28:33.921Z
 
 <h1 style="text-align:center;">Safeguard</h1>
 <p>One Identity Safeguard permite implementar una <strong>solución PAM (Privileged Access Manager)</strong> sin la necesidad de instalar clientes o agentes en la infraestructura de la compañía.</p>
-<p>Se suministra mínimo como un appliance (o dispositivo virtual), pero con dos appliances tiene más funciones.</p>
+<p>Se suministra mínimo como un appliance (o dispositivo virtual), pero con dos appliances tenemos capacidades más completas.</p>
 <p>El appliance <i>One Identity Safeguard for Privileged Passwords</i> (SPP) sirve para controlar y monitorizar cuentas privilegiadas de usuario. Aparte de gestionar las peticiones de acceso, permite hacer descubrimiento de activos y cuentas, gestión de contraseñas y rotación automática de las mismas.</p>
 <p>El appliance <i>One Identity Safeguard for Privileged Sessions</i> (SPS) intercepta de forma transparente o no transparente los protocolos de administración remota, además de registrar las sesiones para su posterior reproducción y análisis.</p>
 <p>&nbsp;</p>
 <h2>Arquitectura</h2>
 <ul>
-  <li>&nbsp;3 appliances de SPP en HA en ZGZ, ITX y MAD<ul>
+  <li>3 appliances de SPP en HA en ZGZ, ITX y MAD<ul>
       <li>Los cambios de configuración solo se pueden realizar en el nodo primario (ZGZ), las peticiones de sesiones y el rotado de contraseñas en los tres.</li>
       <li>En caso de caída el secundario promociona automáticamente.</li>
       <li>Si el clúster pierde el quórum, entra en modo solo lectura y deshabilita cambios de configuración. Se puede configurar si se permiten o no solicitudes de acceso.</li>
