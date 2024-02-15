@@ -2,7 +2,7 @@
 title: SafeGuard
 description: 
 published: true
-date: 2024-02-15T12:35:22.999Z
+date: 2024-02-15T12:51:31.762Z
 tags: 
 editor: ckeditor
 dateCreated: 2024-01-12T14:28:33.921Z
@@ -34,7 +34,7 @@ dateCreated: 2024-01-12T14:28:33.921Z
 <p>&nbsp;</p>
 <h3>Conexión a servidores Windows</h3>
 <p>En “My Request” aparecerá un fichero .rdp con el que conectarse al SPS:</p>
-<figure class="image"><img src="/ups/safeguard-img1.png"></figure>
+<figure class="image"><img src="/sec/sto/platforms/safeguard/safeguard-img1.png"></figure>
 <p>Con ese fichero, que tiene el siguiente formato:</p>
 <pre><code class="language-plaintext">full address:s:[IP SPS]
 username:s:localhost\vaultaddress~[IP
@@ -44,7 +44,7 @@ username:s:localhost\vaultaddress~[IP
 <p>&nbsp;</p>
 <h3>Conexión a servidores Linux</h3>
 <p>En “My Request” aparecerá un comando con el que conectarse al SPS:</p>
-<figure class="image"><img src="/ups/safeguard-img2.png"></figure>
+<figure class="image"><img src="/sec/sto/platforms/safeguard/safeguard-img2.png"></figure>
 <p>Con este comando:</p>
 <p><code>$ ssh vaultaddress=[IP SPP]@token=xXx0x000XXX@[USUARIO (ej: z5027)]@[IP Servidor Jump]@[IP SPS]</code></p>
 <p>El SPS se conecta a la máquina de salto y desde ahí a la máquina Tools. La máquina Tools es la única que establecerá conexiones con los servidores. Desde allí, el usuario levanta el túnel SSH final hacia el servidor Linux al que quiere acceder.</p>
