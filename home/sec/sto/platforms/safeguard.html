@@ -2,7 +2,7 @@
 title: SafeGuard
 description: 
 published: true
-date: 2024-02-15T12:23:54.871Z
+date: 2024-02-15T12:32:10.297Z
 tags: 
 editor: ckeditor
 dateCreated: 2024-01-12T14:28:33.921Z
@@ -13,16 +13,25 @@ dateCreated: 2024-01-12T14:28:33.921Z
 <p>Se suministra mínimo como un appliance (o dispositivo virtual), pero con dos appliances tiene más funciones.</p>
 <p>El appliance <i>One Identity Safeguard for Privileged Passwords</i> (SPP) sirve para controlar y monitorizar cuentas privilegiadas de usuario. Aparte de gestionar las peticiones de acceso, permite hacer descubrimiento de activos y cuentas, gestión de contraseñas y rotación automática de las mismas.</p>
 <p>El appliance <i>One Identity Safeguard for Privileged Sessions</i> (SPS) intercepta de forma transparente o no transparente los protocolos de administración remota, además de registrar las sesiones para su posterior reproducción y análisis.</p>
+<p>&nbsp;</p>
 <h2>Arquitectura</h2>
-<p>- 3 appliances de SPP en HA en ZGZ, ITX y MAD</p>
-<p>&nbsp; &nbsp;- Los cambios de configuración solo se pueden realizar en el nodo primario (ZGZ), las peticiones de sesiones y el rotado de contraseñas en los tres.</p>
-<p>&nbsp; &nbsp;-&nbsp;En caso de caída el secundario promociona automáticamente.</p>
-<p>&nbsp; &nbsp;-&nbsp;Si el clúster pierde el quórum, entra en modo solo lectura y deshabilita cambios de configuración. Se puede configurar si se permiten o no solicitudes de acceso.</p>
-<p>&nbsp; &nbsp;-&nbsp;Si un nodo SPP esclavo pasa a maestro, este dirige automáticamente las conexiones.</p>
-<p>- 2 appliances de SPS en ZGZ e ITX</p>
-<p>&nbsp; &nbsp;-&nbsp;En SPP&gt;Appliance Management&gt;Cluster&gt;Managed Networks se configura a qué redes se llega por cada clúster SPS y se puede modificar en caso de caída.</p>
+<ul>
+  <li>&nbsp;3 appliances de SPP en HA en ZGZ, ITX y MAD<ul>
+      <li>Los cambios de configuración solo se pueden realizar en el nodo primario (ZGZ), las peticiones de sesiones y el rotado de contraseñas en los tres.</li>
+      <li>En caso de caída el secundario promociona automáticamente.</li>
+      <li>Si el clúster pierde el quórum, entra en modo solo lectura y deshabilita cambios de configuración. Se puede configurar si se permiten o no solicitudes de acceso.</li>
+      <li>Si un nodo SPP esclavo pasa a maestro, este dirige automáticamente las conexiones.</li>
+    </ul>
+  </li>
+  <li>2 appliances de SPS en ZGZ e ITX<ul>
+      <li>En "SPP &gt; Appliance Management &gt; Cluster &gt; Managed Networks" se configura a qué redes se llega por cada clúster SPS y se puede modificar en caso de caída.</li>
+    </ul>
+  </li>
+</ul>
+<p>&nbsp;</p>
 <h2>Flujo de conexiones</h2>
 <p>Para hacer una petición de acceso, el primer paso es <a href="https://zgz-pam-pass.zaragoza.espublico.it/">acceder por https al SPP</a> y completar una New Access Request a la(s) máquina(s) Windows y/o Linux a la(s) se quiere acceder.</p>
+<p>&nbsp;</p>
 <h3>Conexión a servidores Windows</h3>
 <p>En “My Request” aparecerá un fichero .rdp con el que conectarse al SPS:</p>
 <figure class="image"><img src="/ups/safeguard-img1.png"></figure>
@@ -31,12 +40,15 @@ dateCreated: 2024-01-12T14:28:33.921Z
 username:s:localhost\vaultaddress~[IP
  SPP]%token~xXx0x000XXX%[USUARIO (ej: z5027)]%[IP Servidor Windows Destino]</code></pre>
 <p>El SPS establece automáticamente la conexión con el servidor Windows al que se quiere acceder.</p>
+<p>Al acabar la sesión, el SPP rotará la contraseña del usuario de Windows y se conectará al SPS para rotar la contraseña allí también.</p>
+<p>&nbsp;</p>
 <h3>Conexión a servidores Linux</h3>
 <p>En “My Request” aparecerá un comando con el que conectarse al SPS:</p>
 <figure class="image"><img src="/ups/safeguard-img2.png"></figure>
 <p>Con este comando:</p>
-<p><code>$ ssh vaultaddress=[IP SPP]@token=xXx0x000XXX@[USUARIO (ej: z5027)]@[IP Servidor Linux Destino]@[IP SPS]</code></p>
-<p>El SPS se conecta a la máquina de salto y desde ahí a la máquina tools, que es quien establecerá la conexión con el servidor Linux al que se quiere acceder.</p>
+<p><code>$ ssh vaultaddress=[IP SPP]@token=xXx0x000XXX@[USUARIO (ej: z5027)]@[IP Servidor Jump]@[IP SPS]</code></p>
+<p>El SPS se conecta a la máquina de salto y desde ahí a la máquina Tools.<br>La máquina Tools es quien establecerá la conexión final.<br>Allí eliges con el servidor Linux al que se quiere acceder.</p>
+<p>&nbsp;</p>
 <h2>Configuración</h2>
 <ul>
   <li><a href="https://wiki.security.espublico.com/es/home/sec/sto/platforms/safeguard/configuracion-acceso-api-cert">Configuración acceso API con certificado</a></li>
