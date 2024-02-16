@@ -2,7 +2,7 @@
 title: Intelligence X
 description: 
 published: true
-date: 2024-02-14T12:59:02.593Z
+date: 2024-02-16T08:40:42.366Z
 tags: soc, ti, procedure, report
 editor: ckeditor
 dateCreated: 2024-02-14T11:31:43.707Z
@@ -19,23 +19,22 @@ dateCreated: 2024-02-14T11:31:43.707Z
 </ul>
 <p>&nbsp;</p>
 <h2>Scripts</h2>
-<p style="text-align:justify;">Se lleva a cabo en la maquina ‘<i>itx-sec-soar-01-svcs.madrid.espublico.com</i>’ la ejecución de scripts automatizados mediante cron.</p>
-<p style="text-align:center;"><i>(Se esta haciendo el traslado a una segunda maquina dedicada para actividades de Digital Surveillance)</i></p>
-<p style="text-align:justify;">Estos scripts se encargan de consultar a la API de IntelX si ha habido una posible filtración de los dominios especificados en una lista de dominios definida en el repo:</p>
-<ul>
-  <li style="text-align:justify;">Threat-intelligence/lists/intelx-urls-txt</li>
-</ul>
-<p style="text-align:center;"><i>(Próximamente se dejara de usar esta lista y comenzaran a analizarse los dominios de </i><a href="https://dashboard.security.espublico.com/d/e660e1c1-47bf-4cd5-ad9f-51ce2bc24a17/dominios?orgId=2"><i>Digital Surveillance</i></a><i> marcados con ‘YES’ en el apartado de data_leaks)</i></p>
-<p style="text-align:center;"><i>(Pueden verse también por web en ‘https://intel.security.espublico.com/lists/espublico-domain-data_leaks.txt’)</i></p>
+<p style="text-align:justify;">Se lleva a cabo en la maquina ‘itx-sec-ds-01-svcs.madrid.espublico.com’ la ejecución de scripts automatizados mediante cron.</p>
+<p style="text-align:justify;">Estos scripts se encargan de consultar a la API de IntelX si ha habido una posible filtración de los dominios especificados en una lista de dominios de <a href="https://dashboard.security.espublico.com/d/e660e1c1-47bf-4cd5-ad9f-51ce2bc24a17/dominios?orgId=2">Digital Surveillance</a> y que se pueden consultar a través de la url</p>
+<pre><code class="language-plaintext">https://intel.security.espublico.com/lists/espublico-domain-data_leaks.txt</code></pre>
+<p style="text-align:justify;">&nbsp;</p>
 <p style="text-align:center;">&nbsp;</p>
 <h3>run-check</h3>
 <p style="text-align:justify;">Esta script se encarga de hacer un checkeo cada 24 horas contra la API de IntelX para comprobar si se ha detectado la filtración de credenciales de alguno de los dominios expuestos en la lista.&nbsp;</p>
-<p>La script se ejecuta a las 08:04 de la mañana todos los días.</p>
+<p>La script se ejecuta a las 07:00 de la mañana todos los días.</p>
 <p>&nbsp;</p>
 <h3>run-process</h3>
-<p>Esta script se encarga de guardar los ficheros en bruto detectados en el directorio ‘<i>/data/Threat-intelligence/intelxio/tmp/${currentdate}</i>’ de la maquina del SOAR.</p>
-<p style="text-align:justify;">Para hacer un filtrado de la información que nos interesa y facilitar el análisis, también guarda los datos específicos relacionados con los dominios expuestos en la lista, en el directorio ‘<i>/data/Threat-intelligence/intelxio/output/</i>’ de la maquina del SOAR.</p>
-<p>La script se ejecuta a las 08:14 de la mañana todos los días.</p>
+<p>Esta script se encarga de guardar los ficheros en bruto detectados en el directorio siguiente organizados por fecha en formato YYYYMMDD</p>
+<pre><code class="language-plaintext">/data/Threat-intelligence/intelxio/tmp/YYYYMMDD</code></pre>
+<p>Para hacer un filtrado de la información que nos interesa y facilitar el análisis, también guarda los datos específicos relacionados con los dominios expuestos en la lista, en el directorio</p>
+<pre><code class="language-plaintext">/data/Digital-surveillance/espublico/reports/YYYYMMDD/intelx/</code></pre>
+<p>de la maquina de DS.</p>
+<p>La script se ejecuta a continuación del anterior.</p>
 <p>&nbsp;</p>
 <h3>intelxio-clean</h3>
 <p>Esta script se encarga de borrar los ficheros almacenados con una antigüedad de 7 días.</p>
@@ -46,8 +45,9 @@ dateCreated: 2024-02-14T11:31:43.707Z
 <p>El contenido del campo ‘<i>searchid</i>’ podemos anidarlo a ‘<i>intelx.io/?did=</i>’ para ir a la filtración detectada y poder examinarla con mas detalle si se requiere.</p>
 <p>&nbsp;</p>
 <h2>Análisis del contenido</h2>
-<p>Si se quiere ir directamente a los datos, podemos acceder al directorio ‘<i>/data/Threat-intelligence/intelxio/output/’ de la maquina del SOAR </i>donde se han guardado los datos ya filtrados, o acceder por web a<i> ‘</i><a href="https://intel.security.espublico.com/intelxio/output/"><i>https://intel.security.espublico.com/intelxio/output/</i></a>’.</p>
-<p style="text-align:center;"><i>(Se ha creado una segunda maquina dedicada para Digital Surveillance, por lo que en un futuro próximo el acceso web se hará a '</i><a href="https://intel.security.espublico.com/reports/"><i><u>https://intel.security.espublico.com/reports/</u></i></a><i>')</i></p>
+<p>Si se quiere ir directamente a los datos, podemos acceder al directorio&nbsp;</p>
+<pre><code class="language-plaintext">/data/Digital-surveillance/espublico/reports/YYYYMMDD/intelx/</code></pre>
+<p><i>de la maquina de DS </i>donde se han guardado los datos ya filtrados, o acceder por web a<i> ‘https://intel.security.espublico.com/reports/YYYYMMDD/intelx/</i>’.</p>
 <p style="text-align:center;">&nbsp;</p>
 <h2>Usuarios ya reportados</h2>
 <p>Al analizar las filtraciones, deben revisarse si ya han sido reportadas en alguna ocasión, para ello hay un listado anotado de anteriores filtraciones en <a href="https://docs.google.com/spreadsheets/d/1NkLmStHp7YMMx1GC103HKPu522-TZ6YV/edit#gid=1866393291">Usuarios_<i>reportados</i>_Intelx</a>.</p>
@@ -58,4 +58,5 @@ dateCreated: 2024-02-14T11:31:43.707Z
 <p>Por lo que se mandará un correo a ‘cumplimientonormativo@espublico.com’, en copia el director de seguridad y los miembros del equipo de Inteligencia.&nbsp;</p>
 <p>El contenido del correo deberá contener siempre el ‘pool’ y el ‘usuario’ de la filtración, <strong>NUNCA </strong>se especificará la contraseña que ha sido filtrada.</p>
 <p>Desde cumplimiento normativo se encargaran de gestionar la filtración.&nbsp;</p>
+<p>&nbsp;</p>
 <p>&nbsp;</p>
