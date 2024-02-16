@@ -2,7 +2,7 @@
 title: Preparación de máquina windows
 description: 
 published: true
-date: 2024-02-12T13:29:18.568Z
+date: 2024-02-16T09:19:14.494Z
 tags: 
 editor: ckeditor
 dateCreated: 2024-01-25T12:41:15.438Z
@@ -26,7 +26,7 @@ dateCreated: 2024-01-25T12:41:15.438Z
 $pass =  "???????" | ConvertTo-SecureString -AsPlainText -Force
 $IsDomainController = (Get-WmiObject Win32_ComputerSystem).DomainRole -eq 5
 
-#Si es un DC se crea la cuenta como miembro del grupo de Administradores de dominio, si no como administrador local.
+#Si es un DC se crea la cuenta como miembro del grupo de Administradores de dominio y de Acceso Remoto, si no como administrador local.
 if ($IsDomainController) {
     Import-Module ActiveDirectory
     $path = (Get-ADDomain).UsersContainer
@@ -35,6 +35,7 @@ if ($IsDomainController) {
 } else {
     New-LocalUser -Name $name -Password $pass -PasswordNeverExpires
     Add-LocalGroupMember -SID "S-1-5-32-544" -Member $name
+    Add-LocalGroupMember -SID "S-1-5-32-555" -Member $name
 }
 
 #Permitir en el firewall DCOM-In, WMI-In, NP-In y RPC
