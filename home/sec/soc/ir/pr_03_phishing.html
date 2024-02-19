@@ -2,7 +2,7 @@
 title: PR-03 Phishing
 description: 
 published: true
-date: 2024-02-19T12:25:39.860Z
+date: 2024-02-19T12:31:50.484Z
 tags: 
 editor: ckeditor
 dateCreated: 2024-02-19T10:27:08.880Z
@@ -18,7 +18,10 @@ dateCreated: 2024-02-19T10:27:08.880Z
 <p>Cada cierto tiempo se realizan campañas de phishing internas con el fin de mantener una correcta conducta de los usuarios.</p>
 <p>&nbsp;</p>
 <h2>Detección y análisis</h2>
-<p>La detección del phishing puede tener su origen en el reporte de un usuario mediante el botón que tienen disponible en Outlook o bien mediante una alerta generada en el SIEM.</p>
+<p>Lo primero que se necesita es detectar el phishing, puede tener su origen en el reporte de un usuario mediante el botón que tienen disponible en Outlook o bien mediante una alerta generada en el SIEM.&nbsp;</p>
+<p>Posteriormente se realizaran las siguientes actividades.</p>
+<h3>Identificación de los artefactos del phishing</h3>
+<p>Se procederá con el análisis del correo malicioso identificando que artefactos pueden ser consideraros IOC para proceder con las siguientes fases del análisis.</p>
 <h3>Comprobación de los IOC</h3>
 <p>Se necesitará comprobar si alguno de los IOC que contiene el correo ha sido ejecutado por alguno de los usuarios que haya recibido el phishing, ya sea en forma de adjunto extrayendo el hash y comprobándolo en el EDR o en caso de ser una URL comprobar si ha habido navegación/peticiones DNS hacia la misma o peticiones a la IP detrás de la URL.</p>
 <h3>Subida de IOC</h3>
