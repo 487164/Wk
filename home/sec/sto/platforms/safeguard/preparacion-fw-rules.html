@@ -1,0 +1,134 @@
+<!--
+title: Reglas de FW para Safe Guard
+description: 
+published: true
+date: 2024-02-19T19:05:11.983Z
+tags: 
+editor: ckeditor
+dateCreated: 2024-02-19T19:05:11.983Z
+-->
+
+<h1>Reglas de FW cluster Safeguard</h1>
+<p>&nbsp;</p>
+<h1>Reglas de FW zaragoza</h1>
+<p>&lt;!--td {border: 1px solid #cccccc;}br {mso-data-placement:same-cell;}--&gt;</p>
+<figure class="table" style="height:150px;width:0px;">
+  <table style="border-bottom:none;border-left:none;border-right:none;border-top:none;">
+    <tbody>
+      <tr>
+        <td style="background-color:#5b9bd5;border-bottom:1px solid #9bc2e6;border-left:1px solid #9bc2e6;border-top:1px solid #9bc2e6;padding:0px 3px;"><strong>Nombre</strong></td>
+        <td style="background-color:#5b9bd5;border-bottom:1px solid #9bc2e6;border-top:1px solid #9bc2e6;padding:0px 3px;"><strong>source</strong></td>
+        <td style="background-color:#5b9bd5;border-bottom:1px solid #9bc2e6;border-top:1px solid #9bc2e6;padding:0px 3px;"><strong>destination</strong></td>
+        <td style="background-color:#5b9bd5;border-bottom:1px solid #9bc2e6;border-top:1px solid #9bc2e6;padding:0px 3px;"><strong>port</strong></td>
+        <td style="background-color:#5b9bd5;border-bottom:1px solid #9bc2e6;border-right:1px solid #9bc2e6;border-top:1px solid #9bc2e6;padding:0px 3px;"><strong>Comentario</strong></td>
+      </tr>
+      <tr>
+        <td style="background-color:#ddebf7;border-bottom:1px solid #9bc2e6;border-left:1px solid #9bc2e6;padding:0px 3px;">PAM-JUMP-TOOLS</td>
+        <td style="background-color:#ddebf7;border-bottom:1px solid #9bc2e6;padding:0px 3px;">VLAN 58 SEC-PAM-JUMP</td>
+        <td style="background-color:#ddebf7;border-bottom:1px solid #9bc2e6;padding:0px 3px;">VLAN 858 ZGZ-MANAGEMENT<br>ip-mad-tools-01-mgmt(192.168.143.250)<br>ip-itx-tools-01-mgmt(192.168.204.52)</td>
+        <td style="background-color:#ddebf7;border-bottom:1px solid #9bc2e6;padding:0px 3px;">SSH</td>
+        <td style="background-color:#ddebf7;border-bottom:1px solid #9bc2e6;border-right:1px solid #9bc2e6;padding:0px 3px;">&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="border-bottom:1px solid #9bc2e6;border-left:1px solid #9bc2e6;padding:0px 3px;">TEMP PAM-SRV-TOOLS</td>
+        <td style="border-bottom:1px solid #9bc2e6;padding:0px 3px;">VLAN 212 SEC-SRV-SVCS</td>
+        <td style="border-bottom:1px solid #9bc2e6;padding:0px 3px;">VLAN 858 ZGZ-MANAGEMENT</td>
+        <td style="border-bottom:1px solid #9bc2e6;padding:0px 3px;">HTTP/S</td>
+        <td style="border-bottom:1px solid #9bc2e6;border-right:1px solid #9bc2e6;padding:0px 3px;">Solo durante las pruebas de flujos de scripts</td>
+      </tr>
+      <tr>
+        <td style="padding:0px 3px;vertical-align:bottom;">&nbsp;</td>
+        <td style="padding:0px 3px;vertical-align:bottom;">&nbsp;</td>
+        <td style="padding:0px 3px;vertical-align:bottom;">&nbsp;</td>
+        <td style="padding:0px 3px;vertical-align:bottom;">&nbsp;</td>
+        <td style="padding:0px 3px;vertical-align:bottom;">&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="padding:0px 3px;vertical-align:bottom;"><strong>Ya pedido</strong></td>
+        <td style="padding:0px 3px;vertical-align:bottom;">&nbsp;</td>
+        <td style="padding:0px 3px;vertical-align:bottom;">&nbsp;</td>
+        <td style="padding:0px 3px;vertical-align:bottom;">&nbsp;</td>
+        <td style="padding:0px 3px;vertical-align:bottom;">&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="border-bottom:1px solid #9bc2e6;padding:0px 3px;vertical-align:bottom;">PAM-MGMT-JUMP</td>
+        <td style="padding:0px 3px;vertical-align:bottom;">VLAN 344 - SEC-PAM-MGMT</td>
+        <td style="padding:0px 3px;vertical-align:bottom;">VLAN 58 SEC-PAM-JUMP</td>
+        <td style="padding:0px 3px;vertical-align:bottom;">SSH</td>
+        <td style="padding:0px 3px;vertical-align:bottom;">Pass para gestionar la máquina, Sess para lanzar conexiones</td>
+      </tr>
+      <tr>
+        <td style="border-bottom:1px solid #9bc2e6;border-left:1px solid #9bc2e6;padding:0px 3px;">TEMP SEC-PAM-JUMP</td>
+        <td style="padding:0px 3px;vertical-align:bottom;">VLAN 37 USERS-SECS<br>VLAN 730 USERS-SEC-WIFI<br>LAN 737 USERS-SEC-VPN</td>
+        <td style="padding:0px 3px;vertical-align:bottom;">VLAN 58 SEC-PAM-JUMP</td>
+        <td style="padding:0px 3px;vertical-align:bottom;">SSH</td>
+        <td style="padding:0px 3px;vertical-align:bottom;">Solo durante la configuración de jump</td>
+      </tr>
+      <tr>
+        <td style="border-bottom:1px solid #9bc2e6;border-left:1px solid #9bc2e6;padding:0px 3px;">SEC-PAM-ACCESS</td>
+        <td style="padding:0px 3px;vertical-align:bottom;">VLAN 17 USERS-SYSADMIN<br>VLAN 18 USERS-SYSADMIN-VPN<br>VLAN 817 USERS-OPERATION<br>VLAN 818 USERS-OPERATION-VPN<br>VLAN 37 USERS-SECS<br>VLAN 730 USERS-SEC-WIFI<br>LAN 737 USERS-SEC-VPN</td>
+        <td style="padding:0px 3px;vertical-align:bottom;">VLAN 444 SEC-PAM-SVCS</td>
+        <td style="padding:0px 3px;vertical-align:bottom;">SSH/HTTPS/RDP</td>
+        <td style="padding:0px 3px;vertical-align:bottom;">Se permitirá a las demás redes de usuario tras la fase de pruebas</td>
+      </tr>
+      <tr>
+        <td style="padding:0px 3px;vertical-align:bottom;">PAM-JUMP-SVCS</td>
+        <td style="padding:0px 3px;vertical-align:bottom;">VLAN 58 SEC-PAM-JUMP</td>
+        <td style="padding:0px 3px;vertical-align:bottom;">VLAN 444 SEC-PAM-SVCS</td>
+        <td style="border-bottom:1px solid #9bc2e6;padding:0px 3px;vertical-align:bottom;">HTTPS</td>
+        <td style="padding:0px 3px;vertical-align:bottom;">&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="padding:0px 3px;vertical-align:bottom;">PAM-MGMT-ITXSEC</td>
+        <td style="padding:0px 3px;vertical-align:bottom;">VLAN 344 SEC-PAM-MGMT</td>
+        <td style="padding:0px 3px;vertical-align:bottom;">VLAN 213 ITX-esPublicoSeg-MGMT</td>
+        <td style="border-bottom:1px solid #9bc2e6;padding:0px 3px;">WMI/RDP/SMB</td>
+        <td style="background-color:#ffffff;padding:0px 3px;vertical-align:bottom;">WMI (135,49152-65535 TCP), RDP (3389), SMB (445 TCP)</td>
+      </tr>
+      <tr>
+        <td style="background-color:#ffff00;border-bottom:1px solid #9bc2e6;padding:0px 3px;vertical-align:bottom;">PAM-JUMP-ITXSEC</td>
+        <td style="background-color:#ffff00;border-bottom:1px solid #9bc2e6;padding:0px 3px;vertical-align:bottom;">VLAN 58 SEC-PAM-JUMP</td>
+        <td style="background-color:#ffff00;padding:0px 3px;vertical-align:bottom;">VLAN 213 ITX-esPublicoSeg-MGMT</td>
+        <td style="background-color:#ffff00;border-bottom:1px solid #9bc2e6;padding:0px 3px;vertical-align:bottom;">SSH</td>
+        <td style="border-bottom:1px solid #9bc2e6;padding:0px 3px;vertical-align:bottom;">Solo durante las pruebas, luego solo a tools itx</td>
+      </tr>
+      <tr>
+        <td style="border-bottom:1px solid #9bc2e6;border-left:1px solid #9bc2e6;padding:0px 3px;">PAM-MGMT TO NBX-MGMT</td>
+        <td style="border-bottom:1px solid #9bc2e6;padding:0px 3px;">VLAN 344 SEC-PAM MGMT</td>
+        <td style="background-color:#ffffff;padding:0px 3px;vertical-align:bottom;">VLAN 140 - MAD-esPublico-MGMT</td>
+        <td style="border-bottom:1px solid #9bc2e6;padding:0px 3px;">SSH/WMI/RDP/SMB/LDAP/LDAPS</td>
+        <td style="border-bottom:1px solid #9bc2e6;border-right:1px solid transparent;padding:0px;">
+          <p>SSH(22), WMI (135,49152-65535 TCP), RDP (3389), SMB (445 TCP),LDAP (389), LDAPS (636)</p>
+        </td>
+      </tr>
+      <tr>
+        <td style="border-bottom:1px solid #9bc2e6;border-left:1px solid #9bc2e6;padding:0px 3px;">TEMP PAM-MGMT TO ZGZ-ALL</td>
+        <td style="border-bottom:1px solid #9bc2e6;padding:0px 3px;">VLAN 344 SEC-PAM MGMT</td>
+        <td style="background-color:#ffffff;padding:0px 3px;vertical-align:bottom;">ZGZ (toda la red)</td>
+        <td style="border-bottom:1px solid #9bc2e6;padding:0px 3px;">SSH/WMI/RDP/SMB/LDAP/LDAPS</td>
+        <td style="border-bottom:1px solid #9bc2e6;border-right:1px solid transparent;padding:0px;">
+          <p>SSH(22), WMI (135,49152-65535 TCP), RDP (3389), SMB (445 TCP),LDAP (389), LDAPS (636)</p>
+        </td>
+      </tr>
+      <tr>
+        <td style="border-bottom:1px solid #9bc2e6;border-left:1px solid #9bc2e6;padding:0px 3px;">TEMP PAM-MGMT TO ITX-ALL</td>
+        <td style="border-bottom:1px solid #9bc2e6;padding:0px 3px;">&nbsp;VLAN 344 SEC-PAM MGMT</td>
+        <td style="background-color:#ffffff;padding:0px 3px;vertical-align:bottom;">ITX (toda la red)</td>
+        <td style="border-bottom:1px solid #9bc2e6;padding:0px 3px;">SSH/WMI/RDP/SMB/LDAP/LDAPS</td>
+        <td style="border-bottom:1px solid #9bc2e6;border-right:1px solid transparent;padding:0px;">
+          <p>SSH(22), WMI (135,49152-65535 TCP), RDP (3389), SMB (445 TCP),LDAP (389), LDAPS (636)</p>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding:0px 3px;vertical-align:bottom;"><strong>PAM-IAM-ZGZ</strong></td>
+        <td style="padding:0px 3px;vertical-align:bottom;">39 SEC-SIEM Seguridad SIEM 192.168.39.0/25<br>839 SEC-SRV SVCS Seguridad Servidores SVCS 192.168.39.128/26<br>40 Gestiona Demo-Qlik SVCS Gestiona Demo Qlik SVCS 192.168.40.0/25<br>41 Gestiona DEMO SVCS Gestiona DEMO SVCS 192.168.41.0/25<br>43 IT-SRV IT-Servidores 192.168.43.0/25<br>44 GEN-SRV-SVCS Servicios/servidores SVCS 192.168.44.0/26<br>744 SAP SVCS SAP SVCS 192.168.44.128/28<br>444 SEC-PAM SVCS SEC-PAM SVCS 192.168.44.176/29<br>344 SEC-PAM MGMT SEC-PAM MGMT 192.168.44.184/29<br>45 INTEGRA-PRE-SVCS INTEGRA-PRE-SVCS 192.168.45.0/27<br>56 Infra-Comms Infra-Comunicaciones 192.168.56.0/24<br>58 SEC-PAM-JUMP SEC-PAM-JUMP 192.168.58.0/27<br>62 Backup SVCS Backup SVCS 192.168.62.0/27</td>
+        <td style="padding:0px 3px;vertical-align:bottom;">VLAN 858 MANAGEMENT</td>
+        <td style="padding:0px 3px;vertical-align:bottom;">HTTPS</td>
+        <td style="padding:0px 3px;vertical-align:bottom;">&nbsp;</td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+<h1>Reglas de FW Nabiax</h1>
+<p>&nbsp;</p>
+<h1>Reglas de FW Interxion</h1>
