@@ -2,7 +2,7 @@
 title: PR-03 Phishing
 description: 
 published: true
-date: 2024-02-19T11:21:10.706Z
+date: 2024-02-19T11:26:22.609Z
 tags: 
 editor: ckeditor
 dateCreated: 2024-02-19T10:27:08.880Z
@@ -21,7 +21,9 @@ dateCreated: 2024-02-19T10:27:08.880Z
 <h3>Borrado de correos</h3>
 <p>Se procederá a borrar los correos maliciosos siguiendo el procedimiento de gestión del phishing mencionado anteriormente.</p>
 <h3>Comprobación de los IOC</h3>
-<p>Se necesitará comprobar si alguno de los IOC que contiene el correo ha sido ejecutado por alguno de los usuarios que haya recibido el phishing, ya sea en forma de adjunto extrayendo el hash y comprobándolo en el EDR o en caso de ser una URL comprobar si ha habido navegación/peticiones DNS hacia la misma.</p>
+<p>Se necesitará comprobar si alguno de los IOC que contiene el correo ha sido ejecutado por alguno de los usuarios que haya recibido el phishing, ya sea en forma de adjunto extrayendo el hash y comprobándolo en el EDR o en caso de ser una URL comprobar si ha habido navegación/peticiones DNS hacia la misma o peticiones a la IP detrás de la URL.</p>
+<h3>Subida de IOC</h3>
+<p>Una vez se comprueben los IOC, estos se deben subir a la MISP con sus correspondientes tags.</p>
 <h2>Recuperación</h2>
 <p>----</p>
 <h2>Lecciones aprendidas</h2>
