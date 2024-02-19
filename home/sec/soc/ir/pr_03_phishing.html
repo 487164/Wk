@@ -2,7 +2,7 @@
 title: PR-03 Phishing
 description: 
 published: true
-date: 2024-02-19T11:27:40.520Z
+date: 2024-02-19T11:40:23.429Z
 tags: 
 editor: ckeditor
 dateCreated: 2024-02-19T10:27:08.880Z
@@ -13,8 +13,10 @@ dateCreated: 2024-02-19T10:27:08.880Z
 <h2>Preparación</h2>
 <p>Disponemos de una <a href="https://wiki.security.espublico.com/es/home/sec/soc/sm/procedures/gestion-phishing">gestión del phishing</a> realizada por el SOC en la que los usuarios utilizan la plataforma de Outlook para notificarnos posibles correos fraudulentos que hayan recibido.</p>
 <p>Por otra parte contamos con una revisión exhaustiva mediante reglas en el SIEM y las propias detecciones de Office para identificar posibles correos maliciosos que hayan podido llegar a los usuarios.</p>
+<p>&nbsp;</p>
 <h2>Detección y análisis</h2>
 <p>La detección del phishing puede tener su origen en el reporte de un usuario mediante el botón que tienen disponible en Outlook o bien mediante una alerta generada en el SIEM.</p>
+<p>&nbsp;</p>
 <h2>Contención</h2>
 <p>En caso de que el phishing requiera contención porque no se haya parado en Office se necesitarán realizar varias acciones con el fin de contener la amenaza.</p>
 <h3>Borrado de correos</h3>
@@ -23,7 +25,9 @@ dateCreated: 2024-02-19T10:27:08.880Z
 <p>Se necesitará comprobar si alguno de los IOC que contiene el correo ha sido ejecutado por alguno de los usuarios que haya recibido el phishing, ya sea en forma de adjunto extrayendo el hash y comprobándolo en el EDR o en caso de ser una URL comprobar si ha habido navegación/peticiones DNS hacia la misma o peticiones a la IP detrás de la URL.</p>
 <h3>Subida de IOC</h3>
 <p>Una vez se comprueben los IOC, estos se deben subir a la MISP con sus correspondientes tags.</p>
+<p>&nbsp;</p>
 <h2>Recuperación</h2>
 <p>----</p>
+<p>&nbsp;</p>
 <h2>Lecciones aprendidas</h2>
 <p>Una vez finalizado el evento, se hará un análisis del incidente con el fin de realizar mejoras en los procesos.</p>
