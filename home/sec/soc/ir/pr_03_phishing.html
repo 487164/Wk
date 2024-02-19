@@ -2,7 +2,7 @@
 title: PR-03 Phishing
 description: 
 published: true
-date: 2024-02-19T12:10:45.558Z
+date: 2024-02-19T12:25:39.860Z
 tags: 
 editor: ckeditor
 dateCreated: 2024-02-19T10:27:08.880Z
@@ -10,9 +10,12 @@ dateCreated: 2024-02-19T10:27:08.880Z
 
 <h1>Definición</h1>
 <p>En este procedimiento encontraremos los pasos a seguir cuando se identifica un incidente de Phishing.</p>
+<p>&nbsp;</p>
 <h2>Preparación</h2>
 <p>Disponemos de una <a href="https://wiki.security.espublico.com/es/home/sec/soc/sm/procedures/gestion-phishing">gestión del phishing</a> realizada por el SOC en la que los usuarios utilizan la plataforma de Outlook para notificarnos posibles correos fraudulentos que hayan recibido.</p>
 <p>Por otra parte contamos con una revisión exhaustiva mediante reglas en el SIEM y las propias detecciones de Office para identificar posibles correos maliciosos que hayan podido llegar a los usuarios.</p>
+<h3>Ejercicios de concienciación de phishing</h3>
+<p>Cada cierto tiempo se realizan campañas de phishing internas con el fin de mantener una correcta conducta de los usuarios.</p>
 <p>&nbsp;</p>
 <h2>Detección y análisis</h2>
 <p>La detección del phishing puede tener su origen en el reporte de un usuario mediante el botón que tienen disponible en Outlook o bien mediante una alerta generada en el SIEM.</p>
@@ -27,7 +30,7 @@ dateCreated: 2024-02-19T10:27:08.880Z
 <p>Se procederá a borrar los correos maliciosos siguiendo el procedimiento de gestión del phishing mencionado anteriormente.</p>
 <p>&nbsp;</p>
 <h2>Recuperación</h2>
-<p>Como medida adicional se ¿debe/puede? cambiar las credenciales de los usuarios en caso de que hayan sido afectados por el phishing introduciendo su información.</p>
+<p>Después de haber contenido el incidente, como medida adicional se ¿debe/puede? cambiar las credenciales de los usuarios en caso de que hayan sido afectados por el phishing introduciendo su información.</p>
 <p>&nbsp;</p>
 <h2>Lecciones aprendidas</h2>
 <p>Una vez finalizado el evento, se hará un análisis del incidente con el fin de realizar mejoras en los procesos.</p>
