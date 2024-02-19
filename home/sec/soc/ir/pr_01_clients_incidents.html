@@ -2,7 +2,7 @@
 title: PR-01 Clients Incidents
 description: 
 published: true
-date: 2024-02-19T09:50:04.845Z
+date: 2024-02-19T11:42:19.116Z
 tags: 
 editor: ckeditor
 dateCreated: 2024-02-08T10:56:51.588Z
@@ -11,19 +11,21 @@ dateCreated: 2024-02-08T10:56:51.588Z
 <h1>Definición</h1>
 <p>En este procedimiento encontraremos los pasos a seguir cuando se identifica un incidente en un cliente o en un proveedor.</p>
 <p>&nbsp;</p>
-<h2>Identificación y aviso del incidente</h2>
-<p>La identificación del incidente puede venir de distintas fuentes, desde propia información por canales privados cliente → esPublico como de fuentes abiertas (noticias, RRSS, etc). Posteriormente se debe avisar del incidente al equipo del SOC para informar a todo el equipo y proceder con los siguientes pasos.</p>
+<h2>Preparación</h2>
+<p>-------------------</p>
 <p>&nbsp;</p>
-<h2>Revisión conectividad contra la infraestructura de nuestra organización</h2>
+<h2>Detección y análisis</h2>
+<p>La identificación del incidente puede venir de distintas fuentes, desde propia información por canales privados cliente → esPublico como de fuentes abiertas (noticias, RRSS, etc). Posteriormente se debe avisar del incidente al equipo del SOC para informar a todo el equipo y proceder con la contención.</p>
+<p>&nbsp;</p>
+<h2>Contención</h2>
+<p>Se procederá a seguir distintos pasos en esta fase.</p>
+<h3>Revisión conectividad contra la infraestructura de nuestra organización</h3>
 <p>Se debe revisar el alcance que pueda tener el incidente provocado en el cliente o proveedor, para determinar si puede tener alguna afección o provocar algún impacto sobre nuestra infraestructura. Lo primero es determinar si tienen alojado alguno de los sistemas o servicios afectados en nuestra infraestructura. Posteriormente deberá revisarse también si tienen algún tipo de acceso o conectividad contra la infraestructura de nuestra organización, ya sean túneles VPN, accesos RDP, usuarios en el AD, etc.<br>De ser así deberán tenerse controlados o llegar incluso a deshabilitarlos para evitar una propagación.</p>
-<p>&nbsp;</p>
-<h2>Revisión de correos recibidos</h2>
+<h3>Revisión de correos recibidos</h3>
 <p>Se debe revisar si se reciben correos del cliente/proveedor afectado por el incidente, de ser así, se necesita investigar si estos correos pueden ser maliciosos enviados a partir del ataque sufrido o si siguen la tipología de correos habituales enviados por el cliente hacia nuestra infraestructura.</p>
-<p>&nbsp;</p>
-<h2><strong>Revisión de los artefactos maliciosos recibidos</strong></h2>
+<h3><strong>Revisión de los artefactos maliciosos recibidos</strong></h3>
 <p>Se necesita comprobar los artefactos maliciosos recibidos por el cliente/proveedor ya sean enlaces o adjuntos en los correos, con el fin de asegurar que nadie dentro de nuestra infraestructura ha accedido a alguno de ellos.</p>
-<p>&nbsp;</p>
-<h2>Marcado en la pasarela de correo</h2>
+<h3>Marcado en la pasarela de correo</h3>
 <p>Como se indica en <a href="https://soporte.espublico.it/Ticket/Display.html?id=67887">#67887</a> Una vez identificado el dominio del cliente/proveedor afectado en la revisión de correos recibidos, este se deberá marcar con un tag especial en la pasarela de correos indicando que ha sufrido un ataque recientemente, lo que servirá para revisiones posteriores y mantener un seguimiento de cerca.</p>
 <p>En Exchange Admin center se edita la propiedad <i>The sender's domain is </i>de la Transport Rule <a href="https://admin.exchange.microsoft.com/#/transportrules/:/ruleDetails/494aa22b-7412-4a8d-8c3b-ff459b686d92/viewinflyoutpanel">Received from compromised Domain</a> para añadir el dominio.</p>
 <figure class="image"><img src="/sec/soc/incident-response/indicents_clients/transportrule.jpg"></figure>
