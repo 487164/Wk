@@ -2,7 +2,7 @@
 title: Preparación de máquina windows
 description: 
 published: true
-date: 2024-02-20T11:29:19.148Z
+date: 2024-02-20T12:58:36.664Z
 tags: 
 editor: ckeditor
 dateCreated: 2024-01-25T12:41:15.438Z
@@ -36,6 +36,11 @@ if ($IsDomainController) {
     Add-ADGroupMember -Identity "S-1-5-32-544" -Members $name
     New-ADUser -SamAccountName $namesrv -Name $namesrv -AccountPassword $pass -Path $path -PasswordNeverExpires $true -Enabled $true
     Add-ADGroupMember -Identity "S-1-5-32-555" -Members $namesrv
+    #Para modificar cuentas protegidas es necesario dar permisos y esperar 30 minutos a la ejecución de SDprop
+    #Para modificar cuentas protegidas es necesario dar permisos y esperar 30 minutos a la ejecución de SDprop
+    dsacls CN=AdminSDHolder,CN=System,$domain /G $domname\$namesrv:CA;"Reset Password" 
+	dsacls CN=AdminSDHolder,CN=System,$domain /G $domname\$namesrv:WP;"Account Restrictions" 
+	dsacls CN=AdminSDHolder,CN=System,$domain /G $domname\$namesrv:WP;"LockoutTime"
 } else {
     New-LocalUser -Name $name -Password $pass -PasswordNeverExpires
     Add-LocalGroupMember -SID "S-1-5-32-544" -Member $name
