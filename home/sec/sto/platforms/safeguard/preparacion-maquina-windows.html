@@ -2,7 +2,7 @@
 title: Preparación de máquina windows
 description: 
 published: true
-date: 2024-02-20T12:58:36.664Z
+date: 2024-02-20T13:39:42.843Z
 tags: 
 editor: ckeditor
 dateCreated: 2024-01-25T12:41:15.438Z
@@ -23,8 +23,7 @@ dateCreated: 2024-01-25T12:41:15.438Z
 <p>Cambiar a Disable: "User Account Control: Run all administrators in Admin Approval Mode"</p>
 <p>Reiniciar windows.</p>
 <pre><code class="language-plaintext">$name = "aCdCmN570"
-$namesrv = "aCdCmN570srv"
-$pass =  "???????" | ConvertTo-SecureString -AsPlainText -Force
+$pass =  "?????????????" | ConvertTo-SecureString -AsPlainText -Force
 $IsDomainController = (Get-WmiObject Win32_ComputerSystem).DomainRole -eq 5
 
 #Si es un DC se crea la cuenta como miembro del grupo de Administradores de dominio y la cuenta de servicio con miembro de Usuarios de Acceso Remoto
@@ -32,15 +31,18 @@ $IsDomainController = (Get-WmiObject Win32_ComputerSystem).DomainRole -eq 5
 if ($IsDomainController) {
     Import-Module ActiveDirectory
     $path = (Get-ADDomain).UsersContainer
+    $namesrv = "aCdCmN570ldap"
+    $ou = "CN=AdminSDHolder,CN=System,"+(Get-ADDomain).DistinguishedName
+    $user = (Get-ADDomain).NetBIOSName+"\"+$namesrv
+
     New-ADUser -SamAccountName $name -Name $name -AccountPassword $pass -Path $path -PasswordNeverExpires $true -Enabled $true
     Add-ADGroupMember -Identity "S-1-5-32-544" -Members $name
     New-ADUser -SamAccountName $namesrv -Name $namesrv -AccountPassword $pass -Path $path -PasswordNeverExpires $true -Enabled $true
     Add-ADGroupMember -Identity "S-1-5-32-555" -Members $namesrv
     #Para modificar cuentas protegidas es necesario dar permisos y esperar 30 minutos a la ejecución de SDprop
-    #Para modificar cuentas protegidas es necesario dar permisos y esperar 30 minutos a la ejecución de SDprop
-    dsacls CN=AdminSDHolder,CN=System,$domain /G $domname\$namesrv:CA;"Reset Password" 
-	dsacls CN=AdminSDHolder,CN=System,$domain /G $domname\$namesrv:WP;"Account Restrictions" 
-	dsacls CN=AdminSDHolder,CN=System,$domain /G $domname\$namesrv:WP;"LockoutTime"
+    dsacls ${ou} /G ${user}:CA;"Reset Password"
+    dsacls ${ou} /G ${user}:WP;"Account Restrictions" 
+    dsacls ${ou} /G ${user}:WP;"LockoutTime"
 } else {
     New-LocalUser -Name $name -Password $pass -PasswordNeverExpires
     Add-LocalGroupMember -SID "S-1-5-32-544" -Member $name
