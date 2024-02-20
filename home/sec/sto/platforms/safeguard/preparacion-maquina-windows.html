@@ -2,7 +2,7 @@
 title: Preparación de máquina windows
 description: 
 published: true
-date: 2024-02-16T09:19:14.494Z
+date: 2024-02-20T11:29:19.148Z
 tags: 
 editor: ckeditor
 dateCreated: 2024-01-25T12:41:15.438Z
@@ -23,19 +23,22 @@ dateCreated: 2024-01-25T12:41:15.438Z
 <p>Cambiar a Disable: "User Account Control: Run all administrators in Admin Approval Mode"</p>
 <p>Reiniciar windows.</p>
 <pre><code class="language-plaintext">$name = "aCdCmN570"
+$namesrv = "aCdCmN570srv"
 $pass =  "???????" | ConvertTo-SecureString -AsPlainText -Force
 $IsDomainController = (Get-WmiObject Win32_ComputerSystem).DomainRole -eq 5
 
-#Si es un DC se crea la cuenta como miembro del grupo de Administradores de dominio y de Acceso Remoto, si no como administrador local.
+#Si es un DC se crea la cuenta como miembro del grupo de Administradores de dominio y la cuenta de servicio con miembro de Usuarios de Acceso Remoto
+#Si no se crea como administrador local
 if ($IsDomainController) {
     Import-Module ActiveDirectory
     $path = (Get-ADDomain).UsersContainer
     New-ADUser -SamAccountName $name -Name $name -AccountPassword $pass -Path $path -PasswordNeverExpires $true -Enabled $true
     Add-ADGroupMember -Identity "S-1-5-32-544" -Members $name
+    New-ADUser -SamAccountName $namesrv -Name $namesrv -AccountPassword $pass -Path $path -PasswordNeverExpires $true -Enabled $true
+    Add-ADGroupMember -Identity "S-1-5-32-555" -Members $namesrv
 } else {
     New-LocalUser -Name $name -Password $pass -PasswordNeverExpires
     Add-LocalGroupMember -SID "S-1-5-32-544" -Member $name
-    Add-LocalGroupMember -SID "S-1-5-32-555" -Member $name
 }
 
 #Permitir en el firewall DCOM-In, WMI-In, NP-In y RPC
@@ -44,87 +47,14 @@ Enable-NetFirewallRule -Name "WMI-RPCSS-In-TCP", "WMI-WINMGMT-In-TCP", "Netlogon
 # Cambiar a Disable: "User Account Control: Run all administrators in Admin Approval Mode"
 Set-ItemProperty -Path REGISTRY::HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System -Name EnableLUA -Value 0</code></pre>
 <p><a href="https://support.oneidentity.com/kb/4314156/how-to-configure-windows-assets-in-safeguard">https://support.oneidentity.com/kb/4314156/how-to-configure-windows-assets-in-safeguard</a></p>
-<h2><strong>Configuración en servidor independiente</strong></h2>
-<p><a href="https://support.oneidentity.com/es-es/technical-documents/one-identity-safeguard-for-privileged-passwords/7.0.4%20lts/administration-guide/125#TOPIC-2061917">https://support.oneidentity.com/es-es/technical-documents/one-identity-safeguard-for-privileged-passwords/7.0.4%20lts/administration-guide/125#TOPIC-2061917</a></p>
-<p>Crear la cuenta de administrador local "aCdCmN570", sin caducidad de contraseña.</p>
-<p>Permitir en el Firewall de Windows</p>
-<ul>
-  <li>Windows Management Instrumentation (DCOM-In)</li>
-  <li>Windows Management Instrumentation (WMI-In)</li>
-  <li>NetLogon Service (NP-In)</li>
-  <li>Remote Scheduled Tasks Management (RPC)</li>
-</ul>
-<p>En Local Security Policy&gt;Local Policies &gt; Security Options.</p>
-<p>Cambiar a Disable: "User Account Control: Run all administrators in Admin Approval Mode"</p>
-<p>Reiniciar windows.</p>
-<p><a href="https://drive.google.com/file/d/1iVd7ltzzvxMhPWuRH7ZGXWnknUmorL7X/view?usp=drive_link">local.ps1</a></p>
-<pre><code class="language-plaintext">#Crear la cuenta de administrador local "aCdCmN570", sin caducidad de contraseña.
-$Password = Read-Host -AsSecureString "Introduce una contraseña segura para la cuenta de usuario 'aCdCmN570'"
-New-LocalUser -Name "aCdCmN570" -Password $Password -AccountNeverExpires
-Add-LocalGroupMember -SID "S-1-5-32-544" -Member "aCdCmN570"
-
-#Permitir en el firewall DCOM-In, WMI-In, NP-In y RPC
-Enable-NetFirewallRule -Name "WMI-RPCSS-In-TCP", "WMI-WINMGMT-In-TCP", "Netlogon-NamedPipe-In", "RemoteTask-In-TCP"
-
-# Cambiar a Disable: "User Account Control: Run all administrators in Admin Approval Mode"
-Set-ItemProperty -Path REGISTRY::HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System -Name EnableLUA -Value 0</code></pre>
-<p>&nbsp;</p>
-<h2><strong>Configuración en servidor miembro de dominio</strong></h2>
+<h2><strong>Configuración adicional en servidor controlador de dominio</strong></h2>
 <p><a href="https://support.oneidentity.com/es-es/one-identity-safeguard-for-privileged-passwords/kb/4263587/how-to-delegate-permissions-in-active-directory-for-a-safeguard-service-account">https://support.oneidentity.com/es-es/one-identity-safeguard-for-privileged-passwords/kb/4263587/how-to-delegate-permissions-in-active-directory-for-a-safeguard-service-account</a></p>
-<p>Crear la cuenta "aCdCmN570", sin caducidad de contraseña.</p>
-<p>Delegar los permisos</p>
+<p>Para la cuenta de servicio "aCdCmN570srv" se deben delegar los permisos (ojo, si por cualquier motivo fuera necesario convertirla en miembro de Domain Admins, Admistrator o Enterprise Admin groups perdería los permisos en 60 minutos y habría que crear las dsacls que indica al documentación)</p>
 <ul>
   <li>Reset Password</li>
   <li>Read and write account restrictions</li>
   <li>Read lockoutTime</li>
   <li>Write lockOutTime</li>
 </ul>
-<p>Permitir en el Firewall de Windows</p>
-<ul>
-  <li>Windows Management Instrumentation (DCOM-In)</li>
-  <li>Windows Management Instrumentation (WMI-In)</li>
-  <li>NetLogon Service (NP-In)</li>
-  <li>Remote Scheduled Tasks Management (RPC)</li>
-</ul>
-<p>En Local Security Policy&gt;Local Policies &gt; Security Options.</p>
-<p>Cambiar a Disable: "User Account Control: Run all administrators in Admin Approval Mode"</p>
-<p>Si la cuenta que va a gestionar el Asset del Active Directory es la misma con la que los usuarios van a conectar desde el PAM asignarlo al grupo de usuarios remotos o los administradores.</p>
 <p>&nbsp;</p>
-<pre><code class="language-plaintext"># Importa el módulo ActiveDirectory
-Import-Module ActiveDirectory
-
-$name = "aCdCmN570"
-$path = (Get-ADDomain).UsersContainer
-
-# Crear la cuenta "aCdCmN570", sin caducidad de contraseña.
-$pass = Read-Host -AsSecureString "Introduce una contraseña segura para la cuenta de usuario 'aCdCmN570'"
-New-ADUser -SamAccountName $name -Name $name -AccountPassword $pass -Path $path -PasswordNeverExpires $true -Enabled $true
-
-# Asignar los permisos para cambiar contraseñas, bloquear y desbloqeuar cuentas.
-# Dará error si el sistema no está en inglés. Configurar a mano
-$obj = "CN=AdminSDHolder,CN=System,"+(Get-ADDomain).DistinguishedName
-$user = (Get-ADDomain).Name+"\"+$name
-dsacls $obj /G $user":CA";"Reset Password" 
-dsacls $obj /G $user":WP";"Account Restrictions" 
-dsacls $obj /G $user":WP";"LockoutTime"
-
-#Permitir en el firewall DCOM-In, WMI-In, NP-In y RPC
-Enable-NetFirewallRule -Name "WMI-RPCSS-In-TCP", "WMI-WINMGMT-In-TCP", "Netlogon-NamedPipe-In", "RemoteTask-In-TCP"
-
-# Cambiar a Disable: "User Account Control: Run all administrators in Admin Approval Mode"
-Set-ItemProperty -Path REGISTRY::HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System -Name EnableLUA -Value 0
-
-# Añadir al usuario al grupo de Desktop Users si va a tener que conectarse por RDP o a Administradores si necesita configurar
-$respuesta1 = Read-Host "¿Además de para que safeguard se concte al AD, esta cuenta se va a usar para conectarse a las máquinas por RDP? (S/N)"
-if ($respuesta1 -eq "S") {
-    $respuesta2 = Read-Host "¿Necesita permisos de administrador?"
-    # Se añade a Domain Admins
-    if ($respuesta2 -eq "S"){
-        $groupSID = "S-1-5-32-544"
-    }
-    # Se añade a Remote Desktop Users
-    else {
-        $groupSID = "S-1-5-32-555"
-    }
-    Add-ADGroupMember $groupSID -Members $name
-}</code></pre>
+<p>&nbsp;</p>
