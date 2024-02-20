@@ -2,7 +2,7 @@
 title: Reglas de FW para Safe Guard
 description: 
 published: true
-date: 2024-02-19T19:23:07.671Z
+date: 2024-02-20T09:38:18.623Z
 tags: 
 editor: ckeditor
 dateCreated: 2024-02-19T19:05:11.983Z
@@ -49,7 +49,7 @@ dateCreated: 2024-02-19T19:05:11.983Z
     </tbody>
   </table>
 </figure>
-<p>Acceso de la tools de zgz a los servidores linux</p>
+<p>Acceso de la tools de zgz a los servidores Linux (Mientras se separan las tools, acceso temporal a infra)</p>
 <figure class="table">
   <table>
     <tbody>
@@ -61,14 +61,70 @@ dateCreated: 2024-02-19T19:05:11.983Z
       </tr>
       <tr>
         <td><span class="text-tiny">ZGZ-PAM-TOOLS-TO-ZGZ-MGMT</span></td>
-        <td><span class="text-tiny">VLAN 58 SEC-PAM-JUMP</span></td>
-        <td><span class="text-tiny">VLAN 858 ZGZ-MANAGEMENT</span><br><span class="text-tiny">ip-mad-tools-01-mgmt(192.168.143.250)</span><br><span class="text-tiny">ip-itx-tools-01-mgmt(192.168.204.52)</span></td>
+        <td>ip_zgz-pamtools</td>
+        <td><span class="text-tiny">VLAN 803 GESTIONA-PRE-MGMT</span><br><span class="text-tiny">VLAN 7 ESFIRMA</span><br><span class="text-tiny">VLAN 39 SEC-SIEM</span><br><span class="text-tiny">VLAN 739 SEC-SRV-MGMT</span><br><span class="text-tiny">VLAN 840 GESTIONA-DEMO-QLIK-MGMT</span><br><span class="text-tiny">VLAN 841 GESTIONA-DEMO-MGMT</span><br><span class="text-tiny">VLAN 843 IT-SRV-MGMT</span><br><span class="text-tiny">VLAN 844 GEN-SRV-MGMT</span><br><span class="text-tiny">VLAN 644 SAP-MGMT</span><br><span class="text-tiny">VLAN 845 INTEGRA-PRE-MGMT</span><br><span class="text-tiny">VLAN 56 ZGZ-INFRA-COMMS(TEMP)</span><br><span class="text-tiny">VLAN 57 ZGZ-INFRA-SYSTEMS(TEMP)</span><br><span class="text-tiny">VLAN 61 DMZ-IT-SVCS-MGMT</span><br><span class="text-tiny">VLAN 861 DMZ-ESPUBLICO-EXTERNO-MGMT</span><br><span class="text-tiny">VLAN 761 DMZ-ESPUBLICO-INTERNO-MGMT</span><br><span class="text-tiny">VLAN 661 DMZ-NGINX-MGMT</span><br><span class="text-tiny">VLAN 862 BACKUP-MGMT</span></td>
         <td><span class="text-tiny">SSH</span></td>
       </tr>
     </tbody>
   </table>
 </figure>
-<p>asd</p>
+<p>Acceso desde la tools de infra comunicaciones a los portales web de switches y fws.</p>
+<figure class="table">
+  <table>
+    <tbody>
+      <tr>
+        <td><span class="text-tiny">Nombre</span></td>
+        <td><span class="text-tiny">Source</span></td>
+        <td><span class="text-tiny">Destination</span></td>
+        <td><span class="text-tiny">Services</span></td>
+      </tr>
+      <tr>
+        <td><span class="text-tiny">ZGZ-TOOLS-COMMS</span></td>
+        <td><span class="text-tiny">ip_zgz-tools-infra-comms</span></td>
+        <td><span class="text-tiny">VLAN 56 ZGZ-INFRA-COMMS</span></td>
+        <td><span class="text-tiny">HTTPS</span></td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+<p>Acceso desde la tools de infra sistemas a los portales web de los servidores.</p>
+<figure class="table">
+  <table>
+    <tbody>
+      <tr>
+        <td><span class="text-tiny">Nombre</span></td>
+        <td><span class="text-tiny">Source</span></td>
+        <td><span class="text-tiny">Destination</span></td>
+        <td><span class="text-tiny">Services</span></td>
+      </tr>
+      <tr>
+        <td><span class="text-tiny">ZGZ-TOOLS-INFRA</span></td>
+        <td><span class="text-tiny">ip_zgz-tools-infra-systems</span></td>
+        <td><span class="text-tiny">VLAN 57 ZGZ-INFRA-SYSTEMS</span></td>
+        <td><span class="text-tiny">HTTPS</span></td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+<p>Acceso desde la tools de infra seguridad a los portales web de servidores de seguridad, switches y fws</p>
+<figure class="table">
+  <table>
+    <tbody>
+      <tr>
+        <td><span class="text-tiny">Nombre</span></td>
+        <td><span class="text-tiny">Source</span></td>
+        <td><span class="text-tiny">Destination</span></td>
+        <td><span class="text-tiny">Services</span></td>
+      </tr>
+      <tr>
+        <td><span class="text-tiny">ZGZ-TOOLS-SEC</span></td>
+        <td><span class="text-tiny">ip_zgz-tools-infra-seguridad</span></td>
+        <td><span class="text-tiny">VLAN 544 SEC-SRV-INFRA</span><br><span class="text-tiny">VLAN 56 ZGZ-INFRA-COMMS</span></td>
+        <td><span class="text-tiny">HTTPS</span></td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
 <h1>Reglas de FW Nabiax</h1>
 <p>&nbsp;</p>
 <h1>Reglas de FW Interxion</h1>
