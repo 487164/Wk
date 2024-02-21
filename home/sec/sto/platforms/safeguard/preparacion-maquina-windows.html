@@ -2,7 +2,7 @@
 title: Preparación de máquina windows
 description: 
 published: true
-date: 2024-02-20T13:39:42.843Z
+date: 2024-02-21T07:25:46.688Z
 tags: 
 editor: ckeditor
 dateCreated: 2024-01-25T12:41:15.438Z
@@ -31,7 +31,7 @@ $IsDomainController = (Get-WmiObject Win32_ComputerSystem).DomainRole -eq 5
 if ($IsDomainController) {
     Import-Module ActiveDirectory
     $path = (Get-ADDomain).UsersContainer
-    $namesrv = "aCdCmN570ldap"
+    $namesrv = "aCdCmN570srv"
     $ou = "CN=AdminSDHolder,CN=System,"+(Get-ADDomain).DistinguishedName
     $user = (Get-ADDomain).NetBIOSName+"\"+$namesrv
 
