@@ -2,7 +2,7 @@
 title: Preparación de máquina windows
 description: 
 published: true
-date: 2024-02-21T11:23:19.057Z
+date: 2024-02-21T11:47:09.358Z
 tags: 
 editor: ckeditor
 dateCreated: 2024-01-25T12:41:15.438Z
@@ -28,6 +28,58 @@ dateCreated: 2024-01-25T12:41:15.438Z
 <p>En Local Security Policy&gt;Local Policies &gt; Security Options.</p>
 <p>Cambiar a Disable: "User Account Control: Run all administrators in Admin Approval Mode"</p>
 <p>Reiniciar windows para que aplique este último paso.</p>
+<p>&nbsp;</p>
+<p>En caso de que el equipo tenga interfaz de svcs y mgmt &nbsp;comprobar que están correctamente configuradas.</p>
+<p>La interfaz de mgmt sin Default Gateway y una ruta al menos hacia las VLAN de mgmt de PAM utilizando como next hoop el que habría sido el Default Gateway de la interfaz de mgmt.</p>
+<p>Por ejemplo:</p>
+<ul>
+  <li>int svcs 192.168.212.100/24 GW 192.168.212.254</li>
+  <li>int mgmt 192.168.213.100/24 sin GW</li>
+</ul>
+<p>Se ejecutaría para añadir las redes de VLAN de PAM</p>
+<ul>
+  <li>route add -p 192.168.44.184 mask 255.255.255.248 192.168.213.254</li>
+  <li>route add -p 192.168.147.8 mask 255.255.255.248 192.168.213.254</li>
+  <li>route add -p 192.168.217.232 mask 255.255.255.248 192.168.213.254</li>
+</ul>
+<pre><code class="language-plaintext">&gt;ipconfig
+Ethernet adapter Ethernet:
+   Connection-specific DNS Suffix  . :
+   Link-local IPv6 Address . . . . . : fe80::42c7:7ccf:c1f3:143b%3
+   IPv4 Address. . . . . . . . . . . : 192.168.212.101
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . : 192.168.212.254
+
+Ethernet adapter Ethernet 2:
+   Connection-specific DNS Suffix  . :
+   Link-local IPv6 Address . . . . . : fe80::7af7:18a7:b76c:3da0%11
+   IPv4 Address. . . . . . . . . . . : 192.168.213.101
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . :
+   
+&gt;route print
+[...]
+IPv4 Route Table
+===========================================================================
+Active Routes:
+Network Destination        Netmask          Gateway       Interface  Metric
+          0.0.0.0          0.0.0.0  192.168.212.254  192.168.212.101    271
+        127.0.0.0        255.0.0.0         On-link         127.0.0.1    331
+        127.0.0.1  255.255.255.255         On-link         127.0.0.1    331
+[...]
+===========================================================================
+Persistent Routes:
+  Network Address          Netmask  Gateway Address  Metric
+          0.0.0.0          0.0.0.0  192.168.212.254  Default
+   192.168.44.184  255.255.255.248  192.168.213.254       1
+    192.168.147.8  255.255.255.248  192.168.213.254       1
+  192.168.217.232  255.255.255.248  192.168.213.254       1
+===========================================================================
+
+IPv6 Route Table
+[...]
+
+</code></pre>
 <p>&nbsp;</p>
 <p>En los Domain Controller no se pueden usar cuentas locales, además de los pasos anteriores.</p>
 <p>La cuenta aCdCmN570 se debe añadir al grupo de administradores de dominio ya que no existen los administradores locales.</p>
