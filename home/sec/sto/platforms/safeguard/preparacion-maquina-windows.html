@@ -2,15 +2,19 @@
 title: Preparación de máquina windows
 description: 
 published: true
-date: 2024-02-21T10:41:13.848Z
+date: 2024-02-21T11:23:19.057Z
 tags: 
 editor: ckeditor
 dateCreated: 2024-01-25T12:41:15.438Z
 -->
 
 <h1 style="text-align:center;">Preparación de máquina windows</h1>
+<p><a href="https://support.oneidentity.com/es-es/technical-documents/one-identity-safeguard-for-privileged-passwords/7.0.4%20lts/administration-guide/125#TOPIC-2061917">https://support.oneidentity.com/es-es/technical-documents/one-identity-safeguard-for-privileged-passwords/7.0.4%20lts/administration-guide/125#TOPIC-2061917</a></p>
+<p><a href="https://support.oneidentity.com/es-es/technical-documents/one-identity-safeguard-for-privileged-passwords/7.0.4%20lts/administration-guide/125#TOPIC-2061920">https://support.oneidentity.com/es-es/technical-documents/one-identity-safeguard-for-privileged-passwords/7.0.4%20lts/administration-guide/125#TOPIC-2061920</a></p>
+<p><a href="https://support.oneidentity.com/kb/4314156/how-to-configure-windows-assets-in-safeguard">https://support.oneidentity.com/kb/4314156/how-to-configure-windows-assets-in-safeguard</a></p>
+<p><a href="https://support.oneidentity.com/es-es/one-identity-safeguard-for-privileged-passwords/kb/4263587/how-to-delegate-permissions-in-active-directory-for-a-safeguard-service-account">https://support.oneidentity.com/es-es/one-identity-safeguard-for-privileged-passwords/kb/4263587/how-to-delegate-permissions-in-active-directory-for-a-safeguard-service-account</a></p>
 <p>&nbsp;</p>
-<p>PAM necesista una cuenta de servicio con permisos para rotar las contraseñas.</p>
+<p>SPP necesista una cuenta de servicio con permisos para rotar las contraseñas.</p>
 <p>En los servidores windows independientes o miembros de dominio será la cuenta "aCdCmN570", que su vez será la cuenta con la que los usuarios incien sesión por RDP.</p>
 <p>Hay que crear la cuenta sin caducidad de contraseña.</p>
 <p>Añadirla al grupo de administradores locales.</p>
@@ -25,8 +29,9 @@ dateCreated: 2024-01-25T12:41:15.438Z
 <p>Cambiar a Disable: "User Account Control: Run all administrators in Admin Approval Mode"</p>
 <p>Reiniciar windows para que aplique este último paso.</p>
 <p>&nbsp;</p>
-<p>En los Domain Controller no se pueden usar cuentas locales.</p>
-<p>Se creará la cuenta aCdCmN570srv y <mark class="marker-yellow">se le deben delegar los permisos manualmente </mark>(esta delegación y el reinicio es lo único que no realiza el script)</p>
+<p>En los Domain Controller no se pueden usar cuentas locales, además de los pasos anteriores.</p>
+<p>La cuenta aCdCmN570 se debe añadir al grupo de administradores de dominio ya que no existen los administradores locales.</p>
+<p>Se debe crear la cuenta aCdCmN570srv y <mark class="marker-yellow">se le deben delegar los permisos manualmente </mark>(esta delegación y el reinicio es lo único que no realiza el script)</p>
 <ul>
   <li>Reset Password</li>
   <li>Read and write account restrictions</li>
@@ -34,10 +39,8 @@ dateCreated: 2024-01-25T12:41:15.438Z
   <li>Write lockOutTime</li>
 </ul>
 <p>Paso a paso detallado en: <a href="https://support.oneidentity.com/es-es/one-identity-safeguard-for-privileged-passwords/kb/4263587/how-to-delegate-permissions-in-active-directory-for-a-safeguard-service-account">https://support.oneidentity.com/es-es/one-identity-safeguard-for-privileged-passwords/kb/4263587/how-to-delegate-permissions-in-active-directory-for-a-safeguard-service-account</a></p>
-<p>Esta cuenta de servicio se utilizará para crear un asset de Active Directory en PAM, donde se añadirá también la cuenta aCdCmN570 de dominio que también habrá creado el script.</p>
-<p>Al crear los assets de los DC no se les asignará una cuenta de servicio, sino que se les añadirá como Account Dependency ambas cuentas, la que está marcada como de servicio la utilizará para rotar cuentas de dominio.</p>
-<p><mark class="marker-yellow">¿Es necesario entonces el asignar una request a los dc o se puede hacer normal asignando cuentas y máquinas a la normal?</mark></p>
-<p>Reiniciar windows.</p>
+<p>Esta cuenta de servicio se utilizará para rotar las contraseñas de las cuentas de dominio.</p>
+<p>&nbsp;</p>
 <pre><code class="language-plaintext">$name = "aCdCmN570"
 $pass =  "?????????????" | ConvertTo-SecureString -AsPlainText -Force
 $IsDomainController = (Get-WmiObject Win32_ComputerSystem).DomainRole -eq 5
@@ -69,15 +72,6 @@ Enable-NetFirewallRule -Name "WMI-RPCSS-In-TCP", "WMI-WINMGMT-In-TCP", "Netlogon
 
 # Cambiar a Disable: "User Account Control: Run all administrators in Admin Approval Mode"
 Set-ItemProperty -Path REGISTRY::HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System -Name EnableLUA -Value 0</code></pre>
-<p><a href="https://support.oneidentity.com/kb/4314156/how-to-configure-windows-assets-in-safeguard">https://support.oneidentity.com/kb/4314156/how-to-configure-windows-assets-in-safeguard</a></p>
-<h2><strong>Configuración adicional en servidor controlador de dominio</strong></h2>
-<p><a href="https://support.oneidentity.com/es-es/one-identity-safeguard-for-privileged-passwords/kb/4263587/how-to-delegate-permissions-in-active-directory-for-a-safeguard-service-account">https://support.oneidentity.com/es-es/one-identity-safeguard-for-privileged-passwords/kb/4263587/how-to-delegate-permissions-in-active-directory-for-a-safeguard-service-account</a></p>
-<p>Para la cuenta de servicio "aCdCmN570srv" se deben delegar los permisos (ojo, si por cualquier motivo fuera necesario convertirla en miembro de Domain Admins, Admistrator o Enterprise Admin groups perdería los permisos en 60 minutos y habría que crear las dsacls que indica al documentación)</p>
-<ul>
-  <li>Reset Password</li>
-  <li>Read and write account restrictions</li>
-  <li>Read lockoutTime</li>
-  <li>Write lockOutTime</li>
-</ul>
 <p>&nbsp;</p>
+<h2>&nbsp;</h2>
 <p>&nbsp;</p>
