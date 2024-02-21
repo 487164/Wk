@@ -2,7 +2,7 @@
 title: Preparación de máquina windows
 description: 
 published: true
-date: 2024-02-21T11:47:09.358Z
+date: 2024-02-21T11:51:00.722Z
 tags: 
 editor: ckeditor
 dateCreated: 2024-01-25T12:41:15.438Z
@@ -83,6 +83,7 @@ IPv6 Route Table
 <p>&nbsp;</p>
 <p>En los Domain Controller no se pueden usar cuentas locales, además de los pasos anteriores.</p>
 <p>La cuenta aCdCmN570 se debe añadir al grupo de administradores de dominio ya que no existen los administradores locales.</p>
+<p>Si hay más de un DC en el dominio en el segundo fallará la creación de cuentas pero ejecutar igualmente para la configuración de FW y UAC.</p>
 <p>Se debe crear la cuenta aCdCmN570srv y <mark class="marker-yellow">se le deben delegar los permisos manualmente </mark>(esta delegación y el reinicio es lo único que no realiza el script)</p>
 <ul>
   <li>Reset Password</li>
