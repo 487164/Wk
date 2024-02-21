@@ -2,7 +2,7 @@
 title: Preparación de máquina windows
 description: 
 published: true
-date: 2024-02-21T07:25:46.688Z
+date: 2024-02-21T10:41:13.848Z
 tags: 
 editor: ckeditor
 dateCreated: 2024-01-25T12:41:15.438Z
@@ -10,8 +10,10 @@ dateCreated: 2024-01-25T12:41:15.438Z
 
 <h1 style="text-align:center;">Preparación de máquina windows</h1>
 <p>&nbsp;</p>
-<p>Crear la cuenta "aCdCmN570", sin caducidad de contraseña.</p>
-<p>Añadirla al grupo de administradores locales o administradores de dominio si es un DC</p>
+<p>PAM necesista una cuenta de servicio con permisos para rotar las contraseñas.</p>
+<p>En los servidores windows independientes o miembros de dominio será la cuenta "aCdCmN570", que su vez será la cuenta con la que los usuarios incien sesión por RDP.</p>
+<p>Hay que crear la cuenta sin caducidad de contraseña.</p>
+<p>Añadirla al grupo de administradores locales.</p>
 <p>Permitir en el Firewall de Windows</p>
 <ul>
   <li>Windows Management Instrumentation (DCOM-In)</li>
@@ -21,6 +23,20 @@ dateCreated: 2024-01-25T12:41:15.438Z
 </ul>
 <p>En Local Security Policy&gt;Local Policies &gt; Security Options.</p>
 <p>Cambiar a Disable: "User Account Control: Run all administrators in Admin Approval Mode"</p>
+<p>Reiniciar windows para que aplique este último paso.</p>
+<p>&nbsp;</p>
+<p>En los Domain Controller no se pueden usar cuentas locales.</p>
+<p>Se creará la cuenta aCdCmN570srv y <mark class="marker-yellow">se le deben delegar los permisos manualmente </mark>(esta delegación y el reinicio es lo único que no realiza el script)</p>
+<ul>
+  <li>Reset Password</li>
+  <li>Read and write account restrictions</li>
+  <li>Read lockoutTime</li>
+  <li>Write lockOutTime</li>
+</ul>
+<p>Paso a paso detallado en: <a href="https://support.oneidentity.com/es-es/one-identity-safeguard-for-privileged-passwords/kb/4263587/how-to-delegate-permissions-in-active-directory-for-a-safeguard-service-account">https://support.oneidentity.com/es-es/one-identity-safeguard-for-privileged-passwords/kb/4263587/how-to-delegate-permissions-in-active-directory-for-a-safeguard-service-account</a></p>
+<p>Esta cuenta de servicio se utilizará para crear un asset de Active Directory en PAM, donde se añadirá también la cuenta aCdCmN570 de dominio que también habrá creado el script.</p>
+<p>Al crear los assets de los DC no se les asignará una cuenta de servicio, sino que se les añadirá como Account Dependency ambas cuentas, la que está marcada como de servicio la utilizará para rotar cuentas de dominio.</p>
+<p><mark class="marker-yellow">¿Es necesario entonces el asignar una request a los dc o se puede hacer normal asignando cuentas y máquinas a la normal?</mark></p>
 <p>Reiniciar windows.</p>
 <pre><code class="language-plaintext">$name = "aCdCmN570"
 $pass =  "?????????????" | ConvertTo-SecureString -AsPlainText -Force
