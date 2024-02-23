@@ -2,7 +2,7 @@
 title: Preparación máquina tools
 description: 
 published: true
-date: 2024-02-23T07:23:50.060Z
+date: 2024-02-23T09:59:54.228Z
 tags: soc, linux, pam, identity, tools
 editor: ckeditor
 dateCreated: 2024-01-19T15:04:46.032Z
@@ -65,6 +65,11 @@ chmod 600 /home/USERNAME/.ssh/authorized_keys</code></pre>
 <p>&nbsp;</p>
 <p>A continuación se deberá generar un certificado autofirmado para servir el portal bajo https, para ello utilizar el siguiente comando</p>
 <pre><code class="language-plaintext">sudo openssl req -x509 -nodes -days 3650 -newkey rsa:4096 -keyout /etc/pki/tls/private/NAME.key -out /etc/pki/tls/certs/NAME.crt</code></pre>
+<p>Crear el directorio de almacenamiento de ficheros y asignar los permisos</p>
+<pre><code class="language-plaintext">mkdir -vp /opt/espublico/identity/tmp/data
+mkdir -vp /opt/espublico/identity/tmp/keys
+mkdir -vp /opt/espublico/identity/tmp/olddata
+chown -R {LOCATION}svt5000:nginx /opt/espublico/identity/tmp/</code></pre>
 <p>Verificar que la configuración aplicada es correcta</p>
 <pre><code class="language-plaintext">nginx -t</code></pre>
 <p>y levantar el servicio</p>
