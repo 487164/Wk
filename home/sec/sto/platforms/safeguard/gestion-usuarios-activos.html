@@ -2,7 +2,7 @@
 title: Gestión de Usuarios y Activos
 description: 
 published: true
-date: 2024-02-23T09:02:19.556Z
+date: 2024-02-23T12:10:07.344Z
 tags: 
 editor: ckeditor
 dateCreated: 2024-02-22T14:20:44.839Z
@@ -12,7 +12,28 @@ dateCreated: 2024-02-22T14:20:44.839Z
 <p>&nbsp;</p>
 <p style="text-align:center;">&nbsp;</p>
 <p style="text-align:center;"><mark class="marker-yellow">En desarrollo, preguntar @ralfaro</mark></p>
-<p>&nbsp;</p>
+<h2>Crear Activos</h2>
+<p>Se ha tenido que preparar antes la máquina:</p>
+<p><a href="https://wiki.security.espublico.com/es/home/sec/sto/platforms/safeguard/preparacion-maquina-windows">Preparación de máquina windows</a></p>
+<p>Preparación de máquina linux <mark class="marker-yellow">(Pendiente, por ahora solo se ha previsto crear jump)</mark></p>
+<p>En <a href="https://zgz-pam-pass.zaragoza.espublico.it/">Safeguard for Privileged Passwords</a> (<strong>SPP)&nbsp;</strong> <a href="https://zgz-pam-pass.zaragoza.espublico.it/asset-management/assets">Asset Management&gt;Assets</a> se añade la máquina que se va a gestionar:</p>
+<h2>Windows, servidor independiente o miembro de dominio</h2>
+<p>En la pestaña General</p>
+<ul>
+  <li>Name: El registro A del DNS de la ip de la interfaz a utilizar (p.ej: itx-sec-poc-gestionaapps-03-mgmt.madrid.espublico.com)</li>
+  <li>Description: El hostname y el cname de la máquina si lo tienen y no son parte del registro A (p.ej. WIN-28CM0AEJLRT ya que a esta máquina no se le ha cambiado el hostname y no tiene cname)</li>
+</ul>
+<p>En la pestaña Connection</p>
+<ul>
+  <li>Platform: Windows Server</li>
+  <li>Network Address: IP de la interfaz a utilizar (si tiene más de una, se ha debido configurar mgmt)</li>
+  <li>Authentication Type: Password</li>
+  <li>Account Name: aCdCmN570</li>
+  <li>Password: Teampass (Seguridad&gt;PAM&gt;Windows default password #80287)<br>&nbsp;</li>
+</ul>
+<p>Genereal</p>
+<p>Se crea un&nbsp;</p>
+<p>En Safeguard for Privileged Passwords (<strong>SPP</strong>) se dan de alta máquinas (<strong>assets</strong>) y se les asignan unas credenciales&nbsp;</p>
 <p>Las peticiones de credenciales (Access Request) se asignan a Entitlements a los que tienen acceso usuarios o grupos.</p>
 <p>Pueden ser Password Request o Session Request y están asignadas a cuentas locales (accounts) de máquinas (assets).</p>
 <p>Para acceder usando cuentas de dominio se crean assets de Active Directory con las cuentas y request que usando cuentas de ese Active Directory se asignen a máquinas.</p>
