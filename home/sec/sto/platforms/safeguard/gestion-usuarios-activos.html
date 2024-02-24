@@ -2,7 +2,7 @@
 title: Gestión de Usuarios y Activos
 description: 
 published: true
-date: 2024-02-24T18:53:22.625Z
+date: 2024-02-24T19:19:51.270Z
 tags: 
 editor: ckeditor
 dateCreated: 2024-02-22T14:20:44.839Z
@@ -14,10 +14,13 @@ dateCreated: 2024-02-22T14:20:44.839Z
 <p style="text-align:center;"><mark class="marker-yellow">En desarrollo, preguntar @ralfaro</mark></p>
 <h2>Crear Activos</h2>
 <p>Se ha tenido que preparar antes la máquina:</p>
-<p><a href="https://wiki.security.espublico.com/es/home/sec/sto/platforms/safeguard/preparacion-maquina-windows">Preparación de máquina windows</a></p>
-<p>Preparación de máquina linux <mark class="marker-yellow">(Pendiente, por ahora solo se ha previsto crear jump)</mark></p>
+<ul>
+  <li><a href="https://wiki.security.espublico.com/es/home/sec/sto/platforms/safeguard/preparacion-maquina-windows">Preparación de máquina windows</a></li>
+  <li>Preparación de máquina linux <mark class="marker-yellow">(Pendiente, por ahora solo se ha previsto crear jump)</mark></li>
+</ul>
 <p>En <a href="https://zgz-pam-pass.zaragoza.espublico.it/">Safeguard for Privileged Passwords</a> (<strong>SPP)&nbsp;</strong> <a href="https://zgz-pam-pass.zaragoza.espublico.it/asset-management/assets">Asset Management&gt;Assets</a> se añade la máquina que se va a gestionar:</p>
-<h2>Windows, servidor independiente o miembro de dominio</h2>
+<p>&nbsp;</p>
+<h3>Windows, servidor independiente o miembro de dominio</h3>
 <p>En la pestaña General</p>
 <ul>
   <li>Name: El registro A del DNS de la ip de la interfaz a utilizar (p.ej: itx-sec-poc-gestionaapps-03-mgmt.madrid.espublico.com)</li>
@@ -39,20 +42,39 @@ dateCreated: 2024-02-22T14:20:44.839Z
 <ul>
   <li>Doble click en la cuenta aCdCmN570 que estará ya creada, pero solo como Service Account.</li>
   <li>Se abre la ventana de la cuenta<ul>
-      <li>Click en Management</li>
-      <li>Click en el icono del lapiz para editar</li>
-      <li>Marcar Enable Session Request para indicar que esa cuenta será también utilizada para conectar por RDP</li>
-      <li>Click en OK</li>
+      <li>Click en Properties<ul>
+          <li>Click en Management</li>
+          <li>Click en el icono del lapiz para editar</li>
+          <li>Marcar Enable Session Request para indicar que esa cuenta será también utilizada para conectar por RDP</li>
+          <li>Click en OK</li>
+        </ul>
+      </li>
     </ul>
   </li>
 </ul>
 <figure class="image"><img src="/sec/sto/platforms/safeguard/gestion-usuarios-activos/management.jpg"></figure>
+<ul>
+  <li>Click en Access Request Policies, asegurandose de seguir en al ventana de la cuenta<ul>
+      <li>Click en el icono de +</li>
+      <li>Buscar y añadir la Access Request Policy que del grupo de usarios que deba tener acceso al servidor. Incialmente:<ul>
+          <li>Sysadmin Group Access Request.</li>
+          <li>Security &nbsp;Group Access Request.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+<figure class="image"><img src="/sec/sto/platforms/safeguard/gestion-usuarios-activos/accessrequest.jpg"></figure>
+<p>&nbsp;</p>
+<h3>Windows, Controlador de Domino</h3>
+<p>Se crea la conexión al AD, con la cuenta srv, se añade la cuenta de conexion</p>
+<p>Se crea el asset sin service account</p>
+<p>Se crea la request y se le añaden la cuenta de directorio los assets</p>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>En Safeguard for Privileged Passwords (<strong>SPP</strong>) se dan de alta máquinas (<strong>assets</strong>) y se les asignan unas credenciales&nbsp;</p>
+<p>Notas &nbsp;en sucio Borrador</p>
+<hr>
 <p>Las peticiones de credenciales (Access Request) se asignan a Entitlements a los que tienen acceso usuarios o grupos.</p>
 <p>Pueden ser Password Request o Session Request y están asignadas a cuentas locales (accounts) de máquinas (assets).</p>
 <p>Para acceder usando cuentas de dominio se crean assets de Active Directory con las cuentas y request que usando cuentas de ese Active Directory se asignen a máquinas.</p>
