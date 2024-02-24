@@ -2,7 +2,7 @@
 title: Gestión de Usuarios y Activos
 description: 
 published: true
-date: 2024-02-23T12:10:07.344Z
+date: 2024-02-24T18:40:24.068Z
 tags: 
 editor: ckeditor
 dateCreated: 2024-02-22T14:20:44.839Z
@@ -23,15 +23,24 @@ dateCreated: 2024-02-22T14:20:44.839Z
   <li>Name: El registro A del DNS de la ip de la interfaz a utilizar (p.ej: itx-sec-poc-gestionaapps-03-mgmt.madrid.espublico.com)</li>
   <li>Description: El hostname y el cname de la máquina si lo tienen y no son parte del registro A (p.ej. WIN-28CM0AEJLRT ya que a esta máquina no se le ha cambiado el hostname y no tiene cname)</li>
 </ul>
+<figure class="image"><img src="/general.jpg"></figure>
 <p>En la pestaña Connection</p>
 <ul>
   <li>Platform: Windows Server</li>
-  <li>Network Address: IP de la interfaz a utilizar (si tiene más de una, se ha debido configurar mgmt)</li>
+  <li>Network Address: IP de la interfaz a utilizar (si tiene más de una, se ha debido configurar el servidor para permitir la conexión por mgmt)</li>
   <li>Authentication Type: Password</li>
-  <li>Account Name: aCdCmN570</li>
-  <li>Password: Teampass (Seguridad&gt;PAM&gt;Windows default password #80287)<br>&nbsp;</li>
+  <li>Service Account Name: aCdCmN570</li>
+  <li>Password: Teampass (Seguridad&gt;PAM&gt;Windows default password #80287)</li>
+  <li>Click en Test Connection, para comprobar que la cuenta de servicio puede gestionar cuentas en el equipo.</li>
+  <li>Click en OK para guardar</li>
 </ul>
-<p>Genereal</p>
+<figure class="image"><img src="/connection.jpg"></figure>
+<p>En la pestaña Accounts</p>
+<ul>
+  <li>Doble click en la cuenta aCdCmN570 que estará ya creada, pero solo como Service Account.</li>
+  <li>En la ventana que se abre</li>
+</ul>
+<figure class="image"><img src="/sec/sto/platforms/safeguard/gestion-usuarios-activos/management.jpg"></figure>
 <p>Se crea un&nbsp;</p>
 <p>En Safeguard for Privileged Passwords (<strong>SPP</strong>) se dan de alta máquinas (<strong>assets</strong>) y se les asignan unas credenciales&nbsp;</p>
 <p>Las peticiones de credenciales (Access Request) se asignan a Entitlements a los que tienen acceso usuarios o grupos.</p>
