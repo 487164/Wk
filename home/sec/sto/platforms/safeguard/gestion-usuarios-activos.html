@@ -2,7 +2,7 @@
 title: Gestión de Usuarios y Activos
 description: 
 published: true
-date: 2024-02-26T11:59:38.435Z
+date: 2024-02-26T12:23:37.389Z
 tags: 
 editor: ckeditor
 dateCreated: 2024-02-22T14:20:44.839Z
@@ -111,17 +111,47 @@ dateCreated: 2024-02-22T14:20:44.839Z
       <li>Click en Management</li>
       <li>Click en el icono del lapiz para editar</li>
       <li>Desmarcar Enable Password Request y dejar marcado Enable Session Request para indicar que esa cuenta será unicamente utilizada para conectar por RDP</li>
-      <li>Click en OK</li>
+      <li>Click en OK y cerrar</li>
     </ul>
   </li>
 </ul>
 <figure class="image"><img src="/sec/sto/platforms/safeguard/gestion-usuarios-activos/azenablerequest.jpg"></figure>
+<ul>
+  <li>Aparece la ventana del Asset del dominio que estamos creando, click en Accounts (2)</li>
+  <li>Seleccionar ambas cuentas</li>
+  <li>Click en el icono de Account Security</li>
+  <li>Click en Change Password para &nbsp;para cambiar la contraseña por defecto.</li>
+  <li>Una vez hecho el cambio click la X de la esquina superior derecha para volver a Asset Management&gt;Assets</li>
+</ul>
+<figure class="image"><img src="/sec/sto/platforms/safeguard/gestion-usuarios-activos/azrotar.jpg"></figure>
 <p>&nbsp;</p>
-<p>Se crea la conexión al AD, con la cuenta srv, se añade la cuenta de conexion</p>
-<p>Se crea el asset sin service account</p>
-<p>Se crea la request y se le añaden la cuenta de directorio los assets</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
+<p>Se añade el Asset del DC. En la pestaña General</p>
+<ul>
+  <li>Name: El registro A del DNS de la ip de la interfaz a utilizar (p.ej: itx-sec-poc-gestionaapps-01-mgmt.madrid.espublico.com)</li>
+  <li>Description: El dominio\hostname y el cname de la máquina si lo tienen y no son parte del registro A (p.ej. testens.es\itx-sec-poc-01 ya que a esta máquina no le coindice el hostname con el registro A y no tiene cname)</li>
+</ul>
+<figure class="image"><img src="/sec/sto/platforms/safeguard/gestion-usuarios-activos/azassetgeneral.jpg"></figure>
+<p>En la pestaña Connection</p>
+<ul>
+  <li>Platform: Windows Server</li>
+  <li>Network Address: IP de la interfaz a utilizar (si tiene más de una, se ha debido configurar el servidor para permitir la conexión la interfaz de mgmt)</li>
+  <li>Authentication Type: None. Es necesario crearle una request solo para los DC donde se asignarán las cuentas de servicio de Azure y la de usuario de RDP, en el siguiente paso.</li>
+  <li>Click en OK para guardar</li>
+</ul>
+<figure class="image"><img src="/sec/sto/platforms/safeguard/gestion-usuarios-activos/azassetconnection.jpg"></figure>
+<p>En Security <a href="https://zgz-pam-pass.zaragoza.espublico.it/security-policy-management/entitlements">Policy Management &gt; Entitlements</a> &nbsp;elegir la Access Request Policy que del grupo de usarios que deba tener acceso al servidor. Incialmente:</p>
+<ul>
+  <li>Sysadmin Group Access Request.</li>
+  <li>Security &nbsp;Group Access Request.</li>
+</ul>
+<p>En la pesaña Acces Request Policies hacer click en + (New Access Policy). Se abre Create Access Request Policy</p>
+<p>En la pestaña General</p>
+<ul>
+  <li>Name: [dominio] Group Access Request (por ejemplo &nbsp;testens.es Group Access Request)</li>
+  <li>Choose Request Policy Type: Session</li>
+  <li>Choose Session Type: RPD</li>
+</ul>
+<figure class="image"><img src="/sec/sto/platforms/safeguard/gestion-usuarios-activos/requestname.jpg"></figure>
 <p>&nbsp;</p>
 <p>Notas &nbsp;en sucio Borrador</p>
 <hr>
