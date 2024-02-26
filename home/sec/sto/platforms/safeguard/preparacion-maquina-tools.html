@@ -2,7 +2,7 @@
 title: Preparación máquina tools
 description: 
 published: true
-date: 2024-02-23T09:59:54.228Z
+date: 2024-02-26T14:39:20.335Z
 tags: soc, linux, pam, identity, tools
 editor: ckeditor
 dateCreated: 2024-01-19T15:04:46.032Z
@@ -37,9 +37,13 @@ chmod 600 /home/USERNAME/.ssh/authorized_keys</code></pre>
 <p>&nbsp;</p>
 <h2>Instalación y configuración del servicio de nginx</h2>
 <p>Instalar el servidor nginx ya sea la versión compilada de iubaris o la actual disponible en los repositorios del servidor.</p>
-<pre><code class="language-plaintext">dnf install nginx</code></pre>
-<p>&nbsp;</p>
-<p>Una vez instalado aplicar la configuración existente en el resto de nginx y configurar un site nuevo para el cual dejo a continuación un ejemplo del virtualhost</p>
+<pre><code class="language-plaintext">dnf install nginx
+yum install nginx</code></pre>
+<p>Una vez instalado lanzar el script de setup de nginx</p>
+<pre><code class="language-plaintext">/opt/iubaris/setup/bin/setup.d/50.services/50.services.04.nginx.sh</code></pre>
+<p>Y parar el servicio</p>
+<pre><code class="language-plaintext">systemctl stop nginx</code></pre>
+<p>Una vez instalado y lanzado el script de configuración del setup, aplicar la configuración existente en el resto de nginx y configurar un site nuevo para el cual dejo a continuación un ejemplo del virtualhost</p>
 <pre><code class="language-plaintext">server {
 
 	listen FQDN:80;
