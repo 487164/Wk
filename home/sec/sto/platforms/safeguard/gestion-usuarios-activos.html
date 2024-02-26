@@ -2,7 +2,7 @@
 title: Gestión de Usuarios y Activos
 description: 
 published: true
-date: 2024-02-26T11:35:18.844Z
+date: 2024-02-26T11:59:23.451Z
 tags: 
 editor: ckeditor
 dateCreated: 2024-02-22T14:20:44.839Z
@@ -74,6 +74,49 @@ dateCreated: 2024-02-22T14:20:44.839Z
 <figure class="image"><img src="/sec/sto/platforms/safeguard/gestion-usuarios-activos/accessrequest.jpg"></figure>
 <p>&nbsp;</p>
 <h3>Windows, Controlador de Domino</h3>
+<p>En la pestaña General</p>
+<ul>
+  <li>Name: El nombre dominio del Active Directory cuyas cuentas se van a gestionar (p.ej: testens.es)</li>
+</ul>
+<figure class="image"><img src="/sec/sto/platforms/safeguard/gestion-usuarios-activos/azgeneral.jpg"></figure>
+<p>En la pestaña Connection</p>
+<ul>
+  <li>Platform: Active Directory</li>
+  <li>Domain name: El nombre dominio del Active Directory cuyas cuentas se van a gestionar (p.ej: testens.es)</li>
+  <li>Domain controllers: IP de la interfaz a utilizar (si tiene más de una, se ha debido configurar el servidor para permitir la conexión la interfaz de mgmt)</li>
+  <li>Service Account Name: aCdCmN570srv</li>
+  <li>Password: Teampass (Entrada: Seguridad&gt;PAM&gt;Windows default password #80287)</li>
+  <li>Desmarcar Use SSL Encryption</li>
+  <li>Click en Test Connection, para comprobar que la cuenta de servicio puede gestionar cuentas en el equipo.</li>
+  <li>Click en OK para guardar</li>
+</ul>
+<figure class="image"><img src="/sec/sto/platforms/safeguard/gestion-usuarios-activos/azconnection.jpg"></figure>
+<p>En la pestaña Accounts</p>
+<ul>
+  <li>Click en + (new account)<ul>
+      <li>Aparece la página de New Account, click en Select Account<ul>
+          <li>Aparece la página de Account Search Options, en Starts With (Active Directory ANR Search) escribir: aCdCmN570 y click en Find Account<ul>
+              <li>Aparece la página Select Account, elegir la cuenta aCdCmN570 y hacer click en Select Account.</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>Vuelve a la página de New Account, hacer click en OK</li>
+    </ul>
+  </li>
+</ul>
+<figure class="image"><img src="/sec/sto/platforms/safeguard/gestion-usuarios-activos/azaddaccount.jpg"></figure>
+<ul>
+  <li>Aparece la ventana de la cuenta aCdCmN570 en la pestaña de Properties<ul>
+      <li>Click en Management</li>
+      <li>Click en el icono del lapiz para editar</li>
+      <li>Desmarcar Enable Password Request y dejar marcado Enable Session Request para indicar que esa cuenta será también utilizada para conectar por RDP</li>
+      <li>Click en OK</li>
+    </ul>
+  </li>
+</ul>
+<figure class="image"><img src="/sec/sto/platforms/safeguard/gestion-usuarios-activos/azenablerequest.jpg"></figure>
+<p>&nbsp;</p>
 <p>Se crea la conexión al AD, con la cuenta srv, se añade la cuenta de conexion</p>
 <p>Se crea el asset sin service account</p>
 <p>Se crea la request y se le añaden la cuenta de directorio los assets</p>
