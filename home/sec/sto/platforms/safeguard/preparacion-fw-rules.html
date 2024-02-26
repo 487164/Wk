@@ -1,8 +1,8 @@
 <!--
-title: Reglas de FW para Safeguard
+title: Reglas de FW para Safe Guard
 description: 
 published: true
-date: 2024-02-22T14:08:46.478Z
+date: 2024-02-26T12:54:42.922Z
 tags: 
 editor: ckeditor
 dateCreated: 2024-02-19T19:05:11.983Z
@@ -223,3 +223,25 @@ dateCreated: 2024-02-19T19:05:11.983Z
 <h1>Reglas de FW Nabiax</h1>
 <p>&nbsp;</p>
 <h1>Reglas de FW Interxion</h1>
+<p>Acceso desde las redes mgmt a tools interxion para descargar el CSV de identity.</p>
+<figure class="table">
+  <table>
+    <tbody>
+      <tr>
+        <td><span class="text-tiny">Nombre</span></td>
+        <td><span class="text-tiny">Source</span></td>
+        <td><span class="text-tiny">Destination</span></td>
+        <td><span class="text-tiny">Services</span></td>
+      </tr>
+      <tr>
+        <td><span class="text-tiny">ITX-SERVERS-MGMT-TO-PAM-TOOLS-IAM</span></td>
+        <td><span class="text-tiny">VLAN 197 ITX-InetDMZ-MGMT</span><br><span class="text-tiny">VLAN 199 ITX-esFirma-MGMT</span><br><span class="text-tiny">VLAN 204 ITX-esPublico-MGMT</span><br><span class="text-tiny">VLAN 209 ITX-SaraDMZ-MGMT</span><br><span class="text-tiny">VLAN 210 ITX-SIEM-MGMT</span><br><span class="text-tiny">VLAN 311 ITX-INTEGRA-PRO-MGMT</span><br><span class="text-tiny">VLAN 213 ITX-esPublicoSeg-MGMT</span><br><span class="text-tiny">VLAN 216 ITX-espublicoQLIK-MGMT</span><br><span class="text-tiny">VLAN 317 ITX-espublicoPortal-MGMT</span><br><span class="text-tiny">VLAN 617 ITX-QlikInterno-mgmt</span><br><span class="text-tiny">VLAN 417 ITX-BACKUP-MGMT</span></td>
+        <td><span class="text-tiny">ip-itx-tools-mgmt</span></td>
+        <td><span class="text-tiny">HTTPS</span></td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
