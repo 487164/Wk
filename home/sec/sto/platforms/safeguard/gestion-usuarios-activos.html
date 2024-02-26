@@ -2,7 +2,7 @@
 title: Gestión de Usuarios y Activos
 description: 
 published: true
-date: 2024-02-24T19:19:51.270Z
+date: 2024-02-26T11:35:18.844Z
 tags: 
 editor: ckeditor
 dateCreated: 2024-02-22T14:20:44.839Z
@@ -13,7 +13,7 @@ dateCreated: 2024-02-22T14:20:44.839Z
 <p style="text-align:center;">&nbsp;</p>
 <p style="text-align:center;"><mark class="marker-yellow">En desarrollo, preguntar @ralfaro</mark></p>
 <h2>Crear Activos</h2>
-<p>Se ha tenido que preparar antes la máquina:</p>
+<p>Se ha tenido que preparar antes la máquina siguiendo las instrucciones de:</p>
 <ul>
   <li><a href="https://wiki.security.espublico.com/es/home/sec/sto/platforms/safeguard/preparacion-maquina-windows">Preparación de máquina windows</a></li>
   <li>Preparación de máquina linux <mark class="marker-yellow">(Pendiente, por ahora solo se ha previsto crear jump)</mark></li>
@@ -30,10 +30,10 @@ dateCreated: 2024-02-22T14:20:44.839Z
 <p>En la pestaña Connection</p>
 <ul>
   <li>Platform: Windows Server</li>
-  <li>Network Address: IP de la interfaz a utilizar (si tiene más de una, se ha debido configurar el servidor para permitir la conexión por mgmt)</li>
+  <li>Network Address: IP de la interfaz a utilizar (si tiene más de una, se ha debido configurar el servidor para permitir la conexión la interfaz de mgmt)</li>
   <li>Authentication Type: Password</li>
   <li>Service Account Name: aCdCmN570</li>
-  <li>Password: Teampass (Seguridad&gt;PAM&gt;Windows default password #80287)</li>
+  <li>Password: Teampass (Entrada: Seguridad&gt;PAM&gt;Windows default password #80287)</li>
   <li>Click en Test Connection, para comprobar que la cuenta de servicio puede gestionar cuentas en el equipo.</li>
   <li>Click en OK para guardar</li>
 </ul>
@@ -54,7 +54,14 @@ dateCreated: 2024-02-22T14:20:44.839Z
 </ul>
 <figure class="image"><img src="/sec/sto/platforms/safeguard/gestion-usuarios-activos/management.jpg"></figure>
 <ul>
-  <li>Click en Access Request Policies, asegurandose de seguir en al ventana de la cuenta<ul>
+  <li>Click en Account Security asegurandose de seguir en la ventana de la cuenta, pestaña de Properties.<ul>
+      <li>Click en Change Password para cambiar la contraseña por defecto.</li>
+    </ul>
+  </li>
+</ul>
+<figure class="image"><img src="/sec/sto/platforms/safeguard/gestion-usuarios-activos/testchange.jpg"></figure>
+<ul>
+  <li>Click en Access Request Policies, asegurandose de seguir en la ventana de la cuenta<ul>
       <li>Click en el icono de +</li>
       <li>Buscar y añadir la Access Request Policy que del grupo de usarios que deba tener acceso al servidor. Incialmente:<ul>
           <li>Sysadmin Group Access Request.</li>
