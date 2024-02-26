@@ -2,7 +2,7 @@
 title: Envío logs nginx a syslog
 description: 
 published: true
-date: 2024-01-16T11:16:12.897Z
+date: 2024-02-26T14:49:25.554Z
 tags: soc, lm, linux, logs, syslog, nginx
 editor: ckeditor
 dateCreated: 2024-01-16T11:16:12.897Z
@@ -34,6 +34,13 @@ postrotate
     /bin/kill -HUP `cat /var/run/syslogd.pid 2&gt; /dev/null` 2&gt; /dev/null || true
 endscript
 }</code></pre>
+<blockquote>
+  <p>En función de si se utiliza el nginx de sistema o el compilado de iubaris se deberá modificar la ruta del pid en el fichero de logrotate.</p>
+</blockquote>
+<p>En caso de utilizarse el instalado de sistema configurar con</p>
+<pre><code class="language-plaintext">/bin/kill -USR1 `cat /var/run/nginx.pid 2&gt;/dev/null` 2&gt;/dev/null || true</code></pre>
+<p>En caso de utilizarse la versión compilada de iubaris utilizar el siguiente</p>
+<pre><code class="language-plaintext">/bin/kill -USR1 `cat /var/opt/iubaris/iubaris-nginx114/run/nginx/nginx.pid 2&gt;/dev/null` 2&gt;/dev/null || true</code></pre>
 <p>&nbsp;</p>
 <h2><i><strong>Configuración de nginx</strong></i></h2>
 <p>Configurar en primer lugar un formato de log en el fichero /etc/nginx/nginx.conf añadiendo lo siguiente</p>
@@ -58,6 +65,7 @@ endscript
 <p>Y recargar el servicio</p>
 <pre><code class="language-plaintext">sudo systemctl reload iubaris-nginx114-nginx.service
 sudo /opt/iubaris/iubaris-nginx114/root/usr/sbin/nginx -s reload</code></pre>
+<p>&nbsp;</p>
 <blockquote>
   <p><strong>NOTA</strong>: Evitar crear un fichero por pool con el fin de reducir el número de ficheros que tendrá que leer el servicio de rsyslog.</p>
 </blockquote>
