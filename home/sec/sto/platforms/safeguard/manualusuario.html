@@ -1,0 +1,36 @@
+<!--
+title: Manual del Usuario de Safeguard
+description: 
+published: true
+date: 2024-02-26T13:36:35.909Z
+tags: 
+editor: ckeditor
+dateCreated: 2024-02-26T13:36:35.909Z
+-->
+
+<h1 style="text-align:center;">Manual del Usuario de Safeguard</h1>
+<p><a href="https://support.oneidentity.com/es-es/technical-documents/one-identity-safeguard-for-privileged-passwords/7.0.4%20lts/user-guide">https://support.oneidentity.com/es-es/technical-documents/one-identity-safeguard-for-privileged-passwords/7.0.4%20lts/user-guide</a></p>
+<p style="text-align:center;">&nbsp;</p>
+<p>Conectar la Yubikey a un puerto del equipo (será necesario tocar la placa con el logotipo de Yubico para iniciar sesión)</p>
+<p>Abrir en el navegador <a href="https://zgz-pam-pass.zaragoza.espublico.it/">https://zgz-pam-pass.zaragoza.espublico.it/</a></p>
+<p>Para que funcione con la Yubikey el navegador debe confiar en el certificado de la página.</p>
+<p>En Windows, descargar el certificado de la página e importarlo a los Certificados del Usuario&gt;Entidades de certificación raiz de confianza y reiniciar el navegador.</p>
+<p>Introducir nombre de usuario y contraseña y hacer click en Iniciar sesión, sin marcar Usar la autenticación de certificado/tarjeta inteligente.</p>
+<p>La primera vez pedirá registar la Yubikey y las siguientes solo pulsar el botón.</p>
+<p>En Windows, cuando pide &nbsp;“Elija una clave de paso para zaragoza.espublico.it” elegir “Windows Hello o clave de seguridad externa” y tocar con el dedo el logo de la Yubikey conectada al equipo, que parpadeará en verde.</p>
+<figure class="image"><img src="/sec/sto/platforms/safeguard/manualusuario/iniciarsesion.jpg"></figure>
+<p>Una vez logados hacer click en New Request para solicitar el acceso a una máquina y elegir:</p>
+<ul>
+  <li>i50xx para iniciar sesión en la máquina de tools de Interxion</li>
+  <li>n50xx para iniciar sesión en la máquina de tools de Nabiax</li>
+  <li>z50xx para inciar sesión en la máquina de tooks de Zaragoza</li>
+</ul>
+<figure class="image"><img src="/sec/sto/platforms/safeguard/manualusuario/request.jpg"></figure>
+<p>La duración por defecto está configurada a 2 horas, se puede aumentar si es necesario</p>
+<figure class="image"><img src="/sec/sto/platforms/safeguard/manualusuario/duracion.jpg"></figure>
+<p>Y pulsando sobre la Request activa se puede copiar una cadena de conexión para pegar en el cliente ssh que se prefiera, por ejemplo en un cmd, escribiendo ssh y poniendo a continuación la cadena de conexion</p>
+<figure class="image"><img src="/sec/sto/platforms/safeguard/manualusuario/session.jpg"></figure>
+<p>La estructura de la cadena de conexión es ip a la que pedir la clave (vaultaddress), @token (valido solo unos segundos), ip de destino (la máquina de salto que nos conectará a la tools) ip a la que conectamos, la máquina de sesiones que monitorizará la sesión.</p>
+<p>Al terminar se puede cerrar la request haciendo click en el icono de Check-In Request para liberarla y que quede disponible para otros usuarios en caso de que sea una credencial compartida.</p>
+<p>En el caso de conexiones a windows también permite descargar un fichero RDP</p>
+<p>Si se prefiere automatizar el proceso se puede marcar en <a href="https://zgz-pam-pass.zaragoza.espublico.it/my-requests"><u>My Request</u></a> he marcado "Show Session Launch Button" y utilizar utilizar <a href="https://github.com/OneIdentity/SCALUS"><u>https://github.com/OneIdentity/SCALUS</u></a> que se configura como aplicación por defecto para los links que empiecen por ssh:// o rpd:// y permite indicar que aplicación y plantilla quiere lanzar cuando se haga click.</p>
