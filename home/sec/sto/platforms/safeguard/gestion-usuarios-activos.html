@@ -2,7 +2,7 @@
 title: Gestión de Usuarios y Activos
 description: 
 published: true
-date: 2024-02-27T09:54:56.578Z
+date: 2024-02-27T11:05:29.263Z
 tags: 
 editor: ckeditor
 dateCreated: 2024-02-22T14:20:44.839Z
@@ -178,7 +178,42 @@ dateCreated: 2024-02-22T14:20:44.839Z
 <p>&nbsp;</p>
 <h2>Creación de Usuarios</h2>
 <p>Se debe asignar a los usuarios un Id de empleado en el Tennant de esPublico.it y revisar si es necesario añadirlo a los grupos de GF_PAM_xxx</p>
-<p>En User <a href="https://zgz-pam-pass.zaragoza.espublico.it/user-management/users">Management&gt;Users</a> click en + (New User)</p>
-<p>Rellenar datos, utilizar MFA yubikey</p>
-<p>Asignarlo un grupo (Operators, Security, Sysadmins) que le dará acceso a las account</p>
+<p>En User <a href="https://zgz-pam-pass.zaragoza.espublico.it/user-management/users">Management&gt;Users</a> click en + (New User), en la pestaña Properties&gt;Identity</p>
+<ul>
+  <li>Identity Provider: Local</li>
+  <li>Username: El nombre de usuario que usa en el resto de aplicaciones, correo… (por defect inicial del nombre y primer apellido)</li>
+  <li>Name: Nombre como aparece en la intranet</li>
+  <li>Last Name: Apellidos como aparecen en la intranet</li>
+  <li>Email: email corporativo</li>
+  <li>TimeZone: Madrid</li>
+</ul>
+<p>Pulsar Next para ir a la pestaña Properties&gt;Authentication</p>
+<figure class="image"><img src="/sec/sto/platforms/safeguard/gestion-usuarios-activos/newuseridentity.jpg"></figure>
+<p>En la pestaña Properties&gt;Authentication</p>
+<ul>
+  <li>Authentication Provider: Local</li>
+  <li>Login Name: El nombre de usuario que usa en el resto de aplicaciones, correo… (por defect inicial del nombre y primer apellido)</li>
+  <li>Contraseña: Establecer una contraseña aleatoria que cumpla los requisitos</li>
+  <li>Marcar: User Must Change Password at Next Login y Require Secundary Authentication y seleccionar yubikey</li>
+  <li>Pulsar OK para crear el usuario y volver a la pestaña de Properties&gt;Identity</li>
+</ul>
+<figure class="image"><img src="/sec/sto/platforms/safeguard/gestion-usuarios-activos/newuserauth.jpg"></figure>
+<p>Ir a la pestaña User Groups y añadir al grupo de usuarios al que pertenezca y cerrar del aspa superior derecha.</p>
+<figure class="image"><img src="/sec/sto/platforms/safeguard/gestion-usuarios-activos/newusergroup.jpg"></figure>
+<p>&nbsp;</p>
+<p>En <a href="https://zgz-pam-pass.zaragoza.espublico.it/security-policy-management/entitlements">Security Policy Management&gt;Entitlements</a> crear 1 un nuevo Entitlement</p>
+<ul>
+  <li>Click en + (New Entitlement)</li>
+  <li>Name: el id de empleado del tennant de esPublico.it (tendrá formato 50nn por defecto)</li>
+  <li>Click en Save &amp; Close para crearlo y ir a la pestaña de Access Request Policies</li>
+</ul>
+<figure class="image"><img src="/sec/sto/platforms/safeguard/gestion-usuarios-activos/newentitlement.jpg"></figure>
+<p>En la pestaña de Access Request Policies no se van a asignar aún policies. Hacer click en Users para cambiar de pestaña y asignar el entitlement al usuario recien creado.</p>
+<ul>
+  <li>+ (Add Users or Groups to this Entitlement) y elegir al usuario</li>
+  <li>Save &amp; Close</li>
+</ul>
+<figure class="image"><img src="/sec/sto/platforms/safeguard/gestion-usuarios-activos/newentitlementuser.jpg"></figure>
+<p>En Asset Management&gt;Accounts crear las 3 cuentas para las máquinas de tools de interxion, nabiax y zaragoza y asignarlas a los assets de las máquinas de salto.</p>
+<p>&nbsp;</p>
 <p>Crear su propio entitlement, las cuentas i50xx, z50xx y n50xx, asignarlas a los assets de jump, al grupo de accounts de jump y las cuentas que puede consultar la API</p>
