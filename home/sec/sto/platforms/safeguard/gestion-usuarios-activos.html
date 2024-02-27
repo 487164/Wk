@@ -2,7 +2,7 @@
 title: Gestión de Usuarios y Activos
 description: 
 published: true
-date: 2024-02-27T11:05:29.263Z
+date: 2024-02-27T11:50:26.046Z
 tags: 
 editor: ckeditor
 dateCreated: 2024-02-22T14:20:44.839Z
@@ -214,6 +214,37 @@ dateCreated: 2024-02-22T14:20:44.839Z
   <li>Save &amp; Close</li>
 </ul>
 <figure class="image"><img src="/sec/sto/platforms/safeguard/gestion-usuarios-activos/newentitlementuser.jpg"></figure>
-<p>En Asset Management&gt;Accounts crear las 3 cuentas para las máquinas de tools de interxion, nabiax y zaragoza y asignarlas a los assets de las máquinas de salto.</p>
+<p>En <a href="https://zgz-pam-pass.zaragoza.espublico.it/asset-management/accounts">Asset Management&gt;Accounts</a> crear las 3 cuentas para las máquinas de tools de interxion (i50xx) , nabiax (n50xx) y zaragoza (z50xx) y asignarlas a los assets de las máquinas de salto (incialmente zgz-pam-jump-mgmt.zaragoza.espublico.it). Repetir los siguientes pasos para las 3 cuentas:</p>
+<ul>
+  <li>Click en + (New Account)</li>
+  <li>Se abre la página "Select the asset for the new account" elegir la máquinas de salto (incialmente zgz-pam-jump-mgmt.zaragoza.espublico.it)</li>
+  <li>Click en Select Asset para ir a la página New Account</li>
+  <li>Name: i50xx (luego n50xx y luego z50xx)</li>
+  <li>Description: [username] [Interxion/Nabiax/Zaragoza] Account</li>
+  <li>Click en OK para guardar e ir a la página de la nueva cuenta.</li>
+</ul>
+<figure class="image"><img src="/sec/sto/platforms/safeguard/gestion-usuarios-activos/newaccountgeneral.jpg"></figure>
+<ul>
+  <li>Click en Account Security y en el desplegable click en View or Set SSH Key</li>
+  <li>Click en Set SSH Key y en el desplegable click en Generate an SSH Key</li>
+  <li>Key Type: RSA</li>
+  <li>Key Size: 8192</li>
+  <li>Click en Generate an SSH Key</li>
+  <li>Cerrar de la X en la esquina superior derecha para volver a la página de la cuenta. No es necesario marcar ni hacer click en Desploy SSH Key</li>
+</ul>
+<figure class="image"><img src="/sec/sto/platforms/safeguard/gestion-usuarios-activos/generarshh.jpg"></figure>
+<p>En la pestaña de Properties</p>
+<ul>
+  <li>Click en Management</li>
+  <li>Click en el icono del lapiz para editar</li>
+  <li>Desmarcar Enable Password Request y Enable SSH Key Request y dejar marcado Enable Session Request.</li>
+  <li>Click en OK</li>
+</ul>
+<figure class="image"><img src="/sec/sto/platforms/safeguard/gestion-usuarios-activos/accountmanagement.jpg"></figure>
+<ul>
+  <li>Click en Access Request Policies</li>
+  <li>Click en + (Add)</li>
+  <li>&nbsp;</li>
+</ul>
 <p>&nbsp;</p>
 <p>Crear su propio entitlement, las cuentas i50xx, z50xx y n50xx, asignarlas a los assets de jump, al grupo de accounts de jump y las cuentas que puede consultar la API</p>
