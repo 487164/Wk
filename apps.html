@@ -1,0 +1,39 @@
+<!--
+title: Intune Apps
+description: Despliegue de apliaciones desde Intune
+published: true
+date: 2024-02-28T09:16:51.050Z
+tags: 
+editor: ckeditor
+dateCreated: 2024-02-28T09:16:51.050Z
+-->
+
+<h1 style="text-align:center;">Intune Apps</h1>
+<p><mark class="marker-yellow">Borrador en curso → ralfaro</mark></p>
+<p><a href="https://intune.microsoft.com/?ref=AdminCenter#view/Microsoft_Intune_DeviceSettings/AppsMenu">https://intune.microsoft.com/?ref=AdminCenter#view/Microsoft_Intune_DeviceSettings/AppsMenu</a></p>
+<p><a href="https://learn.microsoft.com/es-es/mem/intune/apps/apps-add">Incorporación de aplicaciones a Microsoft Intune | Microsoft Learn</a></p>
+<p><a href="https://learn.microsoft.com/es-es/mem/intune/user-help/install-apps-cpapp-windows">Instalación de aplicaciones de trabajo desde Portal de empresa de Intune aplicación para Windows | Microsoft Learn</a></p>
+<p>&nbsp;</p>
+<p><mark class="marker-yellow">Pendiente, solicitado en https://soporte.espublico.it/Ticket/Display.html?id=80115</mark></p>
+<p>En Intune al crear aplicaciones se puede hacer que la instalación sea required (se instala solo) o available (el usuario tiene que entrar al portal de empresa a instalar) o uninstall (si la aplicación se ha instalado desde el portal de empresa, la desinstala)</p>
+<ul>
+  <li>Las aplicaciones que se han de instalar en todos los equipos se configuran como required para el grupo All users</li>
+  <li>Las aplicaciones que se autorizan solo para algunos departamentos o usuarios se configuran como available para el grupo MMD-Available_nombreapp</li>
+</ul>
+<p>Estos grupos están formados por:</p>
+<ul>
+  <li>Grupos de departamentos "Dpto. XXX" que se sincronizan con las ou de usuarios de dptos del AD</li>
+  <li>Grupos de departamentos que no estén en AD (por ahora solo de sistemas: seguridad, soporte y operaciones)</li>
+  <li>Usuarios puntuales para casos excepcionales</li>
+  <li>Los grupos de usuarios que Palo Alto y Fortigate consultan para dar acceso a las vpn</li>
+</ul>
+<p><mark class="marker-yellow">A partir de aquí en consulta con Operaciones</mark></p>
+<p>Si se modifica una aplicación en intune (para actualizarla) se actualiza a todos los que la tengan instalada, pero si da algún problema de instalación todos los usuarios la perderían. Para evitarlo se crean nuevas aplicaciones con cada cambio de versión pero si no es required necesita que el usuario la actualice manualmente.</p>
+<p>Problema:</p>
+<p>La actualización de las apps available dependen del usuario y pueden quedar versiones con CVEs como en el caso de forticlient</p>
+<p>Posbiles Soluciones:</p>
+<p>Enviar mails a los usuarios</p>
+<p>Añadir a all users al grupo uninstall de las versiones viejas y que entren al portal de empresa y se instalen la nueva</p>
+<p>Bloquear en fortigate las versiones viejas</p>
+<p>Modificar todas las apps de forticlient del portal a la última versión</p>
+<p>Hacer required para los grupos available la ultima versión de forticlient, pero con requisito de instalación que haya una versión previa instalada y pasado unos días ponerlo en available sin requisitos.</p>
