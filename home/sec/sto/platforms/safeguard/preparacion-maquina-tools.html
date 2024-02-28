@@ -2,7 +2,7 @@
 title: Preparación máquina tools
 description: 
 published: true
-date: 2024-02-26T14:39:20.335Z
+date: 2024-02-28T08:47:02.718Z
 tags: soc, linux, pam, identity, tools
 editor: ckeditor
 dateCreated: 2024-01-19T15:04:46.032Z
@@ -33,6 +33,8 @@ cat /PATH/TO/STORE/KEYNAME.pub &gt; /home/USERNAME/.ssh/authorized_keys
 chmod 700 /home/USERNAME/.ssh
 chmod 600 /home/USERNAME/.ssh/authorized_keys</code></pre>
 <p>Una vez completada esta parte se deberá mover la clave privada al servidor de jump de la solución y sólo debería de estar en dicha máquina.</p>
+<p>Se deberá dejar en la ruta siguiente del servidor jump</p>
+<pre><code class="language-plaintext">/opt/espublico/pam/keys/tools/{LOCATION}svt5000.pem</code></pre>
 <p>Una vez movida la clave privada verificar el acceso.</p>
 <p>&nbsp;</p>
 <h2>Instalación y configuración del servicio de nginx</h2>
@@ -79,6 +81,17 @@ chown -R {LOCATION}svt5000:nginx /opt/espublico/identity/tmp/</code></pre>
 <p>y levantar el servicio</p>
 <pre><code class="language-plaintext">systemctl start nginx</code></pre>
 <p>Completada esta parte aplicar la configuración para el envío de logs al SIEM, tal y como se explica en el documento <a href="https://wiki.security.espublico.com/es/home/sec/soc/lm/procedures/envio-logs-nginx">Envío logs nginx</a></p>
+<p>&nbsp;</p>
+<h2>Ejecución inicial&nbsp;</h2>
+<p>Completados los pasos anteriores se deberán ejecutar una serie de comandos en el servidor jump para copiar los datos al nuevo servidor de tools.</p>
+<blockquote>
+  <p>En caso de haber cambios de usuarios pendientes este proceso se hará de forma automática.</p>
+</blockquote>
+<p>En caso de tener que realizar el proceso de forma manual se deberá acceder a la máquina jump con permisos de root y ejecutar los siguientes comandos para copiar los ficheros al nuevo servidor de tools sustituyendo los valores entre {} por los apropiados al nuevo servidor.</p>
+<pre><code class="language-plaintext">scp -qi {userkey} /opt/espublico/identity/tmp/data/users.csv {username}@{server}:/opt/espublico/identity/tmp/data/
+scp -qi {userkey} /opt/espublico/identity/tmp/data/users.csv.sha256 {username}@{server}:/opt/espublico/identity/tmp/data/
+scp -qi {userkey} /opt/espublico/pam/keys/public/{LOCATION_PREFIX}*.key {username}@{server}:/opt/espublico/identity/tmp/keys/</code></pre>
+<p>Una vez completada la copia verificar que los mismos son correctos y proceder con la ejecución de los scripts de setup e identity.</p>
 <p>&nbsp;</p>
 <h2>Ejecución de setup e identity</h2>
 <p>Una vez completada dicha configuración se deberá proceder con la ejecución del setup y de la parte de identity para completar la instalación de la máquina.</p>
