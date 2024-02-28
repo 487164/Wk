@@ -2,7 +2,7 @@
 title: Intune Apps
 description: Despliegue de apliaciones desde Intune
 published: true
-date: 2024-02-28T09:16:51.050Z
+date: 2024-02-28T09:17:19.168Z
 tags: 
 editor: ckeditor
 dateCreated: 2024-02-28T09:16:51.050Z
@@ -29,11 +29,13 @@ dateCreated: 2024-02-28T09:16:51.050Z
 </ul>
 <p><mark class="marker-yellow">A partir de aquí en consulta con Operaciones</mark></p>
 <p>Si se modifica una aplicación en intune (para actualizarla) se actualiza a todos los que la tengan instalada, pero si da algún problema de instalación todos los usuarios la perderían. Para evitarlo se crean nuevas aplicaciones con cada cambio de versión pero si no es required necesita que el usuario la actualice manualmente.</p>
-<p>Problema:</p>
+<p><strong>Problema</strong>:</p>
 <p>La actualización de las apps available dependen del usuario y pueden quedar versiones con CVEs como en el caso de forticlient</p>
-<p>Posbiles Soluciones:</p>
-<p>Enviar mails a los usuarios</p>
-<p>Añadir a all users al grupo uninstall de las versiones viejas y que entren al portal de empresa y se instalen la nueva</p>
-<p>Bloquear en fortigate las versiones viejas</p>
-<p>Modificar todas las apps de forticlient del portal a la última versión</p>
-<p>Hacer required para los grupos available la ultima versión de forticlient, pero con requisito de instalación que haya una versión previa instalada y pasado unos días ponerlo en available sin requisitos.</p>
+<p><strong>Posbiles Soluciones</strong>:</p>
+<ul>
+  <li>Enviar mails a los usuarios</li>
+  <li>Añadir a all users al grupo uninstall de las versiones viejas y que entren al portal de empresa y se instalen la nueva</li>
+  <li>Bloquear en fortigate las versiones viejas</li>
+  <li>Modificar todas las apps de forticlient del portal a la última versión</li>
+  <li>Hacer required para los grupos available la ultima versión de forticlient, pero con requisito de instalación que haya una versión previa instalada y pasado unos días ponerlo en available sin requisitos.</li>
+</ul>
