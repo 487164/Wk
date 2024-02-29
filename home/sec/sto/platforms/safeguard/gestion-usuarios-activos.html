@@ -2,7 +2,7 @@
 title: Gestión de Usuarios y Activos
 description: 
 published: true
-date: 2024-02-27T12:06:46.451Z
+date: 2024-02-29T12:04:22.146Z
 tags: 
 editor: ckeditor
 dateCreated: 2024-02-22T14:20:44.839Z
@@ -200,7 +200,6 @@ dateCreated: 2024-02-22T14:20:44.839Z
 <figure class="image"><img src="/sec/sto/platforms/safeguard/gestion-usuarios-activos/newuserauth.jpg"></figure>
 <p>Ir a la pestaña User Groups y añadir al grupo de usuarios al que pertenezca y cerrar del aspa superior derecha.</p>
 <figure class="image"><img src="/sec/sto/platforms/safeguard/gestion-usuarios-activos/newusergroup.jpg"></figure>
-<p>&nbsp;</p>
 <p>En <a href="https://zgz-pam-pass.zaragoza.espublico.it/security-policy-management/entitlements">Security Policy Management&gt;Entitlements</a> crear 1 un nuevo Entitlement</p>
 <ul>
   <li>Click en + (New Entitlement)</li>
@@ -208,14 +207,35 @@ dateCreated: 2024-02-22T14:20:44.839Z
   <li>Click en Save &amp; Close para crearlo y ir a la pestaña de Access Request Policies</li>
 </ul>
 <figure class="image"><img src="/sec/sto/platforms/safeguard/gestion-usuarios-activos/newentitlement.jpg"></figure>
-<p>En la pestaña de Access Request Policies no se van a asignar aún policies.&nbsp;</p>
+<p>En la pestaña de Access Request Policies.&nbsp;</p>
 <ul>
   <li>+ (New Access Policy)</li>
   <li>Name: [id de empleado] Access Request</li>
   <li>Choose Request Policy Type: Session</li>
   <li>Choose Session Type: SSH</li>
-  <li>Click en Save &amp; Continue</li>
-  <li>&nbsp;</li>
+  <li>Click en Next Step: Security</li>
+</ul>
+<figure class="image"><img src="/sec/sto/platforms/safeguard/gestion-usuarios-activos/accessrequestlinuxgeneral.jpg"></figure>
+<p>En la pestaña de Create Access Request Policies&gt;Security</p>
+<ul>
+  <li>Desmarcar Change Password After Check-In y Change SSH Key After Check-In</li>
+  <li>Marcar Allow Simultaneous Access y establecerlo en 2 y &nbsp;Close Expired Sessions</li>
+  <li>Hacer click en Next Step: Scope</li>
+</ul>
+<figure class="image"><img src="/sec/sto/platforms/safeguard/gestion-usuarios-activos/accessrequestlinuxsecurity.jpg"></figure>
+<p>En la pestaña de Create Access Request Policies&gt;Security no se van &nbsp;a asignar aún accounts ni assets, ya que se asignarán al crear las cuentas.</p>
+<ul>
+  <li>Click en Next Step: Workflow - Requester</li>
+</ul>
+<p>En la pestaña de Create Access Request Policies&gt;Workflow</p>
+<ul>
+  <li>Marcar Allow Requester to Change Duration y configurarlo en 8 horas</li>
+  <li>Click en Next Step: Workflow - Approver</li>
+</ul>
+<figure class="image"><img src="/sec/sto/platforms/safeguard/gestion-usuarios-activos/accessrequestlinuxworkflow.jpg"></figure>
+<ul>
+  <li>Click en Next Step: Workflow - Reviewer</li>
+  <li>Click en Apply &amp; Close para volver a la página [id de empleado] Linux Entitlement</li>
 </ul>
 <p>Hacer click en Users para cambiar de pestaña y asignar el entitlement al usuario recien creado.</p>
 <ul>
@@ -253,7 +273,36 @@ dateCreated: 2024-02-22T14:20:44.839Z
 <ul>
   <li>Click en Access Request Policies</li>
   <li>Click en + (Add)</li>
-  <li>&nbsp;</li>
+  <li>Se abre la página Acces Request Policies. Buscar y marcar la política [id de empleado] Access Request que se ha creado anteriormente en el entitlement.</li>
+  <li>Click en OK</li>
 </ul>
+<figure class="image"><img src="/sec/sto/platforms/safeguard/gestion-usuarios-activos/accountaccessrequest.jpg"></figure>
+<ul>
+  <li>Hacer click en Account Groups</li>
+  <li>Click en + (Add)</li>
+  <li>Se abre la página Account Groups. Buscar y marcar el grupo Jump Account Group para que la Clave pública de la cuenta se propague a las máquinas linux</li>
+  <li>Click en OK</li>
+</ul>
+<figure class="image"><img src="/sec/sto/platforms/safeguard/gestion-usuarios-activos/accountgroup.jpg"></figure>
+<ul>
+  <li>Click en la X en la esquina superior derecha para cerrar.</li>
+  <li>Repetir creando las accounts &nbsp;n50xx y z50xx</li>
+</ul>
+<p>En <a href="https://zgz-pam-pass.zaragoza.espublico.it/security-policy-management/application-to-application">Security Policy Management &gt; Application to Application</a>&nbsp;</p>
+<ul>
+  <li>Doble click en el usuario api</li>
+  <li>Se abre la página api, click en la pestaña Credential Retrieval</li>
+  <li>Click en + (Add)</li>
+  <li>Buscar y añadir las 3 account recien creadas para que el usuario api pueda obtener las claves SSH para lanzar la conexión a tools desde la máquina de jump con la clave privada y para propagar las claves públicas a los servidores finales.</li>
+  <li>Click en la X de la esquina superior derecha para cerrar.</li>
+</ul>
+<figure class="image"><img src="/sec/sto/platforms/safeguard/gestion-usuarios-activos/apicredential.jpg"></figure>
 <p>&nbsp;</p>
-<p>Crear su propio entitlement, las cuentas i50xx, z50xx y n50xx, asignarlas a los assets de jump, al grupo de accounts de jump y las cuentas que puede consultar la API</p>
+<p>Si se necesita crear usuarios individuales para Servidores Windows basta con:</p>
+<ul>
+  <li>Crear un Entitlement para ese usuario: [id de empleado] Windows Entitlement</li>
+  <li>Crear las Access Request que se requieran: &nbsp;[id de empleado] Access Request (Session, RDP) o &nbsp;[id de empleado] Windows Entitlement con Rotado (Session, RDP, con rotado de contraseña)…</li>
+  <li>Crear en el equipo de destino el usuario [id de empleado]</li>
+  <li>Crear la nueva account eligiendo el asset donde se ha configurado la cuenta (el asset se ha tenido que configurar previamente con la cuenta de servicio aCdCmN570)</li>
+  <li>Asignar a la nueva account la Access Request que se necesiten</li>
+</ul>
