@@ -2,7 +2,7 @@
 title: Configuración de los Appliances
 description: 
 published: true
-date: 2024-02-29T12:10:58.885Z
+date: 2024-02-29T13:16:35.097Z
 tags: 
 editor: ckeditor
 dateCreated: 2024-02-07T14:41:14.368Z
@@ -99,28 +99,28 @@ dateCreated: 2024-02-07T14:41:14.368Z
 <p>Revisar</p>
 <p><a href="https://support.oneidentity.com/technical-documents/one-identity-safeguard-for-privileged-sessions/7.3/security-checklist"><u>https://support.oneidentity.com/technical-documents/one-identity-safeguard-for-privileged-sessions/7.3/security-checklist</u></a></p>
 <p><strong>Basic Settings</strong></p>
-<p><a href="https://192.168.39.130/portal/#/config/basic/services"><u>https://192.168.39.130/portal/#/config/basic/services</u></a></p>
+<p><a href="https://zgz-pam-sess.zaragoza.espublico.it/portal/#/config/basic/services">https://zgz-pam-sess.zaragoza.espublico.it/portal/#/config/basic/services</a></p>
 <ul>
   <li>Por defecto está activado solo Web login (admin) - aquí podríamos habilitar ssh para administrar el servidor.</li>
   <li>El indexer service es el servicio que tiene el SPS para indexar las sesiones para hacer búsquedas, se puede habilitar, no o utilizar una máquina linux remota para no sobrecargar la máquina de sesiones.</li>
   <li>Safeguard for Privileged Analytics está habilitado para crear patrones de comportamiento por usuario.</li>
   <li>El clustering del SPS es solo a nivel de configuración y es necesario para unirlo al SPP (que tendrá su propio clustering con otros SPP).</li>
 </ul>
-<p><strong>Se activa el Cluster Interface Listening </strong>dejando la interfaz por defecto 192.168.39.130</p>
-<p><a href="https://192.168.39.130/portal/#/config/basic/cluster"><u>https://192.168.39.130/portal/#/config/basic/cluster</u></a></p>
+<p><strong>Se activa el Cluster Interface Listening </strong>dejando la interfaz por defecto SVCS (192.168.44.178), en las pruebas ha dado errores usando MGMT</p>
+<p><a href="https://zgz-pam-sess.zaragoza.espublico.it/portal/#/config/basic/cluster">https://zgz-pam-sess.zaragoza.espublico.it/portal/#/config/basic/cluster</a></p>
 <ul>
   <li>Inicialmente ofrece Join cluster o Create Cluster</li>
 </ul>
 <p><strong>Creamos un cluster</strong>, se pueden crear más nodos con distintos roles, este primero hay que <strong>promoverlo a Central Management.</strong></p>
 <ul>
-  <li>También hacemos <strong>Link to SPP</strong> añadiendo su ip (192.168.39.129) pidiendo autentificación y crea objetos en ambos (políticas de <a href="https://192.168.39.130/portal/#/config/rdp/setup"><u>rdp </u></a>y <a href="https://192.168.39.130/portal/#/config/ssh/setup"><u>ssh</u></a> y plugins en SPS y políticas y el concepto de sesiones en SPP) y crea el usuario SessionConnectionUser_1 en SPP.</li>
+  <li>También hacemos <strong>Link to SPP</strong> añadiendo su ip de SVCS (192.168.44.177) pidiendo autentificación y crea objetos en ambos (políticas de <a href="https://zgz-pam-sess.zaragoza.espublico.it/portal/#/config/rdp/setup">RDP</a> y <a href="https://zgz-pam-sess.zaragoza.espublico.it/portal/#/config/ssh/setup"><u>SSH</u></a> y plugins en SPS y políticas y el concepto de sesiones en SPP) y crea el usuario SessionConnectionUser_1 en SPP.</li>
 </ul>
-<p><a href="https://192.168.39.130/portal/#/config/basic/network"><u>https://192.168.39.130/portal/#/config/basic/network</u></a></p>
+<p><a href="https://zgz-pam-sess.zaragoza.espublico.it/portal/#/config/basic/network">https://zgz-pam-sess.zaragoza.espublico.it/portal/#/config/basic/network</a></p>
 <ul>
-  <li>Hay diferentes interfaces físicas, se pueden asociar distintas ips a una misma interfaces, routing tables, con IP forwarding se puede hacer el routing entre distintas interfaces y con HTTPS proxy (@rdopazo comentó que puede ser útil para un MFA en la nube, pero no lo pregunté en su momento y ahora no entiendo el comentario)</li>
+  <li>Hay diferentes interfaces físicas, se pueden asociar distintas ips a una misma interfaces, routing tables, con IP forwarding se puede hacer el routing entre distintas interfaces y con HTTPS proxy.</li>
   <li>Aquí se <strong>configuró IP, DNS</strong>…</li>
 </ul>
-<p><a href="https://192.168.39.130/portal/#/config/basic/management"><u>https://192.168.39.130/portal/#/config/basic/management</u></a></p>
+<p><a href="https://zgz-pam-sess.zaragoza.espublico.it/portal/#/config/basic/management">https://zgz-pam-sess.zaragoza.espublico.it/portal/#/config/basic/management</a></p>
 <ul>
   <li>Se puede configurar servidor de syslogs, envío de traps, notificaciones por mail, System <strong>Backup </strong>(primero hay que crear una política y asignarla), activar verbose system logs</li>
   <li>Configuración de certificados, CA en la que confía… lo dejamos con los autofirmados.</li>
@@ -131,7 +131,7 @@ dateCreated: 2024-02-07T14:41:14.368Z
 </ul>
 <p><a href="https://192.168.39.130/portal/#/config/basic/monitoring"><u>https://192.168.39.130/portal/#/config/basic/monitoring</u></a></p>
 <ul>
-  <li>Configurar eventos sobre los que mandar email o notificación SNMP</li>
+  <li>Configurar eventos sobre los que mandar email o notificación <strong>SNMP</strong></li>
 </ul>
 <p><a href="https://192.168.39.130/portal/#/config/basic/datetime"><u>https://192.168.39.130/portal/#/config/basic/datetime</u></a></p>
 <ul>
@@ -140,7 +140,7 @@ dateCreated: 2024-02-07T14:41:14.368Z
 <p><a href="https://192.168.39.130/portal/#/config/basic/plugins"><u>https://192.168.39.130/portal/#/config/basic/plugins</u></a></p>
 <ul>
   <li>Plugins para integrarse con otros sistemas, para autenticación con otras plataformas, chequear que haya un ticket antes de permitir crear la sesión, meterle lógica…</li>
-  <li>Se añaden automáticamente SGAA y SGCredStore al añadir el SPP (más adelante)</li>
+  <li>Se añaden automáticamente SGAA y SGCredStore al añadir el SPP</li>
 </ul>
 <p><a href="https://192.168.39.130/portal/#/config/basic/ha"><u>https://192.168.39.130/portal/#/config/basic/ha</u></a></p>
 <ul>
