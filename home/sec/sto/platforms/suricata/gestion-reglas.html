@@ -1,0 +1,33 @@
+<!--
+title: Gestión de reglas
+description: 
+published: true
+date: 2024-02-29T08:25:49.371Z
+tags: soc, linux, ids, suricata, rules, management
+editor: ckeditor
+dateCreated: 2024-02-29T08:25:49.371Z
+-->
+
+<h1 style="text-align:center;">Gestión de reglas</h1>
+<p>&nbsp;</p>
+<p>En sistemas Linux/Unix suricata guarda las reglas por defecto en la ruta&nbsp;</p>
+<pre><code class="language-plaintext">/var/lib/suricata/rules/</code></pre>
+<p>&nbsp;</p>
+<h2>Actualización de reglas</h2>
+<p>Podemos actualizar las reglas existentes con el comando</p>
+<pre><code class="language-plaintext">suricata-update </code></pre>
+<p>&nbsp;</p>
+<h2>Gestión de sources</h2>
+<p>Listar los orígenes de reglas instalados</p>
+<pre><code class="language-plaintext">suricata-update list-sources</code></pre>
+<p>Listar los orígenes habilitados</p>
+<pre><code class="language-plaintext">suricata-update list-enabled-sources</code></pre>
+<p>Añadir un source nuevo</p>
+<pre><code class="language-plaintext">suricata-update enable-source OWNER/NAME</code></pre>
+<p>Deshabilitar un source</p>
+<pre><code class="language-plaintext">suricata-update disable-source OWNER/NAME</code></pre>
+<p>O eliminar un source</p>
+<pre><code class="language-plaintext">suricata-update remove-source OWNER/NAME</code></pre>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
