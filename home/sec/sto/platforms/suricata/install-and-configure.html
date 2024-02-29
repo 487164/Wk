@@ -1,0 +1,83 @@
+<!--
+title: Instalación y configuración
+description: 
+published: true
+date: 2024-02-29T09:11:36.678Z
+tags: soc, linux, interface, install, suricata, config
+editor: ckeditor
+dateCreated: 2024-02-29T09:11:36.678Z
+-->
+
+<h2 style="text-align:center;">Instalación y configuración</h2>
+<p>&nbsp;</p>
+<p>En este documento se explica el proceso de instalación y configuración de suricata en un sistema rocky linux 9.</p>
+<p>&nbsp;</p>
+<h2>Instalación de suricata</h2>
+<p>En primer lugar instalamos las dependencias, que ya deberían estar, pero por si las moscas.</p>
+<pre><code class="language-plaintext">sudo dnf install yum-utils curl</code></pre>
+<p>Una vez instaladas las dependencias añadimos el repositorio necesario</p>
+<pre><code class="language-plaintext">sudo dnf install epel-release dnf-plugins-core
+sudo dnf copr enable @oisf/suricata-7.0</code></pre>
+<p>E instalamos suricata</p>
+<pre><code class="language-plaintext">sudo dnf install suricata</code></pre>
+<p>&nbsp;</p>
+<h2>Configuración de suricata</h2>
+<h3>Configuración del community id</h3>
+<p>Habilitaremos en primer lugar el community id, el cual facilitará la correlación de datos entre los registros generados por las diferentes herramientas de monitorización.</p>
+<pre><code class="language-plaintext">sed -i 's/community-id: false/community-id: true/g' /etc/suricata/suricata.yaml</code></pre>
+<p>&nbsp;</p>
+<h3>Configuración de la interfaz de red</h3>
+<p>El siguiente paso será especificar a suricata en que interfaz debe de poner la escucha necesaria para la monitorización del tráfico, para ello revisamos las interfaces existentes</p>
+<pre><code class="language-plaintext">$ lshw -class network -short
+H/W path            Device      Class      Description
+======================================================
+/0/100/3                        network    Virtio network device
+/0/100/3/0          ens3        network    Ethernet interface
+/0/100/4                        network    Virtio network device
+/0/100/4/0          ens4        network    Ethernet interface
+/0/100/8            /dev/fb0    network    Virtio network device
+/0/100/8/0          ens8        network    Ethernet interface</code></pre>
+<p>&nbsp;</p>
+<p>Una vez hecho editaremos el fichero de configuración de suricata</p>
+<pre><code class="language-plaintext">/etc/suricata/suricata.yaml</code></pre>
+<p>Y modificaremos en el fichero las interfaces definidas y cambiaremos el valor existente por el nombre de nuestra interfaz, por ejemplo&nbsp;</p>
+<pre><code class="language-plaintext"># Linux high speed capture support
+af-packet:
+  - interface: eth0
+    # Number of receive threads. "auto" uses the number of cores
+    #threads: auto
+    # Default clusterid. AF_PACKET will load balance packets based on flow.
+    cluster-id: 99
+. . .</code></pre>
+<p>Cambiamos en el anterior ejemplo el valor de la interfaz de eth0 por el de nuestra interfaz.</p>
+<p>&nbsp;</p>
+<h3>Recarga de reglas en caliente</h3>
+<p>Para ello deberemos de activar la siguiente opción en el fichero de configuración de suricata</p>
+<pre><code class="language-plaintext">detect-engine:
+  - rule-reload: true</code></pre>
+<p>Una vez activada la recarga en caliente se pueden actualizar las reglas con el siguiente comando sin necesidad de reiniciar suricata</p>
+<pre><code class="language-plaintext">$ sudo kill -usr2 $(pidof suricata)</code></pre>
+<p>&nbsp;</p>
+<h3>Verificación de la configuración</h3>
+<p>Para verificar que la configuración aplicada es correcta ejecutar el siguiente comando llamando al fichero de configuración utilizado</p>
+<pre><code class="language-plaintext">sudo suricata -T -c /etc/suricata/suricata.yaml -v</code></pre>
+<p>&nbsp;</p>
+<h2>Corrección de permisos</h2>
+<p>Para evitar errores es preferible revisar y corregir el propietario en los ficheros de suricata, para ello ejecutar los siguientes comandos</p>
+<pre><code class="language-plaintext">$ sudo chown -R suricata: /etc/suricata
+$ sudo chown -R suricata: /var/lib/suricata/rules
+$ sudo chown -R suricata: /var/lib/suricata/update
+$ sudo chown -R suricata: /var/log/suricata </code></pre>
+<p>&nbsp;</p>
+<h2>Arranque del servicio</h2>
+<p>Levantamos el servicio una vez validados los cambios</p>
+<pre><code class="language-plaintext">systemctl start suricata</code></pre>
+<p>Y habilitamos el mismo</p>
+<pre><code class="language-plaintext">systemctl enable suricata</code></pre>
+<p>También es posible realizar las dos acciones anteriores con el siguiente comando</p>
+<pre><code class="language-plaintext">systemctl enable --now suricata</code></pre>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
