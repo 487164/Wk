@@ -2,7 +2,7 @@
 title: Playbook LM Scheduled Tasks
 description: 
 published: true
-date: 2024-02-09T08:50:56.386Z
+date: 2024-02-29T14:18:07.647Z
 tags: soc, lm, task, playbook, scheduled
 editor: ckeditor
 dateCreated: 2024-01-16T10:24:11.049Z
@@ -309,6 +309,46 @@ Filesystem                   Size  Used Avail Use% Mounted on
 <h3><strong>Acciones</strong></h3>
 <p>Se deberá revisar que las reglas existentes en producción dispongan de los grupos correspondientes en función del grupo de MAGMA al que pertenezcan, sección empresarial y tecnología de la regla.</p>
 <p>En caso de que alguna no cumpla se deberá abrir un ticket con el tag <strong>CGR </strong>en el cual se indiquen los cambios realizados.</p>
+<p>&nbsp;</p>
+<h2>Expensive Rules</h2>
+<p>&nbsp;</p>
+<h3><strong>Descripción</strong></h3>
+<p>Revisión de las reglas para detectar lentitud en la ejecución de las mismas.</p>
+<p>&nbsp;</p>
+<h3><strong>Recurrencia</strong></h3>
+<p>Mensual&nbsp;</p>
+<p>&nbsp;</p>
+<h3><strong>Tiempo estimado</strong></h3>
+<p>60 minutos</p>
+<p>&nbsp;</p>
+<h3><strong>Servidores/Fuentes</strong></h3>
+<p>Se deberá revisar el SIEM de producción</p>
+<p>&nbsp;</p>
+<h3><strong>Acciones</strong></h3>
+<p>Se deberá revisar la ejecución de las reglas para corregir aquellas que estén provocando lentitud en la plataforma.</p>
+<p>&nbsp;</p>
+<h3>Referencias</h3>
+<p><a href="https://wiki.security.espublico.com/es/home/sec/sto/platforms/ibm-qradar/revision-expensive-rules-properties">Revisión Expensive Rules y Properties</a></p>
+<p>&nbsp;</p>
+<h2>Expensive Properties</h2>
+<p>&nbsp;</p>
+<h3><strong>Descripción</strong></h3>
+<p>Revisión de las properties existentes para detectar lentitud en los parseos de las mismas.</p>
+<p>&nbsp;</p>
+<h3><strong>Recurrencia</strong></h3>
+<p>Mensual&nbsp;</p>
+<p>&nbsp;</p>
+<h3><strong>Tiempo estimado</strong></h3>
+<p>60 minutos</p>
+<p>&nbsp;</p>
+<h3><strong>Servidores/Fuentes</strong></h3>
+<p>Se deberá revisar el SIEM de producción</p>
+<p>&nbsp;</p>
+<h3><strong>Acciones</strong></h3>
+<p>Se deberán revisar las properties existentes para corregir aquellas que estén provocando lentitud en la plataforma.</p>
+<p>&nbsp;</p>
+<h3>Referencias</h3>
+<p><a href="https://wiki.security.espublico.com/es/home/sec/sto/platforms/ibm-qradar/revision-expensive-rules-properties">Revisión Expensive Rules y Properties</a></p>
 <p>&nbsp;</p>
 <h2>Security Platforms Updates</h2>
 <p>&nbsp;</p>
