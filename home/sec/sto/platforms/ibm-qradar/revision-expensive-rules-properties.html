@@ -2,7 +2,7 @@
 title: Revisión Expensive Rules y Properties
 description: 
 published: true
-date: 2024-02-29T14:17:32.814Z
+date: 2024-02-29T14:25:42.705Z
 tags: sm, soc, qradar, lm, ibm, rules, expensive, properties
 editor: ckeditor
 dateCreated: 2024-02-29T14:17:32.814Z
@@ -12,7 +12,21 @@ dateCreated: 2024-02-29T14:17:32.814Z
 <p>&nbsp;</p>
 <p>Para garantizar que QRadar funciona correctamente se deberán revisar periódicamente las reglas y propiedades existentes con el fin de detectar problemas de lentitud en la plataforma a la hora de procesar y correlar eventos.</p>
 <p>&nbsp;</p>
-<p>Expensive Rules</p>
+<h2>Expensive Rules</h2>
+<p>Para detectar los fallos se deberá acceder por ssh a la consola con permisos de root y ejecutar el siguiente script</p>
+<pre><code class="language-plaintext">/opt/qradar/support/findExpensiveCustomRules.sh -d /store/ibm_support</code></pre>
+<p>El script anterior generará un fichero tar.gz en la ruta indicada con el argumento -d.</p>
+<p>Copiar el fichero a local, extraer su contenido y revisar las mismas.</p>
+<p>Una vez dentro se puede utilizar el siguiente comando para visualizar aquellas que tarden más tiempo en su ejecución</p>
+<pre><code class="language-plaintext">head reports/AverageTestTime-* reports/AverageResponseTime-* | sed 's/com.*\,name\=//g'</code></pre>
+<p>Una vez revisadas se deberán corregir aquellas reglas que se detecten con un tiempo elevado en su ejecución y por lo tanto se deberán de revisar y corregir todas aquellas cuyo tiempo sea igual o superior a 1 segundo.</p>
 <p>&nbsp;</p>
-<p>Expensive Properties</p>
+<h2>Expensive Properties</h2>
+<p>Para detectar los fallos se deberá acceder por ssh a cada una de las colectoras, procesadora y consola y ejecutar como root el siguiente script</p>
+<pre><code class="language-plaintext">/opt/qradar/support/findExpensiveCustomProperties.sh -d /store/ibm_support</code></pre>
+<p>El comando anterior generará un fichero tar.gz en la ruta especificada</p>
+<p>Una vez generado descomprimir el fichero</p>
+<pre><code class="language-plaintext">tar xf CustomProperties-2024-02-29-14-12-mad-qradar-ec-01.tar.gz</code></pre>
+<p>Y revisar los ficheros generados con el fin de identificar problemas en la ejecución de las mismas.</p>
+<p>&nbsp;</p>
 <p>&nbsp;</p>
