@@ -2,7 +2,7 @@
 title: PV-RES-018 [ALTA] [ESPUBLICO] [O365] Modificación de miembros de grupos PAM
 description: 
 published: true
-date: 2024-03-01T09:05:35.872Z
+date: 2024-03-01T09:06:57.681Z
 tags: 
 editor: ckeditor
 dateCreated: 2024-03-01T09:05:35.872Z
@@ -27,8 +27,10 @@ dateCreated: 2024-03-01T09:05:35.872Z
 <p>Puntos mínimos que debe de tener un cierre:</p>
 <ul>
   <li>Usuario realizando la accion</li>
-  <li>Hora/Fecha inicial</li>
-  <li>Usuario sobre el que realiza la accion</li>
+  <li>Usuario al que se le realiza la accion</li>
+  <li>Rol</li>
+  <li>Ticket en caso de estar ligado a uno</li>
+  <li>Vida del usuario destino y rol (si no esta ligada a un ticket)</li>
   <li>Analisis de la actividad realizada del usuario adicionalmente a la alerta en caso de no ser autorizada</li>
   <li>Resumen del análisis</li>
 </ul>
@@ -38,18 +40,20 @@ dateCreated: 2024-03-01T09:05:35.872Z
 <p>Fuera del horario Atiende N0 y escala a Guardia</p>
 <h2>Reglas de caso de uso</h2>
 <p>Información de la regla:</p>
-<figure class="image image_resized" style="width:1532.94px;"><img src="https://lh7-eu.googleusercontent.com/t1YVuCrDek_LbhJ_2_RVTKf7NNAopuapSbY5BvNmvqXryKO9bKQrDBk1zk564uK0PnWAsytv2lPJ6xpKxzqC_ljUP0O7kdlgPHZ7RsajvZPWFjtUl_awS70MfjCktXrVvC-oOmLn4x_snbnrr3QLKSFapAUa6rEhTry5DDsGPR-EitmEGz-w6r45Luvwh9-t"></figure>
+<figure class="image image_resized" style="width:51.61%;"><img src="https://lh7-eu.googleusercontent.com/C335fHLstIJ_wsHBx7yD5Rzue4-7S-UW6ebx_o3c9z5ki6TYvIn-tkwyEtL_GWe0mZKVkivUng31ypQebAvCR4MnWNS1XDDrMVhe6LuhxjOGjeCob3VMumEbgoRN2rCzBM16yybY8F1R"></figure>
 <h2>Campos Necesarios</h2>
 <p>Los campos mínimos que deben seleccionarse para llevar a cabo la investigación:</p>
 <ul>
   <li>Start Time</li>
   <li>Numero de ticket</li>
-  <li>Username origen</li>
-  <li>Username destino</li>
+  <li>Si se da o quita el rol</li>
+  <li>Username: El que modifica el rol</li>
+  <li>Target Username (custom): Al que se le da o quita el rol</li>
+  <li>Role Name (custom): Que rol se modifica</li>
 </ul>
 <h2>Cierre por defecto</h2>
 <p>Nota de cierre que se debería de rellenar a la hora de cerrar una alerta:</p>
 <p><strong>Falso positivo:</strong></p>
 <ul>
-  <li>Se ha detectado que el usuario [<strong>Username origen</strong>] ha creado/borrado/modificado el usuario [<strong>Username destino</strong>], esta actividad se encuentra ligada al ticket [<strong>número de ticket</strong>], después del análisis del usuario se verifica que está realizando actividad autorizada.</li>
+  <li>Se ha detectado que el usuario [<strong>Username</strong>] ha creado/borrado/modificado al usuario&nbsp; [<strong>Target Username</strong>] dentro del rol [<strong>Role Name</strong>], esta actividad se encuentra ligada al ticket [<strong>número de ticket</strong>], después del análisis del usuario se verifica que está realizando actividad autorizada.</li>
 </ul>
