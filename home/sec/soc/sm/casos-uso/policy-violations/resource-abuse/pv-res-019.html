@@ -2,7 +2,7 @@
 title: PV-RES-019 [ALTA] [ESPUBLICO] [O365] Adicion de miembro en grupo de borrado PAM
 description: 
 published: true
-date: 2024-03-01T09:09:07.505Z
+date: 2024-03-01T09:12:14.269Z
 tags: 
 editor: ckeditor
 dateCreated: 2024-03-01T09:09:07.505Z
@@ -10,9 +10,9 @@ dateCreated: 2024-03-01T09:09:07.505Z
 
 <h1 style="text-align:center;">PV-RES-018 [ALTA] [ESPUBLICO] [O365] Modificación de miembros de grupos PAM</h1>
 <h2>Descripción</h2>
-<p style="text-align:justify;">Caso de uso que identifica la modificación de un usuario incluyéndolo/sacándolo dentro de un grupo de PAM, a excepción del grupo de borrado de PAM que eso genera otra alerta aparte</p>
+<p style="text-align:justify;">Caso de uso que identifica la modificación de un usuario incluyendolo/sacándolo dentro del grupo de borrado de PAM</p>
 <ul>
-  <li><strong>Nombre</strong>: Modificación de miembros de grupos PAM</li>
+  <li><strong>Nombre</strong>: Adicion de miembro en grupo de borrado PAM</li>
   <li><strong>Criticidad</strong>: Alta</li>
   <li><strong>Tiempo de Atención</strong>: 30 minutos</li>
   <li><strong>Tecnologías utilizadas</strong>: Office365 (espublico IT)</li>
@@ -22,7 +22,7 @@ dateCreated: 2024-03-01T09:09:07.505Z
   <li>T1098.003 - Account Manipulation: Additional Cloud Roles<br>&nbsp;</li>
 </ul>
 <h2>What to do</h2>
-<p style="text-align:justify;">Cuando salte la alerta, verificar el usuario que está realizando el cambio y sobre que usuario y rol. Esta actividad <strong>siempre</strong> debe estar ligada a un ticket al igual que otras relacionadas con actividades similares. Si no es actividad autorizada o no hay un ticket para esta, escalar la actividad detectada. En ocasiones durante la investigacion si no esta ligada a ningun ticket, ademas de escalar la actividad verificar cuando se creó el rol y el usuario al que se le esta asignando en busca de actividad sospechosa.</p>
+<p style="text-align:justify;">Se trata del mismo procedimiento que la alerta relacionada con los grupos PAM en general, solo que esta contempla solo el de borrado ya que asi se quiso por ser un grupo mas delicado. Por lo que cuando salte la alerta, verificar el usuario que está realizando el cambio y sobre que usuario. Esta actividad <strong>siempre</strong> debe estar ligada a un ticket. Si no es actividad autorizada o no hay un ticket para esta, escalar la actividad detectada. En ocasiones durante la investigación si no esta ligada a ningún ticket, además de escalar la actividad verificar cuando se creó el usuario al que se le esta asignando el grupo de borrado en busca de actividad sospechosa.</p>
 <h2>Notas de cierre</h2>
 <p>Puntos mínimos que debe de tener un cierre:</p>
 <ul>
@@ -40,7 +40,7 @@ dateCreated: 2024-03-01T09:09:07.505Z
 <p>Fuera del horario Atiende N0 y escala a Guardia</p>
 <h2>Reglas de caso de uso</h2>
 <p>Información de la regla:</p>
-<figure class="image image_resized" style="width:967.766px;"><img src="https://lh7-eu.googleusercontent.com/C335fHLstIJ_wsHBx7yD5Rzue4-7S-UW6ebx_o3c9z5ki6TYvIn-tkwyEtL_GWe0mZKVkivUng31ypQebAvCR4MnWNS1XDDrMVhe6LuhxjOGjeCob3VMumEbgoRN2rCzBM16yybY8F1R"></figure>
+<figure class="image image_resized" style="width:47.57%;"><img src="https://lh7-eu.googleusercontent.com/Q-QpKInJYbJlHuMTKaV6a2zBoqF_Fp3QDojQRajA-Sowrme5GBR0CGMGqWAjXl4b68lxty_ECgz8kRgjRiGRK2jYpbG7jZ1B0utKDB7JoUb9fnyg0hj-hcfX8ZUiC6WG4fl0Rn1_AVsu"></figure>
 <h2>Campos Necesarios</h2>
 <p>Los campos mínimos que deben seleccionarse para llevar a cabo la investigación:</p>
 <ul>
