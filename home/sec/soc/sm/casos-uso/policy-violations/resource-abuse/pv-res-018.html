@@ -1,0 +1,55 @@
+<!--
+title: PV-RES-018 [ALTA] [ESPUBLICO] [O365] Modificación de miembros de grupos PAM
+description: 
+published: true
+date: 2024-03-01T09:05:35.872Z
+tags: 
+editor: ckeditor
+dateCreated: 2024-03-01T09:05:35.872Z
+-->
+
+<h1 style="text-align:center;">PV-RES-018 [ALTA] [ESPUBLICO] [O365] Modificación de miembros de grupos PAM</h1>
+<h2>Descripción</h2>
+<p style="text-align:justify;">Caso de uso que identifica la modificación de un usuario incluyéndolo/sacándolo dentro de un grupo de PAM, a excepción del grupo de borrado de PAM que eso genera otra alerta aparte</p>
+<ul>
+  <li><strong>Nombre</strong>: Modificación de miembros de grupos PAM</li>
+  <li><strong>Criticidad</strong>: Alta</li>
+  <li><strong>Tiempo de Atención</strong>: 30 minutos</li>
+  <li><strong>Tecnologías utilizadas</strong>: Office365 (espublico IT)</li>
+</ul>
+<h2>MITRE</h2>
+<ul>
+  <li>T1098.003 - Account Manipulation: Additional Cloud Roles<br>&nbsp;</li>
+</ul>
+<h2>What to do</h2>
+<p style="text-align:justify;">Cuando salte la alerta, verificar el usuario que está realizando el cambio y sobre que usuario y rol. Esta actividad <strong>siempre</strong> debe estar ligada a un ticket al igual que otras relacionadas con actividades similares. Si no es actividad autorizada o no hay un ticket para esta, escalar la actividad detectada. En ocasiones durante la investigacion si no esta ligada a ningun ticket, ademas de escalar la actividad verificar cuando se creó el rol y el usuario al que se le esta asignando en busca de actividad sospechosa.</p>
+<h2>Notas de cierre</h2>
+<p>Puntos mínimos que debe de tener un cierre:</p>
+<ul>
+  <li>Usuario realizando la accion</li>
+  <li>Hora/Fecha inicial</li>
+  <li>Usuario sobre el que realiza la accion</li>
+  <li>Analisis de la actividad realizada del usuario adicionalmente a la alerta en caso de no ser autorizada</li>
+  <li>Resumen del análisis</li>
+</ul>
+<h2>Matriz de escalado</h2>
+<p>Aunque la matriz de escalado debería ser la misma para todos los casos de uso, puede haber casos que por falta de capacidades, por dependencias de otros servicio o incluso por que así se acuerde para un caso concreto, se debe definir la matriz de escalado.</p>
+<p>En horario laboral: Atiende N1 y escala a N2</p>
+<p>Fuera del horario Atiende N0 y escala a Guardia</p>
+<h2>Reglas de caso de uso</h2>
+<p>Información de la regla:</p>
+<figure class="image image_resized" style="width:1532.94px;"><img src="https://lh7-eu.googleusercontent.com/t1YVuCrDek_LbhJ_2_RVTKf7NNAopuapSbY5BvNmvqXryKO9bKQrDBk1zk564uK0PnWAsytv2lPJ6xpKxzqC_ljUP0O7kdlgPHZ7RsajvZPWFjtUl_awS70MfjCktXrVvC-oOmLn4x_snbnrr3QLKSFapAUa6rEhTry5DDsGPR-EitmEGz-w6r45Luvwh9-t"></figure>
+<h2>Campos Necesarios</h2>
+<p>Los campos mínimos que deben seleccionarse para llevar a cabo la investigación:</p>
+<ul>
+  <li>Start Time</li>
+  <li>Numero de ticket</li>
+  <li>Username origen</li>
+  <li>Username destino</li>
+</ul>
+<h2>Cierre por defecto</h2>
+<p>Nota de cierre que se debería de rellenar a la hora de cerrar una alerta:</p>
+<p><strong>Falso positivo:</strong></p>
+<ul>
+  <li>Se ha detectado que el usuario [<strong>Username origen</strong>] ha creado/borrado/modificado el usuario [<strong>Username destino</strong>], esta actividad se encuentra ligada al ticket [<strong>número de ticket</strong>], después del análisis del usuario se verifica que está realizando actividad autorizada.</li>
+</ul>
