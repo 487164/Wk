@@ -2,7 +2,7 @@
 title: Playbook LM Scheduled Tasks
 description: 
 published: true
-date: 2024-02-29T14:18:07.647Z
+date: 2024-03-04T07:48:09.229Z
 tags: soc, lm, task, playbook, scheduled
 editor: ckeditor
 dateCreated: 2024-01-16T10:24:11.049Z
@@ -349,6 +349,46 @@ Filesystem                   Size  Used Avail Use% Mounted on
 <p>&nbsp;</p>
 <h3>Referencias</h3>
 <p><a href="https://wiki.security.espublico.com/es/home/sec/sto/platforms/ibm-qradar/revision-expensive-rules-properties">Revisión Expensive Rules y Properties</a></p>
+<p>&nbsp;</p>
+<h2>LS Parsing Order</h2>
+<p>&nbsp;</p>
+<h3><strong>Descripción</strong></h3>
+<p>Revisión del orden de parseo de todos los logs.</p>
+<p>&nbsp;</p>
+<h3><strong>Recurrencia</strong></h3>
+<p>Mensual&nbsp;</p>
+<p>&nbsp;</p>
+<h3><strong>Tiempo estimado</strong></h3>
+<p>120 minutos</p>
+<p>&nbsp;</p>
+<h3><strong>Servidores/Fuentes</strong></h3>
+<p>Se deberá revisar el SIEM de producción</p>
+<p>&nbsp;</p>
+<h3><strong>Acciones</strong></h3>
+<p>Se deberá revisar el orden del parseo de logs de todas las fuentes existentes.</p>
+<p>El orden debería de ser:</p>
+<ol>
+  <li>App por prioridad</li>
+  <li>Postfix or mail service if proceed</li>
+  <li>OS (Linux or Windows)</li>
+</ol>
+<p>&nbsp;</p>
+<h2>Log Source Extensions</h2>
+<p>&nbsp;</p>
+<h3><strong>Descripción</strong></h3>
+<p>Revisión de las extensiones asignadas a cada uno de los log sources.</p>
+<p>&nbsp;</p>
+<h3><strong>Recurrencia</strong></h3>
+<p>Mensual&nbsp;</p>
+<p>&nbsp;</p>
+<h3><strong>Tiempo estimado</strong></h3>
+<p>60 minutos</p>
+<p>&nbsp;</p>
+<h3><strong>Servidores/Fuentes</strong></h3>
+<p>Se deberá revisar el SIEM de producción</p>
+<p>&nbsp;</p>
+<h3><strong>Acciones</strong></h3>
+<p>Se deberán revisar las extensiones asignadas a cada uno de los log sources para garantizar que no hay fuentes con extensiones mal asignadas.</p>
 <p>&nbsp;</p>
 <h2>Security Platforms Updates</h2>
 <p>&nbsp;</p>
