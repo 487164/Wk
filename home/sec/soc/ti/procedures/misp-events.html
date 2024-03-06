@@ -2,7 +2,7 @@
 title: MISP Events
 description: Procedimiento para crear eventos en la MISP
 published: true
-date: 2024-03-06T11:35:11.982Z
+date: 2024-03-06T11:37:09.130Z
 tags: soc, ti, misp, procedure
 editor: ckeditor
 dateCreated: 2024-03-06T08:58:12.013Z
@@ -80,6 +80,7 @@ dateCreated: 2024-03-06T08:58:12.013Z
 <h3>Publicación</h3>
 <p>Una vez creado el evento teniendo en cuenta los puntos anteriores, deberá publicarse para que así sea compartido con la RNS.</p>
 <p>Dentro del mismo evento, en la columna que hay a la izquierda, seleccionando “<i>Publish Event</i>” procederá a publicarse.&nbsp;</p>
+<figure class="image image_resized" style="width:10.99%;"><img src="/sec/soc/threat-intel/procedures/misp-publishevent.png"></figure>
 <p>Este evento pasara primero por una MISP intermedia de la RNS, donde se llevara a cabo un proceso de validación y posteriormente pasara a la MISP final, donde el evento será compartido con todas las organizaciones adheridas.&nbsp;</p>
 <p>Los eventos compartidos por la RNS tendrán como "<i>Creator org</i>" a “<i>CCN-CERT_RNS_Final</i>”, y el evento llevara el tag "<i>red-nacional-soc:org=$organisation</i>".</p>
 <p>Por lo tanto, cuando nuestro evento sea compartido, veremos que lo crea el CCN con el tag "<i>red-nacional-soc:org=esPublico_SOC</i>".</p>
