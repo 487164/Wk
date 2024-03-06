@@ -2,7 +2,7 @@
 title: MISP Events
 description: Procedimiento para crear eventos en la MISP
 published: true
-date: 2024-03-06T09:18:09.933Z
+date: 2024-03-06T09:25:34.034Z
 tags: soc, ti, misp, procedure
 editor: ckeditor
 dateCreated: 2024-03-06T08:58:12.013Z
@@ -11,7 +11,7 @@ dateCreated: 2024-03-06T08:58:12.013Z
 <h1 style="text-align:center;">MISP Events</h1>
 <p>MISP es una solución de software de código abierto para recopilar, almacenar, distribuir y compartir IOC (<i>Indicator of Compromise</i>) de incidentes de ciberseguridad y análisis de malware.</p>
 <p>El objetivo de MISP es fomentar el intercambio de información estructurada dentro de la comunidad de ciberseguridad.</p>
-<p>Actualmente participamos en el proyecto de la RNS, donde utilizamos nuestra MISP para compartir IOCs con la MISP oficial del RNS.</p>
+<p>Actualmente participamos en el proyecto de la RNS, donde utilizamos nuestra MISP para compartir IOCs con la MISP oficial de la RNS.</p>
 <p>&nbsp;</p>
 <h2>RNS</h2>
 <p>El CCN-CERT (<i>Centro Criptológico Nacional Computer Emergency Response Team</i>) crea la RNS (<i>Red Nacional de SOC</i>), plataforma que integra los SOC de todos los organismos públicos de la Administración Española, junto con las entidades proveedoras que prestan dichos servicios de SOC y las entidades públicas que se benefician de los mismos.</p>
@@ -24,4 +24,24 @@ dateCreated: 2024-03-06T08:58:12.013Z
 <p>Actualmente esPublico cuenta con el nivel GOLD dada la alta participación que hay en el intercambio de IOC mediante la MISP.</p>
 <p>&nbsp;</p>
 <h3>Puntuación</h3>
+<p>La RNS cuenta con una tabla de puntuación, con la cual evalúan los distintos eventos que suben las organizaciones que participan en el proyecto.</p>
+<p>Existe un TOP 10 donde se posicionan aquellas organizaciones que mas puntuación van consiguiendo.</p>
+<p>La puntuación depende de los atributos que están incluidos en los eventos que se suben a la MISP y se comparten con la RNS, siendo valorados de la siguiente manera:</p>
+<ul>
+  <li><strong>1 punto</strong>: IP o dirección de correo</li>
+  <li><strong>2 puntos</strong>: Hash, dominio o URL</li>
+  <li><strong>3 puntos</strong>: Reglas YARA o SNORT</li>
+</ul>
+<p>La puntuación se asigna por evento, por lo que da igual la cantidad de atributos que se incluyan. Es decir, un evento estará valorado en 1 punto ya sea que tenga 1 IP o 50 IP.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
 <p>&nbsp;</p>
