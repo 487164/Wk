@@ -2,7 +2,7 @@
 title: MISP Events
 description: Procedimiento para crear eventos en la MISP
 published: true
-date: 2024-03-06T11:27:56.610Z
+date: 2024-03-06T11:30:21.625Z
 tags: soc, ti, misp, procedure
 editor: ckeditor
 dateCreated: 2024-03-06T08:58:12.013Z
@@ -44,7 +44,7 @@ dateCreated: 2024-03-06T08:58:12.013Z
   <li><strong>Analysis</strong>: Por lo general se creará como “<i>Completed</i>”, ya que ya ha habido un análisis previo a la hora de compartir los IOC.</li>
   <li><strong>Event Info</strong>: Nombre descriptivo del incidente que se reporta.</li>
 </ul>
-<figure class="image image_resized" style="width:50.96%;"><img src="/sec/soc/threat-intel/procedures/misp-addevent.png"></figure>
+<figure class="image image_resized" style="width:54.58%;"><img src="/sec/soc/threat-intel/procedures/misp-addevent.png"></figure>
 <p>&nbsp;</p>
 <h3>TAGS</h3>
 <p>Los tags que deben llevar los eventos compartidos con la RNS son los siguientes:</p>
@@ -60,7 +60,7 @@ dateCreated: 2024-03-06T08:58:12.013Z
 <h3>Galaxy</h3>
 <p>En el apartado “<i>Galaxies</i>” podremos añadir contexto a los eventos, pudiendo catalogar el evento mediante la matriz de MITRE ATT&amp;CK.</p>
 <p>Seleccionando “<i>Add new cluster → &amp; Attack Patern</i>”, se desplegara la matriz entera de MITRE ATT&amp;CK para poder seleccionar las tácticas y técnicas que sean apropiadas para el evento.</p>
-<figure class="image"><img src="/sec/soc/threat-intel/procedures/misp-addgalaxy.png"></figure>
+<figure class="image image_resized" style="width:64.96%;"><img src="/sec/soc/threat-intel/procedures/misp-addgalaxy.png"></figure>
 <p>&nbsp;</p>
 <h3>Atributos</h3>
 <p>Para añadir atributos se seleccionará “<i>Add Attribute</i>”, donde los campos a rellenar serán los siguientes:</p>
@@ -71,6 +71,7 @@ dateCreated: 2024-03-06T08:58:12.013Z
   <li><strong>Value</strong>: Aquí se especifica el IOC a compartir</li>
   <li><strong>First seen date/Last seen date:</strong> Se pueden dejar vacíos, a no ser que se quiera especificar la primera vez y ultima vez que fui vista la actividad</li>
 </ul>
+<figure class="image image_resized" style="width:34.27%;"><img src="/sec/soc/threat-intel/procedures/misp-addattribute.png"></figure>
 <p>Una vez añadidos los atributos, es importante marcar la opción de “<i><strong>IDS</strong></i>” a aquellos atributos que sean considerados un peligro y deban bloquearse.</p>
 <p>Aquellos atributos que se suban tan solo para dar contexto al evento, y por lo tanto no sean considerados como atributos a bloquear, no deberán marcarse con el check de “<i><strong>IDS</strong></i>”.</p>
 <p>&nbsp;</p>
