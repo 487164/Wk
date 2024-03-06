@@ -2,7 +2,7 @@
 title: MISP Events
 description: Procedimiento para crear eventos en la MISP
 published: true
-date: 2024-03-06T09:45:00.276Z
+date: 2024-03-06T09:50:15.286Z
 tags: soc, ti, misp, procedure
 editor: ckeditor
 dateCreated: 2024-03-06T08:58:12.013Z
@@ -36,16 +36,23 @@ dateCreated: 2024-03-06T08:58:12.013Z
 <p>Hay que tener en cuenta que para conseguir la puntuación mencionada, el atributo no deberá haber sido ya compartido en la RNS, que no este en REYES ni en ninguna Whitelist.</p>
 <p>&nbsp;</p>
 <h2>Crear Evento</h2>
-<p>Se accede a la MISP de esPublico a través de <a href="https://misp.security.espublico.com">https://misp.security.espublico.com</a> y para crear un evento, en la parte izquierda, se seleccionara “<i>Add Event</i>”.</p>
+<p>Se accede a la MISP de esPublico a través de <a href="https://misp.security.espublico.com">https://misp.security.espublico.com</a> y para crear un evento, en la parte izquierda, se selecciona “<i>Add Event</i>”.</p>
 <p>Los campos a tener en cuenta que deben modificarse son:</p>
 <ul>
   <li><strong>Distribution</strong>: ponerlo como “<i>All communities</i>” para poder distribuirlo con todos los miembros.</li>
-  <li><strong>Threat Level</strong>: dependera del nivel de amenaza que se haya analizado y se vaya a reflejar en el evento.</li>
+  <li><strong>Threat Level</strong>: dependerá del nivel de amenaza que se haya analizado y se vaya a reflejar en el evento.</li>
   <li><strong>Analysis</strong>: Por lo general se creará como “<i>Completed</i>”, ya que ya ha habido un análisis previo a la hora de compartir los IOC.</li>
   <li><strong>Event Info</strong>: Nombre descriptivo del incidente que se reporta.</li>
 </ul>
 <p>&nbsp;</p>
-<p>&nbsp;</p>
+<h3>TAGS</h3>
+<p>Los tags que deben llevar los eventos compartidos con la RNS son los siguientes:</p>
+<ul>
+  <li><strong>tlp</strong>: Siempre “tlp:green”, salvo que por experiencia se quiera configurar algo diferente (la RNS sólo admitirá los valores “clear”, “green” y “amber, y el antiguo “white”).</li>
+  <li><strong>PAP</strong>: Siempre “PAP:GREEN”, salvo que por experiencia se quiera configurar algo diferente (la RNS sólo admitirá los valores “WHITE” y “GREEN”).</li>
+  <li><strong>circl</strong>: Al menos una etiqueta de tipo “incident-classification”.</li>
+  <li><strong>ecsirt</strong>: Esta clasificación está relativamente relacionada con la clasificación de incidentes establecida en la guía CCN-STIC 817 “ENS. Gestión de ciberincidentes”9</li>
+</ul>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
