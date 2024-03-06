@@ -2,7 +2,7 @@
 title: MISP Events
 description: Procedimiento para crear eventos en la MISP
 published: true
-date: 2024-03-06T10:37:21.094Z
+date: 2024-03-06T10:43:16.278Z
 tags: soc, ti, misp, procedure
 editor: ckeditor
 dateCreated: 2024-03-06T08:58:12.013Z
@@ -62,13 +62,15 @@ dateCreated: 2024-03-06T08:58:12.013Z
 <h3>Atributos</h3>
 <p>Para añadir atributos se seleccionará “<i>Add Attribute</i>”, donde los campos a rellenar serán los siguientes:</p>
 <ul>
-  <li><strong>Category</strong>: La categoría del IOC</li>
-  <li><strong>Type</strong>: Dependiendo de la categoría se tendrán unos tipos u otros, donde pueden seleccionarse IP, hashes, dominios, reglas snort, YARA, etc.</li>
+  <li><strong>Category</strong>: La categoría del IOC (<i>Network Activity, Artifacts dropped, etc</i>)</li>
+  <li><strong>Type</strong>: Dependiendo de la categoría se tendrán unos tipos u otros (<i>IP, hashes, dominios, SNORT, YARA, etc</i>)</li>
   <li><strong>Distribution</strong>: Siempre ira en “<i>Inherit Event</i>”</li>
   <li><strong>Value</strong>: Aquí se especifica el IOC a compartir</li>
   <li><strong>First seen date/Last seen date:</strong> Se pueden dejar vacíos, a no ser que se quiera especificar la primera vez y ultima vez que fui vista la actividad</li>
 </ul>
-<p>&nbsp;</p>
+<p>Una vez añadidos los atributos, es importante marcar la opción de “<i><strong>IDS</strong></i>” a aquellos atributos que sean considerados un peligro y deban bloquearse.</p>
+<p>Aquellos atributos que se suban para dar contexto al evento, pero no sean considerados como atributos a bloquear, no deberán marcarse con el check de “<i><strong>IDS</strong></i>”.</p>
+<p>No pueden subirse mas de <i><u>150 atributos</u></i> por evento.</p>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
