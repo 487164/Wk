@@ -2,7 +2,7 @@
 title: MISP Events
 description: Procedimiento para crear eventos en la MISP
 published: true
-date: 2024-03-06T11:01:44.279Z
+date: 2024-03-06T11:27:56.610Z
 tags: soc, ti, misp, procedure
 editor: ckeditor
 dateCreated: 2024-03-06T08:58:12.013Z
@@ -44,6 +44,7 @@ dateCreated: 2024-03-06T08:58:12.013Z
   <li><strong>Analysis</strong>: Por lo general se creará como “<i>Completed</i>”, ya que ya ha habido un análisis previo a la hora de compartir los IOC.</li>
   <li><strong>Event Info</strong>: Nombre descriptivo del incidente que se reporta.</li>
 </ul>
+<figure class="image image_resized" style="width:50.96%;"><img src="/sec/soc/threat-intel/procedures/misp-addevent.png"></figure>
 <p>&nbsp;</p>
 <h3>TAGS</h3>
 <p>Los tags que deben llevar los eventos compartidos con la RNS son los siguientes:</p>
@@ -54,10 +55,12 @@ dateCreated: 2024-03-06T08:58:12.013Z
   <li><strong>ecsirt</strong>: Esta clasificación está relativamente relacionada con la clasificación de incidentes establecida en la guía <a href="https://www.ccn-cert.cni.es/es/series-ccn-stic/800-guia-esquema-nacional-de-seguridad/988-ccn-stic-817-gestion-de-ciberincidentes/file?format=html">CCN-STIC 817 “ENS. Gestión de ciberincidentes”</a></li>
   <li><strong>red-nacional-soc:status="ongoing"</strong>: Es el tag que permite que el evento se propague a la RNS, si este tag no se incluye nunca se compartirá con la RNS.</li>
 </ul>
+<figure class="image"><img src="/sec/soc/threat-intel/procedures/misp-tags.png"></figure>
 <p>&nbsp;</p>
 <h3>Galaxy</h3>
 <p>En el apartado “<i>Galaxies</i>” podremos añadir contexto a los eventos, pudiendo catalogar el evento mediante la matriz de MITRE ATT&amp;CK.</p>
 <p>Seleccionando “<i>Add new cluster → &amp; Attack Patern</i>”, se desplegara la matriz entera de MITRE ATT&amp;CK para poder seleccionar las tácticas y técnicas que sean apropiadas para el evento.</p>
+<figure class="image"><img src="/sec/soc/threat-intel/procedures/misp-addgalaxy.png"></figure>
 <p>&nbsp;</p>
 <h3>Atributos</h3>
 <p>Para añadir atributos se seleccionará “<i>Add Attribute</i>”, donde los campos a rellenar serán los siguientes:</p>
