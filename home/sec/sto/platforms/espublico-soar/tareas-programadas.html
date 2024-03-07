@@ -2,7 +2,7 @@
 title: Tareas programadas
 description: 
 published: true
-date: 2024-01-15T15:59:20.099Z
+date: 2024-03-07T10:09:16.876Z
 tags: sm, soc, ti, soar, lm, cron, task
 editor: ckeditor
 dateCreated: 2024-01-15T15:59:20.099Z
@@ -10,112 +10,105 @@ dateCreated: 2024-01-15T15:59:20.099Z
 
 <h1 style="text-align:center;"><i><strong>Tareas programadas</strong></i></h1>
 <p>Las tareas programadas existentes se indican en los ficheros existentes en el directorio /etc/cron.d</p>
-<p>Se define un fichero por cada tipo de servidor, tecnología o aplicación utilizada existiendo los siguientes actualmente:</p>
+<p>Se define un fichero por cada departamento existente en el soc así como alguna más en función del servidor.</p>
+<p>Actualmente se encuentran los siguientes:</p>
 <ul>
-  <li>crowdstrike → tareas que trabajan con la api de CrowdStrike</li>
-  <li>intelchecker -&gt; para la definición de tareas de la app de intelchecker</li>
-  <li>intelx -&gt; tareas de la aplicación intelxio para la integración con intelx</li>
-  <li>misp -&gt; tareas que trabajan con la api rest de MISP</li>
-  <li>qradar -&gt; tareas destinadas al trabajo con la api rest de QRadar y demás tareas relacionadas con este siem</li>
+  <li>Security-monitoring → tareas propias del departamento</li>
   <li>soar -&gt; tareas generales del servidor que no tienen relación directa con alguna de las aplicaciones o software descritos anteriormente</li>
+  <li>Threat-intelligence → tareas propias del departamento</li>
 </ul>
 <p>&nbsp;</p>
 <p>A continuación se muestra el fichero de cron configurado actualmente de cada fichero.</p>
 <p>&nbsp;</p>
-<h2>Crowdstrike</h2>
-<pre><code class="language-plaintext">## CrowdStrike cron tasks
+<h2>Security-monitoring</h2>
+<pre><code class="language-plaintext">SHELL=/bin/bash
+MAILTO="soc"
 
-# import hosts data on database
-18 3 * * * root python3 /opt/espublico/Security-monitoring/crowdstrike/crowd2mysql/crowd2mysql.py -Hq &gt; /dev/null 2&gt;&amp;1</code></pre>
-<p>&nbsp;</p>
-<h2>Intelchecker</h2>
-<pre><code class="language-plaintext">## intelchecker tasks
-# check blacklists 
-45 0 * * * root /usr/bin/intelchecker -a check -t blacklist -f /data/Threat-intelligence/intelchecker/lists/blacklist_tocheck.txt -qv &gt; /dev/null 2&gt;&amp;1
-
-# check squatting
-2 1 1 * * root /opt/scripts/Threat-intelligence/intelchecker-squatting.sh &gt; /dev/null 2&gt;&amp;1
-
-# check newly registered domains
-3 20 * * * root /usr/bin/intelchecker -a check -t new_domains -f /data/Threat-intelligence/intelchecker/lists/espublico_domains.txt -qv &gt; /dev/null 2&gt;&amp;1</code></pre>
-<p>&nbsp;</p>
-<h2>IntelX</h2>
-<pre><code class="language-plaintext">## intelx tasks
-# check leaks
-4 8 * * * root /opt/scripts/Threat-intelligence/intelxio/run-check.sh &gt; /dev/null 2&gt;&amp;1
-14 8 * * * root /opt/scripts/Threat-intelligence/intelxio/run-process.sh &gt; /dev/null 2&gt;&amp;1</code></pre>
-<p>&nbsp;</p>
-<h2>MISP</h2>
-<pre><code class="language-plaintext">## misp cron tasks
-# import sentinel iocs on misp 
-*/4 * * * * root /opt/espublico/Threat-intelligence/misp/scripts/sentinel2misp.sh &gt; /dev/null 2&gt;&amp;1</code></pre>
-<p>&nbsp;</p>
-<h2>QRadar</h2>
-<pre><code class="language-plaintext">### Guards
+##### QRadar ##### 
+### Guards
 ## check current alerts and call if proceed
-* * * * * root /usr/bin/python3 /opt/espublico/Security-monitoring/asterisk/guard/call-guard.py &gt; /dev/null 2&gt;&amp;1
+* * * * * root /usr/bin/python3 /opt/espublico/Security-monitoring/asterisk/guard/call-guard.py 
+
 
 ### Imports on ddbb
 ## sync rules and offenses on grafana qradar database
-30 0 * * * root /opt/espublico/Security-monitoring/qradar/qradar2mysql/qradar2mysql.py -rouq &gt; /dev/null 2&gt;&amp;1
+30 0 * * * root /usr/bin/python3 /opt/espublico/Security-monitoring/qradar/qradar2mysql/qradar2mysql.py -rou
 
 ## update open offenses to closed
-*/1 * * * * root /opt/espublico/Security-monitoring/qradar/qradar2mysql/qradar2mysql.py -uq &gt; /dev/null 2&gt;&amp;1
+*/1 * * * * root /usr/bin/python3 /opt/espublico/Security-monitoring/qradar/qradar2mysql/qradar2mysql.py -u 
 
 ## import new open offenses
-*/1 * * * * root /opt/scripts/qradar/qradar-import-offenses.sh &gt; /dev/null 2&gt;&amp;1
+*/1 * * * * root /opt/scripts/qradar/qradar-import-offenses.sh 
 
 ## import log sources to database
-1 16 * * * root /opt/espublico/Security-monitoring/qradar/qradar2mysql/qradar2mysql.py -lq &gt; /dev/null 2&gt;&amp;1
+1 16 * * * root /usr/bin/python3 /opt/espublico/Security-monitoring/qradar/qradar2mysql/qradar2mysql.py -l
 
 ## update slas in database if assigned is empty
-*/6 * * * * root /opt/espublico/Security-monitoring/qradar/qradar2mysql/qradar2mysql.py -SUq &gt; /dev/null 2&gt;&amp;1
+*/6 * * * * root /usr/bin/python3 /opt/espublico/Security-monitoring/qradar/qradar2mysql/qradar2mysql.py -SU
 
 
 ### IOCs
 ## export iocs and sync to s3 every 5 minutes
-*/5 * * * * root /opt/scripts/qradar/qradar-exportiocs.sh &gt; /dev/null 2&gt;&amp;1 &amp;&amp; /opt/scripts/aws/s3iocsync.sh &gt; /dev/null 2&gt;&amp;1
+*/5 * * * * root /opt/scripts/qradar/qradar-exportiocs.sh &amp;&amp; /opt/scripts/aws/s3iocsync.sh 
 
 ## import misp iocs to qradar
-6 * * * * root /opt/scripts/qradar/misp2qradar.sh &gt; /dev/null 2&gt;&amp;1
-28 * * * * root /opt/scripts/qradar/mispRNS2qradar.sh &gt; /dev/null 2&gt;&amp;1
-42 2 * * * root /opt/scripts/qradar/mispFeeds2QRadar.sh &gt; /dev/null 2&gt;&amp;1
-
+6 * * * * root /opt/scripts/qradar/misp2qradar.sh 
+28 * * * * root /opt/scripts/qradar/mispRNS2qradar.sh 
+42 2 * * * root /opt/scripts/qradar/mispFeeds2QRadar.sh
 
 ### Reference sets
 ## Update Asterisk reference table
-15 2 * * 7 root /opt/scripts/qradar/qradar-import-asterisk-ref.sh &gt; /dev/null 2&gt;&amp;1
+15 2 * * 7 root /opt/scripts/qradar/qradar-import-asterisk-ref.sh 
 
 ## update gestiona orgs reference table
-33 3 * * 7 root /opt/scripts/qradar/qradar-import-gestiona-orgs.sh &gt; /dev/null 2&gt;&amp;1
+33 3 * * 7 root /opt/scripts/qradar/qradar-import-gestiona-orgs.sh
 
 ## update azure ad data reference table
-31 2 * * 7 root /usr/bin/python3 /opt/scripts/qradar/azAD2QRadar.py &gt; /dev/null 2&gt;&amp;1
+31 2 * * 7 root /usr/bin/python3 /opt/scripts/qradar/azAD2QRadar.py 
 
 ## update gestiona sedes reference set
-22 3 * * 7 root /opt/scripts/qradar/qradar-import-gestiona-sedes.sh &gt; /dev/null 2&gt;&amp;1 
+22 3 * * 7 root /opt/scripts/qradar/qradar-import-gestiona-sedes.sh 
 
 ## update noname reference sets
-10 * * * * root /opt/scripts/qradar/qradar-import-noname.sh &gt; /tmp/qradar-import-noname.log 2&gt;&amp;1
+10 * * * * root /opt/scripts/qradar/qradar-import-noname.sh 
 
 
 ## Reports
 # Forti vpn zgz
-31 1 * * * root /usr/bin/python3 /opt/espublico/Security-monitoring/qradar/reports/qradarReports.py -r "Forti VPN Security" -l ZGZ -q &gt; /dev/null 2&gt;&amp;1
+31 1 * * * root /usr/bin/python3 /opt/espublico/Security-monitoring/qradar/reports/qradarReports.py -r "Forti VPN Security" -l ZGZ 
 # Forti vpn atq
-46 1 * * * root /usr/bin/python3 /opt/espublico/Security-monitoring/qradar/reports/qradarReports.py -r "Forti VPN Security" -l ATQ -q &gt; /dev/null 2&gt;&amp;1</code></pre>
+46 1 * * * root /usr/bin/python3 /opt/espublico/Security-monitoring/qradar/reports/qradarReports.py -r "Forti VPN Security" -l ATQ
+
+
+##### CrowdStrike #####
+## import hosts data on database
+18 * * * * root python3 /opt/espublico/Security-monitoring/crowdstrike/crowd2mysql/crowd2mysql.py -H</code></pre>
 <p>&nbsp;</p>
 <h2>Soar</h2>
-<pre><code class="language-plaintext">## soar cron tasks
+<pre><code class="language-plaintext">SHELL=/bin/bash
+MAILTO="soc"
+
+## soar cron tasks
 
 # process dns zones
-5 4 * * * root /opt/espublico/Security-monitoring/soar/dns-zones/process-dns-zones.sh &gt; /tmp/dnslog
+5 4 * * * root /opt/espublico/Security-monitoring/soar/dns-zones/process-dns-zones.sh 
 
 # process rt tickets
-2 5 * * * root /usr/bin/python3 /opt/espublico/Security-monitoring/request-tracker/rtGetter/rtGetter.py -p Vulnerabilities -q &gt; /dev/null 2&gt;&amp;1
-33 5 * * * root /usr/bin/python3 /opt/espublico/Security-monitoring/request-tracker/rtGetter/rtGetter.py -p tie -q &gt; /dev/null 2&gt;&amp;1
+2 5 * * * root /usr/bin/python3 /opt/espublico/Security-monitoring/request-tracker/rtGetter/rtGetter.py -p Vulnerabilities
+33 5 * * * root /usr/bin/python3 /opt/espublico/Security-monitoring/request-tracker/rtGetter/rtGetter.py -p tie 
 
 # get pam users from azure
-4 21 * * * root /usr/bin/python3 /opt/espublico/Security-monitoring/azure/azPAMUsers/azPAMUsers2CSV.py &gt; /dev/null 2&gt;&amp;1</code></pre>
+*/5 * * * * root /usr/bin/python3 /opt/espublico/Security-monitoring/azure/azPAMUsers/azPAMUsers2CSV.py </code></pre>
+<p>&nbsp;</p>
+<h2>Threat-intelligence</h2>
+<pre><code class="language-plaintext">SHELL=/bin/bash
+MAILTO="soc"
+
+##### MISP #####
+## import sentinel iocs on misp 
+*/4 * * * * root /opt/espublico/Threat-intelligence/misp/scripts/sentinel2misp.sh 
+
+## import misp RNS IOCs to CrowdStrike
+55 */3 * * * root /usr/bin/python3 /opt/espublico/Threat-intelligence/misp/misp2crowd/misp2crowd.py </code></pre>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
