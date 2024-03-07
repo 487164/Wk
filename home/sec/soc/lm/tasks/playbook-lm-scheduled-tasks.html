@@ -2,7 +2,7 @@
 title: Playbook LM Scheduled Tasks
 description: 
 published: true
-date: 2024-03-04T07:48:09.229Z
+date: 2024-03-07T07:41:05.248Z
 tags: soc, lm, task, playbook, scheduled
 editor: ckeditor
 dateCreated: 2024-01-16T10:24:11.049Z
@@ -131,7 +131,6 @@ dateCreated: 2024-01-16T10:24:11.049Z
 <p>Las notificaciones las podremos ver desde el el dashboard principal o desde Log Sources en <strong>System Notification-2 :: itx-qradar-cs-01 </strong>si necesitamos ver de modo histórico.</p>
 <p>Revisar el documento <a href="https://wiki.security.espublico.com/es/home/sec/sto/platforms/ibm-qradar/procedures/system-notifications">System Notifications</a>&nbsp;donde hay explicaciónes de las distintas notificaciones y actuar en función de las mismas.</p>
 <p>&nbsp;</p>
-<h3>&nbsp;</h3>
 <h2>SOAR Health</h2>
 <p>&nbsp;</p>
 <h3><strong>Descripción</strong></h3>
@@ -205,6 +204,27 @@ Filesystem                   Size  Used Avail Use% Mounted on
 <p>- 35% → Porcentaje usado</p>
 <p>- / → Punto de montaje</p>
 <p>Si el porcentaje de disco usado es del 90% o superior se debe de abrir un ticket en la cola de SOC_LM con el tag INC indicando el problema (revisar en zabbix porque debería de haber una alerta).</p>
+<p>&nbsp;</p>
+<h2>Revisión Tareas Programadas</h2>
+<h3><strong>Descripción</strong></h3>
+<p>Revisar el estado las tareas programadas.</p>
+<p>&nbsp;</p>
+<h3><strong>Recurrencia</strong></h3>
+<p>Diaria</p>
+<p>&nbsp;</p>
+<h3><strong>Tiempo estimado</strong></h3>
+<p>10 minutos</p>
+<p>&nbsp;</p>
+<h3><strong>Servidores/Fuentes</strong></h3>
+<p>Son varios los servidores que disponen de tareas programadas por lo que se indicarán documentos con información de las mismas en el apartado de referencias.</p>
+<p>&nbsp;</p>
+<h3><strong>Acciones</strong></h3>
+<p>Revisar los correos recibidos con el asunto “Cron Daemon” y destinatario “soc@FQDN” donde FQDN será el nombre del servidor. &nbsp;Todas las tareas se deberían de haber ejecutado correctamente, en caso de que alguna haya dado errores revisar y abrir un ticket en la cola de SOC_LM con el tag INC si procede para su investigación y corrección.</p>
+<p>&nbsp;</p>
+<h3>Referencias</h3>
+<p><a href="https://wiki.security.espublico.com/es/home/sec/soc/lm/revision-cron">Listado cron a revisar</a></p>
+<p><a href="https://wiki.security.espublico.com/es/home/sec/sto/platforms/espublico-soar/tareas-programadas">Cron SOAR</a></p>
+<p><a href="https://wiki.security.espublico.com/es/home/sec/sto/platforms/digital-surveillance/tareas-programadas">Cron Digital Surveillance</a></p>
 <p>&nbsp;</p>
 <h2>SIEM APP Updates</h2>
 <p>&nbsp;</p>
