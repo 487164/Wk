@@ -2,7 +2,7 @@
 title: YARA Rules
 description: Procedimiento para crear reglas YARA
 published: true
-date: 2024-03-07T13:15:52.652Z
+date: 2024-03-07T13:26:51.821Z
 tags: soc, procedure, th
 editor: ckeditor
 dateCreated: 2024-03-06T12:09:34.199Z
@@ -16,21 +16,22 @@ dateCreated: 2024-03-06T12:09:34.199Z
 
    meta:
        author = "Author Name"
-       description = "example rule"
+       version = "1.0"
+       description = "This is a example of YARA rule"
        hash = ""
 
    strings:  
        $string1 = "test"
-       $string2 = "rule"
-       $string3 = "htb"
+       $string2 = "decrypt"
+       $string3 = "Tor browser"
 
    condition:  
        all of them
 } </code></pre>
 <p> </p>
-<p>hgfhgfhgf</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
+<h2>Repositorio esPublico</h2>
+<p>Actualmente se esta empezando a desarrollar reglas Yara, en concreto se han desarrollado reglas para diferentes variantes de Ransomware.</p>
+<p>Estas reglas se están almacenando en el repositorio de Threat-hunting</p>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
