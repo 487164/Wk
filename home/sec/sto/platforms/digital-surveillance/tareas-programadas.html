@@ -1,0 +1,75 @@
+<!--
+title: Tareas Programadas
+description: 
+published: true
+date: 2024-03-07T07:35:09.560Z
+tags: soc, ti, cron, ds, digital, surveillance
+editor: ckeditor
+dateCreated: 2024-03-07T07:35:09.560Z
+-->
+
+<h2 style="text-align:center;">Tareas programadas</h2>
+<p>&nbsp;</p>
+<p>Las tareas programadas existentes se indican en los ficheros existentes en el directorio /etc/cron.d</p>
+<p>Se ha creado un fichero por dpto donde se guardan las tareas del mismo y siendo en este momento los siguientes:</p>
+<ul>
+  <li>Digital-surveillance → Tareas dedicadas a los análisis para los requisitos del proyecto de Digital Surveillance</li>
+  <li>Threat-intelligence → Tareas dedicadas para el dpto.</li>
+</ul>
+<p>&nbsp;</p>
+<p>A continuación se muestra cada fichero de cron configurado.</p>
+<p>&nbsp;</p>
+<h2>Digital-surveillance</h2>
+<p>&nbsp;</p>
+<pre><code class="language-plaintext">SHELL=/bin/bash
+MAILTO="soc"
+
+##### Get Lists #####
+## get lists from reference sets
+#50 14 * * * root /opt/scripts/Digital-surveillance/get-rsdata.sh &gt; /dev/null 2&gt;&amp;1
+## update domains on database
+30 0 * * * root /usr/bin/python3 /opt/scripts/Digital-surveillance/ds2ddbb.py -D -f /data/Digital-surveillance/espublico/lists/domains.txt
+
+##### Checks #####
+## DNS Security
+15 1 * * * root /opt/scripts/Digital-surveillance/run-ds.sh -c espublico -n -f /data/Digital-surveillance/espublico/lists/espublico-domain-dnssec.txt -D 
+
+## Zone transfers
+30 1 * * * root /opt/scripts/Digital-surveillance/run-ds.sh -c espublico -z -f /data/Digital-surveillance/espublico/lists/espublico-domain-zone_transfer.txt -D 
+
+## HTTP Headers 
+45 1 * * * root /opt/scripts/Digital-surveillance/run-ds.sh -c espublico -p -f /data/Digital-surveillance/espublico/lists/espublico-domain-headers.txt -D 
+
+## Mail 
+0 2 * * * root /opt/scripts/Digital-surveillance/run-ds.sh -c espublico -m -f /data/Digital-surveillance/espublico/lists/domains.json -D 
+
+## SSL 
+30 2 * * * root /opt/scripts/Digital-surveillance/run-ds.sh -c espublico -t -f /data/Digital-surveillance/espublico/lists/espublico-domain-tls.txt -D 
+
+## Blacklist
+0 3 * * * root /opt/scripts/Digital-surveillance/run-ds.sh -c espublico -b -f /data/Digital-surveillance/espublico/lists/espublico-domain-blacklist.txt -D 
+
+## Domain Squatting
+0 4 * * * root /opt/scripts/Digital-surveillance/run-ds.sh -c espublico -d -f /data/Digital-surveillance/espublico/lists/espublico-domain-squatting.txt -D 
+
+## Credentials data leak 
+0 7 * * * root /opt/scripts/Digital-surveillance/run-ds.sh -c espublico -i -f /data/Digital-surveillance/espublico/lists/espublico-domain-data_leaks.txt
+</code></pre>
+<p>&nbsp;</p>
+<h2>Threat-intelligence</h2>
+<p>&nbsp;</p>
+<pre><code class="language-plaintext">SHELL=/bin/bash
+MAILTO="soc"
+
+## intelchecker
+# check blacklists
+#45 0 * * * root /usr/bin/intelchecker -a check -t blacklist -f /data/Threat-intelligence/intelchecker/lists/blacklist_tocheck.txt -qv &gt; /dev/null 2&gt;&amp;1
+
+# check squatting
+#0 1 1 * * root /usr/bin/intelchecker -a check -t squatting -f /data/Threat-intelligence/intelchecker/lists/espublico_domains.txt -q &gt; /dev/null 2&gt;&amp;1
+#2 1 1 * * root /opt/scripts/Threat-intelligence/intelchecker-squatting.sh &gt; /dev/null 2&gt;&amp;1
+
+# check newly registered domains
+#3 20 * * * root /usr/bin/intelchecker -a check -t new_domains -f /data/Threat-intelligence/intelchecker/lists/espublico_domains.txt -qv &gt; /dev/null 2&gt;&amp;1</code></pre>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
