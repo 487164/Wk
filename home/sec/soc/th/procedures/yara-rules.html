@@ -2,7 +2,7 @@
 title: YARA Rules
 description: Procedimiento para crear reglas YARA
 published: true
-date: 2024-03-07T13:54:06.259Z
+date: 2024-03-11T11:17:32.158Z
 tags: soc, procedure, th
 editor: ckeditor
 dateCreated: 2024-03-06T12:09:34.199Z
@@ -35,7 +35,24 @@ dateCreated: 2024-03-06T12:09:34.199Z
 <pre><code class="language-plaintext"> ssh://git@YOUR_HOST/Threat-hunting/yara-rules/rules</code></pre>
 <p>Para desarrollar reglas YARA de Ransomware, se cuenta con una <i>template </i>que se puede utilizar para crear nuevas:</p>
 <pre><code class="language-plaintext">ssh://git@YOUR_HOST/Threat-hunting/yara-rules/templates/Ransomware.yar</code></pre>
-<p>Las reglas que se creen se tendran que subir al repositorio, trabajando con el repositorio tal como se indica en la <a href="https://wiki.security.espublico.com/es/home/sec/sto/platforms/git/descarga-directorios-concretos">guia</a>.</p>
+<p>Las reglas que se creen se tendrán que subir al repositorio, trabajando con el repositorio tal como se indica en la <a href="https://wiki.security.espublico.com/es/home/sec/sto/platforms/git/descarga-directorios-concretos">guia</a>.</p>
 <p>&nbsp;</p>
 <h2>MISP RNS</h2>
+<p>Como se explica en el procedimiento de <a href="https://wiki.security.espublico.com/es/home/sec/soc/ti/procedures/misp-events">MISP Events</a>, la RNS otorgará 3 puntos a aquellos eventos que contengan reglas YARA. Por lo tanto, cuando se cree una regla YARA se puede aprovechar también para crear un evento en la MISP y compartirla con la RNS.</p>
+<p>&nbsp;</p>
+<h2>Análisis de binarios &amp; Tools</h2>
+<p style="text-align:justify;">Para poder crear reglar YARA que funcionen, primero debe analizarse el comportamiento de la amenaza que se quiere detectar.&nbsp;</p>
+<p style="text-align:justify;">Los binarios a analizar pueden sacarse de diferentes correos de phishing que hayan entrado en la <a href="https://security.microsoft.com/quarantine">Cuarentena</a> de <strong>Office365</strong>, de un incidente real de seguridad o de diversas plataformas que almacenan malware, como puede ser <a href="https://bazaar.abuse.ch/browse/">Malware Bazaar</a>. De esta forma, pueden crearse detecciones de nuevas cepas de malware que estén usando actualmente las diferentes APT.</p>
+<p>Una vez descargado el binario, puede analizarse mediante diversas herramientas, como:</p>
+<ul>
+  <li><a href="https://any.run/">AnyRun</a>: una sandbox cloud (<i>de la cual contamos con licencia</i>) donde explotar el malware y comprobar su comportamiento.</li>
+  <li><a href="https://www.joesandbox.com">JoeSandbox</a>: otra sandbox cloud más.&nbsp;</li>
+  <li><a href="https://cuckoo.readthedocs.io/en/latest/introduction/what/">CuckooSandbox</a>: una sandbox on premise.</li>
+  <li>Strings: Tanto en Windows como en Linux, esta utilidad permite extraer cadenas de texto de un binario.</li>
+  <li><a href="https://github.com/mandiant/capa">Capa</a>: Una herramienta para Linux con la que detectar diferentes capacidades del binario analizado.</li>
+  <li><a href="https://ghidra-sre.org/">Ghidra</a>: herramienta de ingeniería inversa desarrollada por la NSA (<i>National Security Agency</i>).</li>
+</ul>
+<p>&nbsp;</p>
+<h2>Comprobación de la eficacia de la regla</h2>
+<p>&nbsp;</p>
 <p style="text-align:center;"><i><strong><u>In progress..</u></strong></i></p>
