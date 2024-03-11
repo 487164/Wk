@@ -2,7 +2,7 @@
 title: YARA Rules
 description: Procedimiento para crear reglas YARA
 published: true
-date: 2024-03-11T11:21:59.868Z
+date: 2024-03-11T11:22:43.909Z
 tags: soc, procedure, th
 editor: ckeditor
 dateCreated: 2024-03-06T12:09:34.199Z
@@ -42,7 +42,7 @@ dateCreated: 2024-03-06T12:09:34.199Z
 <p style="text-align:justify;">Como se explica en el procedimiento de <a href="https://wiki.security.espublico.com/es/home/sec/soc/ti/procedures/misp-events">MISP Events</a>, la RNS otorgará 3 puntos a aquellos eventos que contengan reglas YARA. Por lo tanto, cuando se cree una regla YARA se puede aprovechar también para crear un evento en la MISP y compartirla con la RNS.</p>
 <p style="text-align:justify;">&nbsp;</p>
 <h2 style="text-align:justify;">Análisis de binarios &amp; Tools</h2>
-<p style="text-align:justify;">Para poder crear reglar YARA que funcionen, primero debe analizarse el comportamiento de la amenaza que se quiere detectar.&nbsp;</p>
+<p style="text-align:justify;">Para poder crear reglas YARA que funcionen, primero debe analizarse el comportamiento de la amenaza que se quiere detectar.&nbsp;</p>
 <p style="text-align:justify;">Los binarios a analizar pueden sacarse de diferentes correos de phishing que hayan entrado en la <a href="https://security.microsoft.com/quarantine">Cuarentena</a> de <strong>Office365</strong>, de un incidente real de seguridad o de diversas plataformas que almacenan malware, como puede ser <a href="https://bazaar.abuse.ch/browse/">Malware Bazaar</a>. De esta forma, pueden crearse detecciones de nuevas cepas de malware que estén usando actualmente las diferentes APT.</p>
 <p style="text-align:justify;">Una vez descargado el binario, puede analizarse mediante diversas herramientas, como:</p>
 <ul>
