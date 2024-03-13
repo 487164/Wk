@@ -2,7 +2,7 @@
 title: Revisión de Crons
 description: 
 published: true
-date: 2024-03-07T10:10:40.775Z
+date: 2024-03-13T15:34:00.453Z
 tags: soc, lm, cron, linux, tareas, tasks, revicion, programadas
 editor: ckeditor
 dateCreated: 2024-03-07T07:40:53.972Z
@@ -13,13 +13,80 @@ dateCreated: 2024-03-07T07:40:53.972Z
 <p>Se deberá revisar que los siguientes procesos han llegado correctamente y no hay errores en su ejecución.</p>
 <p>Se organizan a continuación por departamento y/o servidor:</p>
 <p>&nbsp;</p>
-<p>Digital-surveillance</p>
+<h2>Digital-surveillance</h2>
+<ul>
+  <li>Blacklist → ds2ddbb.py -D -f /data/Digital-surveillance/espublico/lists/domains.txt</li>
+  <li>Credentials Data Leaks → run-ds.sh -c espublico -i -f /data/Digital-surveillance/espublico/lists/espublico-domain-data_leaks.txt</li>
+  <li>Domain Squatting → run-ds.sh -c espublico -d -f /data/Digital-surveillance/espublico/lists/espublico-domain-squatting.txt -D</li>
+  <li>DNS →run-ds.sh -c espublico -n -f /data/Digital-surveillance/espublico/lists/espublico-domain-dnssec.txt -D</li>
+  <li>HTTP Headers → run-ds.sh -c espublico -p -f /data/Digital-surveillance/espublico/lists/espublico-domain-headers.txt -D</li>
+  <li>Mail → run-ds.sh -c espublico -m -f /data/Digital-surveillance/espublico/lists/domains.json -D</li>
+  <li>SSL → run-ds.sh -c espublico -t -f /data/Digital-surveillance/espublico/lists/espublico-domain-tls.txt -D</li>
+  <li>Zone Transfer → run-ds.sh -c espublico -z -f /data/Digital-surveillance/espublico/lists/espublico-domain-zone_transfer.txt -D</li>
+</ul>
 <p>&nbsp;</p>
-<p>Security-monitoring</p>
+<h2>Security-monitoring</h2>
+<ul>
+  <li>Guardias<ul>
+      <li>Comprobación de alertas → call-guard.py</li>
+    </ul>
+  </li>
+  <li>Importaciones SIEM a DDBB</li>
+  <li>IOCs<ul>
+      <li>Generación de listas → qradar-exportiocs.sh</li>
+      <li>Subida listas a S3 → s3iocsync.sh</li>
+      <li>MISP IOCs a SIEM → misp2qradar.sh</li>
+      <li>MISP RNS IOCs a SIEM → mispRNS2qradar.sh</li>
+      <li>MISP Feeds IOCs a SIEM → mispFeeds2QRadar.sh</li>
+    </ul>
+  </li>
+  <li>SIEM Reference Data<ul>
+      <li>Asterisk → qradar-import-asterisk-ref.sh</li>
+      <li>Azure AD → azAD2QRadar.py</li>
+      <li>Gestiona ORGs → qradar-import-gestiona-orgs.sh</li>
+      <li>Gestiona Sedes → qradar-import-gestiona-sedes.sh</li>
+      <li>NoName → qradar-import-noname.sh</li>
+    </ul>
+  </li>
+  <li>Reports<ul>
+      <li>Forti VPN ZGZ → qradarReports.py -r "Forti VPN Security" -l ZGZ</li>
+      <li>Forti VPN ATQ → qradarReports.py -r "Forti VPN Security" -l ATQ</li>
+    </ul>
+  </li>
+</ul>
 <p>&nbsp;</p>
-<p>Threat-intelligence</p>
+<h2>Threat-intelligence</h2>
+<ul>
+  <li>MISP<ul>
+      <li>Importación IOCs Sentinel → sentinel2misp.sh</li>
+      <li>Importación IOCs RNS a CrowdStrike → misp2crowd.py</li>
+    </ul>
+  </li>
+</ul>
 <p>&nbsp;</p>
-<p>Threat-hunting</p>
+<h2>Threat-hunting</h2>
+<ul>
+  <li>CrowdStrike<ul>
+      <li>Importación hosts en DDBB → crowd2mysql.py -H</li>
+    </ul>
+  </li>
+</ul>
 <p>&nbsp;</p>
-<p>Soar</p>
+<h2>Soar</h2>
+<ul>
+  <li>DNS<ul>
+      <li>Procesado de zonas DNS → process-dns-zones.sh</li>
+    </ul>
+  </li>
+  <li>RT<ul>
+      <li>Tickets de Vulnerabilidades → rtGetter.py -p Vulnerabilities</li>
+      <li>Tickets TIE → rtGetter.py -p tie</li>
+    </ul>
+  </li>
+  <li>Azure<ul>
+      <li>Usuarios PAM → azPAMUsers2CSV.py</li>
+    </ul>
+  </li>
+</ul>
+<p>&nbsp;</p>
 <p>&nbsp;</p>
