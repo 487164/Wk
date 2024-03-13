@@ -2,7 +2,7 @@
 title: Playbook LM Scheduled Tasks
 description: 
 published: true
-date: 2024-03-07T07:41:05.248Z
+date: 2024-03-13T09:14:10.857Z
 tags: soc, lm, task, playbook, scheduled
 editor: ckeditor
 dateCreated: 2024-01-16T10:24:11.049Z
@@ -75,6 +75,7 @@ dateCreated: 2024-01-16T10:24:11.049Z
 <p>&nbsp;</p>
 <h3><strong>Descripción</strong></h3>
 <p>Revisar si existen eventos sin una fuente de log asignada y crearla si procede.</p>
+<p>Revisar fuentes en estado warning/error/not available.</p>
 <p>&nbsp;</p>
 <h3><strong>Recurrencia</strong></h3>
 <p>Diaria&nbsp;</p>
@@ -91,6 +92,16 @@ dateCreated: 2024-01-16T10:24:11.049Z
 <p>Como punto importante, el orden de creación de las fuentes ya que es como se van procesar los eventos, de manera que si el orden es incorrecto, eventos de una fuente , pueden al final acabar en otra.</p>
 <p>&nbsp;</p>
 <p>En caso de errores, abrir ticket si es necesario con el tag <strong>NLS </strong>explicando el problema y las acciones llevadas a cabo para su resolución.</p>
+<p>&nbsp;</p>
+<p>En el caso de que haya alguna fuente que este en las colas de estado warning/error/not available , se deberá de mirar entre otras:</p>
+<ul>
+  <li>Si existe el servidor</li>
+  <li>Si el nombre esta bien</li>
+  <li>Si se ha cambiado de red o ya no hay conexión contra la colectora</li>
+  <li>Si realmente es un template y apenas manda eventos</li>
+</ul>
+<p>&nbsp;</p>
+<p>Para estos casos , según la casuística, se abrirá ticket con quien procesa, si es sistemas, comunicaciones o con el tag <strong>CLS </strong>con el cambio que se va a aplicar y su corrección.</p>
 <p>&nbsp;</p>
 <h2>SIEM Auto Updates</h2>
 <p>&nbsp;</p>
