@@ -1,0 +1,56 @@
+<!--
+title: Gestión de discos LVM
+description: 
+published: true
+date: 2024-03-13T15:48:53.520Z
+tags: linux, os, discos, disk, lvm
+editor: ckeditor
+dateCreated: 2024-03-13T15:48:53.519Z
+-->
+
+<h1 style="text-align:center;">Gestión de discos LVM</h1>
+<p>&nbsp;</p>
+<p>Se explica a continuación la forma de proceder a la hora de la creación y/o modificación de volúmenes LVM.</p>
+<p>&nbsp;</p>
+<h2>Creación de un nuevo volumen</h2>
+<h3>Creación del volumen físico</h3>
+<p>Una vez añadido el disco en caso de ser un servidor virtualizado o disponer del disco o partición en el caso de un servidor físico se deberán revisar los discos existentes en la máquina con el comando</p>
+<pre><code class="language-plaintext">fdisk -l</code></pre>
+<p>Una vez detectado el disco se deberá crear el volumen con el comando siguiente sustituyendo el carácter X por la letra correspondiente al disco&nbsp;</p>
+<pre><code class="language-plaintext">pvcreate /dev/sdX</code></pre>
+<p>Se pueden visualizar los discos con el comando</p>
+<pre><code class="language-plaintext">pvdisplay</code></pre>
+<p>&nbsp;</p>
+<h3>Creación del grupo de volúmenes</h3>
+<p>Una vez creado el volumen físico se deberá crear el volumen con el comando siguiente sustituyendo donde corresponda. En el caso del nombre, utilizar el carácter _ en lugar del -</p>
+<pre><code class="language-plaintext">vgcreate NAME /dev/sdX</code></pre>
+<p>Se pueden ver los volume group existentes con el comando</p>
+<pre><code class="language-plaintext">vgdisplay</code></pre>
+<p>&nbsp;</p>
+<h3>Creación del volumen lógico</h3>
+<p>Una vez tenemos el volumen físico y el grupo se deberá crear el volumen lógico, para ello lanzar el siguiente comando sustituyendo donde corresponda</p>
+<pre><code class="language-plaintext">lvcreate -l 100%FREE -n LV_NAME VG_NAME</code></pre>
+<p>Una vez creado revisar el path del mismo con el comando&nbsp;</p>
+<pre><code class="language-plaintext">lvdisplay</code></pre>
+<p>Y formatear el disco</p>
+<pre><code class="language-plaintext">mkfs.xfs /dev/VG_NAME/LV_NAME</code></pre>
+<p>&nbsp;</p>
+<h3>Montaje del disco</h3>
+<p>Una vez tenemos el disco creado y formateado se deberá crear el directorio donde se montará el disco</p>
+<pre><code class="language-plaintext">mkdir /path</code></pre>
+<p>Y montar el mismo</p>
+<pre><code class="language-plaintext">mount /dev/VG_NAME/LV_NAME /path</code></pre>
+<p>Verificar el mismo con el comando&nbsp;</p>
+<pre><code class="language-plaintext">df -h /path</code></pre>
+<p>Y añadir al fichero fstab para garantizar que se monte en el arranque del sistema añadiendo la siguiente línea</p>
+<pre><code class="language-plaintext">/dev/mapper/VG_NAME-LV_NAME	/path	xfs	defaults	0 0</code></pre>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h2>Aumentar espacio de un volumen&nbsp;</h2>
+<p>Para aumentar el espacio del disco y una vez aumentado el disco de la máquina virtual o la partición en el servidor físico se deberá redimensionar el volumen físico</p>
+<pre><code class="language-plaintext">pvresize /dev/sdX</code></pre>
+<p>Y posteriormente redimensionar el volumen lógico</p>
+<pre><code class="language-plaintext">lvextend -l +100%FREE -r /dev/mapper/VG_NAME-LV_NAME</code></pre>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
