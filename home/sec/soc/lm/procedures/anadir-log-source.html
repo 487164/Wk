@@ -2,7 +2,7 @@
 title: Añadir log source
 description: 
 published: true
-date: 2024-01-17T14:15:08.856Z
+date: 2024-03-20T09:16:15.174Z
 tags: sm, soc, qradar, lm, ibm, procedure
 editor: ckeditor
 dateCreated: 2024-01-15T12:42:01.025Z
@@ -10,11 +10,11 @@ dateCreated: 2024-01-15T12:42:01.025Z
 
 <h1 style="text-align:center;"><strong>Añadir log source</strong></h1>
 <p>&nbsp;</p>
-<p>En QRadar, un log source es un tipo de log enviado por un servidor al SIEM por lo que se deberá de crear uno por cada uno de los tipos de logs que envíe dicho servidor. Por ejemplo, en caso de que un servidor envíe logs de sistema linux, de envío de mails por postfix y además tenga un mysql instalado se deberán de crear 3 log sources.</p>
+<p>En QRadar, un log source es un tipo de log enviado por un servidor al SIEM por lo que se deberá de crear uno por cada uno de los tipos de logs que envíe dicho servidor. Por ejemplo, en caso de que un servidor envíe logs de sistema linux, de envío de mails por postfix y además tenga un mysql instalado se deberán de crear 3 log sources en el siguiente orden:</p>
 <ul>
-  <li>Log source -&gt; Linux OS</li>
-  <li>Log source -&gt; PostfixMailService</li>
-  <li>Log source -&gt; MySQL Audit</li>
+  <li>1º Log source -&gt; MySQL Audit</li>
+  <li>2º Log source -&gt; PostfixMailService</li>
+  <li>3º Log source -&gt; Linux OS</li>
 </ul>
 <p>&nbsp;</p>
 <p>No obstante, es posible dejar que el propio QRadar realice la creación de estos log sources para lo cual es necesario que se envien un mínimo de 1000 eventos del tipo en cuestión.</p>
