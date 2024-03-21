@@ -2,12 +2,133 @@
 title: GLPI
 description: 
 published: true
-date: 2024-03-21T13:48:35.571Z
+date: 2024-03-21T14:09:25.178Z
 tags: 
 editor: ckeditor
 dateCreated: 2024-03-19T13:49:56.043Z
 -->
 
 <h1 style="text-align:center;">GLPI</h1>
-<p>Se optó por la solución de <a href="https://glpi-project.org/es/">GLPI</a> dentro del <a href="https://docs.google.com/document/d/1LsBklRexvsetTKehHpIX6htDsfAa3Yv_Vqnjv5SYnmk/edit">Proyecto de Gestión de la Configuración</a>, como herramienta de CMDB&nbsp;</p>
+<p>Se optó por la solución de <a href="https://glpi-project.org/es/">GLPI</a> dentro del <a href="https://docs.google.com/document/d/1LsBklRexvsetTKehHpIX6htDsfAa3Yv_Vqnjv5SYnmk/edit">Proyecto de Gestión de la Configuración</a>, como herramienta de CMDB.</p>
+<h2>Configuración</h2>
+<p><a href="https://docs.google.com/document/d/1jkuyoO_aTsO7rZQzKOc20hLZJp1IMJsDZAqxYbrGMBs/edit">https://docs.google.com/document/d/1jkuyoO_aTsO7rZQzKOc20hLZJp1IMJsDZAqxYbrGMBs/edit</a></p>
+<p><a href="https://docs.google.com/document/d/10YSDY4GYwGD6g-3eHWXkLlgdIfT8i6qZGtxlxg3mHxk/edit#heading=h.9web135pd2p5">https://docs.google.com/document/d/10YSDY4GYwGD6g-3eHWXkLlgdIfT8i6qZGtxlxg3mHxk/edit#heading=h.9web135pd2p5</a></p>
+<p>El agente se instala en todos los endpoints y servidores de modo que no acepte conexiones entrantes y envía cada hora el inventario de software a la máquina que actúe como proxy en cada red.</p>
+<p>En cada red se instalará un agente que actúa como proxy (XXX-cmdb-proxy-01-svcs) que reenviará los mensajes de los agentes al servidor de GLPI (zgz-glpi-01-svcs) y que acepta comandos desde la IP del servidor de GLPI para permitir realizar tareas de network discovery y network inventory</p>
+<p>Los equipos de usuario solo enviarán información si están en LAN o conectados a la VPN.</p>
+<p>En el servidor se verán como entidades separadas cada una de las redes y tipos de equipos</p>
+<h2><strong>Funciones del Servidor</strong></h2>
+<ul>
+  <li>Gestión de inventario: Permite realizar un seguimiento de todos los activos de hardware y software, incluyendo equipos de escritorio, dispositivos móviles, licencias de software, impresoras, etc.</li>
+  <li>Gestión de incidentes: Permite a los usuarios reportar incidentes y problemas técnicos relacionados con los activos de TI.</li>
+  <li>Gestión de cambios: Permite controlar y gestionar los cambios en la infraestructura de TI de manera efectiva.</li>
+  <li>Gestión de contratos: Permite gestionar contratos y garantías de hardware y software.</li>
+  <li>Gestión de presupuesto: Permite realizar un seguimiento del gasto en hardware, software y servicios.</li>
+  <li>Gestión de usuarios: Permite gestionar los usuarios y los permisos de acceso a la aplicación GLPI.</li>
+  <li>Informes y estadísticas: Permite generar informes y estadísticas personalizados sobre la infraestructura de TI y el uso de los activos.</li>
+</ul>
+<h2><strong>Funciones del Agente</strong></h2>
+<ul>
+  <li>Recopilación de datos de inventario: Permite recopilar información detallada sobre el hardware y software de los dispositivos.</li>
+  <li>Detección automática de dispositivos: Permite la detección automática de nuevos dispositivos en la red.</li>
+  <li>Envío de datos a GLPI: Permite enviar los datos de inventario y otros datos relevantes a la aplicación GLPI.</li>
+</ul>
+<p>En los servidores y endpoints se instalará con el menor número de funcionalidades posibles (según plataforma), configurado para enviar la actualización de software cada hora y sin puerto de escucha</p>
+<p>En las máquinas de proxy se instalarán todas las funcionalidades, incluidas las de:</p>
+<ul>
+  <li>Proxy: reenvía hacia el servidor los xml de inventario que reciba de otras máquinas.</li>
+  <li>Interfaz web: permite recibir comandos y tareas desde el servidor autorizado, para permitir tareas de descubrimiento de red.</li>
+</ul>
+<h2>Arquitectura</h2>
+<p>Endpoints donde tiene que apuntar el cliente (grd-cmdb-proxy.espublico.it está pendiente y se importan manualmente los equipos)</p>
+<ul>
+  <li><a href="https://zgz-cmdb-proxy.espublico.it/proxy/glpi"><u>https://zgz-cmdb-proxy.espublico.it/proxy/glpi</u></a></li>
+  <li><a href="https://itx-cmdb-proxy.espublico.it/proxy/glpi"><u>https://itx-cmdb-proxy.espublico.it/proxy/glpi</u></a></li>
+  <li><a href="https://nbx-cmdb-proxy.espublico.it/proxy/glpi"><u>https://nbx-cmdb-proxy.espublico.it/proxy/glpi</u></a></li>
+  <li><a href="https://atq-cmdb-proxy.espublico.it/"><u>https://atq-cmdb-proxy.espublico.it/</u></a><a href="https://nbx-cmdb-proxy.espublico.it/proxy/glpi"><u>proxy/glpi</u></a></li>
+</ul>
 <figure class="image"><img src="/sec/sto/platforms/glpi/arquitectura_cmdb.png"></figure>
+<h2>Instalar cliente en linux (setup):</h2>
+<p>El cliente de GLPI en linux lo instala directamente el setup, en el script:</p>
+<p><code>/opt/iubaris/setup/bin/setup.d/40.management/40.management.03.all.glpi.sh</code></p>
+<p>Según la localización lo instalará configurando el proxy adecuado.</p>
+<p>Si queremos ejecutar la tarea para que se añada o actualice en el GLPI, tendremos que ejecutar la tarea del cron.daily:</p>
+<p><code>sudo /etc/cron.daily/glpi-agent</code></p>
+<p>Log:</p>
+<p><code>/var/log/glpi-agent/glpi-agent.log</code></p>
+<h2>Eliminar la información del agente:</h2>
+<p>Si clonamos una máquina o existe una mala configuración con el agente(tiene el de la plantilla o de la máquina “origen”) podemos eliminar la información del agente:</p>
+<p><code>sudo rm -rf /var/lib/glpi-agent</code></p>
+<p>La próxima ejecución del agente, creará un nuevo agente para esta máquina.</p>
+<h2>Instalar en windows el cliente 1.4/1.5/1.7:</h2>
+<p>Link de descarga 1.4</p>
+<p><a href="https://github.com/glpi-project/glpi-agent/releases/tag/1.4"><u>https://github.com/glpi-project/glpi-agent/releases/tag/1.4</u></a></p>
+<p>Primero tenemos que copiar el certificado pem del proxy al que se va a conectar, por convención se ha decidido guardar en:</p>
+<p><code>C:\ProgramData\GLPI\[nombre del .pem]</code></p>
+<p>Al instalar podemos ejecutarlo por línea de comandos con las siguientes opciones:</p>
+<ul>
+  <li>ADDLOCAL=feat_AGENT → Para que la instalación sea mínima.</li>
+  <li>SERVER=[proxy] → La URL del&nbsp; proxy.</li>
+  <li>CA_CERT_FILE=[ruta.pem] → El certificado del proxy.</li>
+  <li>EXECMODE=2 → Ejecución modo tarea.</li>
+  <li>NO_HTTPD=1 → No levante un webserver.</li>
+  <li>TASK_FREQUENCY=daily → Frecuencia ejecución.</li>
+  <li>RUNNOW=1 → Ejecutar al instalar.</li>
+</ul>
+<p>Ejemplo de instalación que su servidor proxy es zaragoza:</p>
+<p><code>msiexec /i GLPI-Agent-1.7.1-x64.msi /quiet ADDLOCAL=feat_AGENT SERVER=https://zgz-cmdb-proxy.espublico.it/proxy/glpi CA_CERT_FILE=C:\ProgramData\GLPI\zgz-cmdb-proxy.pem EXECMODE=2 NO_HTTPD=1 TASK_FREQUENCY=daily RUNNOW=1</code></p>
+<p>Log:</p>
+<p><code>C:\Program Files\GLPI-Agent\logs\glpi-agent.log</code></p>
+<h2>Instalación Proxy (Rocky 9)</h2>
+<p>El servidor tiene que tener acceso por el puerto 443 al nodo central.</p>
+<p>Copiamos el certificado del nodo central por convención lo estamos guardando en:</p>
+<p><code>/etc/pki/tls/certs/cmdb.pem</code></p>
+<p>Copiamos de la máquina cm los certificados del proxy creados previamente en las rutas que después configuraremos:</p>
+<pre><code class="language-plaintext">/etc/pki/tls/private/[certificado].key
+/etc/pki/tls/certs/[certificado].pem</code></pre>
+<p>Descargamos la versión y le damos permisos de ejecución:</p>
+<pre><code class="language-plaintext">wget https://github.com/glpi-project/glpi-agent/releases/download/1.4/glpi-agent-1.4-x86_64.AppImage
+chmod +x glpi-agent-1.4-x86_64.AppImage</code></pre>
+<p>Instalamos:</p>
+<p><code>sudo ./glpi-agent-1.4-x86_64.AppImage --install --server=https://cmdb.espublico.it/ --ca-cert-file=/etc/pki/tls/certs/cmdb.pem --httpd-port=443</code></p>
+<ul>
+  <li>server=[URL] → La URL del nodo central.</li>
+  <li>ca-cert-file=[ruta.pem] → El certificado del nodo central.</li>
+  <li>httpd-port=443 → El puerto en el que levantara el webserver</li>
+</ul>
+<p>Copiamos el fichero de configuración por defecto y los modificamos con la ruta de los certificados del proxy:</p>
+<p><code>sudo cp /etc/glpi-agent/ssl-server-plugin.cfg /etc/glpi-agent/ssl-server-plugin.local</code></p>
+<p><code>vi /etc/glpi-agent/ssl-server-plugin.local</code></p>
+<p>&nbsp;&nbsp;&nbsp; .....</p>
+<p>&nbsp;&nbsp;&nbsp; disabled = no</p>
+<p>&nbsp;&nbsp;&nbsp; ssl_cert_file = /etc/pki/tls/certs/[certificado].pem</p>
+<p>&nbsp;&nbsp;&nbsp; ssl_key_file&nbsp; = /etc/pki/tls/private/[certificado].key</p>
+<p>&nbsp;&nbsp;&nbsp; ......</p>
+<p>Modificamos el disabled para que el servidor funcione como proxy:</p>
+<p>sudo cp /etc/glpi-agent/proxy-server-plugin.cfg /etc/glpi-agent/proxy-server-plugin.local</p>
+<p>vi /etc/glpi-agent/proxy-server-plugin.local</p>
+<p>&nbsp;&nbsp;&nbsp; .....</p>
+<p>&nbsp;&nbsp;&nbsp; disabled = no</p>
+<p>&nbsp;&nbsp;&nbsp; .....</p>
+<p>Reiniciamos el agente:</p>
+<p>sudo systemctl restart glpi-agent</p>
+<h2>Importación de datos de dispositivos de red desde proxy (temporal)</h2>
+<p>Desde el proxy de GLPI donde está el dispositivo es donde importamos la información, se trae la información vía snmp.</p>
+<p>Primero importamos los datos, para ello utilizaremos<i> glpi-netinventory </i>y la salida la enviamos a fichero xml:</p>
+<p>sudo /usr/local/bin/glpi-netinventory --host nbx-fw-ext-01-infra.madrid.espublico.com --credentials version:2c,community:public --type NETWORKING &gt; nbx01.xml</p>
+<ul>
+  <li>--host → nombre o IP del dispositivo.</li>
+  <li>--credentials → Versión del snmp</li>
+  <li>--type → Que tipo de ítem se va a crear en GLPI &nbsp;</li>
+</ul>
+<p>Inyectamos el xml en el nodo central de GLPI con glpi-injector:</p>
+<p>sudo /usr/local/bin/glpi-injector -f nbx01.xml -u https://cmdb.espublico.it/ --no-ssl-check --debug</p>
+<ul>
+  <li>-f → el fichero xml que hemos creado en el paso anterior</li>
+  <li>-u → La url del nodo central</li>
+  <li>--no-ssl-check → Que se fie del certificado.</li>
+</ul>
+<p>--debug → Para que nos muestre información por pantalla.&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
