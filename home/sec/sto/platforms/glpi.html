@@ -2,7 +2,7 @@
 title: GLPI
 description: 
 published: true
-date: 2024-03-21T14:09:25.178Z
+date: 2024-03-21T14:45:48.848Z
 tags: 
 editor: ckeditor
 dateCreated: 2024-03-19T13:49:56.043Z
@@ -50,21 +50,21 @@ dateCreated: 2024-03-19T13:49:56.043Z
 <figure class="image"><img src="/sec/sto/platforms/glpi/arquitectura_cmdb.png"></figure>
 <h2>Instalar cliente en linux (setup):</h2>
 <p>El cliente de GLPI en linux lo instala directamente el setup, en el script:</p>
-<p><code>/opt/iubaris/setup/bin/setup.d/40.management/40.management.03.all.glpi.sh</code></p>
+<pre><code class="language-plaintext">/opt/iubaris/setup/bin/setup.d/40.management/40.management.03.all.glpi.sh</code></pre>
 <p>Según la localización lo instalará configurando el proxy adecuado.</p>
 <p>Si queremos ejecutar la tarea para que se añada o actualice en el GLPI, tendremos que ejecutar la tarea del cron.daily:</p>
-<p><code>sudo /etc/cron.daily/glpi-agent</code></p>
+<pre><code class="language-plaintext">sudo /etc/cron.daily/glpi-agent</code></pre>
 <p>Log:</p>
-<p><code>/var/log/glpi-agent/glpi-agent.log</code></p>
+<pre><code class="language-plaintext">/var/log/glpi-agent/glpi-agent.log</code></pre>
 <h2>Eliminar la información del agente:</h2>
 <p>Si clonamos una máquina o existe una mala configuración con el agente(tiene el de la plantilla o de la máquina “origen”) podemos eliminar la información del agente:</p>
-<p><code>sudo rm -rf /var/lib/glpi-agent</code></p>
+<pre><code class="language-plaintext">sudo rm -rf /var/lib/glpi-agent</code></pre>
 <p>La próxima ejecución del agente, creará un nuevo agente para esta máquina.</p>
 <h2>Instalar en windows el cliente 1.4/1.5/1.7:</h2>
 <p>Link de descarga 1.4</p>
 <p><a href="https://github.com/glpi-project/glpi-agent/releases/tag/1.4"><u>https://github.com/glpi-project/glpi-agent/releases/tag/1.4</u></a></p>
 <p>Primero tenemos que copiar el certificado pem del proxy al que se va a conectar, por convención se ha decidido guardar en:</p>
-<p><code>C:\ProgramData\GLPI\[nombre del .pem]</code></p>
+<pre><code class="language-plaintext">C:\ProgramData\GLPI\[nombre del .pem]</code></pre>
 <p>Al instalar podemos ejecutarlo por línea de comandos con las siguientes opciones:</p>
 <ul>
   <li>ADDLOCAL=feat_AGENT → Para que la instalación sea mínima.</li>
@@ -76,13 +76,13 @@ dateCreated: 2024-03-19T13:49:56.043Z
   <li>RUNNOW=1 → Ejecutar al instalar.</li>
 </ul>
 <p>Ejemplo de instalación que su servidor proxy es zaragoza:</p>
-<p><code>msiexec /i GLPI-Agent-1.7.1-x64.msi /quiet ADDLOCAL=feat_AGENT SERVER=https://zgz-cmdb-proxy.espublico.it/proxy/glpi CA_CERT_FILE=C:\ProgramData\GLPI\zgz-cmdb-proxy.pem EXECMODE=2 NO_HTTPD=1 TASK_FREQUENCY=daily RUNNOW=1</code></p>
+<pre><code class="language-plaintext">msiexec /i GLPI-Agent-1.7.1-x64.msi /quiet ADDLOCAL=feat_AGENT SERVER=https://zgz-cmdb-proxy.espublico.it/proxy/glpi CA_CERT_FILE=C:\ProgramData\GLPI\zgz-cmdb-proxy.pem EXECMODE=2 NO_HTTPD=1 TASK_FREQUENCY=daily RUNNOW=1</code></pre>
 <p>Log:</p>
-<p><code>C:\Program Files\GLPI-Agent\logs\glpi-agent.log</code></p>
+<pre><code class="language-plaintext">C:\Program Files\GLPI-Agent\logs\glpi-agent.log</code></pre>
 <h2>Instalación Proxy (Rocky 9)</h2>
 <p>El servidor tiene que tener acceso por el puerto 443 al nodo central.</p>
 <p>Copiamos el certificado del nodo central por convención lo estamos guardando en:</p>
-<p><code>/etc/pki/tls/certs/cmdb.pem</code></p>
+<pre><code class="language-plaintext">/etc/pki/tls/certs/cmdb.pem</code></pre>
 <p>Copiamos de la máquina cm los certificados del proxy creados previamente en las rutas que después configuraremos:</p>
 <pre><code class="language-plaintext">/etc/pki/tls/private/[certificado].key
 /etc/pki/tls/certs/[certificado].pem</code></pre>
@@ -90,45 +90,56 @@ dateCreated: 2024-03-19T13:49:56.043Z
 <pre><code class="language-plaintext">wget https://github.com/glpi-project/glpi-agent/releases/download/1.4/glpi-agent-1.4-x86_64.AppImage
 chmod +x glpi-agent-1.4-x86_64.AppImage</code></pre>
 <p>Instalamos:</p>
-<p><code>sudo ./glpi-agent-1.4-x86_64.AppImage --install --server=https://cmdb.espublico.it/ --ca-cert-file=/etc/pki/tls/certs/cmdb.pem --httpd-port=443</code></p>
+<pre><code class="language-plaintext">sudo ./glpi-agent-1.4-x86_64.AppImage --install --server=https://cmdb.espublico.it/ --ca-cert-file=/etc/pki/tls/certs/cmdb.pem --httpd-port=443</code></pre>
 <ul>
   <li>server=[URL] → La URL del nodo central.</li>
   <li>ca-cert-file=[ruta.pem] → El certificado del nodo central.</li>
   <li>httpd-port=443 → El puerto en el que levantara el webserver</li>
 </ul>
 <p>Copiamos el fichero de configuración por defecto y los modificamos con la ruta de los certificados del proxy:</p>
-<p><code>sudo cp /etc/glpi-agent/ssl-server-plugin.cfg /etc/glpi-agent/ssl-server-plugin.local</code></p>
-<p><code>vi /etc/glpi-agent/ssl-server-plugin.local</code></p>
-<p>&nbsp;&nbsp;&nbsp; .....</p>
-<p>&nbsp;&nbsp;&nbsp; disabled = no</p>
-<p>&nbsp;&nbsp;&nbsp; ssl_cert_file = /etc/pki/tls/certs/[certificado].pem</p>
-<p>&nbsp;&nbsp;&nbsp; ssl_key_file&nbsp; = /etc/pki/tls/private/[certificado].key</p>
-<p>&nbsp;&nbsp;&nbsp; ......</p>
+<pre><code class="language-plaintext">sudo cp /etc/glpi-agent/ssl-server-plugin.cfg /etc/glpi-agent/ssl-server-plugin.local
+vi /etc/glpi-agent/ssl-server-plugin.local
+ &nbsp;&nbsp; .....
+ &nbsp;&nbsp; disabled = no
+ &nbsp;&nbsp; ssl_cert_file = /etc/pki/tls/certs/[certificado].pem
+ &nbsp;&nbsp; ssl_key_file&nbsp; = /etc/pki/tls/private/[certificado].key
+ &nbsp;&nbsp; ......</code></pre>
 <p>Modificamos el disabled para que el servidor funcione como proxy:</p>
-<p>sudo cp /etc/glpi-agent/proxy-server-plugin.cfg /etc/glpi-agent/proxy-server-plugin.local</p>
-<p>vi /etc/glpi-agent/proxy-server-plugin.local</p>
-<p>&nbsp;&nbsp;&nbsp; .....</p>
-<p>&nbsp;&nbsp;&nbsp; disabled = no</p>
-<p>&nbsp;&nbsp;&nbsp; .....</p>
+<pre><code class="language-plaintext">sudo cp /etc/glpi-agent/proxy-server-plugin.cfg /etc/glpi-agent/proxy-server-plugin.local
+vi /etc/glpi-agent/proxy-server-plugin.local
+ &nbsp;&nbsp; .....
+ &nbsp;&nbsp; disabled = no
+ &nbsp;&nbsp; .....</code></pre>
 <p>Reiniciamos el agente:</p>
 <p>sudo systemctl restart glpi-agent</p>
 <h2>Importación de datos de dispositivos de red desde proxy (temporal)</h2>
 <p>Desde el proxy de GLPI donde está el dispositivo es donde importamos la información, se trae la información vía snmp.</p>
 <p>Primero importamos los datos, para ello utilizaremos<i> glpi-netinventory </i>y la salida la enviamos a fichero xml:</p>
-<p>sudo /usr/local/bin/glpi-netinventory --host nbx-fw-ext-01-infra.madrid.espublico.com --credentials version:2c,community:public --type NETWORKING &gt; nbx01.xml</p>
+<pre><code class="language-plaintext">sudo /usr/local/bin/glpi-netinventory --host nbx-fw-ext-01-infra.madrid.espublico.com --credentials version:2c,community:public --type NETWORKING &gt; nbx01.xml</code></pre>
 <ul>
   <li>--host → nombre o IP del dispositivo.</li>
   <li>--credentials → Versión del snmp</li>
-  <li>--type → Que tipo de ítem se va a crear en GLPI &nbsp;</li>
+  <li>--type → Que tipo de ítem se va a crear en GLPI</li>
 </ul>
 <p>Inyectamos el xml en el nodo central de GLPI con glpi-injector:</p>
-<p>sudo /usr/local/bin/glpi-injector -f nbx01.xml -u https://cmdb.espublico.it/ --no-ssl-check --debug</p>
+<pre><code class="language-plaintext">sudo /usr/local/bin/glpi-injector -f nbx01.xml -u https://cmdb.espublico.it/ --no-ssl-check --debug</code></pre>
 <ul>
   <li>-f → el fichero xml que hemos creado en el paso anterior</li>
   <li>-u → La url del nodo central</li>
   <li>--no-ssl-check → Que se fie del certificado.</li>
 </ul>
 <p>--debug → Para que nos muestre información por pantalla.&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
+<h2>Importación de datos de endpoints sin acceso a proxy (temporal)</h2>
+<p>En linux</p>
+<pre><code class="language-plaintext">wget https://github.com/glpi-project/glpi-agent/releases/download/1.7.1/glpi-agent-1.7.1-x86_64.AppImage
+chmod +x glpi-agent-1.7.1-x86_64.AppImage
+sudo ./glpi-agent-1.7.1-x86_64.AppImage --install --server=localhost
+sudo /usr/local/bin/glpi-inventory &gt; maquina.xml
+sudo /usr/local/bin/glpi-agent-uninstall --clean</code></pre>
+<p>En windows</p>
+<pre><code class="language-plaintext">cd ~\Desktop
+Invoke-WebRequest -Uri $Url -OutFile ./glpi.zip
+Expand-Archive -Path glpi.zip -DestinationPath .\glpi
+cd glpi
+./glpi-inventory.bat &gt; maquina.xlm</code></pre>
+<p>Y luego el fichero maquina.xml nos lo hacen llegar y se importa en https://cmdb.espublico.it/front/inventory.conf.php</p>
