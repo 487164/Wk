@@ -2,11 +2,54 @@
 title: AO-ACC-030 [MEDIA] [ESPUBLICO] [IPAM] Cambio de MFA en PAM detectado
 description: 
 published: true
-date: 2024-03-25T09:42:29.404Z
+date: 2024-03-25T09:54:24.907Z
 tags: 
 editor: ckeditor
 dateCreated: 2024-03-25T09:42:14.798Z
 -->
 
-<h1 class="toc-header" id="header"> Header</h1>
-<p>Your content here</p>
+<h1 style="text-align:center;">AO-ACC-030 [MEDIA] [ESPUBLICO] [IPAM] Cambio de MFA en PAM detectado</h1>
+<h2>Descripción</h2>
+<p style="text-align:justify;">Este caso de uso identifica el cambio del MFA de un usuario dentro de Oneidentity Safeguard</p>
+<ul>
+  <li><strong>Nombre</strong>: Cambio de MFA en PAM detectado</li>
+  <li><strong>Criticidad</strong>: Media</li>
+  <li><strong>Tiempo de Atención</strong>: 90 minutos</li>
+  <li><strong>Tecnologías utilizadas</strong>: Oneidentity Safefuard</li>
+</ul>
+<h2>MITRE</h2>
+<ul>
+  <li>TA0001 - Initial Access</li>
+</ul>
+<h2>What to do</h2>
+<p style="text-align:justify;">Una vez identificado el usuario que ha realizado el cambio sobre la llave Fido del SPP se debe pregunta que ha hecho y el motivo ya que el cambio de la key a otro tipo de token no se debe hacer y por ahora no es posible bloquear esto.</p>
+<h2>Notas de cierre</h2>
+<p>Puntos mínimos que debe de tener un cierre</p>
+<ul>
+  <li>Fecha / Hora del login del cambio</li>
+  <li>Datos del usuario</li>
+  <li>Motivo del cambio</li>
+  <li>Resumen del análisis</li>
+</ul>
+<h2>Matriz de escalado</h2>
+<p style="text-align:justify;">Aunque la matriz de escalado debería ser la misma para todos los casos de uso, puede haber casos que por falta de capacidades, por dependencias de otros servicio o incluso por que así se acuerde para un caso concreto, se debe definir la matriz de escalado.</p>
+<p>En horario laboral: Atiende N1 y escala a N2</p>
+<p>Fuera del horario Atiende N0 y escala a Guardia</p>
+<h2>Reglas de caso de uso</h2>
+<p><i>Apply AO-ACC-030 [MEDIA] [ESPUBLICO] [IPAM] Cambio de MFA en PAM detectado on events which are detected by the Local system</i><br><i>and when the event QID is one of the following (1012000040) Fido 2 Authenticator Updated</i></p>
+<h2>Campos Necesarios</h2>
+<p>Los campos mínimos que deben seleccionarse para llevar a cabo la investigación:</p>
+<ul>
+  <li>Source IP</li>
+  <li>Username</li>
+  <li>Motivo</li>
+  <li>Resolución</li>
+  <li>Time</li>
+</ul>
+<h2>Cierre por defecto</h2>
+<p>Nota de cierre que se debería de rellenar a la hora de cerrar una alerta:</p>
+<p style="text-align:justify;"><strong>Falso positivo:</strong></p>
+<ul>
+  <li>Se ha detectado que desde la [<strong>SourceIP</strong>]&nbsp; se ha hecho un cambio en la token del usuario [<strong>Username</strong>] a las [<strong>Time</strong>]. Tras ponerse el contacto con el usuario nos ha indicado que es por [<strong>Motivo</strong>] por lo que finalmente [<strong>Resolución</strong>]. Se cierra como FP.</li>
+</ul>
+<p style="text-align:justify;">&nbsp;</p>
