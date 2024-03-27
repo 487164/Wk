@@ -2,7 +2,7 @@
 title: Reglas de FW para Safe Guard
 description: 
 published: true
-date: 2024-02-26T12:54:42.922Z
+date: 2024-03-27T09:50:08.266Z
 tags: 
 editor: ckeditor
 dateCreated: 2024-02-19T19:05:11.983Z
@@ -221,7 +221,28 @@ dateCreated: 2024-02-19T19:05:11.983Z
   </table>
 </figure>
 <h1>Reglas de FW Nabiax</h1>
-<p>&nbsp;</p>
+<p>Acceso de las redes de usuarios a Safeguard (solo hay un SPP para mantener el cluster)</p>
+<figure class="table">
+  <table>
+    <tbody>
+      <tr>
+        <td><span class="text-tiny">Nombre</span></td>
+        <td><span class="text-tiny">Source</span></td>
+        <td><span class="text-tiny">Destination</span></td>
+        <td><span class="text-tiny">Services</span></td>
+      </tr>
+      <tr>
+        <td><span class="text-tiny">ZGZ-SEC-PAM-ACCESS</span></td>
+        <td><span class="text-tiny">VLAN 17 USERS-SYSADMIN</span><br><span class="text-tiny">VLAN 18 USERS-SYSADMIN-VPN</span><br><span class="text-tiny">VLAN 817 USERS-OPERATION</span><br><span class="text-tiny">VLAN 818 USERS-OPERATION-VPN</span><br><span class="text-tiny">VLAN 37 USERS-SECS</span><br><span class="text-tiny">VLAN 730 USERS-SEC-WIFI</span><br><span class="text-tiny">LAN 737 USERS-SEC-VPN</span></td>
+        <td>
+          <p><span class="text-tiny">VLAN 147 NBX-esPublicoSecPAM-SVCS</span></p>
+          <p>&nbsp;</p>
+        </td>
+        <td><span class="text-tiny">HTTPS</span></td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
 <h1>Reglas de FW Interxion</h1>
 <p>Acceso desde las redes mgmt a tools interxion para descargar el CSV de identity.</p>
 <figure class="table">
