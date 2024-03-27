@@ -2,10 +2,26 @@
 title: Palo Alto Global Protect
 description: 
 published: true
-date: 2024-01-12T14:40:51.032Z
+date: 2024-03-27T07:18:54.698Z
 tags: paloalto, globalprotect, azure, vpn, fw
 editor: ckeditor
 dateCreated: 2024-01-12T14:40:49.089Z
 -->
 
 <h1 style="text-align:center;">Palo Alto Global Protect</h1>
+<p style="text-align:center;"><mark class="marker-yellow">en proceso: ralfaro</mark></p>
+<p style="text-align:center;">&nbsp;</p>
+<p style="text-align:center;">Notas para escribir el artículo:</p>
+<p>Respecto al ticket <a href="https://soporte.espublico.it/Ticket/Display.html?id=82945"><u>#82945: Grupo de pruebas en Azure</u></a><br>Entiendo que vas a cambiar la máscara del rango de ips que tienen ahora para la vpn de seguridad de forti para asignárselo a la vpn de Palo Alto.Tenemos 3 apps de Global Protect en Azure<br>&nbsp;</p>
+<ul>
+  <li>Palo Alto Networks - Service Account to log in: Le da un secret para sincronizar con Entra ID. No necesita tener usuarios asignados.</li>
+  <li>Palo Alto Networks Cloud Identity Engine - Cloud Authentication Service: Usa el anterior conectar y validar usuarios. Asignado a vpn-palolato-it (jamateo y 89survi66) y vpn-esPublico-seguridad</li>
+  <li>Palo Alto Networks - GlobalProtect: Para conectar la aplicación. Tengo muchas dudas de que haga falta ya que solo está asignado al grupo vpn-palolato-it (jamateo y 89survi66)</li>
+</ul>
+<p>Además para la segunda hay una Regla de Acceso Condicional: Palo Alto Apps limited to Company &amp; Compilant Devices que además de la pertenencia a los grupos requiere que el equipo esté en intune y cumpla con las políticas de compatibilidad, donde hay excepciones para los de redes y el usuario de pruebas.En resumen:<br>Creo que actualmente no te puedes conectar con global protect con tu usuario porque no estás en el grupo vpn-palolato-it<br>A los miembros de ese grupo les puedo aplicar la excepción de que se conecten desde un equipo gestionado por intune, pero les tendrás que poner entonces la validación por certificado para que tengan un doble factor.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><br>&nbsp;</p>
