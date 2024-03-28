@@ -2,7 +2,7 @@
 title: Reglas de FW para Safe Guard
 description: 
 published: true
-date: 2024-03-28T08:40:54.720Z
+date: 2024-03-28T08:50:56.984Z
 tags: 
 editor: ckeditor
 dateCreated: 2024-02-19T19:05:11.983Z
@@ -239,6 +239,25 @@ dateCreated: 2024-02-19T19:05:11.983Z
     </tbody>
   </table>
 </figure>
+<p>Cluster entre los appliances de PASS</p>
+<figure class="table">
+  <table>
+    <tbody>
+      <tr>
+        <td><span class="text-tiny">Nombre</span></td>
+        <td><span class="text-tiny">Source</span></td>
+        <td><span class="text-tiny">Destination</span></td>
+        <td><span class="text-tiny">Services</span></td>
+      </tr>
+      <tr>
+        <td><span class="text-tiny">ZGZ-SEC-PAM-CLUSTER</span></td>
+        <td><span class="text-tiny">VLAN 444 SEC-PAM-SVCS</span></td>
+        <td><span class="text-tiny">VLAN 717 ITX-esPublicoSegPAM-SVCS</span><br><span class="text-tiny">VLAN 147 NBX-esPublicoSecPAM-SVCS</span></td>
+        <td><span class="text-tiny">Wireguard (665/UDP)</span><br><span class="text-tiny">HTTPS</span></td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
 <h1>Reglas de FW Nabiax</h1>
 <p>Acceso de las redes de usuarios a Safeguard (solo hay un SPP para mantener el cluster)</p>
 <figure class="table">
@@ -277,6 +296,25 @@ dateCreated: 2024-02-19T19:05:11.983Z
         <td><span class="text-tiny">VLAN 37 USERS-SECS</span><br><span class="text-tiny">VLAN 730 USERS-SEC-WIFI</span><br><span class="text-tiny">LAN 737 USERS-SEC-VPN</span></td>
         <td><span class="text-tiny">VLAN 347 NBX-esPublicoSecPAM-INFRA</span></td>
         <td><span class="text-tiny">SSH/HTTPS</span></td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+<p>Cluster entre los appliances de PASS</p>
+<figure class="table">
+  <table>
+    <tbody>
+      <tr>
+        <td><span class="text-tiny">Nombre</span></td>
+        <td><span class="text-tiny">Source</span></td>
+        <td><span class="text-tiny">Destination</span></td>
+        <td><span class="text-tiny">Services</span></td>
+      </tr>
+      <tr>
+        <td><span class="text-tiny">NBX-SEC-PAM-CLUSTER</span></td>
+        <td><span class="text-tiny">VLAN 147 NBX-esPublicoSecPAM-SVCS</span></td>
+        <td><span class="text-tiny">VLAN 717 ITX-esPublicoSegPAM-SVCS</span><br><span class="text-tiny">VLAN 444 SEC-PAM-SVCS</span></td>
+        <td><span class="text-tiny">Wireguard (665/UDP)</span><br><span class="text-tiny">HTTPS</span></td>
       </tr>
     </tbody>
   </table>
@@ -487,6 +525,25 @@ dateCreated: 2024-02-19T19:05:11.983Z
         <td><span class="text-tiny">VLAN 37 USERS-SECS</span><br><span class="text-tiny">VLAN 730 USERS-SEC-WIFI</span><br><span class="text-tiny">LAN 737 USERS-SEC-VPN</span></td>
         <td><span class="text-tiny">VLAN 917 ITX-esPublicoSegPAM-INFRA</span></td>
         <td><span class="text-tiny">SSH/HTTPS</span></td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+<p>Cluster entre los appliances de PASS</p>
+<figure class="table">
+  <table>
+    <tbody>
+      <tr>
+        <td><span class="text-tiny">Nombre</span></td>
+        <td><span class="text-tiny">Source</span></td>
+        <td><span class="text-tiny">Destination</span></td>
+        <td><span class="text-tiny">Services</span></td>
+      </tr>
+      <tr>
+        <td><span class="text-tiny">ITX-SEC-PAM-CLUSTER</span></td>
+        <td><span class="text-tiny">VLAN 717 ITX-esPublicoSegPAM-SVCS</span></td>
+        <td><span class="text-tiny">VLAN 147 NBX-esPublicoSecPAM-SVCS</span><br><span class="text-tiny">VLAN 444 SEC-PAM-SVCS</span></td>
+        <td><span class="text-tiny">Wireguard (665/UDP)</span><br><span class="text-tiny">HTTPS</span></td>
       </tr>
     </tbody>
   </table>
