@@ -2,7 +2,7 @@
 title: Reglas de FW para Safe Guard
 description: 
 published: true
-date: 2024-03-28T08:21:44.501Z
+date: 2024-03-28T08:40:54.720Z
 tags: 
 editor: ckeditor
 dateCreated: 2024-02-19T19:05:11.983Z
@@ -214,8 +214,27 @@ dateCreated: 2024-02-19T19:05:11.983Z
       <tr>
         <td><span class="text-tiny">ZGZ-TOOLS-SEC</span></td>
         <td><span class="text-tiny">ip_zgz-tools-infra-seguridad</span></td>
-        <td><span class="text-tiny">VLAN 544 SEC-SRV-INFRA</span><br><span class="text-tiny">VLAN 56 ZGZ-INFRA-COMMS</span></td>
+        <td><span class="text-tiny">VLAN 544 SEC-SRV-INFRA</span><br><span class="text-tiny">VLAN 917 ITX-esPublicoSegPAM-INFRA</span><br><span class="text-tiny">VLAN 347 NBX-esPublicoSecPAM-INFRA</span><br><span class="text-tiny">VLAN 56 ZGZ-INFRA-COMMS</span></td>
         <td><span class="text-tiny">HTTPS</span></td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+<p>Acceso desde Seguridad a las infra de PAM &nbsp;(Mientras se cree la tools de infra seguridad)</p>
+<figure class="table">
+  <table>
+    <tbody>
+      <tr>
+        <td><span class="text-tiny">Nombre</span></td>
+        <td><span class="text-tiny">Source</span></td>
+        <td><span class="text-tiny">Destination</span></td>
+        <td><span class="text-tiny">Services</span></td>
+      </tr>
+      <tr>
+        <td><span class="text-tiny">TEMP ZGZ-SEC-PAM-INFRA</span></td>
+        <td><span class="text-tiny">VLAN 37 USERS-SECS</span><br><span class="text-tiny">VLAN 730 USERS-SEC-WIFI</span><br><span class="text-tiny">LAN 737 USERS-SEC-VPN</span></td>
+        <td><span class="text-tiny">VLAN 544 SEC-SRV INFRA</span></td>
+        <td><span class="text-tiny">SSH/HTTPS</span></td>
       </tr>
     </tbody>
   </table>
@@ -239,6 +258,25 @@ dateCreated: 2024-02-19T19:05:11.983Z
           <p>&nbsp;</p>
         </td>
         <td><span class="text-tiny">HTTPS</span></td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+<p>Acceso desde Seguridad a las infra de PAM &nbsp;(Mientras se cree la tools de infra seguridad)</p>
+<figure class="table">
+  <table>
+    <tbody>
+      <tr>
+        <td><span class="text-tiny">Nombre</span></td>
+        <td><span class="text-tiny">Source</span></td>
+        <td><span class="text-tiny">Destination</span></td>
+        <td><span class="text-tiny">Services</span></td>
+      </tr>
+      <tr>
+        <td><span class="text-tiny">TEMP NBX-SEC-PAM-INFRA</span></td>
+        <td><span class="text-tiny">VLAN 37 USERS-SECS</span><br><span class="text-tiny">VLAN 730 USERS-SEC-WIFI</span><br><span class="text-tiny">LAN 737 USERS-SEC-VPN</span></td>
+        <td><span class="text-tiny">VLAN 347 NBX-esPublicoSecPAM-INFRA</span></td>
+        <td><span class="text-tiny">SSH/HTTPS</span></td>
       </tr>
     </tbody>
   </table>
@@ -428,8 +466,27 @@ dateCreated: 2024-02-19T19:05:11.983Z
       <tr>
         <td style="background-color:rgb(250, 250, 250);border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><span class="text-tiny">ITX-TOOLS-SEC</span></td>
         <td style="background-color:rgb(245, 245, 245);border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><span class="text-tiny">ip_itx-tools-infra-seguridad</span></td>
-        <td style="background-color:rgb(250, 250, 250);border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><span class="text-tiny">VLAN 544 SEC-SRV-INFRA</span><br><span class="text-tiny">VLAN 56 ZGZ-INFRA-COMMS</span></td>
+        <td style="background-color:rgb(250, 250, 250);border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><span class="text-tiny">VLAN 544 SEC-SRV-INFRA</span><br><span class="text-tiny">VLAN 917 ITX-esPublicoSegPAM-INFRA</span><br><span class="text-tiny">VLAN 347 NBX-esPublicoSecPAM-INFRA</span><br><span class="text-tiny">VLAN 56 ZGZ-INFRA-COMMS</span></td>
         <td style="background-color:rgb(245, 245, 245);border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><span class="text-tiny">HTTPS</span></td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+<p>Acceso desde Seguridad a las infra de PAM &nbsp;(Mientras se cree la tools de infra seguridad)</p>
+<figure class="table">
+  <table>
+    <tbody>
+      <tr>
+        <td><span class="text-tiny">Nombre</span></td>
+        <td><span class="text-tiny">Source</span></td>
+        <td><span class="text-tiny">Destination</span></td>
+        <td><span class="text-tiny">Services</span></td>
+      </tr>
+      <tr>
+        <td><span class="text-tiny">ITX-SEC-PAM-INFRA</span></td>
+        <td><span class="text-tiny">VLAN 37 USERS-SECS</span><br><span class="text-tiny">VLAN 730 USERS-SEC-WIFI</span><br><span class="text-tiny">LAN 737 USERS-SEC-VPN</span></td>
+        <td><span class="text-tiny">VLAN 917 ITX-esPublicoSegPAM-INFRA</span></td>
+        <td><span class="text-tiny">SSH/HTTPS</span></td>
       </tr>
     </tbody>
   </table>
