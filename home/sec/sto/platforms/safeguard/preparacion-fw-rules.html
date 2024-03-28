@@ -2,7 +2,7 @@
 title: Reglas de FW para Safe Guard
 description: 
 published: true
-date: 2024-03-27T10:04:18.394Z
+date: 2024-03-28T08:10:18.824Z
 tags: 
 editor: ckeditor
 dateCreated: 2024-02-19T19:05:11.983Z
@@ -274,7 +274,7 @@ dateCreated: 2024-02-19T19:05:11.983Z
         <td><span class="text-tiny">Services</span></td>
       </tr>
       <tr>
-        <td><span class="text-tiny">ZGZ-SEC-PAM-ACCESS</span></td>
+        <td><span class="text-tiny">ITX-SEC-PAM-ACCESS</span></td>
         <td><span class="text-tiny">VLAN 17 USERS-SYSADMIN</span><br><span class="text-tiny">VLAN 18 USERS-SYSADMIN-VPN</span><br><span class="text-tiny">VLAN 817 USERS-OPERATION</span><br><span class="text-tiny">VLAN 818 USERS-OPERATION-VPN</span><br><span class="text-tiny">VLAN 37 USERS-SECS</span><br><span class="text-tiny">VLAN 730 USERS-SEC-WIFI</span><br><span class="text-tiny">LAN 737 USERS-SEC-VPN</span></td>
         <td><span class="text-tiny">VLAN 717 ITX-esPublicoSegPAM-SVCS</span></td>
         <td><span class="text-tiny">SSH/HTTPS/RDP</span></td>
@@ -282,5 +282,193 @@ dateCreated: 2024-02-19T19:05:11.983Z
     </tbody>
   </table>
 </figure>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
+<p>Acceso de JUMP a las Tools de zaragoza, nabiax e interxion</p>
+<figure class="table">
+  <table style="background-color:rgb(255, 255, 255);border-bottom:1px solid rgb(224, 224, 224);border-left:1px solid rgb(224, 224, 224);border-right:1px solid rgb(224, 224, 224);border-top:1px solid rgb(224, 224, 224);">
+    <tbody>
+      <tr>
+        <td style="border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><span class="text-tiny">Nombre</span></td>
+        <td style="background-color:rgb(250, 250, 250);border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><span class="text-tiny">Source</span></td>
+        <td style="border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><span class="text-tiny">Destination</span></td>
+        <td style="background-color:rgb(250, 250, 250);border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><span class="text-tiny">Services</span></td>
+      </tr>
+      <tr>
+        <td style="background-color:rgb(250, 250, 250);border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><span class="text-tiny">ITX-PAM-JUMP-TOOLS</span></td>
+        <td style="background-color:rgb(245, 245, 245);border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><span class="text-tiny">VLAN 411 ITX-esPublicoSegPAM-JUMP</span></td>
+        <td style="background-color:rgb(250, 250, 250);border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><span class="text-tiny">VLAN 858 ZGZ-MANAGEMENT</span><br><span class="text-tiny">ip-mad-tools-01-mgmt(192.168.143.250)</span><br><span class="text-tiny">ip-itx-tools-01-mgmt(192.168.204.52)</span></td>
+        <td style="background-color:rgb(245, 245, 245);border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><span class="text-tiny">SSH</span></td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+<p>Acceso de JUMP a PAM-PASS para la conexión a la API</p>
+<figure class="table">
+  <table style="background-color:rgb(255, 255, 255);border-bottom:1px solid rgb(224, 224, 224);border-left:1px solid rgb(224, 224, 224);border-right:1px solid rgb(224, 224, 224);border-top:1px solid rgb(224, 224, 224);">
+    <tbody>
+      <tr>
+        <td style="border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><span class="text-tiny">Nombre</span></td>
+        <td style="background-color:rgb(250, 250, 250);border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><span class="text-tiny">Source</span></td>
+        <td style="border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><span class="text-tiny">Destination</span></td>
+        <td style="background-color:rgb(250, 250, 250);border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><span class="text-tiny">Services</span></td>
+      </tr>
+      <tr>
+        <td style="background-color:rgb(250, 250, 250);border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><span class="text-tiny">ITX-PAM-JUMP-TO-PAM-PASS</span></td>
+        <td style="background-color:rgb(245, 245, 245);border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><span class="text-tiny">VLAN 411 ITX-esPublicoSegPAM-JUMP</span></td>
+        <td style="background-color:rgb(250, 250, 250);border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><span class="text-tiny">VLAN 717 ITX-esPublicoSegPAM-SVCS</span></td>
+        <td style="background-color:rgb(245, 245, 245);border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><span class="text-tiny">HTTPS</span></td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+<p>Acceso de JUMP a internet, solo requiere acceso a graph, de forma temporal se da a internet y se monitorizará para ver si cumple con lo descrito en el documento de MS sobre URLs e IPS para graph: https://endpoints.office.com/endpoints/worldwide?clientrequestid=b10c5ed1-bad1-445f-b386-b919946339a7</p>
+<figure class="table">
+  <table style="background-color:rgb(255, 255, 255);border-bottom:1px solid rgb(224, 224, 224);border-left:1px solid rgb(224, 224, 224);border-right:1px solid rgb(224, 224, 224);border-top:1px solid rgb(224, 224, 224);">
+    <tbody>
+      <tr>
+        <td style="border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><span class="text-tiny">Nombre</span></td>
+        <td style="background-color:rgb(250, 250, 250);border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><span class="text-tiny">Source</span></td>
+        <td style="border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><span class="text-tiny">Destination</span></td>
+        <td style="background-color:rgb(250, 250, 250);border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><span class="text-tiny">Services</span></td>
+      </tr>
+      <tr>
+        <td style="background-color:rgb(250, 250, 250);border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><span class="text-tiny">ZGZ-PAM-JUMP-TO-AZURE</span></td>
+        <td style="background-color:rgb(245, 245, 245);border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><span class="text-tiny">VLAN 411 ITX-esPublicoSegPAM-JUMP</span></td>
+        <td style="background-color:rgb(250, 250, 250);border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><span class="text-tiny">internet</span></td>
+        <td style="background-color:rgb(245, 245, 245);border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><span class="text-tiny">HTTPS</span></td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+<p>Acceso de PAM a &nbsp;PAM-JUMP</p>
+<figure class="table">
+  <table style="background-color:rgb(255, 255, 255);border-bottom:1px solid rgb(224, 224, 224);border-left:1px solid rgb(224, 224, 224);border-right:1px solid rgb(224, 224, 224);border-top:1px solid rgb(224, 224, 224);">
+    <tbody>
+      <tr>
+        <td style="border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><span class="text-tiny">Nombre</span></td>
+        <td style="background-color:rgb(250, 250, 250);border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><span class="text-tiny">Source</span></td>
+        <td style="border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><span class="text-tiny">Destination</span></td>
+        <td style="background-color:rgb(250, 250, 250);border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><span class="text-tiny">Services</span></td>
+      </tr>
+      <tr>
+        <td style="background-color:rgb(250, 250, 250);border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><span class="text-tiny">ZGZ-PAM-TO-PAM-JUMP</span></td>
+        <td style="background-color:rgb(245, 245, 245);border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><span class="text-tiny">VLAN 344 SEC-PAM-MGMT</span></td>
+        <td style="background-color:rgb(250, 250, 250);border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><span class="text-tiny">VLAN 58 SEC-PAM-JUMP</span></td>
+        <td style="background-color:rgb(245, 245, 245);border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><span class="text-tiny">SSH</span></td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+<p>Acceso de la PAM a todos los servidores para la gestión y conexión RDP. (Se mantiene la red 4 de forma temporal)</p>
+<figure class="table">
+  <table style="background-color:rgb(255, 255, 255);border-bottom:1px solid rgb(224, 224, 224);border-left:1px solid rgb(224, 224, 224);border-right:1px solid rgb(224, 224, 224);border-top:1px solid rgb(224, 224, 224);">
+    <tbody>
+      <tr>
+        <td style="border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><span class="text-tiny">Nombre</span></td>
+        <td style="background-color:rgb(250, 250, 250);border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><span class="text-tiny">Source</span></td>
+        <td style="border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><span class="text-tiny">Destination</span></td>
+        <td style="background-color:rgb(250, 250, 250);border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><span class="text-tiny">Services</span></td>
+      </tr>
+      <tr>
+        <td style="background-color:rgb(250, 250, 250);border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><span class="text-tiny">ZGZ-PAM-MGMT-TO-ZGZ-MGMT</span></td>
+        <td style="background-color:rgb(245, 245, 245);border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><span class="text-tiny">VLAN 344 SEC-PAM-MGMT</span></td>
+        <td style="background-color:rgb(250, 250, 250);border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><span class="text-tiny">VLAN 4&nbsp;</span><br><span class="text-tiny">VLAN 803 GESTIONA-PRE-MGMT</span><br><span class="text-tiny">VLAN 7 ESFIRMA</span><br><span class="text-tiny">VLAN 39 SEC-SIEM</span><br><span class="text-tiny">VLAN 739 SEC-SRV-MGMT</span><br><span class="text-tiny">VLAN 840 GESTIONA-DEMO-QLIK-MGMT</span><br><span class="text-tiny">VLAN 841 GESTIONA-DEMO-MGMT</span><br><span class="text-tiny">VLAN 843 IT-SRV-MGMT</span><br><span class="text-tiny">VLAN 844 GEN-SRV-MGMT</span><br><span class="text-tiny">VLAN 644 SAP-MGMT</span><br><span class="text-tiny">VLAN 845 INTEGRA-PRE-MGMT</span><br><span class="text-tiny">VLAN 56 ZGZ-INFRA-COMMS(TEMP)</span><br><span class="text-tiny">VLAN 57 ZGZ-INFRA-SYSTEMS(TEMP)</span><br><span class="text-tiny">VLAN 61 DMZ-IT-SVCS-MGMT</span><br><span class="text-tiny">VLAN 861 DMZ-ESPUBLICO-EXTERNO-MGMT</span><br><span class="text-tiny">VLAN 761 DMZ-ESPUBLICO-INTERNO-MGMT</span><br><span class="text-tiny">VLAN 661 DMZ-NGINX-MGMT</span><br><span class="text-tiny">VLAN 862 BACKUP-MGMT</span></td>
+        <td style="background-color:rgb(245, 245, 245);border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><span class="text-tiny">SSH(22)</span><br><span class="text-tiny">WMI (135,49152-65535 TCP)</span><br><span class="text-tiny">RDP (3389)</span><br><span class="text-tiny">SMB (445 TCP)</span><br><span class="text-tiny">LDAP (389)</span><br><span class="text-tiny">LDAPS (636)</span></td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+<p>Acceso de la tools de zgz a los servidores Linux (Mientras se separan las tools, acceso temporal a infra)(Se incluye red 4 temporalmente)</p>
+<figure class="table">
+  <table style="background-color:rgb(255, 255, 255);border-bottom:1px solid rgb(224, 224, 224);border-left:1px solid rgb(224, 224, 224);border-right:1px solid rgb(224, 224, 224);border-top:1px solid rgb(224, 224, 224);">
+    <tbody>
+      <tr>
+        <td style="border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><span class="text-tiny">Nombre</span></td>
+        <td style="background-color:rgb(250, 250, 250);border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><span class="text-tiny">Source</span></td>
+        <td style="border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><span class="text-tiny">Destination</span></td>
+        <td style="background-color:rgb(250, 250, 250);border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><span class="text-tiny">Services</span></td>
+      </tr>
+      <tr>
+        <td style="background-color:rgb(250, 250, 250);border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><span class="text-tiny">ZGZ-PAM-TOOLS-TO-ZGZ-MGMT</span></td>
+        <td style="background-color:rgb(245, 245, 245);border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><span class="text-tiny">ip_zgz-pamtools-mgmt</span></td>
+        <td style="background-color:rgb(250, 250, 250);border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><span class="text-tiny">VLAN 4&nbsp;</span><br><span class="text-tiny">VLAN 803 GESTIONA-PRE-MGMT</span><br><span class="text-tiny">VLAN 7 ESFIRMA</span><br><span class="text-tiny">VLAN 39 SEC-SIEM</span><br><span class="text-tiny">VLAN 739 SEC-SRV-MGMT</span><br><span class="text-tiny">VLAN 840 GESTIONA-DEMO-QLIK-MGMT</span><br><span class="text-tiny">VLAN 841 GESTIONA-DEMO-MGMT</span><br><span class="text-tiny">VLAN 843 IT-SRV-MGMT</span><br><span class="text-tiny">VLAN 844 GEN-SRV-MGMT</span><br><span class="text-tiny">VLAN 644 SAP-MGMT</span><br><span class="text-tiny">VLAN 845 INTEGRA-PRE-MGMT</span><br><span class="text-tiny">VLAN 56 ZGZ-INFRA-COMMS(TEMP)</span><br><span class="text-tiny">VLAN 57 ZGZ-INFRA-SYSTEMS(TEMP)</span><br><span class="text-tiny">VLAN 61 DMZ-IT-SVCS-MGMT</span><br><span class="text-tiny">VLAN 861 DMZ-ESPUBLICO-EXTERNO-MGMT</span><br><span class="text-tiny">VLAN 761 DMZ-ESPUBLICO-INTERNO-MGMT</span><br><span class="text-tiny">VLAN 661 DMZ-NGINX-MGMT</span><br><span class="text-tiny">VLAN 862 BACKUP-MGMT</span></td>
+        <td style="background-color:rgb(245, 245, 245);border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><span class="text-tiny">SSH</span></td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+<p>Acceso desde las redes mgmt a pamtools zaragoza para descargar el CSV de identity.(Temporalmente se añade la red 4)</p>
+<figure class="table">
+  <table style="background-color:rgb(255, 255, 255);border-bottom:1px solid rgb(224, 224, 224);border-left:1px solid rgb(224, 224, 224);border-right:1px solid rgb(224, 224, 224);border-top:1px solid rgb(224, 224, 224);">
+    <tbody>
+      <tr>
+        <td style="border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><span class="text-tiny">Nombre</span></td>
+        <td style="background-color:rgb(250, 250, 250);border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><span class="text-tiny">Source</span></td>
+        <td style="border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><span class="text-tiny">Destination</span></td>
+        <td style="background-color:rgb(250, 250, 250);border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><span class="text-tiny">Services</span></td>
+      </tr>
+      <tr>
+        <td style="background-color:rgb(250, 250, 250);border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><span class="text-tiny">ZGZ-SERVERS-MGMT-TO-PAM-TOOLS-IAM</span></td>
+        <td style="background-color:rgb(245, 245, 245);border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><span class="text-tiny">VLAN 4&nbsp;</span><br><span class="text-tiny">VLAN 803 GESTIONA-PRE-MGMT</span><br><span class="text-tiny">VLAN 7 ESFIRMA</span><br><span class="text-tiny">VLAN 39 SEC-SIEM</span><br><span class="text-tiny">VLAN 739 SEC-SRV-MGMT</span><br><span class="text-tiny">VLAN 840 GESTIONA-DEMO-QLIK-MGMT</span><br><span class="text-tiny">VLAN 841 GESTIONA-DEMO-MGMT</span><br><span class="text-tiny">VLAN 843 IT-SRV-MGMT</span><br><span class="text-tiny">VLAN 844 GEN-SRV-MGMT</span><br><span class="text-tiny">VLAN 644 SAP-MGMT</span><br><span class="text-tiny">VLAN 845 INTEGRA-PRE-MGMT</span><br><span class="text-tiny">VLAN 61 DMZ-IT-SVCS-MGMT</span><br><span class="text-tiny">VLAN 861 DMZ-ESPUBLICO-EXTERNO-MGMT</span><br><span class="text-tiny">VLAN 761 DMZ-ESPUBLICO-INTERNO-MGMT</span><br><span class="text-tiny">VLAN 661 DMZ-NGINX-MGMT</span><br><span class="text-tiny">VLAN 862 BACKUP-MGMT</span></td>
+        <td style="background-color:rgb(250, 250, 250);border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><span class="text-tiny">ip_zgz-pamtools-mgmt</span></td>
+        <td style="background-color:rgb(245, 245, 245);border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><span class="text-tiny">HTTPS</span></td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+<p>Acceso desde la tools de infra comunicaciones a los portales web de switches y fws.</p>
+<figure class="table">
+  <table style="background-color:rgb(255, 255, 255);border-bottom:1px solid rgb(224, 224, 224);border-left:1px solid rgb(224, 224, 224);border-right:1px solid rgb(224, 224, 224);border-top:1px solid rgb(224, 224, 224);">
+    <tbody>
+      <tr>
+        <td style="border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><span class="text-tiny">Nombre</span></td>
+        <td style="background-color:rgb(250, 250, 250);border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><span class="text-tiny">Source</span></td>
+        <td style="border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><span class="text-tiny">Destination</span></td>
+        <td style="background-color:rgb(250, 250, 250);border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><span class="text-tiny">Services</span></td>
+      </tr>
+      <tr>
+        <td style="background-color:rgb(250, 250, 250);border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><span class="text-tiny">ZGZ-TOOLS-COMMS</span></td>
+        <td style="background-color:rgb(245, 245, 245);border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><span class="text-tiny">ip_zgz-tools-infra-comms</span></td>
+        <td style="background-color:rgb(250, 250, 250);border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><span class="text-tiny">VLAN 56 ZGZ-INFRA-COMMS</span><br><span class="text-tiny">FALTA LA DE NBX e ITX</span></td>
+        <td style="background-color:rgb(245, 245, 245);border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><span class="text-tiny">HTTPS</span></td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+<p>Acceso desde la tools de infra sistemas a los portales web de los servidores.</p>
+<figure class="table">
+  <table style="background-color:rgb(255, 255, 255);border-bottom:1px solid rgb(224, 224, 224);border-left:1px solid rgb(224, 224, 224);border-right:1px solid rgb(224, 224, 224);border-top:1px solid rgb(224, 224, 224);">
+    <tbody>
+      <tr>
+        <td style="border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><span class="text-tiny">Nombre</span></td>
+        <td style="background-color:rgb(250, 250, 250);border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><span class="text-tiny">Source</span></td>
+        <td style="border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><span class="text-tiny">Destination</span></td>
+        <td style="background-color:rgb(250, 250, 250);border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><span class="text-tiny">Services</span></td>
+      </tr>
+      <tr>
+        <td style="background-color:rgb(250, 250, 250);border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><span class="text-tiny">ZGZ-TOOLS-INFRA</span></td>
+        <td style="background-color:rgb(245, 245, 245);border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><span class="text-tiny">ip_zgz-tools-infra-systems</span></td>
+        <td style="background-color:rgb(250, 250, 250);border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><span class="text-tiny">VLAN 57 ZGZ-INFRA-SYSTEMS</span><br><span class="text-tiny">FALTA LA NBX e ITX</span></td>
+        <td style="background-color:rgb(245, 245, 245);border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><span class="text-tiny">HTTPS</span></td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+<p>Acceso desde la tools de infra seguridad a los portales web de servidores de seguridad, switches y fws</p>
+<figure class="table">
+  <table style="background-color:rgb(255, 255, 255);border-bottom:1px solid rgb(224, 224, 224);border-left:1px solid rgb(224, 224, 224);border-right:1px solid rgb(224, 224, 224);border-top:1px solid rgb(224, 224, 224);">
+    <tbody>
+      <tr>
+        <td style="border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><span class="text-tiny">Nombre</span></td>
+        <td style="background-color:rgb(250, 250, 250);border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><span class="text-tiny">Source</span></td>
+        <td style="border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><span class="text-tiny">Destination</span></td>
+        <td style="background-color:rgb(250, 250, 250);border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><span class="text-tiny">Services</span></td>
+      </tr>
+      <tr>
+        <td style="background-color:rgb(250, 250, 250);border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><span class="text-tiny">ZGZ-TOOLS-SEC</span></td>
+        <td style="background-color:rgb(245, 245, 245);border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><span class="text-tiny">ip_zgz-tools-infra-seguridad</span></td>
+        <td style="background-color:rgb(250, 250, 250);border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><span class="text-tiny">VLAN 544 SEC-SRV-INFRA</span><br><span class="text-tiny">VLAN 56 ZGZ-INFRA-COMMS</span></td>
+        <td style="background-color:rgb(245, 245, 245);border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><span class="text-tiny">HTTPS</span></td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
