@@ -2,7 +2,7 @@
 title: Update checklist
 description: 
 published: true
-date: 2024-01-21T10:47:10.277Z
+date: 2024-03-30T09:24:36.657Z
 tags: soc, qradar, lm, ibm, update, checklist
 editor: ckeditor
 dateCreated: 2024-01-21T09:52:25.688Z
@@ -113,22 +113,50 @@ dateCreated: 2024-01-21T09:52:25.688Z
 </ul>
 <p>Para ello ejecutar desde la consola activa el siguiente comando:</p>
 <pre><code class="language-plaintext">/opt/qradar/support/all_servers.sh -C -k "drq -v &gt; /root/drq-`hostname`.log"</code></pre>
-<p>Hay dos bugs conocidos en las consolas:</p>
+<p>Hay tres bugs conocidos en las consolas:</p>
 <ul>
-  <li>FAILURE]</li>
+  <li>[FAILURE]</li>
 </ul>
 <pre><code class="language-plaintext">Error getting appliance type: Unable to retrieve softwareType or
 applianceType from /opt/qradar/conf/capabilities/hostcapabilities.xml.
 Check is unable to continue.</code></pre>
 <p>&nbsp;</p>
 <ul>
-  <li>[INVALID]</li>
+  <li>[INVALID] Deployment Model Asset Profiler Tunnel for Event Collector Checks</li>
 </ul>
-<pre><code class="language-plaintext">error running applicability(): Error running applicable(): runtime
-error: [string "?"]:174: attempt to compare number with nil stack
-traceback:     [C]: in metamethod '__le'     [string "?"]:174: in function
-'encryptedEventCollectorMHExists'     [string "?"]:73: in function
-'applicable'</code></pre>
+<pre><code class="language-plaintext">Deployment Model Asset Profiler Tunnel for Event Collector Checks
+  Ensure that asset profiler tunnel exists for all host with Event Collector
+  components which are encrypted
+     [INVALID]
+         error running applicability(): Error running applicable(): runtime
+         error: [string "?"]:174: attempt to compare number with nil stack
+         traceback:     [C]: in metamethod '__le'       [string "?"]:174: in function
+         'encryptedEventCollectorMHExists'      [string "?"]:73: in function
+         'applicable'</code></pre>
+<p>&nbsp;</p>
+<ul>
+  <li>[INVALID] Deployment Threshold Consistency Check</li>
+</ul>
+<pre><code class="language-plaintext">Deployment Threshold Consistency Check
+  Ensures that all managed hosts have the correct threshold in deployment.xml
+     [INVALID]
+         Error running check(): runtime error: attempt to index a nil value
+         stack traceback:       [C]: in ?       [C]: in for iterator 'for iterator'
+                [string "?"]:253: in function 'findTunnelWithLocalPort'         [string
+         "?"]:235: in function 'getServerFromClientAndSocket'   [string "?"]:188:
+         in function 'findRemoteComponentForLocalComponentProperty'     [string
+         "?"]:95: in function 'checkThresholds'         [string "?"]:87: in function
+         'check'</code></pre>
+<p>&nbsp;</p>
+<p>Además de los indicados hay otro fallo a ignorar que ocurre en servidores que corren aplicaciones, estos serían las consolas y app nodes, en el caso de los nodos en standby es normal ver el siguiente check en fallo debido a que docker sólo se lanza sobre el nodo activo.</p>
+<pre><code class="language-plaintext">Docker Running Check
+  Check if Docker is installed and running
+     [FAILURE]   
+         'docker.service' is not active.
+        [REMEDIATION]   
+         Run 'systemctl status docker.service' to display any possible errors
+         that may have occured during startup. Resolve these issues, if any, and
+         run 'systemctl restart docker.service'.</code></pre>
 <p>&nbsp;</p>
 <h4><strong>ILO</strong></h4>
 <ul>
