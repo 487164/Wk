@@ -2,7 +2,7 @@
 title: Legal Request
 description: 
 published: true
-date: 2024-04-01T19:00:42.345Z
+date: 2024-04-01T19:02:44.099Z
 tags: 
 editor: markdown
 dateCreated: 2024-04-01T17:50:45.487Z
@@ -32,7 +32,7 @@ El equipo de "esPublico Sistemas - Operaciones" obtiene del Pool especificado lo
 
 ## 3. Filtrado y procesado
 
-Desde la máquina "zgz-soar", se utilizan los scripts `filter_by_day.sh`, `convert_data.py` y `zgrep` para filtrar sobre el tar.gz en bruto.
+Desde la máquina "zgz-soar", se utilizan los scripts `filter_by_day.sh`, `convert_data.py` y la herramienta `zgrep` para filtrar sobre el tar.gz en bruto.
 Se puede ejecutar por separado cada uno de los tres pasos o combinarlos según se necesite. Por ejempo, si tenemos una fecha y un usuario, los scripts podrían encadenarse de la siguiente forma:
 ```bash
 ticketID="82971"
@@ -46,9 +46,9 @@ day="2023-04-11"
 ```
 
 El JSON resultante se debe descargar en el equipo del analista para que haga la conversión final en Excel.
-Partiendo de [`sample-TicketID-UserID.YYYY-MM-DD.xlsx`](/sec/sto/legal-request/sample-TicketID-UserID.YYY-MM-DD.xlsx)[^1], solo es necesario **modificar el paso "Origen"** de la consulta "Convertir AuditLogs GestionaEE" que incluye este archivo.
+Partiendo de [`sample-TicketID-UserID.YYYY-MM-DD.xlsx`](/sec/sto/legal-request/sample-ticketid-userid.yyyy-mm-dd.xlsx)[^1], solo es necesario **modificar el paso "Origen"** de la consulta "Convertir AuditLogs GestionaEE" que incluye este archivo.
 
-[^1]: Este Excel es una plantilla. Hace la consulta contra [`sample-TicketID-UserID.YYYY-MM-DD.day_filtered.user_filtered.date_converted.json`](/sec/sto/legal-request/sample-TicketID-UserID.YYYY-MM-DD.day_filtered.user_filtered.date_converted.json), para tener datos de ejemplo.
+[^1]: Este Excel es una plantilla. Hace la consulta contra [`sample-TicketID-UserID.YYYY-MM-DD.day_filtered.user_filtered.date_converted.json`](/sec/sto/legal-request/sample-ticketid-userid.yyyy-mm-dd.day_filtered.user_filtered.date_converted.json), para tener datos de ejemplo.
 
 Para ello, hay que abrir el Editor de Power Query en el siguiente menú:
 - Datos > Consultas y conexiones, click derecho sobre la consulta "Convertir AuditLogs GestionaEE" y click sobre "Editar".
