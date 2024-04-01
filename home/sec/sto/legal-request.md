@@ -2,7 +2,7 @@
 title: Legal Request
 description: 
 published: true
-date: 2024-04-01T19:02:44.099Z
+date: 2024-04-01T19:12:01.882Z
 tags: 
 editor: markdown
 dateCreated: 2024-04-01T17:50:45.487Z
@@ -50,9 +50,9 @@ Partiendo de [`sample-TicketID-UserID.YYYY-MM-DD.xlsx`](/sec/sto/legal-request/s
 
 [^1]: Este Excel es una plantilla. Hace la consulta contra [`sample-TicketID-UserID.YYYY-MM-DD.day_filtered.user_filtered.date_converted.json`](/sec/sto/legal-request/sample-ticketid-userid.yyyy-mm-dd.day_filtered.user_filtered.date_converted.json), para tener datos de ejemplo.
 
-Para ello, hay que abrir el Editor de Power Query en el siguiente menú:
+Para ello, hay que abrir este .xlsx en Excel y llegar al Editor de Power Query en el siguiente menú:
 - Datos > Consultas y conexiones, click derecho sobre la consulta "Convertir AuditLogs GestionaEE" y click sobre "Editar".
-- Doble click sobre el paso "Origen" (o click derecho y "Editar Configuración") y seleccionar el JSON desde el menú Examinar de "Ruta de acceso de archivo".
+- Doble click sobre el paso "Origen" (o click derecho y "Editar Configuración") y seleccionar el JSON (\$ticketID-\$userID.\$day.day_filtered.user_filtered.date_converted.json) desde "Ruta de acceso de archivo" > "Examinar".
 
 Si el Editor de Power Query muestra el resultado correctamente, tan solo queda pulsar "Cerrar y cargar" para completar el volcado de los registros de auditoría en una hoja:
 
@@ -64,4 +64,6 @@ $ticketID-$userID.xlsx
 ```
 
 ## 4. Entrega del resultado
-Se envía el Excel adjunto por correo desde soc@espublico.com a cumplimientonormativo@espublico.com, con asunto "Auditoría por requerimiento #" + número del ticket.
+Se envía el Excel adjunto por correo desde soc@espublico.com a cumplimientonormativo@espublico.com, con asunto:
+
+"Auditoría por requerimiento #" + número del ticket
