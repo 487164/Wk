@@ -1,0 +1,79 @@
+<!--
+title: Ejecución de scripts de bastionado
+description: 
+published: true
+date: 2024-04-02T11:39:46.780Z
+tags: linux, identity, bastionado, os, script, setup
+editor: ckeditor
+dateCreated: 2024-04-02T11:39:46.780Z
+-->
+
+<h1 style="text-align:center;">Ejecución de scripts de bastionado</h1>
+<p>&nbsp;</p>
+<p>Los scripts de bastionado están separados en dos repositorios: <strong>setup</strong> e <strong>identity</strong>.</p>
+<p>&nbsp;</p>
+<h2>Setup</h2>
+<p>Instalar los siguientes paquetes necesarios</p>
+<pre><code class="language-plaintext">yum -y install rsync git dmidecode</code></pre>
+<p>Crear el directorio para almacenar los scripts</p>
+<pre><code class="language-plaintext">mkdir /opt/iubaris/setup</code></pre>
+<p>Acceder al mismo</p>
+<pre><code class="language-plaintext">cd /opt/iubaris/setup</code></pre>
+<p>Y copiar el código del repositorio</p>
+<p>Por el momento se realizará por SSH</p>
+<pre><code class="language-plaintext">git clone ssh://git@cm.it.iubaris.com/setup bin</code></pre>
+<p>Una vez completada la activación del acceso por HTTP/S el comando será el siguiente</p>
+<pre><code class="language-plaintext">git clone https://cm.it.iubaris.com/setup bin</code></pre>
+<p>Una vez descargado el código ejecutar los siguientes comandos para corregir los permisos</p>
+<pre><code class="language-plaintext">sudo chown -R root:wheel /opt/iubaris/setup
+sudo setfacl -Rm u:root:rwX,g:wheel:rwX,m::rwX,o::-         /opt/iubaris/setup/bin
+sudo setfacl -Rm d:u:root:rwX,d:g:wheel:rwX,d:m::rwX,d:o::- /opt/iubaris/setup/bin</code></pre>
+<p>Crear el fichero options.local en la ruta /opt/iubaris/setup/bin y modificar el contenido del mismo para adaptarlo al servidor en función de la localización y rol del mismo, a continuación se muestra un ejemplo del fichero options.local</p>
+<pre><code class="language-plaintext">security_group="security"
+password_enforce=true
+syslog_client=true
+syslog_server="itx-syslog.madrid.espublico.com"
+management_server="0.0.0.0"
+management_server_infra="$management_server"
+zabbix_server="0.0.0.0"
+location=8
+dns_servers="213.4.82.201 213.4.82.202 195.77.90.84 195.77.90.93"</code></pre>
+<p>&nbsp;</p>
+<p>Una vez completada la configuración ejecutar el mismo con el siguiente comando</p>
+<pre><code class="language-plaintext">sudo /opt/iubaris/setup/bin/setup.sh</code></pre>
+<p>Los logs del mismo se pueden encontrar en la ruta&nbsp;</p>
+<pre><code class="language-plaintext">/var/log/espublico/setup/</code></pre>
+<p>Completada la ejecución, en la mayoría de los casos será necesario un reinicio del sistema para aplicar los updates del kernel, para ello lanzar el siguiente comando</p>
+<pre><code class="language-plaintext">sudo systemctl reboot</code></pre>
+<p>&nbsp;</p>
+<h2>Identity</h2>
+<p>Una vez ejecutados los scripts del setup se puede proceder con los scripts de identidad.</p>
+<p>Para ello crear el siguiente directorio y acceder al mismo</p>
+<pre><code class="language-plaintext">mkdir /opt/espublico/identity
+cd /opt/espublico/identity</code></pre>
+<p>Por el momento se realizará por SSH</p>
+<pre><code class="language-plaintext">git clone ssh://git@cm.it.iubaris.com/identity bin</code></pre>
+<p>Una vez completada la activación del acceso por HTTP/S el comando será el siguiente</p>
+<pre><code class="language-plaintext">git clone https://cm.it.iubaris.com/identity bin</code></pre>
+<p>Una vez descargado ejecutar el siguiente script, el cual se encargará de crear las rutas necesarias y corregir los permisos&nbsp;</p>
+<pre><code class="language-plaintext">sudo /opt/espublico/identity/bin/bootstrap/is-bootstrap.sh</code></pre>
+<p>En caso de necesitar que el servidor disponga de un security group diferente al aplicado en el setup debido a que los nuevos grupos ya no se están creando en el mismo se deberá crear el fichero options.local en la ruta</p>
+<pre><code class="language-plaintext">/opt/espublico/identity/bin</code></pre>
+<p>Y añadir en el mismo la variable siguiendo el siguiente ejemplo</p>
+<pre><code class="language-plaintext">identity_security_group="security"</code></pre>
+<p>En caso de no existir, los scripts de identity cogerán el security group del setup.</p>
+<p>Los logs de estos scripts pueden encontrarse en la ruta</p>
+<pre><code class="language-plaintext">/var/log/espublico/identity/</code></pre>
+<p>&nbsp;</p>
+<p>Completada la configuración se puede ejecutar el mismo con el siguiente comando</p>
+<pre><code class="language-plaintext">sudo /opt/espublico/identity/bin/identity.sh</code></pre>
+<p>Este generará un script que se ejecutará a través de cron cada 5 min, el script puede encontrarse en&nbsp;</p>
+<pre><code class="language-plaintext">/opt/espublico/pam/scripts/pam-cron.sh</code></pre>
+<p>&nbsp;</p>
+<h3>Forzar la ejecución&nbsp;</h3>
+<p>Estos scripts están preparados para el chequeo de nuevos cambios por medio de ficheros que almacenan el hash del fichero actual y el anterior, de tal forma que se verifique si realmente hay cambios.</p>
+<p>En caso de necesitar forzar la actualización o modificación de usuarios debido a que se ha cambiado el grupo del servidor se puede hacer eliminando los siguientes ficheros y después ejecutando de nuevo el script principal de identity.sh</p>
+<pre><code class="language-plaintext">rm /opt/espublico/identity/tmp/data/users.csv.sha256 /opt/espublico/identity/tmp/olddata/users.csv.sha256
+sudo /opt/espublico/identity/bin/identity.sh</code></pre>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
