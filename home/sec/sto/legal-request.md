@@ -2,13 +2,13 @@
 title: Legal Request
 description: 
 published: true
-date: 2024-04-01T19:12:01.882Z
+date: 2024-04-02T13:01:34.991Z
 tags: 
 editor: markdown
 dateCreated: 2024-04-01T17:50:45.487Z
 ---
 
-# Procedimiento
+# Procedimiento para logs de Auditoría de Gestiona ante Requerimientos Judiciales
 ## 1. Petición
 El equipo de [Cumplimiento Normativo](mailto:cumplimientonormativo@espublico.com) (autorizado por su responsable) abre un ticket detallando los datos. Por ejemplo:
 
@@ -26,23 +26,26 @@ El equipo de [Cumplimiento Normativo](mailto:cumplimientonormativo@espublico.com
 El número del ticket (`$ticketID`) se usa como identificador del caso (ej.: 82971).
 
 ## 2. Extracción de la auditoría
-El equipo de "esPublico Sistemas - Operaciones" obtiene del Pool especificado los logs de auditoría de Gestiona EE y los deja en el servidor "zgz-soar" directamente[^*] como un fichero `.tar.gz` (ej.: 82971.tar.gz).
+El equipo de "esPublico Sistemas - Operaciones" obtiene del Pool especificado los logs de auditoría de Gestiona EE y los deja en el servidor "zgz-soar" como un fichero `.tar.gz` (ej.: 82971.tar.gz), en la ruta:
 
- [^*]: _ CONFIRMAR _
+```sh
+[root@zgz-soar-01-svcs ~]# /data/???
+```
 
 ## 3. Filtrado y procesado
 
-Desde la máquina "zgz-soar", se utilizan los scripts `filter_by_day.sh`, `convert_data.py` y la herramienta `zgrep` para filtrar sobre el tar.gz en bruto.
-Se puede ejecutar por separado cada uno de los tres pasos o combinarlos según se necesite. Por ejempo, si tenemos una fecha y un usuario, los scripts podrían encadenarse de la siguiente forma:
+Desde la máquina "zgz-soar", se utilizan los scripts de `legal-request-gestiona-ee/` y la herramienta `zgrep` para filtrar sobre el tar.gz en bruto.
+Se puede ejecutar por separado cada uno de los tres pasos, todos juntos (con `./legal-request-gestiona-ee/run.sh`) o combinarlos según se necesite. Por ejempo, si tenemos una fecha y un usuario, los scripts podrían encadenarse de la siguiente forma:
 ```bash
 ticketID="82971"
 userID="8a3ce084-8c92-49e9-9199-ea7336b202d8"
 day="2023-04-11"
+full_path="/data/53a5a409-7549-4fb0-9754-7b9517b75488/data/storage/master/pro-persistent/"
 # Si en el ticket no se ha especificado día, directamente "zgrep -a $userID $ticketID.tar.gz"
-./legal-request-gestiona-ee/filter_by_day.sh "$day" "$ticketID.tar.gz" \
+./legal-request-gestiona-ee/filter_by_day.sh "$day" "$full_path/$ticketID.tar.gz" \
   | zgrep -a $userID                                                   \
   | ./legal-request-gestiona-ee/convert_date.py                        \
-  > /full_path/$ticketID-$userID.$day.day_filtered.user_filtered.date_converted.json
+  > "$full_path/$ticketID-$userID.$day.day_filtered.user_filtered.date_converted.json"
 ```
 
 El JSON resultante se debe descargar en el equipo del analista para que haga la conversión final en Excel.
@@ -52,18 +55,17 @@ Partiendo de [`sample-TicketID-UserID.YYYY-MM-DD.xlsx`](/sec/sto/legal-request/s
 
 Para ello, hay que abrir este .xlsx en Excel y llegar al Editor de Power Query en el siguiente menú:
 - Datos > Consultas y conexiones, click derecho sobre la consulta "Convertir AuditLogs GestionaEE" y click sobre "Editar".
-- Doble click sobre el paso "Origen" (o click derecho y "Editar Configuración") y seleccionar el JSON (\$ticketID-\$userID.\$day.day_filtered.user_filtered.date_converted.json) desde "Ruta de acceso de archivo" > "Examinar".
+- Doble click sobre el paso "Origen" (o click derecho y "Editar Configuración") y seleccionar el JSON (`$ticketID-$userID.$day.day_filtered.user_filtered.date_converted.json`) desde "Ruta de acceso de archivo" > "Examinar".
 
 Si el Editor de Power Query muestra el resultado correctamente, tan solo queda pulsar "Cerrar y cargar" para completar el volcado de los registros de auditoría en una hoja:
 
 ![screenshot_power_query.png](/sec/sto/legal-request/screenshot_power_query.png)
 
 Una vez se hayan cargado todos los datos en una tabla, desde la ventana principal de Excel se debe  **"Guardar como"** siguiendo el siguiente formato para el nombre de fichero:
-```
-$ticketID-$userID.xlsx
-```
+
+`$ticketID-$userID.xlsx`
 
 ## 4. Entrega del resultado
 Se envía el Excel adjunto por correo desde soc@espublico.com a cumplimientonormativo@espublico.com, con asunto:
 
-"Auditoría por requerimiento #" + número del ticket
+**"Auditoría por requerimiento #" + número del ticket**
