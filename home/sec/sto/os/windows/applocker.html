@@ -2,7 +2,7 @@
 title: AppLocker - Windows Security
 description: 
 published: true
-date: 2024-02-14T13:24:35.766Z
+date: 2024-04-03T05:49:04.578Z
 tags: windows, server, applocker, bastionado, ens, politicas, gpo
 editor: ckeditor
 dateCreated: 2024-01-24T08:59:43.929Z
@@ -11,7 +11,7 @@ dateCreated: 2024-01-24T08:59:43.929Z
 <h1 style="text-align:center;">AppLocker - Windows Security</h1>
 <p style="text-align:center;">&nbsp;</p>
 <h2>Configuración como GPO</h2>
-<p>Crear la política ENS Alto AppLocker, editarla y hacer click con el botón derecho en Computer Configuration &gt; Policies &gt; Windows Settings &gt; Security Settings &gt; Application Control Policies &gt; AppLocker e importar <a href="https://drive.google.com/file/d/1mDt-yr-JFOm2OD4M4gp0SCYDaBJkCNeM/view?usp=drive_link">ens_alto_applocker.xml</a><br>&nbsp;</p>
+<p>No funciona en muchos entornos de prueba, es preferible instalar en cada máquina Como servidor independiente (más adelante).<br>Crear la política ENS Alto AppLocker, editarla y hacer click con el botón derecho en Computer Configuration &gt; Policies &gt; Windows Settings &gt; Security Settings &gt; Application Control Policies &gt; AppLocker e importar <a href="https://drive.google.com/file/d/1mDt-yr-JFOm2OD4M4gp0SCYDaBJkCNeM/view?usp=drive_link">ens_alto_applocker.xml</a><br>&nbsp;</p>
 <pre><code class="language-plaintext">&lt;AppLockerPolicy Version="1"&gt;
   &lt;RuleCollection Type="Appx" EnforcementMode="AuditOnly" /&gt;
   &lt;RuleCollection Type="Dll" EnforcementMode="NotConfigured" /&gt;
