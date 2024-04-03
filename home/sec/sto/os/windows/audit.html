@@ -2,7 +2,7 @@
 title: Directivas de Auditoría
 description: 
 published: true
-date: 2024-04-03T05:53:08.105Z
+date: 2024-04-03T05:56:08.252Z
 tags: windows, server, bastionado, ens, politicas, gpo, auditoria
 editor: ckeditor
 dateCreated: 2024-01-25T08:39:45.060Z
@@ -11,10 +11,11 @@ dateCreated: 2024-01-25T08:39:45.060Z
 <h1 style="text-align:center;">Directivas de Auditoría</h1>
 <p>&nbsp;</p>
 <h2>ENS Nivel ALTO</h2>
-<p>Esta guía de seguridad está basada en:<br><a href="https://www.ccn-cert.cni.es/es/guias-de-acceso-publico-ccn-stic/7104-ccn-stic-570a23-perfilado-de-seguridad-para-windows-server-controlador-de-dominio-o-servidor-miembro/file.html">CCN-STIC-570A23 Perfilado de seguridad para Windows Server (controlador de dominio o servidor miembro)</a> Jul 2023<br>&nbsp;</p>
+<p>Esta guía de seguridad está basada en:<br><a href="https://www.ccn-cert.cni.es/es/guias-de-acceso-publico-ccn-stic/7104-ccn-stic-570a23-perfilado-de-seguridad-para-windows-server-controlador-de-dominio-o-servidor-miembro/file.html">CCN-STIC-570A23 Perfilado de seguridad para Windows Server (controlador de dominio o servidor miembro)</a> Jul 2023<br>Para evitar problemas de rendmiento no se habilitará la Auditoría de &nbsp;Acceso a Objetos.</p>
 <p>Adicionalmente se habilitará el registro de información detallada del procesamiento de comandos y scripts de PowerShell.</p>
 <p><a href="https://www.stigviewer.com/stig/windows_10/2017-02-21/finding/V-68819">PowerShell script block logging must be enabled. (stigviewer.com)</a></p>
-<p><a href="https://admx.help/?Category=Windows_10_2016&amp;Policy=Microsoft.Policies.PowerShell::EnableScriptBlockLogging">Turn on PowerShell Script Block Logging (admx.help)</a><br>&nbsp;</p>
+<p><a href="https://admx.help/?Category=Windows_10_2016&amp;Policy=Microsoft.Policies.PowerShell::EnableScriptBlockLogging">Turn on PowerShell Script Block Logging (admx.help)</a></p>
+<p>&nbsp;</p>
 <h2>Configuración como GPO</h2>
 <p>Crear la política ENS Alto Auditoria, editarla y hacer click con el botón derecho en Computer Configuration &gt; Policies &gt; Windows Settings &gt; Security Settings e importar ens_alto_auditoria.inf</p>
 <figure class="image"><img src="/sec/sto/os-files/windows/audit/import.jpg"></figure>
