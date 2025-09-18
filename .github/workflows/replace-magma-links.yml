@@ -1,0 +1,37 @@
+name: replace MaGMa links
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: replace MaGMa links
+        run:  |
+          if [[ -z 'grep -rlZ "spreadsheets/d/1upsc9I2dHwwG8ErOE9XwBWejjNt0JUPz/edit" . --exclude-dir=.git --exclude-dir=.github' ]]; then
+            grep -rlZ "spreadsheets/d/1upsc9I2dHwwG8ErOE9XwBWejjNt0JUPz/edit" . --exclude-dir=.git --exclude-dir=.github | xargs -0 sed -i "s/spreadsheets\/d\/1upsc9I2dHwwG8ErOE9XwBWejjNt0JUPz\/edit/spreadsheets\/d\/e\/2PACX-1vS5ZWqy6QT_l04NONrSL4b9y-ELVZaK9QllqS_3vrwcXSVbjo_WVBHeTpqieAmsgQ\/pubhtml/g"
+          fi
+      - name: commit changes
+        id: commit
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "<>"
+          git pull origin main
+          git add .
+          if [[ -n "$(git status --porcelain)" ]]; then
+            git commit -m "replace MaGMa links"
+            git push origin main
+          fi
+
+
+
+
+
+
+
