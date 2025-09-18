@@ -1,0 +1,1 @@
+[DD](https://docs.google.comspreadsheets/d/e/2PACX-1vS5ZWqy6QT_l04NONrSL4b9y-ELVZaK9QllqS_3vrwcXSVbjo_WVBHeTpqieAmsgQ/pubhtml?gid=1306884258#gid=1306884258&amp;range=D12): *Any Denial of Service attack, optionally distributed with the goal of causing outages*
