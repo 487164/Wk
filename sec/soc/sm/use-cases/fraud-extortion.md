@@ -1,1 +1,0 @@
-[FE](https://docs.google.comspreadsheets/d/e/2PACX-1vS5ZWqy6QT_l04NONrSL4b9y-ELVZaK9QllqS_3vrwcXSVbjo_WVBHeTpqieAmsgQ/pubhtml?gid=1306884258#gid=1306884258&amp;range=C11): *Any tampering of critical business systems which causes or further enables theft of virtual or physical assets via existing or current channels.*

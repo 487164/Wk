@@ -1,1 +1,0 @@
-[SD](https://docs.google.comspreadsheets/d/e/2PACX-1vS5ZWqy6QT_l04NONrSL4b9y-ELVZaK9QllqS_3vrwcXSVbjo_WVBHeTpqieAmsgQ/pubhtml?gid=1306884258#gid=1306884258&amp;range=D15): *Any action to destroy/damage organizational and personal asset, information or reputation with the goal of causing financial damage or service outages e.g.: social media data posting, doxing, etc.*

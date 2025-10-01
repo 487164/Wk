@@ -1,1 +1,0 @@
-[PH](https://docs.google.comspreadsheets/d/e/2PACX-1vS5ZWqy6QT_l04NONrSL4b9y-ELVZaK9QllqS_3vrwcXSVbjo_WVBHeTpqieAmsgQ/pubhtml?gid=1306884258#gid=1306884258&amp;range=C13): *Any compromise to physical systems information carriers (including documents) and buildings.*
