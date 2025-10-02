@@ -1,29 +1,18 @@
-# This is a basic workflow to help you get started with Actions
-
-name: CI
-
-# Controls when the workflow will run
+name: Publish wiki
 on:
-  # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
-    branches: [ "main", "master" ]
-  pull_request:
-    branches: [ "main", "master" ]
-
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+    branches: [main,master]
+    paths:
+      - wiki/**
+      - .github/workflows/gh-wiki-action.yml
+concurrency:
+  group: publish-wiki
+  cancel-in-progress: true
+permissions:
+  contents: write
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
+  publish-wiki:
     runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - uses: actions/checkout@v4
-      - name: Ensure wiki directory exists
-        run: mkdir -p wiki
-      - name: GitHub Wiki Action
-        uses: Andrew-Chen-Wang/github-wiki-action@v5
+      - uses: actions/checkout@v3
+      - uses: Andrew-Chen-Wang/github-wiki-action
