@@ -21,12 +21,12 @@ Nomenclatura:
 ## Postfix - Asociación de cuentas de correo a colas
 
 1. Acceder al servidor por SSH:
-```
-[user@jump-host ~]$ ssh rt-svcs.local
+```sh
+[user@jumper.local ~]$ ssh rt-svcs.local
 ```
 
 2. Revisar la configuración de los alias asignados a cada cola:
-```
+```sh
 [user@rt-svcs.local ~]$ cat /opt/rt5/etc/aliases
 ## rebuid with: postalias aliases
 ...
@@ -37,7 +37,7 @@ spoc-systems-comment : "| /opt/rt5/bin/rt-mailgate --no-verify-ssl --queue 'SPOC
 ```
 
 3. Si se modifica el fichero, hay que actualizar `aliases.db` y recargar el servicio:
-```
+```sh
 [user@rt-svcs.local ~]$ sudo vi /opt/rt5/etc/aliases
 [user@rt-svcs.local ~]$ sudo postalias /opt/rt5/etc/aliases
 [user@rt-svcs.local ~]$ sudo systemctl reload postfix.service
