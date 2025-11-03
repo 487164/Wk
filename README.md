@@ -114,5 +114,5 @@
       * [procedures/](xxc/xoc/vm/procedures)
   * [sto/](xxc/sto)
     * [procedures/](xxc/sto/procedures)
-    * [projects/](xxc/sto/projects)
+    * [projects/](xxc/sto/projects) <img width="1064" height="906" alt="imagen" src="https://github.com/user-attachments/assets/f03300e2-8b7c-43e4-88f1-bf487690e8d8" />
     * [tasks/](xxc/sto/tasks)
